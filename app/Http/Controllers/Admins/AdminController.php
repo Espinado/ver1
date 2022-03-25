@@ -13,6 +13,7 @@ use LaravelLocalization;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
+
 class AdminController extends Controller
 {
 
@@ -23,16 +24,11 @@ class AdminController extends Controller
     }
     public function Index()
     {
-
-
         return view('admin.auth.login');
     }
 
     public function Dashboard()
     {
-        $roles = Role::pluck('name', 'name')->all();
-        dd($roles);
-
         return view('admin.index');
     }
 
@@ -74,8 +70,9 @@ class AdminController extends Controller
         return redirect()->route('login_form')->with('success', 'Registered');
     }
 
-    public function adminList() {
-        $adminList=Admin::all();
+    public function adminList()
+    {
+        $adminList = Admin::all();
         return view('admin.admins.index', compact('adminList'));
     }
 }

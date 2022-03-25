@@ -22,6 +22,10 @@ return [
     'unconfirmed_items'              => 'Nepstiprinātas preces',
     'authorized'                     => 'Pilnvarotie',
     'admin_list'                     => 'Administratoru saraksts',
-    'add_new'                        => 'Pievienot jauno'
+    'add_new'                        => 'Pievienot jauno',
+    'name'                           =>  'Vards',
+    'email'                          => 'E-pasts',
+    'active'                         => 'Aktivs',
+    'created_at'                     =>  'Izveidots'
 
 ];

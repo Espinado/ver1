@@ -62,7 +62,11 @@
     </div><!-- sl-sideleft -->
     <!-- ########## END: LEFT PANEL ########## -->
               <div class="sl-pagebody">
-
+  @can('writer', 'admin')
+    I am a writer!
+@else
+    I am not a writer...
+@endcan
 
                 <div class="row row-sm">
                   <div class="col-sm-6 col-xl-3">

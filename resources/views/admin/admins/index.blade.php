@@ -69,6 +69,7 @@
         </div>
         @endif
 
+
       <div class="sl-pagebody">
         <div class="sl-page-title">
           <h5>{{ __('system.admin_list') }}</h5>
@@ -76,20 +77,19 @@
         </div><!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-          <h6 class="card-body-title">{{ __('system.authorized') }} {{ __('system.admins') }}</h6><a href="{{route('seller.register')}}" class="btn btn-sm btn-warning" style="float: right;">{{ __('system.add_new') }}</a>
+          <h6 class="card-body-title">{{ __('system.authorized') }} {{ __('system.admins') }}</h6><a href="" data-toggle="modal"
+                                            data-target="#modaldemo3" class="btn btn-sm btn-warning" style="float: right;">{{ __('system.add_new') }}</a>
 
 
           <div class="table-wrapper">
             <table id="datatable1" class="table display responsive nowrap">
               <thead>
                 <tr>
-                  <th class="wd-15p">Seller Name</th>
-                  <th class="wd-15p">Seller legal status</th>
-                  <th class="wd-20p">Seller Reg country</th>
-                  <th class="wd-15p">Is taxpayer</th>
-                  <th class="wd-10p">Is active</th>
-                  <th class="wd-25p">Is banned</th>
-                  <th class="wd-25p">Details</th>
+                  <th class="wd-15p">{{ __('system.name') }}</th>
+                  <th class="wd-15p">{{ __('system.email') }}</th>
+                  <th class="wd-20p">{{ __('system.active') }}</th>
+                  <th class="wd-15p">{{ __('system.created_at') }}</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -98,9 +98,7 @@
                   <td>Nixon</td>
                   <td>System Architect</td>
                   <td>2011/04/25</td>
-                  <td>$320,800</td>
-                  <td>t.nixon@datatables.net</td>
-                  <td><a class="btn btn-danger">Details</a></td>
+
                 </tr>
                {{-- @foreach ($sellerCompanies as $seller)
                <tr>
@@ -137,5 +135,54 @@
 
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
+    <div id="modaldemo3" class="modal fade">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content tx-size-sm">
+                                    <div class="modal-header pd-x-20">
+                                        {{-- <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Add new user for
+                                            {{ Config::get('company_legal_status.legal_status.' .$seller->seller_company_profile->seller_company_legal_country .'.status.' .$seller->seller_company_legal_status) }}
+                                            "{{ $seller->seller_company_name }}"</h6> --}}
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    {{-- <div class="modal-body pd-10">
+                                        <div class="col-xl-15 mg-t-25 mg-xl-t-0">
+                                            <div class="card pd-20 pd-sm-40 form-layout form-layout-5">
+                                                <form method="post" action="{{ route('seller.employee.store') }}"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="row row-xs">
+                                                        <label class="col-sm-4 form-control-label"><span
+                                                                class="tx-danger">*</span> Name:</label>
+                                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                                            <input type="text" class="form-control" name="name"
+                                                                placeholder="Enter name">
+                                                        </div>
+                                                    </div><!-- row -->
+                                                    <div class="row row-xs mg-t-20">
+                                                        <label class="col-sm-4 form-control-label"><span
+                                                                class="tx-danger">*</span> Email:</label>
+                                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                                            <input type="email" class="form-control" name="email"
+                                                                placeholder="Enter email">
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <!-- card -->
+                                        </div><!-- col-6 -->
+                                        <input type="hidden" name="company_id" value="{{ $seller->id }}"> --}}
+                                    </div><!-- modal-body -->
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn btn-success pd-x-20" value="Add"></button>
+
+                                        <button type="button" class="btn btn-danger pd-x-20"
+                                            data-dismiss="modal">Cancel</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div><!-- modal-dialog -->
+                        </div><!-- modal -->
 
  @endsection
