@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\SellerController;
 use App\Http\Controllers\SellerController as Seller;
+use App\Http\Controllers\Customers\IndexController;
 use Illuminate\Http\Request;
 
 
@@ -69,15 +70,11 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ],
     function () {
-        Route::get('/', function () {
-    return view('welcome');
-});
+        Route::get('/', [IndexController::class, 'index'])->name('index');
     }
 );
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';
