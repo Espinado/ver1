@@ -5,6 +5,7 @@ use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\SellerController;
 use App\Http\Controllers\SellerController as Seller;
 use App\Http\Controllers\Customers\IndexController;
+use App\Http\Controllers\Admins\CategoryController;
 use Illuminate\Http\Request;
 
 
@@ -34,6 +35,10 @@ Route::group(
         Route::post('/register/create', [AdminController::class, 'AdminRegisterCreate'])->name('admin.register.create');
         Route::get('/', [AdminController::class, 'Dashboard'])->name('admin.dashboard')->middleware('admin');
         Route::get('/admins', [AdminController::class, 'adminList'])->name('admin.admins')->middleware('admin');
+
+        Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories')->middleware('admin');
+        Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store')->middleware('admin');
+
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
         Route::get('/seller/register', [SellerController::class, 'SellerRegister'])->name('seller.register')->middleware('admin');
         Route::post('/seller/store', [SellerController::class, 'AdminRegisterCreate'])->name('seller.register.store')->middleware('admin');

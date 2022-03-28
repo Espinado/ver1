@@ -121,7 +121,7 @@
         $('#datatable1').DataTable({
           responsive: true,
           language: {
-            searchPlaceholder: 'Search...',
+            searchPlaceholder: '{{ __('system.search') }}',
             sSearch: '',
             lengthMenu: '_MENU_ items/page',
           }
@@ -137,8 +137,12 @@
         $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
 
       });
+    //    // Select2 by showing the search
+    //     $('.select2-show-search').select2({
+    //       minimumResultsForSearch: ''
+    //     });
 
-       
+
     </script>
   </body>
 </html>
