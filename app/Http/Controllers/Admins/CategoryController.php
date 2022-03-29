@@ -19,8 +19,10 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::where('parent_id', null)->get();
+
         $locale = LaravelLocalization::GetCurrentLocale();
+
 
         return view('admin.categories.index', compact('categories', 'locale'));
     }
@@ -46,5 +48,6 @@ class CategoryController extends Controller
             $category->category_name = json_encode($request->category_name);
             $category->save();
         }
+        return back()->with('success', 'Recorded');
     }
 }

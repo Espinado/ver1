@@ -79,92 +79,52 @@
                 </div><!-- sl-page-title -->
 
                 <div class="card pd-20 pd-sm-40">
-                    <h6 class="card-body-title">{{ __('system.categories') }}</h6><a href="" data-toggle="modal"
-                        data-target="#modaldemo3" class="btn btn-sm btn-warning"
-                        style="float: right;">{{ __('system.add_new') }}</a>
-
-
-                    <div class="table-wrapper">
-                        <table id="datatable1" class="table display responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="wd-15p">{{ __('system.item_name') }}</th>
-
-                                    <th class="wd-20p">{{ __('system.active') }}</th>
-                                    <th class="wd-15p">{{ __('system.created_at') }}</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($categories as $category)
-                                    <tr>
-                                        <td>
-                                                 @foreach (json_decode($category->category_name) as  $key=>$name)
-                                                  {{$key}}=>&nbsp;&nbsp;{{$name}}<br>
-                                            @endforeach
-                                            </td>
-                                        <td>{{$category->id}}</td>
-                                        <td>{{$category->created_at}}</td>
-                                    </tr>
-                                @endforeach
-
-                                </tr>
+                <h6 class="card-body-title">Category List
+                    <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;" data-toggle="modal"
+                        data-target="#modaldemo3">Add New</a>
+                </h6>
+                <div class="table-wrapper">
+                    <table id="datatable1" class="table display responsive nowrap">
+                        <thead>
+                            <tr>
+                                <th class="wd-15p">Category name</th>
+                                {{--  <th class="wd-20p">Action</th>  --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($categories as $row)
                                 <tr>
                                     <td>
-                                        <a href="#" class="sl-menu-link">
-                                            <div class="sl-menu-item">
-                                                <span class="menu-item-label">Charts</span>
-                                                <i class="menu-item-arrow fa fa-angle-down"></i>
-                                            </div><!-- menu-item -->
-                                        </a><!-- sl-menu-link -->
-                                        <ul class="sl-menu-sub nav flex-column">
-                                            <li class="nav-item"><a href="chart-morris.html"
-                                                    class="nav-link">Morris Charts</a></li>
-                                            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Flot
-                                                    Charts</a></li>
-                                            <li class="nav-item"><a href="chart-chartjs.html"
-                                                    class="nav-link">Chart JS</a></li>
-                                            <li class="nav-item"><a href="chart-rickshaw.html"
-                                                    class="nav-link">Rickshaw</a></li>
-                                            <li class="nav-item"><a href="chart-sparkline.html"
-                                                    class="nav-link">Sparkline</a></li>
-                                        </ul>
-                                    </td>
-                                    <td>System Architect</td>
-                                    <td>2011/04/25</td>
+                                        <ul id="tree1">
+                                            <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
+                                                data-toggle="modal" data-target="#modaldemo3"
+                                                data-id="{{ $row->id }}">Add Category here</a>
+                                                <a href="{{ url('admin/product/add/'. $row->id) }}" class="btn btn-sm btn-info catID" style="float: right;"
+                                               >Add Product here</a>
+                                            {{-- @foreach (config('locale.languages') as $key => $lang)
+                                                <strong> {{ $lang[3] }} </strong> --}}
+                                                @foreach (json_decode($row->category_name, true) as $tmp => $value)
+                                                   {{$tmp}}=> {{ $value }} <br>
+                                                @endforeach
+                                            {{-- @endforeach --}}
+                                            @if (count($row->children))
+                                                @include('admin.categories.partials.subcategories',['subcategories' =>
+                                                $row->children])
+                                            @endif
+                                        </ul </td>
+                                    {{--  <td>  --}}
+                                        {{--  <a href="{{ url('admin/edit/category/' . $row->id) }} "
+                                            class="btn btn-sm btn-info">Edit</a>
+                                        <a href="{{ url('admin/delete/category/' . $row->id) }}"
+                                            class="btn btn-sm btn-danger" id="delete">Delete</a>  --}}
+                                    {{--  </td>  --}}
                                 </tr>
+                            @endforeach
 
-                                {{-- @foreach ($sellerCompanies as $seller)
-               <tr>
-               <td>{{$seller->seller_company_name}}</td>
-               <td>{{Config::get('company_legal_status.legal_status.'.$seller->seller_company_profile->seller_company_legal_country.'.status.'.$seller->seller_company_legal_status)}}</td>
-               <td>{{Config::get('countries.name.'.$seller->seller_company_profile->seller_company_phys_country.'.country_name')}}</td>
-                 @if ($seller->tax_payer == true)
-                    <td><span class="badge badge-success">Taxpayer</span></td>
-                 @else
-                    <td><span class="badge badge-danger">Not Taxpayer</span></td>
-
-               @endif
-               @if ($seller->is_active == true)
-                    <td><span class="badge badge-success">Active</span></td>
-                 @else
-                    <td><span class="badge badge-danger">Disactive</span></td>
-
-               @endif
-               @if ($seller->is_banned == true)
-               <td><span class="badge badge-danger">Banned</span></td>
-            @else
-               <td><span class="badge badge-success">Not available</span></td>
-
-          @endif
-               <td><a href="{{ route('seller.company.view', $seller->id) }}" class="btn btn-danger">Details</a></td>
-               </tr>
-               @endforeach --}}
-                            </tbody>
-                        </table>
-                    </div><!-- table-wrapper -->
-                </div><!-- card -->
+                        </tbody>
+                    </table>
+                </div><!-- table-wrapper -->
+            </div><!-- card -->
 
             </div><!-- sl-pagebody -->
 
@@ -206,8 +166,16 @@
                                                 data-placeholder="Choose one (with searchbox)" name="parent_id">
                                                 <option label="----"></option>
                                                 @foreach ($categories as $category)
-                                                    <option label="{{ json_decode($category->category_name)->$locale }}">
+                                                    <option
+                                                        label="{{ json_decode($category->category_name)->$locale }} ">
                                                         {{ $category->id }}</option>
+                                                    @if ($category->children)
+
+                                                        @include(
+                                                            'admin.categories.partials.subcategories_for_select',
+                                                            ['subcategories' => $category->children]
+                                                        )
+                                                    @endif
                                                 @endforeach
                                             </select>
 
