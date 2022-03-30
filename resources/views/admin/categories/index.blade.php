@@ -79,52 +79,52 @@
                 </div><!-- sl-page-title -->
 
                 <div class="card pd-20 pd-sm-40">
-                <h6 class="card-body-title">Category List
-                    <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;" data-toggle="modal"
-                        data-target="#modaldemo3">Add New</a>
-                </h6>
-                <div class="table-wrapper">
-                    <table id="datatable1" class="table display responsive nowrap">
-                        <thead>
-                            <tr>
-                                <th class="wd-15p">Category name</th>
-                                {{--  <th class="wd-20p">Action</th>  --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($categories as $row)
+                    <h6 class="card-body-title">{{ __('system.categories') }}
+                        <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;" data-toggle="modal"
+                            data-target="#modaldemo3">{{ __('system.add_category') }}</a>
+                    </h6>
+                    <div class="table-wrapper">
+                        <table id="datatable1" class="table display responsive nowrap">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <ul id="tree1">
-                                            <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
-                                                data-toggle="modal" data-target="#modaldemo3"
-                                                data-id="{{ $row->id }}">Add Category here</a>
-                                                <a href="{{ url('admin/product/add/'. $row->id) }}" class="btn btn-sm btn-info catID" style="float: right;"
-                                               >Add Product here</a>
-                                            {{-- @foreach (config('locale.languages') as $key => $lang)
-                                                <strong> {{ $lang[3] }} </strong> --}}
-                                                @foreach (json_decode($row->category_name, true) as $tmp => $value)
-                                                   {{$tmp}}=> {{ $value }} <br>
-                                                @endforeach
-                                            {{-- @endforeach --}}
-                                            @if (count($row->children))
-                                                @include('admin.categories.partials.subcategories',['subcategories' =>
-                                                $row->children])
-                                            @endif
-                                        </ul </td>
-                                    {{--  <td>  --}}
-                                        {{--  <a href="{{ url('admin/edit/category/' . $row->id) }} "
-                                            class="btn btn-sm btn-info">Edit</a>
-                                        <a href="{{ url('admin/delete/category/' . $row->id) }}"
-                                            class="btn btn-sm btn-danger" id="delete">Delete</a>  --}}
-                                    {{--  </td>  --}}
+                                    <th class="wd-15p">Category name</th>
+                                    {{-- <th class="wd-20p">Action</th> --}}
                                 </tr>
-                            @endforeach
+                            </thead>
+                            <tbody>
+                                @foreach ($categories as $row)
+                                    <tr>
+                                        <td>
+                                            <ul id="tree1">
+                                                <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
+                                                    data-toggle="modal" data-target="#modaldemo3"
+                                                    data-id="{{ $row->id }}"
+                                                    @foreach (json_decode($row->category_name, true) as $key => $t) @if ($key == LaravelLocalization::GetCurrentLocale())
+                                                     data-val="{{ $t }}" @endif
+                                                    @endforeach
+                                                    >
+                                                    {{ __('system.add_category') }}
+                                                </a>
+                                                <a href="{{ url('admin/product/add/' . $row->id) }}"
+                                                    class="btn btn-sm btn-info catID"
+                                                    style="float: right;">{{ __('system.add_product') }}</a>
+                                                @foreach (json_decode($row->category_name, true) as $tmp => $value)
+                                                    {{ $tmp }}=> {{ $value }} <br>
+                                                @endforeach
+                                                @if (count($row->children))
+                                                    @include(
+                                                        'admin.categories.partials.subcategories',
+                                                        ['subcategories' => $row->children]
+                                                    )
+                                                @endif
+                                            </ul </td>
+                                    </tr>
+                                @endforeach
 
-                        </tbody>
-                    </table>
-                </div><!-- table-wrapper -->
-            </div><!-- card -->
+                            </tbody>
+                        </table>
+                    </div><!-- table-wrapper -->
+                </div><!-- card -->
 
             </div><!-- sl-pagebody -->
 
@@ -136,6 +136,7 @@
                 <div class="modal-content tx-size-sm">
                     <div class="modal-header pd-x-20">
                         <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ __('system.add_category') }}</h6>
+
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -153,15 +154,15 @@
                                                 {{ $value['native'] }}</label>
                                             <div class="col-sm-8 mg-t-10 mg-sm-t-0">
                                                 <input type="text" class="form-control"
-                                                    name="category_name[{{ $key }}]" placeholder="Enter name">
+                                                    name="category_name[{{ $key }}]">
                                             </div>
                                         </div><!-- row -->
                                     @endforeach
-                                    <div class="row row-xs mg-t-20">
+                                    <div class="row row-xs mg-t-20" id="select_list">
                                         <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span>
                                             {{ __('system.select_from_list') }}:</label>
-                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
 
+                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
                                             <select class="form-control select2-show-search"
                                                 data-placeholder="Choose one (with searchbox)" name="parent_id">
                                                 <option label="----"></option>
@@ -170,22 +171,27 @@
                                                         label="{{ json_decode($category->category_name)->$locale }} ">
                                                         {{ $category->id }}</option>
                                                     @if ($category->children)
-
                                                         @include(
                                                             'admin.categories.partials.subcategories_for_select',
-                                                            ['subcategories' => $category->children]
+                                                            [
+                                                                'subcategories' =>
+                                                                    $category->children,
+                                                            ]
                                                         )
                                                     @endif
                                                 @endforeach
                                             </select>
 
                                         </div>
+
                                     </div>
                             </div>
                             <!-- card -->
-                        </div><!-- col-6 -->
 
+                        </div><!-- col-6 -->
+                        <div id="select" class="col-sm-10 mg-t-20 mg-sm-t-0"></div>
                     </div><!-- modal-body -->
+
                     <div class="modal-footer">
                         <input type="submit" class="btn btn-success pd-x-20" value="Add"></button>
 
