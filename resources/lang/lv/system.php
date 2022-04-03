@@ -26,6 +26,11 @@ return [
     'name'                           =>  'Vards',
     'email'                          => 'E-pasts',
     'active'                         => 'Aktivs',
-    'created_at'                     =>  'Izveidots'
+    'created_at'                     =>  'Izveidots',
+    'categories'                     => 'Preču kategorijas',
+    'item_name'                      => 'Nosaukums',
+    'search'                         => 'Meklēt',
+    'add_category'                   => 'Pievienot kategoriju',
+    'enter_item_name'                => 'Ievadiet nosaukumu'
 
 ];

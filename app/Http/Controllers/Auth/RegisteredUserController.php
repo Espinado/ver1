@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Models\Seller;
 
+
 class RegisteredUserController extends Controller
 {
     /**
