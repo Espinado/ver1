@@ -62,14 +62,6 @@
 
                 <span class="breadcrumb-item active">{{ __('system.categories') }}</span>
             </nav>
-            @if (Session::has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong> {{ session::get('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            @endif
 
 
             <div class="sl-pagebody">
@@ -99,8 +91,10 @@
                                                 <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
                                                     data-toggle="modal" data-target="#modaldemo3"
                                                     data-id="{{ $row->id }}"
-                                                    @foreach (json_decode($row->category_name, true) as $key => $t) @if ($key == LaravelLocalization::GetCurrentLocale())
-                                                     data-val="{{ $t }}" @endif
+                                                    @foreach (json_decode($row->category_name, true) as $key => $t)
+                                                     @if ($key == LaravelLocalization::GetCurrentLocale())
+                                                     data-val="{{ $t }}"
+                                                      @endif
                                                     @endforeach
                                                     >
                                                     {{ __('system.add_category') }}
