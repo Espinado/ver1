@@ -2,10 +2,11 @@
     @foreach ($subcategories as $subcategory)
         <li>
             <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;" data-toggle="modal"
-                data-target="#modaldemo3" data-id="{{ $subcategory->id }}"
+                data-target="#modaldemo3" data-parent_id="{{ $subcategory->id }}"
                 @foreach (json_decode($subcategory->category_name, true) as $key=>$t )
                                                     @if ($key==LaravelLocalization::GetCurrentLocale())
-                                                     data-val="{{$t}}"
+
+                                                     data-parent_name="{{$t}}"
                                                         @endif
                                                     @endforeach
 

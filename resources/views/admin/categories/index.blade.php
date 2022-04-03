@@ -90,13 +90,14 @@
                                             <ul id="tree1">
                                                 <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
                                                     data-toggle="modal" data-target="#modaldemo3"
-                                                    data-id="{{ $row->id }}"
+                                                    data-parent_id="{{ $row->id }}"
                                                     @foreach (json_decode($row->category_name, true) as $key => $t)
                                                      @if ($key == LaravelLocalization::GetCurrentLocale())
-                                                     data-val="{{ $t }}"
+                                                     data-parent_name="{{ $t }}"
                                                       @endif
                                                     @endforeach
                                                     >
+
                                                     {{ __('system.add_category') }}
                                                 </a>
                                                 <a href="{{ url('admin/product/add/' . $row->id) }}"

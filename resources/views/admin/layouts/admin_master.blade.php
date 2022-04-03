@@ -145,19 +145,17 @@
         $(".passingID").click(function() {
             $('#select_list').show();
             $('#select').empty();
-            var category_id = $(this).attr('data-id');
-            var category_val = $(this).attr('data-val');
-            console.log(category_id)
-            console.log(category_val)
-            if (category_id) {
-                $("#select").append("<p>Undercategory for category:</p>"+category_val+"");
+            var parent_id = $(this).attr('data-parent_id');
+            var parent_name = $(this).attr('data-parent_name');
+            console.log(parent_id)
+            console.log(parent_name)
+            if (parent_id) {
+                $("#select").append("<p>Undercategory for category: </p>"+parent_name+"");
                 $('#select_list').hide();
                 //  $("#parent_id").val(category_id);
-                 $("[name='parent_id']").val(category_id);
+                 $("[name='parent_id']").val(parent_id);
 
-            } else {
-                console.log('b')
-            }
+            } 
 
 
         });
