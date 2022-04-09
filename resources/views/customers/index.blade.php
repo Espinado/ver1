@@ -24,18 +24,128 @@
 
 
     <style>
-        #panel,
-        #flip {
-            padding: 5px;
-            text-align: center;
-            background-color: #e5eecc;
-            border: solid 1px #c3c3c3;
+        .tree,
+        .tree ul {
+
+            margin: 0;
+
+            padding: 0;
+
+            list-style: none
         }
 
-        #panel {
-            padding: 50px;
-            display: none;
+        .tree ul {
+
+            margin-left: 1em;
+
+            position: relative
         }
+
+        .tree ul ul {
+
+            margin-left: .5em
+        }
+
+        .tree ul:before {
+
+            content: "";
+
+            display: block;
+
+            width: 0;
+
+            position: absolute;
+
+            top: 0;
+
+            bottom: 0;
+
+            left: 0;
+
+            border-left: 1px solid
+        }
+
+        .tree li {
+
+            margin: 0;
+
+            padding: 0 1em;
+
+            line-height: 2em;
+
+            color: #369;
+
+            font-weight: 700;
+
+            position: relative
+        }
+
+        .tree ul li:before {
+
+            content: "";
+
+            display: block;
+
+            width: 10px;
+
+            height: 0;
+
+            border-top: 1px solid;
+
+            margin-top: -1px;
+
+            position: absolute;
+
+            top: 1em;
+
+            left: 0
+        }
+
+        .tree ul li:last-child:before {
+
+            background: #fff;
+
+            height: auto;
+
+            top: 1em;
+
+            bottom: 0
+        }
+
+        .indicator {
+
+            margin-right: 5px;
+
+        }
+
+        .tree li a {
+
+            text-decoration: none;
+
+            color: #369;
+
+        }
+
+        .tree li button,
+        .tree li button:active,
+        .tree li button:focus {
+
+            text-decoration: none;
+
+            color: #369;
+
+            border: none;
+
+            background: transparent;
+
+            margin: 0px 0px 0px 0px;
+
+            padding: 0px 0px 0px 0px;
+
+            outline: 0;
+
+        }
+
 
     </style>
 
@@ -207,21 +317,23 @@
                         <div class="hero__categories__all">
                             <i class="fa fa-bars"></i>
                             <span>All departments</span>
+
                         </div>
-                        <ul>
-                            <li><a href="#">Fresh Meat</a></li>
+                        <ul id="tree1">
                             @foreach ($categories as $category)
-                                @foreach (json_decode($category->category_name, true) as $key => $catItem)
-                                    @if ($key == LaravelLocalization::GetCurrentLocale())
-                                        <li><a href="#">{{ $catItem }}</a></li>
-                                        @if ($category->children)
-                                            <div id="flip">Click to slide down panel</div>
-                                            <div id="panel">Hello world!</div>
+                                <li>
+                                    @foreach (json_decode($category->category_name, true) as $key => $catItem)
+                                        @if ($key == LaravelLocalization::GetCurrentLocale())
+                                        @if (in_array($key, LaravelLocalization::getSupportedLanguagesKeys()))
+                                            {{ $catItem }}
                                         @endif
+                                    @endforeach
+                                    @if (count($category->children))
+                                        @include('customers.partials.cat_tree', ['childs' => $category->children])
                                     @endif
-                                @endforeach
+                                </li>
                             @endforeach
-                        </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -829,15 +941,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#flip").click(function() {
-                $("#panel").slideToggle("slow");
-            });
-            $('.lang').on("click", function() {
-                url = this.getAttribute('data-lang');
-                alert(url)
+            $.fn.extend({
+                treed: function(o) {
 
-                window.location.assign(url)
-            })
+                    var openedClass = 'glyphicon-minus-sign';
+                    var closedClass = 'glyphicon-plus-sign';
+
+                    if (typeof o != 'undefined') {
+                        if (typeof o.openedClass != 'undefined') {
+                            openedClass = o.openedClass;
+                        }
+                        if (typeof o.closedClass != 'undefined') {
+                            closedClass = o.closedClass;
+                        }
+                    };
+
+                    /* initialize each of the top levels */
+                    var tree = $(this);
+                    tree.addClass("tree");
+                    tree.find('li').has("ul").each(function() {
+                        var branch = $(this);
+                        branch.prepend("");
+                        branch.addClass('branch');
+                        branch.on('click', function(e) {
+                            if (this == e.target) {
+                                var icon = $(this).children('i:first');
+                                icon.toggleClass(openedClass + " " + closedClass);
+                                $(this).children().children().toggle();
+                            }
+                        })
+                        branch.children().children().toggle();
+                    });
+                    /* fire event from the dynamically added icon */
+                    tree.find('.branch .indicator').each(function() {
+                        $(this).on('click', function() {
+                            $(this).closest('li').click();
+                        });
+                    });
+                    /* fire event to open branch if the li contains an anchor instead of text */
+                    tree.find('.branch>a').each(function() {
+                        $(this).on('click', function(e) {
+                            $(this).closest('li').click();
+                            e.preventDefault();
+                        });
+                    });
+                    /* fire event to open branch if the li contains a button instead of text */
+                    tree.find('.branch>button').each(function() {
+                        $(this).on('click', function(e) {
+                            $(this).closest('li').click();
+                            e.preventDefault();
+                        });
+                    });
+                }
+            });
+            /* Initialization of treeviews */
+            $('#tree1').treed();
         });
     </script>
 
