@@ -324,7 +324,7 @@
                                 <li>
                                     @foreach (json_decode($category->category_name, true) as $key => $catItem)
                                         @if ($key == LaravelLocalization::GetCurrentLocale())
-                                        @if (in_array($key, LaravelLocalization::getSupportedLanguagesKeys()))
+                                        {{-- @if (in_array($key, LaravelLocalization::getSupportedLanguagesKeys())) --}}
                                             {{ $catItem }}
                                         @endif
                                     @endforeach
