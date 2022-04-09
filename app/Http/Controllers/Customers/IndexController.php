@@ -12,7 +12,7 @@ class IndexController extends Controller
     public function index() {
 
         if (in_array('ru', LaravelLocalization::getSupportedLanguagesKeys())) {
-            dd( "Yes, design_id:  exits in array");
+            // dd( "Yes, design_id:  exits in array");
         }
 
         $categories = Category::where('parent_id', null)->get();
