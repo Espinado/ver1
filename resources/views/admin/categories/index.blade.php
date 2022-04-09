@@ -138,7 +138,7 @@
                     </div>
 
 
-                    <div class="modal-body pd-10">
+                    <div class="modal-body pd-20">
                         <div class="col-xl-35 mg-t-35 mg-xl-t-0">
                             <div class="card pd-30 pd-sm-50 form-layout form-layout-5">
                                 <form method="post" action="{{ route('admin.category.store') }}">
@@ -163,7 +163,7 @@
                                                 <option label="----"></option>
                                                 @foreach ($categories as $category)
                                                     <option
-                                                        label="{{ json_decode($category->category_name)->$locale }} ">
+                                                        label="{{ json_decode($category->category_name)->$locale ? 'g': '' }} ">
                                                         {{ $category->id }}</option>
                                                     @if ($category->children)
                                                         @include(
