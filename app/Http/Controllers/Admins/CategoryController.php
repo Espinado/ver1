@@ -22,8 +22,11 @@ class CategoryController extends Controller
         $categories = Category::where('parent_id', null)->get();
 
         $locale = LaravelLocalization::GetCurrentLocale();
-
-
+        foreach ($categories as $cat) {
+            if (!property_exists(json_decode($cat->category_name), $locale)) {
+                $locale =config('app.fallback_locale');
+            }
+        }
         return view('admin.categories.index', compact('categories', 'locale'));
     }
 
@@ -49,5 +52,17 @@ class CategoryController extends Controller
             $category->save();
         }
         return back()->with('success', 'Recorded');
+    }
+
+    public function edit($id) {
+        $category = Category::where('id', $id)->first();
+        $cat_array = json_decode($category->category_name);
+        foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+            if (!property_exists($cat_array, $properties['short'])) {
+                $dev= $properties['short'];
+                $cat_array->$dev = 'No translation';
+            }
+        }
+        return view ('admin.categories.cat_edit_form', compact('cat_array'));
     }
 }

@@ -22,8 +22,8 @@
 
         <div class="dropdown">
           <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-            <span class="logged-name">{{Auth::guard('admin')->user()->name}}Jane<span class="hidden-md-down"> Doe</span></span>
-            <img src="../img/img3.jpg" class="wd-32 rounded-circle" alt="">
+            <span class="logged-name">{{Auth::guard('admin')->user()->name}}<span class="hidden-md-down"> </span></span>
+            <img src="{{asset('panel//img/img3.jpg')}}" class="wd-32 rounded-circle" alt="">
           </a>
           <div class="dropdown-menu dropdown-menu-header wd-200">
             <ul class="list-unstyled user-profile-nav">
