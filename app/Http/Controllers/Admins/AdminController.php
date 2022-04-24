@@ -76,5 +76,5 @@ class AdminController extends Controller
         return view('admin.admins.index', compact('adminList'));
     }
 
-    
+
 }

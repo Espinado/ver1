@@ -70,13 +70,13 @@
           <form action="{{route('admin.login')}} " class="d-block" method="post">
             @csrf
         <div class="form-group">
-          <input  type="email" class="form-control"  name="email" value=" " required autocomplete="email" autofocus placeholder="Email Address" required>
+          <input  type="email" class="form-control"  name="email" value=" " required autocomplete="email" autofocus placeholder="{{ __('system.name') }}" required>
         </div><!-- form-group -->
         <div class="form-group">
-          <input id="password" type="password" class="form-control"   name="password" required autocomplete="current-password" placeholder="Password" required>
+          <input id="password" type="password" class="form-control"   name="password" required autocomplete="current-password" placeholder="{{ __('system.password') }}" required>
 
         </div><!-- form-group -->
-        <button type="submit" class="btn btn-info btn-block">Sign In</button>
+        <button type="submit" class="btn btn-info btn-block">{{ __('system.signin') }}</button>
           </form>
 
       </div><!-- login-wrapper -->

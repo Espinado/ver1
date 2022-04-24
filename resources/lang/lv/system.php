@@ -31,6 +31,8 @@ return [
     'item_name'                      => 'Nosaukums',
     'search'                         => 'Meklēt',
     'add_category'                   => 'Pievienot kategoriju',
-    'enter_item_name'                => 'Ievadiet nosaukumu'
+    'enter_item_name'                => 'Ievadiet nosaukumu',
+    'password'                       =>  'Parole',
+    'edit'                           =>  'Labot'
 
 ];

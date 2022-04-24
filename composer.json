@@ -27,7 +27,9 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/invite.php"
+            "app/Helpers/Invite.php",
+            "app/Helpers/CatMultilangArray.php"
+
         ],
         "psr-4": {
             "App\\": "app/",

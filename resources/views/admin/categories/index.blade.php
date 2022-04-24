@@ -13,7 +13,7 @@
                     <span class="menu-item-label">{{ __('system.dashboard') }}</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.admins') }}" class="sl-menu-link active">
+            <a href="{{ route('admin.admins') }}" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                     <span class="menu-item-label">{{ __('system.admins') }}</span>
@@ -26,7 +26,7 @@
                     <span class="menu-item-label">{{ __('system.sellers') }}</span>
                 </div><!-- menu-item -->
             </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.categories') }}" class="sl-menu-link">
+            <a href="{{ route('admin.categories') }}" class="sl-menu-link  active">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                     <span class="menu-item-label">{{ __('system.categories') }}</span>
@@ -88,21 +88,24 @@
                                     <tr>
                                         <td>
                                             <ul id="tree1">
+                                                <a href="{{ url('admin/category/edit/' . $row->id) }}"
+                                                    class="btn btn-sm btn-danger"
+                                                    style="float: right;">{{ __('system.edit') }}</a>
                                                 <a href="#" class="btn btn-sm btn-warning passingID" style="float: right;"
                                                     data-toggle="modal" data-target="#modaldemo3"
                                                     data-parent_id="{{ $row->id }}"
-                                                    @foreach (json_decode($row->category_name, true) as $key => $t)
-                                                     @if ($key == LaravelLocalization::GetCurrentLocale())
+                                                    @foreach (json_decode($row->category_name, true) as $key => $t) @if ($key == LaravelLocalization::GetCurrentLocale())
                                                      data-parent_name="{{ $t }}"
-                                                      @endif
-                                                    @endforeach
-                                                    >
+                                                      @endif @endforeach>
 
                                                     {{ __('system.add_category') }}
                                                 </a>
                                                 <a href="{{ url('admin/product/add/' . $row->id) }}"
                                                     class="btn btn-sm btn-info catID"
                                                     style="float: right;">{{ __('system.add_product') }}</a>
+
+
+
                                                 @foreach (json_decode($row->category_name, true) as $tmp => $value)
                                                     {{ $tmp }}=> {{ $value }} <br>
                                                 @endforeach
@@ -163,7 +166,7 @@
                                                 <option label="----"></option>
                                                 @foreach ($categories as $category)
                                                     <option
-                                                        label="{{ json_decode($category->category_name)->$locale ? 'g': '' }} ">
+                                                        label="{{ json_decode($category->category_name)->$locale }} ">
                                                         {{ $category->id }}</option>
                                                     @if ($category->children)
                                                         @include(
