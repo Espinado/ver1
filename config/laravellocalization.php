@@ -42,12 +42,12 @@ return [
         //'et'          => ['name' => 'Estonian',               'script' => 'Latn', 'native' => 'eesti', 'regional' => 'et_EE'],
         //'na'          => ['name' => 'Nauru',                  'script' => 'Latn', 'native' => 'Ekakairũ Naoero', 'regional' => ''],
         //'guz'         => ['name' => 'Ekegusii',               'script' => 'Latn', 'native' => 'Ekegusii', 'regional' => ''],
-        'en'          => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'regional' => 'en_GB'],
+        'en'          => ['name' => 'English',                'script' => 'Latn', 'native' => 'English', 'regional' => 'en_GB', 'short' => 'en'],
         //'en-AU'       => ['name' => 'Australian English',     'script' => 'Latn', 'native' => 'Australian English', 'regional' => 'en_AU'],
         //'en-GB'       => ['name' => 'British English',        'script' => 'Latn', 'native' => 'British English', 'regional' => 'en_GB'],
         //'en-CA'       => ['name' => 'Canadian English',       'script' => 'Latn', 'native' => 'Canadian English', 'regional' => 'en_CA'],
         //'en-US'       => ['name' => 'U.S. English',           'script' => 'Latn', 'native' => 'U.S. English', 'regional' => 'en_US'],
-        'es'          => ['name' => 'Spanish',                'script' => 'Latn', 'native' => 'español', 'regional' => 'es_ES'],
+       // 'es'          => ['name' => 'Spanish',                'script' => 'Latn', 'native' => 'Español', 'regional' => 'es_ES', 'short' => 'es'],
         //'eo'          => ['name' => 'Esperanto',              'script' => 'Latn', 'native' => 'esperanto', 'regional' => ''],
         //'eu'          => ['name' => 'Basque',                 'script' => 'Latn', 'native' => 'euskara', 'regional' => 'eu_ES'],
         //'ewo'         => ['name' => 'Ewondo',                 'script' => 'Latn', 'native' => 'ewondo', 'regional' => ''],
@@ -116,7 +116,7 @@ return [
         //'lag'         => ['name' => 'Langi',                  'script' => 'Latn', 'native' => 'Kɨlaangi', 'regional' => ''],
         //'lah'         => ['name' => 'Lahnda',                 'script' => 'Latn', 'native' => 'Lahnda', 'regional' => ''],
         //'la'          => ['name' => 'Latin',                  'script' => 'Latn', 'native' => 'latine', 'regional' => ''],
-        'lv'          => ['name' => 'Latvian',                'script' => 'Latn', 'native' => 'latviešu', 'regional' => 'lv_LV'],
+        'lv'          => ['name' => 'Latvian',                'script' => 'Latn', 'native' => 'Latviešu', 'regional' => 'lv_LV', 'short' =>'lv'],
         //'to'          => ['name' => 'Tongan',                 'script' => 'Latn', 'native' => 'lea fakatonga', 'regional' => ''],
         //'lt'          => ['name' => 'Lithuanian',             'script' => 'Latn', 'native' => 'lietuvių', 'regional' => 'lt_LT'],
         //'li'          => ['name' => 'Limburgish',             'script' => 'Latn', 'native' => 'Limburgs', 'regional' => 'li_BE'],
@@ -222,7 +222,7 @@ return [
         //'mk'          => ['name' => 'Macedonian',             'script' => 'Cyrl', 'native' => 'македонски', 'regional' => 'mk_MK'],
         //'mn'          => ['name' => 'Mongolian (Cyrillic)',   'script' => 'Cyrl', 'native' => 'монгол', 'regional' => 'mn_MN'],
         //'ce'          => ['name' => 'Chechen',                'script' => 'Cyrl', 'native' => 'нохчийн мотт', 'regional' => 'ce_RU'],
-        //'ru'          => ['name' => 'Russian',                'script' => 'Cyrl', 'native' => 'русский', 'regional' => 'ru_RU'],
+        'ru'          => ['name' => 'Russian',                'script' => 'Cyrl', 'native' => 'русский', 'regional' => 'ru_RU', 'short' => 'ru'],
         //'sah'         => ['name' => 'Yakut',                  'script' => 'Cyrl', 'native' => 'саха тыла', 'regional' => ''],
         //'tt'          => ['name' => 'Tatar',                  'script' => 'Cyrl', 'native' => 'татар теле', 'regional' => 'tt_RU'],
         //'tg'          => ['name' => 'Tajik (Cyrillic)',       'script' => 'Cyrl', 'native' => 'тоҷикӣ', 'regional' => 'tg_TJ'],
@@ -334,7 +334,9 @@ return [
     'localesOrder' => [],
 
     //  If you want to use custom lang url segments like 'at' instead of 'de-AT', you can use the mapping to tallow the LanguageNegotiator to assign the descired locales based on HTTP Accept Language Header. For example you want ot use 'at', so map HTTP Accept Language Header 'de-AT' to 'at' (['de-AT' => 'at']).
-    'localesMapping' => [],
+    'localesMapping' => [
+
+    ],
 
     // Locale suffix for LC_TIME and LC_MONETARY
     // Defaults to most common ".UTF-8". Set to blank on Windows systems, change to ".utf8" on CentOS and similar.

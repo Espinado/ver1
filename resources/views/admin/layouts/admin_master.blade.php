@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,22 +35,22 @@
 
 
 
-    <link href="{{asset('panel/lib/rickshaw/rickshaw.min.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/Ionicons/css/ionicons.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/highlightjs/github.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/datatables/jquery.dataTables.css')}}" rel="stylesheet">
-    <link href="{{asset('panel/lib/select2/css/select2.min.css')}}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/rickshaw/rickshaw.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/highlightjs/github.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/datatables/jquery.dataTables.css') }}" rel="stylesheet">
+    <link href="{{ asset('panel/lib/select2/css/select2.min.css') }}" rel="stylesheet">
 
 
 
 
     <!-- Starlight CSS -->
-    <link rel="stylesheet" href="{{asset('panel/css/starlight.css')}}">
-  </head>
+    <link rel="stylesheet" href="{{ asset('panel/css/starlight.css') }}">
+</head>
 
-  <body>
+<body>
 
 
 
@@ -58,88 +59,111 @@
     <!-- ########## END: HEAD PANEL ########## -->
     @include('admin.sections.header')
     <!-- ########## START: RIGHT PANEL ########## -->
-    @include ('admin.sections.right_panel')
+    @include('admin.sections.right_panel')
     <!-- ########## END: RIGHT PANEL ########## --->
 
     <!-- ########## START: MAIN PANEL ########## -->
 
     <div class="sl-mainpanel">
 
-        @if(Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert" style="text-align:center; text-transform: uppercase;">
-            <strong> {{session::get('success')}}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          @endif
-          @if(Session::has('error'))
-          <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center; text-transform: uppercase;">
-              <strong> {{session::get('error')}}</strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert"
+                style="text-align:center; text-transform: uppercase;">
+                <strong> {{ session::get('success') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('system.close') }}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            @endif
-      @yield('dashboard')
+        @endif
+        @if (Session::has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                style="text-align:center; text-transform: uppercase;">
+                <strong> {{ session::get('error') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('system.close') }}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        @yield('dashboard')
 
-      @include('admin.sections.footer')
+        @include('admin.sections.footer')
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
 
-    <script src="{{asset('panel/lib/jquery/jquery.js')}}"></script>
+    <script src="{{ asset('panel/lib/jquery/jquery.js') }}"></script>
 
-    <script src="{{asset('panel/lib/bootstrap/bootstrap.js')}}"></script>
-    <script src="{{asset('panel/lib/popper.js/popper.js')}}"></script>
-    <script src="{{asset('panel/lib/jquery-ui/jquery-ui.js')}}"></script>
-    <script src="{{asset('panel/js/ResizeSensor.js')}}"></script>
-    <script src="{{asset('panel/js/dashboard.js')}}"></script>
-    <script src="{{asset('panel/lib/jquery/jquery.js')}}"></script>
-    <script src="{{asset('panel/lib/popper.js/popper.js')}}"></script>
-    <script src="{{asset('panel/lib/bootstrap/bootstrap.js')}}"></script>
-    <script src="{{asset('panel/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js')}}"></script>
-    <script src="{{asset('panel/lib/highlightjs/highlight.pack.js')}}"></script>
-    <script src="{{asset('panel/lib/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('panel/lib/datatables-responsive/dataTables.responsive.js')}}"></script>
-    <script src="{{asset('panel/lib/select2/js/select2.min.js')}}"></script>
+    <script src="{{ asset('panel/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('panel/lib/popper.js/popper.js') }}"></script>
+    <script src="{{ asset('panel/lib/jquery-ui/jquery-ui.js') }}"></script>
+    <script src="{{ asset('panel/js/ResizeSensor.js') }}"></script>
+    <script src="{{ asset('panel/js/dashboard.js') }}"></script>
+    <script src="{{ asset('panel/lib/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('panel/lib/popper.js/popper.js') }}"></script>
+    <script src="{{ asset('panel/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('panel/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js') }}"></script>
+    <script src="{{ asset('panel/lib/highlightjs/highlight.pack.js') }}"></script>
+    <script src="{{ asset('panel/lib/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('panel/lib/datatables-responsive/dataTables.responsive.js') }}"></script>
+    <script src="{{ asset('panel/lib/select2/js/select2.min.js') }}"></script>
 
-    <script src="{{asset('panel/js/starlight.js')}}"></script>
-    <script src="{{asset('panel/lib/d3/d3.js')}}"></script>
-    <script src="{{asset('panel/lib/rickshaw/rickshaw.min.js')}}"></script>
-    <script src="{{asset('panel/lib/chart.js/Chart.js')}}"></script>
-    <script src="{{asset('panel/lib/Flot/jquery.flot.js')}}"></script>
-    <script src="{{asset('panel/lib/Flot/jquery.flot.pie.js')}}"></script>
-    <script src="{{asset('panel/lib/Flot/jquery.flot.resize.js')}}"></script>
-    <script src="{{asset('panel/lib/flot-spline/jquery.flot.spline.js')}}"></script>
-    <script src="{{asset('panel/lib/jquery.sparkline.bower/jquery.sparkline.min.js')}}"></script>
+    <script src="{{ asset('panel/js/starlight.js') }}"></script>
+    <script src="{{ asset('panel/lib/d3/d3.js') }}"></script>
+    <script src="{{ asset('panel/lib/rickshaw/rickshaw.min.js') }}"></script>
+    <script src="{{ asset('panel/lib/chart.js/Chart.js') }}"></script>
+    <script src="{{ asset('panel/lib/Flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('panel/lib/Flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('panel/lib/Flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('panel/lib/flot-spline/jquery.flot.spline.js') }}"></script>
+    <script src="{{ asset('panel/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
     <script>
+        $(function() {
+            'use strict';
 
-      $(function(){
-        'use strict';
+            $('#datatable1').DataTable({
+                responsive: true,
+                language: {
+                    searchPlaceholder: '{{ __('system.search') }}',
+                    sSearch: '',
+                    lengthMenu: '_MENU_ items/page',
+                }
+            });
 
-        $('#datatable1').DataTable({
-          responsive: true,
-          language: {
-            searchPlaceholder: 'Search...',
-            sSearch: '',
-            lengthMenu: '_MENU_ items/page',
-          }
+            $('#datatable2').DataTable({
+                bLengthChange: false,
+                searching: false,
+                responsive: true
+            });
+
+            // Select2
+            $('.dataTables_length select').select2({
+                minimumResultsForSearch: Infinity
+            });
+
         });
 
-        $('#datatable2').DataTable({
-          bLengthChange: false,
-          searching: false,
-          responsive: true
+        $(".passingID").click(function() {
+            $('#select_list').show();
+            $('#select').empty();
+            var parent_id = $(this).attr('data-parent_id');
+            var parent_name = $(this).attr('data-parent_name');
+            console.log(parent_id)
+            console.log(parent_name)
+            if (parent_id) {
+                $("#select").append("<p>Undercategory for category: </p>"+parent_name+"");
+                $('#select_list').hide();
+                //  $("#parent_id").val(category_id);
+                 $("[name='parent_id']").val(parent_id);
+
+            }
+
+
         });
-
-        // Select2
-        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
-      });
-
-       
+        //    // Select2 by showing the search
+        //     $('.select2-show-search').select2({
+        //       minimumResultsForSearch: ''
+        //     });
     </script>
-  </body>
-</html>
+</body>
 
+</html>
