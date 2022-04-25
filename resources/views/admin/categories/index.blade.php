@@ -1,5 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('dashboard')
+
     <!-- ########## START: LEFT PANEL ########## -->
     <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i>
             starlight</a></div>
