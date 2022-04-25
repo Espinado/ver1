@@ -72,29 +72,28 @@
                 <div class="row row-sm mg-t-40">
                     <div class="col-xl-10">
                         <div class="card pd-20 pd-sm-40 form-layout form-layout-4">
-
-                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                                <div class="row">
-                                    {{-- @dump($cat_array) --}}
-                                    {{-- @dd($properties['short']) --}}
-                                    <label class="col-sm-4 form-control-label">{{ $properties['native'] }}: <span
-                                            class="tx-danger">*</span></label>
-
-                                    <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                        <?php
-                                        $lang_val = $properties['short'];
-                                        ?>
-                                        <input type="text" class="form-control" placeholder="Enter firstname"
-                                            value="{{ $cat_array->$lang_val }}">
-                                    </div>
-                                </div><!-- row -->
-                            @endforeach
-
-                            <div class="form-layout-footer mg-t-30">
-                                <button class="btn btn-info mg-r-5">Submit Form</button>
-                                <button class="btn btn-secondary">Cancel</button>
-                            </div><!-- form-layout-footer -->
+                            <form method="post" action="{{ route('admin.category.update') }}">
+                                <input type="hidden" name="id" value="{{$id}}">
+                                @csrf
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <div class="row">
+                                        <label class="col-sm-4 form-control-label">{{ $properties['native'] }}: <span
+                                                class="tx-danger">*</span></label>
+                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                                            @if ($cat_array->$localeCode)
+                                                <input type="text" class="form-control" value="{{ $cat_array->$localeCode }}" name="category_name[{{$localeCode}}]" required>
+                                            @else
+                                                <input type="text" class="form-control" placeholder="No translation" name="category_name[{{$localeCode}}]" required>
+                                            @endif
+                                        </div>
+                                    </div><!-- row -->
+                                @endforeach
+                                <div class="form-layout-footer mg-t-30">
+                                    <button class="btn btn-info mg-r-5">Submit Form</button>
+                                    <button class="btn btn-secondary">Cancel</button>
+                                </div><!-- form-layout-footer -->
                         </div><!-- card -->
+                    </form>
                     </div><!-- col-6 -->
 
                 </div><!-- row -->

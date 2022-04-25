@@ -24,7 +24,7 @@ class CategoryController extends Controller
         $locale = LaravelLocalization::GetCurrentLocale();
         foreach ($categories as $cat) {
             if (!property_exists(json_decode($cat->category_name), $locale)) {
-                $locale =config('app.fallback_locale');
+                $locale = config('app.fallback_locale');
             }
         }
         return view('admin.categories.index', compact('categories', 'locale'));
@@ -32,7 +32,6 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             "category_name"    => "required|array|min:3",
             "category_name.*"  => "required|min:3",
@@ -54,15 +53,30 @@ class CategoryController extends Controller
         return back()->with('success', 'Recorded');
     }
 
-    public function edit($id) {
+    public function edit_form($id)
+    {
         $category = Category::where('id', $id)->first();
         $cat_array = json_decode($category->category_name);
         foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
             if (!property_exists($cat_array, $properties['short'])) {
-                $dev= $properties['short'];
-                $cat_array->$dev = 'No translation';
+                $dev = $properties['short'];
+                $cat_array->$dev = '';
             }
         }
-        return view ('admin.categories.cat_edit_form', compact('cat_array'));
+        return view('admin.categories.cat_edit_form', compact('cat_array', 'id'));
+    }
+    public function update(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            "category_name"    => "required|array|min:3",
+            "category_name.*"  => "required|min:3",
+        ]);
+        if ($validator->fails()) {
+            $messages = $validator->errors();
+            return back()->with('error', $messages);
+        }
+        Category::where('id', $request->id)->update(['category_name' => json_encode($request->category_name)]);
+        return redirect('admin/categories')->with('success', 'Updated');
     }
 }

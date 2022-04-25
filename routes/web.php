@@ -38,7 +38,8 @@ Route::group(
 
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories')->middleware('admin');
         Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store')->middleware('admin');
-        Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit')->middleware('admin');
+        Route::get('/category/edit/{id}', [CategoryController::class, 'edit_form'])->name('admin.category.edit')->middleware('admin');
+        Route::post('/category/update', [CategoryController::class, 'update'])->name('admin.category.update')->middleware('admin');
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
         Route::get('/seller/register', [SellerController::class, 'SellerRegister'])->name('seller.register')->middleware('admin');
