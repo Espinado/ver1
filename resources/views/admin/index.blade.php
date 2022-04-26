@@ -42,6 +42,12 @@
             <span class="menu-item-label">{{ __('system.categories') }}</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+         <a href="{{route('admin.brands')}}" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <span class="menu-item-label">{{ __('system.brands') }}</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
        <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
