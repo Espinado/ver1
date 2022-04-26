@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\SellerController;
+use App\Http\Controllers\Admins\CategoryController;
+use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\SellerController as Seller;
 use App\Http\Controllers\Customers\IndexController;
-use App\Http\Controllers\Admins\CategoryController;
+
 use Illuminate\Http\Request;
 
 
@@ -40,6 +42,10 @@ Route::group(
         Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store')->middleware('admin');
         Route::get('/category/edit/{id}', [CategoryController::class, 'edit_form'])->name('admin.category.edit')->middleware('admin');
         Route::post('/category/update', [CategoryController::class, 'update'])->name('admin.category.update')->middleware('admin');
+
+        Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
+
+
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
         Route::get('/seller/register', [SellerController::class, 'SellerRegister'])->name('seller.register')->middleware('admin');

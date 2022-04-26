@@ -41,9 +41,9 @@
             </a><!-- sl-menu-link -->
             <ul class="sl-menu-sub nav flex-column">
 
-                <li class="nav-item"><a href="form-elements.html"
+                <li class="nav-item"><a href="{{ route('admin.products') }}"
                         class="nav-link">{{ __('system.confirmed_items') }}</a></li>
-                <li class="nav-item"><a href="form-layouts.html"
+                <li class="nav-item"><a href=""
                         class="nav-link">{{ __('system.unconfirmed_items') }}</a></li>
 
             </ul>
