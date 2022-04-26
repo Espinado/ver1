@@ -67,7 +67,7 @@ class CategoryController extends Controller
     }
     public function update(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             "category_name"    => "required|array|min:3",
             "category_name.*"  => "required|min:3",
