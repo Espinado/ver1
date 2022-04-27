@@ -32,6 +32,12 @@
             <span class="menu-item-label">{{ __('system.categories') }}</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+         <a href="{{route('admin.brands')}}" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
+            <span class="menu-item-label">{{ __('system.brands') }}</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
        <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
@@ -40,8 +46,8 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
 
-          <li class="nav-item"><a href="form-elements.html" class="nav-link">{{ __('system.confirmed_items') }}</a></li>
-          <li class="nav-item"><a href="form-layouts.html" class="nav-link">{{ __('system.unconfirmed_items') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.products') }}" class="nav-link">{{ __('system.confirmed_items') }}</a></li>
+          <li class="nav-item"><a href="" class="nav-link">{{ __('system.unconfirmed_items') }}</a></li>
 
         </ul>
 
