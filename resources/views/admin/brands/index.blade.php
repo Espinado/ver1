@@ -102,11 +102,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($brands as $brand)
                                 <tr>
-                                    <td>Tiger</td>
-                                    <td>Nixon</td>
+                                    <td>{{$brand->brand_name}}</td>
+                                    <td><img src="/brands/{{$brand->brand_logo}}"  /></td>
 
                                 </tr>
+                                @endforeach
 
                             </tbody>
                         </table>
