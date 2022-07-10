@@ -48,6 +48,8 @@ Route::group(
         Route::post('/brand/register', [BrandController::class, 'store'])->name('admin.brand.store')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
+        Route::get('/product/view/{id}',[ProductController::class, 'productView'])->name('product.view')->middleware('admin');
+        Route::get('/product/add', [ProductController::class, 'productAdd'])->name('product.add')->middleware('admin');
 
 
 
@@ -64,7 +66,7 @@ Route::group(
 
 //-----------Seller routes
 Route::prefix('seller')->group(function() {
-    
+
     Route::post('/login/seller', [Seller::class, 'Login'])->name('seller.login');
      Route::get('/', [Seller::class, 'Dashboard'])->name('seller.dashboard')->middleware('seller');
     Route::get('/logout', [Seller::class, 'SellerLogout'])->name('seller.logout')->middleware('seller');
@@ -88,10 +90,11 @@ Route::group(
     ],
     function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
+        require __DIR__ . '/auth.php';
     }
 );
 
 
 
 
-require __DIR__.'/auth.php';
+

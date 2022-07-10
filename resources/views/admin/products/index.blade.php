@@ -37,7 +37,7 @@
             <span class="menu-item-label">{{ __('system.brands') }}</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-       <a href="#" class="sl-menu-link">
+       <a href="#" class="sl-menu-link active">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
             <span class="menu-item-label">{{ __('system.items') }}</span>
@@ -45,7 +45,7 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
 
-          <li class="nav-item"><a href="{{ route('admin.products') }}" class="nav-link">{{ __('system.confirmed_items') }}</a></li>
+          <li class="nav-item"><a href="{{ route('admin.products') }}" class="nav-link ">{{ __('system.confirmed_items') }}</a></li>
           <li class="nav-item"><a href="" class="nav-link">{{ __('system.unconfirmed_items') }}</a></li>
 
         </ul>
@@ -59,5 +59,61 @@
       <br>
     </div><!-- sl-sideleft -->
     <!-- ########## END: LEFT PANEL ########## -->
+    <!-- ########## START: MAIN PANEL ########## -->
+    <div class="sl-pagebody">
+        <div class="sl-mainpanel">
+            <nav class="breadcrumb sl-breadcrumb">
+                <a class="breadcrumb-item" href="{{ route('admin.dashboard') }}">Starlight</a>
+
+                <span class="breadcrumb-item active">{{ __('system.products') }}</span>
+            </nav>
+
+
+            <div class="sl-pagebody">
+                <div class="sl-page-title">
+                    <h5>{{ __('system.products') }}</h5>
+
+                </div><!-- sl-page-title -->
+
+                <div class="card pd-20 pd-sm-40">
+                    <h6 class="card-body-title">{{ __('system.products') }}</h6>
+                    <a href="{{route('product.add')}}" class="btn btn-sm btn-warning" >{{ __('system.add_product') }}</a>
+
+
+                    <div class="table-wrapper">
+                        <table id="datatable1" class="table display responsive nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="wd-15p">Product name</th>
+                                    <th class="wd-15p">Product code</th>
+                                     <th class="wd-15p">Product quantity</th>
+                                     <th class="wd-15p">Product info</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($products as $product)
+                                <tr>
+                                    <td>{{$product->product_name}}</td>
+                                    <td>{{$product->product_code}}></td>
+                                    <td>{{$product->product_quantity}}</td>
+                                    <td><a href="{{ route('product.view', $product->id) }}" class="btn btn-danger">Details</a></td></td>
+
+
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+                    </div><!-- table-wrapper -->
+                </div><!-- card -->
+
+            </div><!-- sl-pagebody -->
+
+        </div><!-- sl-mainpanel -->
+        <!-- ########## END: MAIN PANEL ########## -->
 
     @endsection
+
+
+

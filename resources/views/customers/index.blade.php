@@ -145,8 +145,6 @@
             outline: 0;
 
         }
-
-
     </style>
 
 
@@ -160,64 +158,7 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
-    <!-- Humberger Begin -->
-    <div class="humberger__menu__overlay"></div>
-    <div class="humberger__menu__wrapper">
-        <div class="humberger__menu__logo">
-            <a href="#"><img src="{{ asset('customers/img/logo.png') }}" alt=""></a>
-        </div>
-        <div class="humberger__menu__cart">
-            <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
-        </div>
-        <div class="humberger__menu__widget">
-            <div class="header__top__right__language">
-                <img src="{{ asset('customers/img/language.png') }}" alt="">
-                <div>{{ LaravelLocalization::getCurrentLocaleNative() }}</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                    <li><a href="#">Spanish</a></li>
-                    <li><a href="#">English</a></li>
-                </ul>
-            </div>
-            <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
-            </div>
-        </div>
-        <nav class="humberger__menu__nav mobile-menu">
-            <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
-                <li><a href="#">Pages</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                    </ul>
-                </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-            <a href="#"><i class="fa fa-pinterest-p"></i></a>
-        </div>
-        <div class="humberger__menu__contact">
-            <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
-            </ul>
-        </div>
-    </div>
-    <!-- Humberger End -->
+
 
     <!-- Header Section Begin -->
     <header class="header">
@@ -258,9 +199,35 @@
 
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                            @auth
+                                <div class="header__top__right__language">
+
+                                    <div>{{ Auth::user()->name }}</div>
+                                    <span class="arrow_carrot-down"></span>
+                                    <ul>
+
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();document.getElementById('frm-logout').submit();">Logout</a>
+                                            <form id="frm-logout" action="{{ route('logout') }}" method="POST"
+                                                style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        </li>
+
+
+
+                                    </ul>
+                                </div>
+                            @else
+                                <div class="header__top__right__auth">
+                                    <a href="{{ 'login' }}"><i class="fa fa-user"></i> Login</a>
+                                </div>
+                                <div class="header__top__right__auth">
+                                    <a href="{{ 'register' }}"><i class="fa fa-user"></i> Register</a>
+                                </div>
+                            @endauth
+
                         </div>
                     </div>
                 </div>
@@ -291,6 +258,7 @@
                         </ul>
                     </nav>
                 </div>
+                @auth
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
@@ -300,6 +268,7 @@
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
+                @endauth
             </div>
             <div class="humberger__open">
                 <i class="fa fa-bars"></i>
@@ -324,12 +293,14 @@
                                 <li>
                                     @foreach (json_decode($category->category_name, true) as $key => $catItem)
                                         @if ($key == LaravelLocalization::GetCurrentLocale())
-                                        {{-- @if (in_array($key, LaravelLocalization::getSupportedLanguagesKeys())) --}}
+                                            {{-- @if (in_array($key, LaravelLocalization::getSupportedLanguagesKeys())) --}}
                                             {{ $catItem }}
                                         @endif
                                     @endforeach
                                     @if (count($category->children))
-                                        @include('customers.partials.cat_tree', ['childs' => $category->children])
+                                        @include('customers.partials.cat_tree', [
+                                            'childs' => $category->children,
+                                        ])
                                     @endif
                                 </li>
                             @endforeach
@@ -373,40 +344,23 @@
     <!-- Hero Section End -->
 
     <!-- Categories Section Begin -->
+    <?php
+    use App\Models\Admins\Brand;
+    $brands=Brand::all();
+    ?>
     <section class="categories">
         <div class="container">
             <div class="row">
                 <div class="categories__slider owl-carousel">
+                    @foreach ($brands as $brand)
                     <div class="col-lg-3">
                         <div class="categories__item set-bg"
-                            data-setbg="{{ asset('customers/img/categories/cat-1.jpg') }}">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                            data-setbg="{{ asset('brands/'.$brand->brand_logo) }}">
+                            <h5><a href="#">{{$brand->brand_name}}</a></h5>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg"
-                            data-setbg="{{ asset('customers/img/categories/cat-2.jpg') }}">
-                            <h5><a href="#">Dried Fruit</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg"
-                            data-setbg="{{ asset('customers/img/categories/cat-3.jpg') }}">
-                            <h5><a href="#">Vegetables</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg"
-                            data-setbg="{{ asset('customers/img/categories/cat-4.jpg') }}">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="categories__item set-bg"
-                            data-setbg="{{ asset('customers/img/categories/cat-5.jpg') }}">
-                            <h5><a href="#">drink fruits</a></h5>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
         </div>
@@ -596,7 +550,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -605,7 +560,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -614,7 +570,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -625,7 +582,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -634,7 +592,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -643,7 +602,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -661,7 +621,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -670,7 +631,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -679,7 +641,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -690,7 +653,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -699,7 +663,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -708,7 +673,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -726,7 +692,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -735,7 +702,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -744,7 +712,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -755,7 +724,8 @@
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-1.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -764,7 +734,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-2.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -773,7 +744,8 @@
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}" alt="">
+                                        <img src="{{ asset('customers/img/latest-product/lp-3.jpg') }}"
+                                            alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -857,7 +829,8 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="{{ asset('customers/img/logo.png') }}" alt=""></a>
+                            <a href="./index.html"><img src="{{ asset('customers/img/logo.png') }}"
+                                    alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>
