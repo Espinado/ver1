@@ -64,7 +64,7 @@ Route::group(
 
 //-----------Seller routes
 Route::prefix('seller')->group(function() {
-    Route::get('/login', [Seller::class, 'Index'])->name('seller.login_form');
+    
     Route::post('/login/seller', [Seller::class, 'Login'])->name('seller.login');
      Route::get('/', [Seller::class, 'Dashboard'])->name('seller.dashboard')->middleware('seller');
     Route::get('/logout', [Seller::class, 'SellerLogout'])->name('seller.logout')->middleware('seller');
