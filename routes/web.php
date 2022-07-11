@@ -50,6 +50,7 @@ Route::group(
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
         Route::get('/product/view/{id}',[ProductController::class, 'productView'])->name('product.view')->middleware('admin');
         Route::get('/product/add', [ProductController::class, 'productAdd'])->name('product.add')->middleware('admin');
+        Route::post('/product/store', [ProductController::class, 'productStore'])->name('product.store')->middleware('admin');
 
 
 

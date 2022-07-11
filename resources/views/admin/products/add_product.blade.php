@@ -1,5 +1,37 @@
 @extends('admin.layouts.admin_master')
 @section('dashboard')
+<style>
+    .images-preview-div img
+    {
+          padding: 10px;
+          max-width: 100px;
+    }
+  </style>
+   <script src="{{ asset('panel/lib/jquery/jquery.js') }}"></script>
+
+    <script src="{{ asset('panel/lib/bootstrap/bootstrap.js') }}"></script>
+    <script src="{{ asset('panel/lib/popper.js/popper.js') }}"></script>
+    <script src="{{ asset('panel/lib/jquery-ui/jquery-ui.js') }}"></script>
+  <script >
+$(function() {
+// Multiple images preview with JavaScript
+var previewImages = function(input, imgPreviewPlaceholder) {
+if (input.files) {
+var filesAmount = input.files.length;
+for (i = 0; i < filesAmount; i++) {
+var reader = new FileReader();
+reader.onload = function(event) {
+$($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+}
+reader.readAsDataURL(input.files[i]);
+}
+}
+};
+$('#images').on('change', function() {
+previewImages(this, 'div.images-preview-div');
+});
+});
+</script>
 
     <!-- ########## START: LEFT PANEL ########## -->
     <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i> starlight</a>
@@ -72,7 +104,7 @@
                 </ul>
             </div>
         @endif
-        <form method="post" action="{{ route('seller.register.store') }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('product.store') }}" accept-charset="utf-8" enctype="multipart/form-data">
             @csrf
             <div class="sl-pagebody">
                 <div class="sl-page-title">
@@ -85,207 +117,84 @@
 
 
                     <div class="form-layout">
-                        <div class="row mg-b-35">
-
-
+                        <div class="row mg-b-25">
                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
-                                        <div class="row row-xs">
-                                            <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span>
-                                               Product name {{ $value['native'] }}</label>
-                                            <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                                <input type="text" class="form-control"
-                                                    name="product_name[{{ $key }}]" value="{{ old('product_name') }}">
-                                            </div>
-                                        </div><!-- row -->
-                                    @endforeach
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label
+                                            class="col-sm-4 form-control-label">{{ __('system.name') }}:&nbsp;({{ $value['native'] }})<span
+                                                class="tx-danger">&nbsp*</span></label>
+                                        <input class="form-control" type="text" name="product_name[{{ $key }}]"
+                                            value="{{ old('product_name') }}"/ placeholder="{{ $value['native'] }}">
+                                    </div>
+                                </div><!-- col-4 -->
+                            @endforeach
 
+                        </div><!-- row -->
 
+                        <div class="row mg-t-20">
+                            @foreach (LaravelLocalization::getSupportedLocales() as $key => $value)
+                                <div class="col-lg">
+                                    <label
+                                        class="col-sm-5 form-control-label">{{ __('system.description') }}:&nbsp;({{ $value['native'] }})<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <textarea rows="3" class="form-control" placeholder="{{ $value['native'] }}" name="product_decription[{{ $key }}]"></textarea>
+                                </div><!-- col -->
+                            @endforeach
 
-
-
-                        </div><!-- col-3 -->
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label class="form-control-label">VAT number: <span class="tx-danger">*</span></label>
-                                <div class="d-md-flex pd-y-20 pd-md-y-0">
-
-                                    <input class="form-control" type="text" id="company_vat_number"
-                                        name="seller_company_vat_number" placeholder="Enter VAT number" required
-                                        value="{{ old('seller_company_vat_number') }}">
+                        </div><!-- row -->
+                        <div class="row mg-t-20">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.ean') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <input class="form-control" type="text" name="product_code"
+                                        value="{{ old('product_code') }}"/ placeholder="EAN code">
                                 </div>
                             </div>
-                        </div><!-- col-3 -->
+                            <?php
+                            use App\Models\Admins\Brand;
+                            $brands = Brand::all();
+                            ?>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.brand') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <select class="form-control select2" data-placeholder="Choose one" name="product_brand">
+                                        <option value="">No brand</option>
+                                        @foreach ($brands as $brand)
+                                            <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+                                        @endforeach
 
-                    </div><!-- row -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.images') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <input class="form-control" type="file" name="product_images" id="images" multiple>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                           <div class="images-preview-div"> </div>
+                        </div>
+                    </div>
+
+                    <div class="form-layout-footer">
+                        <button class="btn btn-info mg-r-5">{{ __('system.submit') }}</button>
+                        <button class="btn btn-secondary">{{ __('system.cancel') }}</button>
+                    </div><!-- form-layout-footer -->
                 </div><!-- form-layout -->
             </div><!-- card -->
-
-            <div class="card pd-20 pd-sm-40 mg-t-50">
-                <h6 class="card-body-title">Company Legal information</h6>
-                <p class="mg-b-20 mg-sm-b-30">A form with a label on top of each form control.</p>
-
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group mg-b-10-force">
-
-                            <label class="form-control-label">Country: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="seller_company_legal_country"
-                                id="seller_company_legal_country" disabled value="No country selected">
-                        </div>
-                    </div><!-- col-3-->
-                    <div class="col-lg-2">
-
-                    </div>
-                    <div class="col-lg-2">
-                        <label class="form-control-label">Company Admin name: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="seller_admin_name"
-                            placeholder="Enter admin name" required value="{{ old('seller_admin_name') }}">
-                    </div>
-                    <div class="col-lg-2">
-                        <label class="form-control-label">Company Admin surname: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="text" name="seller_admin_surname"
-                            placeholder="Enter admin surname" required value="{{ old('seller_admin_surname') }}">
-                    </div>
-                    <div class="col-lg-2">
-                        <label class="form-control-label">Company Admin email: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="email" name="seller_admin_email"
-                            placeholder="Enter admin email" required value="{{ old('seller_admin_email') }}">
-                    </div>
-                </div><!-- col-3 -->
-            </div><!-- row -->
-
-            <div class="row">
-                <div class="col-lg-2">
-                    <label class="form-control-label">Company Legal City: <span class="tx-danger">*</span></label>
-
-
-                    <select class="form-control select2" data-placeholder="Choose city" name="seller_company_legal_city"
-                        id="seller_company_legal_city" required>
-                        <option label="No country selected"></option>
-                    </select>
-
-                </div><!-- col-3 -->
-                <div class="col-lg-2">
-                    <label class="form-control-label">Company Legal street: <span class="tx-danger">*</span></label>
-                    <select class="form-control select2" data-placeholder="Choose city"
-                        name="seller_company_legal_street" id="seller_company_legal_street" required>
-                        <option label="No city selected"></option>
-                    </select>
-                </div><!-- col-3 -->
-                <div class="col-lg-2">
-                    <label class="form-control-label">Company Legal house: <span class="tx-danger">*</span></label>
-                    <input class="form-control" type="text" name="seller_company_legal_house"
-                        placeholder="Enter house" required value="{{ old('seller_company_legal_house') }}">
-                </div><!-- col-3 -->
-                <div class="col-lg-2">
-                    <label class="form-control-label">Company Legal room: <span class="tx-danger">*</span></label>
-                    <input class="form-control" type="text" name="seller_company_legal_room" placeholder="Enter room"
-                        required value="{{ old('seller_company_legal_room') }}">
-                </div><!-- col-3 -->
-                <div class="col-lg-3">
-                    <label class="form-control-label">Company legal post code: <span class="tx-danger">*</span></label>
-                    <div class="d-md-flex pd-y-20 pd-md-y-0">
-                        <input class="col-lg-2" type="text" id="seller_company_legal_postcode_prefix"
-                            name="seller_legal_postcode_prefix" disabled>
-                        <select class="form-control select2" data-placeholder="Choose index"
-                            name="seller_company_legal_postcode" id="seller_company_legal_postcode" required>
-                            <option label="No street selected"></option>
-                        </select>
-                    </div>
-                </div><!-- col-3 -->
-            </div><!-- row -->
-
-
-
+    </div><!-- card -->
     </div><!-- card -->
 
-    <div class="card pd-20 pd-sm-40 mg-t-50">
-        <h6 class="card-body-title">Company location information</h6>
-
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="form-group mg-b-10-force">
-
-                    <label class="form-control-label">Country: <span class="tx-danger">*</span></label>
-                    <select class="form-control select2" data-placeholder="Choose country"
-                        name="seller_company_phys_country" required>
-                        <option label="Choose country"></option>
-                        @foreach (Config::get('countries.name') as $key => $value)
-                            <option value="{{ $key }}" data-array="{{ $value['country_code'] }}">
-                                {{ $value['country_name'] }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div><!-- col-3-->
-            <div class="col-lg-2">
-
-            </div>
-
-        </div><!-- col-3 -->
-    </div><!-- row -->
-
-    <div class="row">
-        <div class="col-lg-2">
-            <label class="form-control-label">Company Location City: <span class="tx-danger">*</span></label>
-
-
-            <select class="form-control select2" data-placeholder="Choose city" name="seller_company_phys_city"
-                id="seller_company_phys_city" required>
-                <option label="No country selected"></option>
-            </select>
-
-        </div><!-- col-3 -->
-        <div class="col-lg-2">
-            <label class="form-control-label">Company Location street: <span class="tx-danger">*</span></label>
-            <select class="form-control select2" data-placeholder="Choose city" name="seller_company_phys_street"
-                id="seller_company_phys_street" required>
-                <option label="No city selected"></option>
-            </select>
-        </div><!-- col-3 -->
-        <div class="col-lg-2">
-            <label class="form-control-label">Company Location house: <span class="tx-danger">*</span></label>
-            <input class="form-control" type="text" name="seller_company_phys_house" placeholder="Enter house"
-                required value="{{ old('seller_company_phys_house') }}">
-        </div><!-- col-3 -->
-        <div class="col-lg-2">
-            <label class="form-control-label">Company Location room: <span class="tx-danger">*</span></label>
-            <input class="form-control" type="text" name="seller_company_phys_room" placeholder="Enter room" required
-                value="{{ old('seller_company_phys_room') }}">
-        </div><!-- col-3 -->
-        <div class="col-lg-3">
-            <label class="form-control-label">Company Location postcode: <span class="tx-danger">*</span></label>
-            <div class="d-md-flex pd-y-20 pd-md-y-0">
-                <input class="col-lg-2" type="text" id="seller_company_phys_postcode_prefix"
-                    name="seller_company_phys_postcode_prefix" disabled>
-                <select class="form-control select2" data-placeholder="Choose index" name="seller_company_phys_postcode"
-                    id="seller_company_phys_postcode" required>
-                    <option label="No street selected"></option>
-                </select>
-            </div>
-        </div><!-- col-3 -->
-    </div><!-- row -->
 
 
 
-    </div><!-- card -->
-
-    <div class="card pd-20 pd-sm-40 mg-t-20">
-        <h6 class="card-body-title">Form Alignment</h6>
-        <p class="mg-b-20 mg-sm-b-30">An inline form that is centered align and right aligned.</p>
-
-        <div class="d-flex align-items-center justify-content-center bg-gray-100 ht-md-80 bd pd-x-20">
-            <div class="d-md-flex pd-y-20 pd-md-y-0">
-                <button class="btn btn-info mg-r-5">Submit Form</button>
-                <button class="btn btn-secondary">Cancel</button>
-            </div>
-        </div><!-- d-flex -->
-        </form>
-
-
-
-    </div><!-- sl-pagebody -->
-
-    </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
 
 @endsection

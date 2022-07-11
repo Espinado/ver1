@@ -28,4 +28,8 @@ class ProductController extends Controller
         return view('admin.products.add_product');
 
     }
+    public function productStore(Request $request ) {
+        dd($request->all());
+
+    }
 }

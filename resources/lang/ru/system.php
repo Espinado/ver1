@@ -33,6 +33,9 @@ return [
     'add_category'                   => 'Добавить категорию',
     'enter_item_name'                => 'Введите название',
     'password'                       => 'Пароль',
-    'edit'                           =>  'Изменить'
+    'edit'                           =>  'Изменить',
+    'description'                     => 'Описание',
+    'submit'                          => 'Подтвердить',
+    'cancel'                          => 'Отмена'
 
 ];
