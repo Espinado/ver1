@@ -33,6 +33,9 @@ return [
     'add_category'                   => 'Pievienot kategoriju',
     'enter_item_name'                => 'Ievadiet nosaukumu',
     'password'                       =>  'Parole',
-    'edit'                           =>  'Labot'
+    'edit'                           =>  'Labot',
+    'description'                     => 'Apraksts',
+    'submit'                          => 'Apstiprināt',
+    'cancel'                          => 'Atcelt'
 
 ];

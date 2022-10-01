@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 
-class Admin extends Authenticatable
+class Admin extends  Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 

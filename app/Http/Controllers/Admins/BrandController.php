@@ -6,18 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Image;
 use App\Models\Admins\Brand;
+use App\Interfaces\BrandRepositoryInterface;
 
 class BrandController extends Controller
 {
-    public function __construct()
-    {
 
+    private BrandRepositoryInterface $BrandRepository;
+    public function __construct(BrandRepositoryInterface $BrandRepository)
+    {
+        $this->BrandRepository = $BrandRepository;
         $this->middleware('admin');
     }
 
     public function index()
     {
-        $brands=Brand::all();
+        $brands = $this->BrandRepository->getAllBrands();
         return view('admin.brands.index', compact ('brands'));
     }
 
