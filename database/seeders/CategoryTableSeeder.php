@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Admins\Admin;
+use App\Models\Admins\Category;
 
-class AdminSeeder extends Seeder
+class CategoryTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,7 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-      Admin::factory(1)->create();
+        Category::factory()->count(10)->hasChildren(10)->hasChildren(10)
+            ->create();
     }
 }

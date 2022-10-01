@@ -23,7 +23,7 @@ return [
     'authorized'                     => 'Authorised',
     'admin_list'                     => 'Admin list',
     'add_new'                        => 'Add new',
-    'name'                           =>  'New',
+    'name'                           =>  'Name',
     'email'                          => 'Email',
     'active'                         => 'Active',
     'created_at'                     =>  'Created',
@@ -33,6 +33,9 @@ return [
     'add_category'                   => 'Add category',
     'enter_item_name'                => 'Enter name',
     'password'                       =>  'Password',
-    'edit'                           => 'Edit'
+    'edit'                           => 'Edit',
+    'description'                     => 'Description',
+    'submit'                          => 'Submit',
+    'cancel'                          => 'Cancel'
 
 ];

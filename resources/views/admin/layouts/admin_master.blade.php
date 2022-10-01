@@ -29,7 +29,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <title> @yield('page_title')</title>
 
     <!-- vendor css -->
 
@@ -116,53 +116,52 @@
     <script src="{{ asset('panel/lib/Flot/jquery.flot.resize.js') }}"></script>
     <script src="{{ asset('panel/lib/flot-spline/jquery.flot.spline.js') }}"></script>
     <script src="{{ asset('panel/lib/jquery.sparkline.bower/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ asset('panel/js/custom.js') }}"></script>
     <script>
-        $(function() {
-            'use strict';
 
-            $('#datatable1').DataTable({
-                responsive: true,
-                language: {
-                    searchPlaceholder: '{{ __('system.search') }}',
-                    sSearch: '',
-                    lengthMenu: '_MENU_ items/page',
-                }
-            });
+      $(function () {
+    'use strict';
 
-            $('#datatable2').DataTable({
-                bLengthChange: false,
-                searching: false,
-                responsive: true
-            });
+    $('#datatable1').DataTable({
+        responsive: true,
+        language: {
+            searchPlaceholder: '{{ __('system.search') }}',
+            sSearch: '',
+            lengthMenu: '_MENU_ items/page',
+        }
+    });
 
-            // Select2
-            $('.dataTables_length select').select2({
-                minimumResultsForSearch: Infinity
-            });
+    $('#datatable2').DataTable({
+        bLengthChange: false,
+        searching: false,
+        responsive: true
+    });
 
-        });
+    // Select2
+    $('.dataTables_length select').select2({
+        minimumResultsForSearch: Infinity
+    });
 
-        $(".passingID").click(function() {
-            $('#select_list').show();
-            $('#select').empty();
-            var parent_id = $(this).attr('data-parent_id');
-            var parent_name = $(this).attr('data-parent_name');
-            console.log(parent_id)
-            console.log(parent_name)
-            if (parent_id) {
-                $("#select").append("<p>Undercategory for category: </p>"+parent_name+"");
-                $('#select_list').hide();
-                //  $("#parent_id").val(category_id);
-                 $("[name='parent_id']").val(parent_id);
+});
 
-            }
+$(".passingID").click(function () {
+    $('#select_list').show();
+    $('#select').empty();
+    var parent_id = $(this).attr('data-parent_id');
+    var parent_name = $(this).attr('data-parent_name');
+    console.log(parent_id)
+    console.log(parent_name)
+    if (parent_id) {
+        $("#select").append("<p>Undercategory for category: </p>" + parent_name + "");
+        $('#select_list').hide();
+        //  $("#parent_id").val(category_id);
+        $("[name='parent_id']").val(parent_id);
+
+    }
 
 
-        });
-        //    // Select2 by showing the search
-        //     $('.select2-show-search').select2({
-        //       minimumResultsForSearch: ''
-        //     });
+});
+
     </script>
 </body>
 
