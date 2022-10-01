@@ -12,16 +12,20 @@ use Illuminate\Support\Carbon;
 use LaravelLocalization;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-
+use App\Interfaces\AdminRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 
 class AdminController extends Controller
 {
+    private AdminRepositoryInterface $AdminRepository;
 
-    public function __construct()
+    public function __construct(AdminRepositoryInterface $AdminRepository)
     {
-
+        $this->AdminRepository = $AdminRepository;
         $this->middleware('admin', ['except' => ['Index', 'Login']]);
     }
+
+
     public function Index()
     {
         return view('admin.auth.login');
@@ -72,9 +76,7 @@ class AdminController extends Controller
 
     public function adminList()
     {
-        $adminList = Admin::all();
+        $adminList = $this->AdminRepository->getAllAdmins();
         return view('admin.admins.index', compact('adminList'));
     }
-
-
 }

@@ -1,37 +1,37 @@
 @extends('admin.layouts.admin_master')
 @section('dashboard')
-<style>
-    .images-preview-div img
-    {
-          padding: 10px;
-          max-width: 100px;
-    }
-  </style>
-   <script src="{{ asset('panel/lib/jquery/jquery.js') }}"></script>
+    <style>
+        .images-preview-div img {
+            padding: 10px;
+            max-width: 100px;
+        }
+    </style>
+    <script src="{{ asset('panel/lib/jquery/jquery.js') }}"></script>
 
     <script src="{{ asset('panel/lib/bootstrap/bootstrap.js') }}"></script>
     <script src="{{ asset('panel/lib/popper.js/popper.js') }}"></script>
     <script src="{{ asset('panel/lib/jquery-ui/jquery-ui.js') }}"></script>
-  <script >
-$(function() {
-// Multiple images preview with JavaScript
-var previewImages = function(input, imgPreviewPlaceholder) {
-if (input.files) {
-var filesAmount = input.files.length;
-for (i = 0; i < filesAmount; i++) {
-var reader = new FileReader();
-reader.onload = function(event) {
-$($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-}
-reader.readAsDataURL(input.files[i]);
-}
-}
-};
-$('#images').on('change', function() {
-previewImages(this, 'div.images-preview-div');
-});
-});
-</script>
+    <script>
+        $(function() {
+            // Multiple images preview with JavaScript
+            var previewImages = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(
+                                imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
+            $('#images').on('change', function() {
+                previewImages(this, 'div.images-preview-div');
+            });
+        });
+    </script>
 
     <!-- ########## START: LEFT PANEL ########## -->
     <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i> starlight</a>
@@ -138,7 +138,8 @@ previewImages(this, 'div.images-preview-div');
                                     <label
                                         class="col-sm-5 form-control-label">{{ __('system.description') }}:&nbsp;({{ $value['native'] }})<span
                                             class="tx-danger">&nbsp*</span></label>
-                                    <textarea rows="3" class="form-control" placeholder="{{ $value['native'] }}" name="product_decription[{{ $key }}]"></textarea>
+                                    <textarea rows="3" class="form-control" placeholder="{{ $value['native'] }}"
+                                        name="product_decription[{{ $key }}]"></textarea>
                                 </div><!-- col -->
                             @endforeach
 
@@ -169,17 +170,53 @@ previewImages(this, 'div.images-preview-div');
                                     </select>
                                 </div>
                             </div>
+                            <?php
+                            use App\Models\Admins\Category;
+                            $categories = Category::all();
+                            ?>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.category') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <select class="form-control select2" data-placeholder="Choose one"
+                                        name="product_category">
+                                        <option value="">No Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.price') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <input class="form-control" type="number" name="product_price"
+                                        value="{{ old('product_price') }}" required min="0.00" max="10000.00"
+                                        step="0.01" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.quantity') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <input class="form-control" type="number" step="0.01" name="product_quantity"
+                                        value="{{ old('product_quantity') }}"/ placeholder="Quantity" required>
+                                </div>
+                            </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label class="col-sm-4 form-control-label">{{ __('system.images') }}:<span
                                             class="tx-danger">&nbsp*</span></label>
-                                    <input class="form-control" type="file" name="product_images" id="images" multiple>
+                                    <input class="form-control" type="file" name="product_images[]" id="images"
+                                        multiple>
 
                                 </div>
                             </div>
                         </div>
                         <div class="row mg-t-20">
-                           <div class="images-preview-div"> </div>
+                            <div class="images-preview-div"> </div>
                         </div>
                     </div>
 

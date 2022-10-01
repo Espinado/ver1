@@ -1,5 +1,8 @@
 
 @extends('admin.layouts.admin_master')
+@section('page_title')
+   Unitas Dashboard
+@endsection
 @section('dashboard')
 
 <nav class="breadcrumb sl-breadcrumb">
@@ -12,7 +15,7 @@
 
 
                 <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> starlight</a></div>
+    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> Unitas</a></div>
     <div class="sl-sideleft">
 
       <label class="sidebar-label">Navigation</label>
