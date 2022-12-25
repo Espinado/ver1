@@ -1,48 +1,66 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('customers.layouts.app')
+@section('content')
+@section('page_title')
+    Login
+@endsection
+@section('content')
+    <div class="breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-inner">
+                <ul class="list-inline list-unstyled">
+                    <li><a href="{{route('index')}}">Home</a></li>
+                    <li class='active'>Reset password</li>
+                </ul>
+            </div><!-- /.breadcrumb-inner -->
+        </div><!-- /.container -->
+    </div><!-- /.breadcrumb -->
+    <div class="body-content">
+        <div class="container">
+            <div class="sign-in-page">
+                <div class="row">
+                    <!-- Sign-in -->
+                    <div class="col-md-6 col-sm-6 sign-in">
+                        <h4 class="">Reset password</h4>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+                        <form class="register-form outer-top-xs" role="form" method="POST"
+                            action="{{ route('password.update') }}">
+                            @csrf
+                            <input type="hidden" name="token" value="{{$request->route('token')}}">
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
+                                <input type="email" class="form-control unicase-form-control text-input"
+                                    id="email" name="email" value="{{old('email')}}" >
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">New password <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input"
+                                    id="password" name="password" >
+                            </div>
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Confirm new password <span>*</span></label>
+                                <input type="password" class="form-control unicase-form-control text-input"
+                                    id="password_confirmation" name="password_confirmation"">
+                            </div>
 
-            <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Update password</button>
+                        </form>
+                    </div>
+                    <!-- Sign-in -->
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                </div><!-- /.row -->
+            </div><!-- /.sigin-in-->
+            <!-- ============================================== BRANDS CAROUSEL ============================================== -->
+            @include('customers.sections.brands')
 
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-            </div>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
-            </div>
+        </div><!-- /.logo-slider -->
+        <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
+    </div><!-- /.container -->
+    </div><!-- /.body-content -->
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+
+@endsection

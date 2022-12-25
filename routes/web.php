@@ -11,6 +11,7 @@ use App\Http\Controllers\Admins\AdminProfileController;
 use App\Http\Controllers\SellerController as Seller;
 
 use App\Http\Controllers\Customers\IndexController;
+use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
 
 
@@ -101,6 +102,11 @@ Route::group(
     ],
     function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
+        Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
+        Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
+        Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';
     }
