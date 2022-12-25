@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Image;
 use App\Models\Admins\Brand;
 use App\Interfaces\BrandRepositoryInterface;
+use App\Http\Requests\StoreBrandRequest;
 
 class BrandController extends Controller
 {
@@ -24,7 +25,14 @@ class BrandController extends Controller
         return view('admin.brands.index', compact ('brands'));
     }
 
-    public function store(Request $request) {
+    public function store(StoreBrandRequest $request) {
+        $validated = $request->validated();
+        if ($validated->fails()) {
+           dd($validated->errors());
+        } else{
+        dd($request->all());
+        $validator = $request->validated();
+        dd($validator);
 
         $originalImage= $request->file('brand_logo');
         $brand_logo = Image::make($originalImage);
@@ -36,6 +44,7 @@ class BrandController extends Controller
         $brand->brand_name = $request->brand_name;
         $brand->save();
         return back()->with('success', 'Recorded');
+        }
 
     }
 }

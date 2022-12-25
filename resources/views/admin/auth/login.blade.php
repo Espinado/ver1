@@ -29,7 +29,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <title>Unitas</title>
 
     <!-- vendor css -->
     <link href="{{asset('panel/lib/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -37,7 +37,11 @@
 
 
     <!-- Starlight CSS -->
-    <link rel="stylesheet" href="{{asset('panel/css/starlight.css')}}">
+      <link rel="stylesheet" href="{{asset('backend/css/vendors_css.css')}}">
+
+      <!-- Style-->
+      <link rel="stylesheet" href="{{asset('backend/css/style.css')}}">
+      <link rel="stylesheet" href="{{asset('backend/css/skin_color.css')}}">
   </head>
 
   <body id="page-top">
@@ -49,8 +53,8 @@
         </div>
 
       <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
-        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">starlight <span class="tx-info tx-normal">admin</span></div>
-        <div class="tx-center mg-b-60">Professional Admin Template Design</div>
+        <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">Unitas <span class="tx-info tx-normal">admin</span></div>
+        <div class="tx-center mg-b-60">Admin dashboard</div>
         @if(Session::has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align:center; text-transform: uppercase;">
             <strong>{{session::get('error')}}</strong>
