@@ -40,11 +40,12 @@ class AdminController extends Controller
     {
 
         $check = $request->all();
+        $notification = array('message' => 'Loged in', 'alert-type' => 'success');
         if (Auth::guard('admin')->attempt([
             'email'    => $check['email'],
             'password' => $check['password']
         ])) {
-            return redirect()->route('admin.dashboard')->with('success', 'Logged in');
+            return redirect()->route('admin.dashboard')->with($notification);
         } else {
             return back()->with('error', 'Login failed');
         }
@@ -79,4 +80,6 @@ class AdminController extends Controller
         $adminList = $this->AdminRepository->getAllAdmins();
         return view('admin.admins.index', compact('adminList'));
     }
+
+
 }

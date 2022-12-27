@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Image;
 use App\Models\Admins\Brand;
 use App\Interfaces\BrandRepositoryInterface;
+use App\Http\Requests\StoreBrandRequest;
 
 class BrandController extends Controller
 {
@@ -21,21 +22,61 @@ class BrandController extends Controller
     public function index()
     {
         $brands = $this->BrandRepository->getAllBrands();
-        return view('admin.brands.index', compact ('brands'));
+        return view('admin.brands.index', compact('brands'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
-        $originalImage= $request->file('brand_logo');
-        $brand_logo = Image::make($originalImage);
-        $path = public_path() . '/brands/';
-        $brand_logo->resize(150, 150);
-        $brand_logo->save($path . time() . $originalImage->getClientOriginalName());
-        $brand= new Brand();
-        $brand->brand_logo = time() . $originalImage->getClientOriginalName();
+        $request->validate([
+            'brand_name' => 'required|min:4',
+            'brand_logo' => 'required',
+
+        ], [
+            'brand_name.required' => 'Invalid input'
+        ]);
+        $image = $request->file('brand_logo');
+        $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+        Image::make($image)->resize(300, 300)->save('brands/' . $name_gen);
+        $save_url = 'brands/' . $name_gen;
+        $brand = new Brand();
+        $brand->brand_logo = $save_url;
         $brand->brand_name = $request->brand_name;
         $brand->save();
-        return back()->with('success', 'Recorded');
+        $notification = array('message' => 'Brand recorded', 'alert-type' => 'success');
+        return back()->with($notification);
+    }
+    public function edit($id)
+    {
+        $brand = Brand::findOrFail($id);
+        return view('admin.brands.edit', compact('brand'));
+    }
+    public function delete($id)
+    {
+    }
+    public function update(Request $request, $id)
+    {
+        $brand_id = $request->id;
+        $old_img = $request->old_image;
+        if ($request->file('brand_logo')) {
+            $image = $request->file('brand_logo');
+            unlink($old_img);
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(300, 300)->save('brands/' . $name_gen);
+            $save_url = 'brands/' . $name_gen;
+            Brand::findOrFail($brand_id)->update([
+                'brand_logo' => $save_url,
+                'brand_name' => $request->brand_name
+            ]);
+            $notification = array('message' => 'Brand updated', 'alert-type' => 'info');
+            return redirect()->route('admin.brands')->with($notification);
+        } else {
+            Brand::findOrFail($brand_id)->update([
+                'brand_name' => $request->brand_name
+            ]);
+            $notification = array('message' => 'Brand updated', 'alert-type' => 'info');
+            return redirect()->route('admin.brands')->with($notification);
 
+        }
     }
 }

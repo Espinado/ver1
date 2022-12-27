@@ -6,8 +6,14 @@ use App\Http\Controllers\Admins\SellerController;
 use App\Http\Controllers\Admins\CategoryController;
 use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\Admins\BrandController;
+use App\Http\Controllers\Admins\AdminProfileController;
+
 use App\Http\Controllers\SellerController as Seller;
+
 use App\Http\Controllers\Customers\IndexController;
+use App\Http\Controllers\Customers\ProfileController;
+use App\Http\Controllers\Customers\CartController;
+
 
 use Illuminate\Http\Request;
 
@@ -38,6 +44,11 @@ Route::group(
         Route::post('/register/create', [AdminController::class, 'AdminRegisterCreate'])->name('admin.register.create');
         Route::get('/', [AdminController::class, 'Dashboard'])->name('admin.dashboard')->middleware('admin');
         Route::get('/admins', [AdminController::class, 'adminList'])->name('admin.admins')->middleware('admin');
+        Route::get('admin/profile', [AdminProfileController::class, 'showProfile'])->name('admin.profile')->middleware('admin');
+        Route::get('admin/profile/edit', [AdminProfileController::class, 'editProfile'])->name('admin.profile.edit')->middleware('admin');
+        Route::post('admin/profile/update', [AdminProfileController::class, 'updateProfile'])->name('admin.profile.update')->middleware('admin');
+        Route::get('admin/password/change', [AdminProfileController::class, 'changePassword'])->name('admin.change.password')->middleware('admin');
+        Route::post('admin/password/update', [AdminProfileController::class, 'updatePassword'])->name('admin.update.password')->middleware('admin');
 
         Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories')->middleware('admin');
         Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store')->middleware('admin');
@@ -46,6 +57,9 @@ Route::group(
 
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands')->middleware('admin');
         Route::post('/brand/register', [BrandController::class, 'store'])->name('admin.brand.store')->middleware('admin');
+        Route::post('/brand/update/{id}', [BrandController::class, 'update'])->name('admin.brand.update')->middleware('admin');
+        Route::get('/brand/edit/{id}', [BrandController::class, 'edit'])->name('admin.brand.edit')->middleware('admin');
+        Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('admin.brand.delete')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
         Route::get('/product/view/{id}',[ProductController::class, 'productView'])->name('product.view')->middleware('admin');
@@ -91,6 +105,12 @@ Route::group(
     ],
     function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
+        Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
+        Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
+        Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
+        Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';
     }
 );

@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+
 class Product extends Model
 {
     use HasFactory, HasSlug;
+    protected $casts = [
+        'product_name'     => 'array',
+        'product_details'  => 'array',
+    ];
 
     protected $fillable = [
         'category_id',
@@ -24,7 +29,8 @@ class Product extends Model
         'selling_price',
         'discount_price',
         'images',
-        'status'
+        'status',
+        'trumbnail'
     ];
 
     public function category()
@@ -48,4 +54,6 @@ class Product extends Model
     {
         return 'slug';
     }
+
+
 }

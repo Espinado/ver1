@@ -1,75 +1,121 @@
-   <footer class="footer spad">
-       <div class="container">
-           <div class="row">
-               <div class="col-lg-3 col-md-6 col-sm-6">
-                   <div class="footer__about">
-                       <div class="footer__about__logo">
-                           <a href="./index.html"><img src="{{ asset('customers/img/logo.png') }}" alt=""></a>
-                       </div>
-                       <ul>
-                           <li>Address: 60-49 Road 11378 New York</li>
-                           <li>Phone: +65 11.188.888</li>
-                           <li>Email: hello@colorlib.com</li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                   <div class="footer__widget">
-                       <h6>Useful Links</h6>
-                       <ul>
-                           <li><a href="#">About Us</a></li>
-                           <li><a href="#">About Our Shop</a></li>
-                           <li><a href="#">Secure Shopping</a></li>
-                           <li><a href="#">Delivery infomation</a></li>
-                           <li><a href="#">Privacy Policy</a></li>
-                           <li><a href="#">Our Sitemap</a></li>
-                       </ul>
-                       <ul>
-                           <li><a href="#">Who We Are</a></li>
-                           <li><a href="#">Our Services</a></li>
-                           <li><a href="#">Projects</a></li>
-                           <li><a href="#">Contact</a></li>
-                           <li><a href="#">Innovation</a></li>
-                           <li><a href="#">Testimonials</a></li>
-                       </ul>
-                   </div>
-               </div>
-               <div class="col-lg-4 col-md-12">
-                   <div class="footer__widget">
-                       <h6>Join Our Newsletter Now</h6>
-                       <p>Get E-mail updates about our latest shop and special offers.</p>
-                       <form action="#">
-                           <input type="text" placeholder="Enter your mail">
-                           <button type="submit" class="site-btn">Subscribe</button>
-                       </form>
-                       <div class="footer__widget__social">
-                           <a href="#"><i class="fa fa-facebook"></i></a>
-                           <a href="#"><i class="fa fa-instagram"></i></a>
-                           <a href="#"><i class="fa fa-twitter"></i></a>
-                           <a href="#"><i class="fa fa-pinterest"></i></a>
-                       </div>
-                   </div>
-               </div>
-           </div>
-           <div class="row">
-               <div class="col-lg-12">
-                   <div class="footer__copyright">
-                       <div class="footer__copyright__text">
-                           <p>
-                               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                               Copyright &copy;
-                               <script>
-                                   document.write(new Date().getFullYear());
-                               </script> All rights reserved | This template is made with <i
-                                   class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                   target="_blank">Arguss</a>
-                               <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                           </p>
-                       </div>
-                       <div class="footer__copyright__payment"><img src="{{ asset('customers/img/payment-item.png') }}"
-                               alt=""></div>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </footer>
+<footer id="footer" class="footer color-bg">
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="module-heading">
+                        <h4 class="module-title">Contact Us</h4>
+                    </div>
+                    <!-- /.module-heading -->
+
+                    <div class="module-body">
+                        <ul class="toggle-footer" style="">
+                            <li class="media">
+                                <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i> </span> </div>
+                                <div class="media-body">
+                                    <p>ThemesGround, 789 Main rd, Anytown, CA 12345 USA</p>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i class="fa fa-mobile fa-stack-1x fa-inverse"></i> </span> </div>
+                                <div class="media-body">
+                                    <p>+(888) 123-4567<br>
+                                        +(888) 456-7890</p>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i class="fa fa-envelope fa-stack-1x fa-inverse"></i> </span> </div>
+                                <div class="media-body"> <span><a href="#">flipmart@themesground.com</a></span> </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.module-body -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="module-heading">
+                        <h4 class="module-title">Customer Service</h4>
+                    </div>
+                    <!-- /.module-heading -->
+
+                    <div class="module-body">
+                        <ul class='list-unstyled'>
+                            <li class="first"><a href="#" title="Contact us">My Account</a></li>
+                            <li><a href="#" title="About us">Order History</a></li>
+                            <li><a href="#" title="faq">FAQ</a></li>
+                            <li><a href="#" title="Popular Searches">Specials</a></li>
+                            <li class="last"><a href="#" title="Where is my order?">Help Center</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.module-body -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="module-heading">
+                        <h4 class="module-title">Corporation</h4>
+                    </div>
+                    <!-- /.module-heading -->
+
+                    <div class="module-body">
+                        <ul class='list-unstyled'>
+                            <li class="first"><a title="Your Account" href="#">About us</a></li>
+                            <li><a title="Information" href="#">Customer Service</a></li>
+                            <li><a title="Addresses" href="#">Company</a></li>
+                            <li><a title="Addresses" href="#">Investor Relations</a></li>
+                            <li class="last"><a title="Orders History" href="#">Advanced Search</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.module-body -->
+                </div>
+                <!-- /.col -->
+
+                <div class="col-xs-12 col-sm-6 col-md-3">
+                    <div class="module-heading">
+                        <h4 class="module-title">Why Choose Us</h4>
+                    </div>
+                    <!-- /.module-heading -->
+
+                    <div class="module-body">
+                        <ul class='list-unstyled'>
+                            <li class="first"><a href="#" title="About us">Shopping Guide</a></li>
+                            <li><a href="#" title="Blog">Blog</a></li>
+                            <li><a href="#" title="Company">Company</a></li>
+                            <li><a href="#" title="Investor Relations">Investor Relations</a></li>
+                            <li class=" last"><a href="contact-us.html" title="Suppliers">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.module-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <div class="container">
+            <div class="col-xs-12 col-sm-6 no-padding social">
+                <ul class="link">
+                    <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#" title="Facebook"></a></li>
+                    <li class="tw pull-left"><a target="_blank" rel="nofollow" href="#" title="Twitter"></a></li>
+                    <li class="googleplus pull-left"><a target="_blank" rel="nofollow" href="#" title="GooglePlus"></a></li>
+                    <li class="rss pull-left"><a target="_blank" rel="nofollow" href="#" title="RSS"></a></li>
+                    <li class="pintrest pull-left"><a target="_blank" rel="nofollow" href="#" title="PInterest"></a></li>
+                    <li class="linkedin pull-left"><a target="_blank" rel="nofollow" href="#" title="Linkedin"></a></li>
+                    <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#" title="Youtube"></a></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-6 no-padding">
+                <div class="clearfix payment-methods">
+                    <ul>
+                        <li><img src="{{asset('customers/assets/images/payments/1.png')}}" alt=""></li>
+                        <li><img src="{{asset('customers/assets/images/payments/2.png')}}" alt=""></li>
+                        <li><img src="{{asset('customers/assets/images/payments/3.png')}}" alt=""></li>
+                        <li><img src="{{asset('customers/assets/images/payments/4.png')}}" alt=""></li>
+                        <li><img src="{{asset('customers/assets/images/payments/5.png')}}" alt=""></li>
+                    </ul>
+                </div>
+                <!-- /.payment-methods -->
+            </div>
+        </div>
+    </div>
+</footer>

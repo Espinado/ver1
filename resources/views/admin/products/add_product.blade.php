@@ -27,7 +27,23 @@
                     }
                 }
             };
+             var previewTrumbnail = function(input, imgPreviewPlaceholder) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function(event) {
+                            $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(
+                                imgPreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
             $('#images').on('change', function() {
+                previewImages(this, 'div.images-preview-div');
+            });
+            $('#trumbnail').on('change', function() {
                 previewImages(this, 'div.images-preview-div');
             });
         });
@@ -207,6 +223,14 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
+                                    <label class="col-sm-4 form-control-label">{{ __('system.trumbnail') }}:<span
+                                            class="tx-danger">&nbsp*</span></label>
+                                    <input class="form-control" type="file" name="product_trumbnail" id="trumbnail">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
                                     <label class="col-sm-4 form-control-label">{{ __('system.images') }}:<span
                                             class="tx-danger">&nbsp*</span></label>
                                     <input class="form-control" type="file" name="product_images[]" id="images"
@@ -216,8 +240,10 @@
                             </div>
                         </div>
                         <div class="row mg-t-20">
+
                             <div class="images-preview-div"> </div>
                         </div>
+
                     </div>
 
                     <div class="form-layout-footer">

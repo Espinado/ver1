@@ -83,7 +83,6 @@
                     <h6 class="card-body-title">{{ __('system.products') }}</h6>
                     <a href="{{ route('product.add') }}" class="btn btn-sm btn-warning">{{ __('system.add_product') }}</a>
 
-
                     <div class="table-wrapper">
                         <table id="datatable1" class="table display responsive nowrap">
                             <thead>
@@ -98,26 +97,26 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr>
-
                                         <td>
-                                            @foreach (json_decode($product->product_name) as $key=>$name)
-                                            {{$key}}=>{{ $name }}
+                                            @foreach (json_decode($product->product_name) as $key => $name)
+                                                {{ $key }}=>{{ $name }}
                                             @endforeach
                                         </td>
                                         <td>{{ $product->product_code }}</td>
                                         <td>
-                                            @foreach (json_decode($product->images) as $img)
-                                                <img src="/products/{{ $img }}" / width="30" height="30">
-                                                @endforeach
+                                            @if ($product->trumbnail)
+                                                <img src="/products/trumbnails/{{ $product->trumbnail }}" / width="30"
+                                                    height="30">
+                                            @else
+                                                <img src="{{ asset('no_image.jpg') }}" / width="100" height="100">
+                                            @endif
+                                        </td>
+                                        <td><a href="{{ route('product.view', $product->id) }}"
+                                                class="btn btn-danger">Details</a>
+                                        </td>
                                         </td>
 
-
-                                <td><a href="{{ route('product.view', $product->id) }}" class="btn btn-danger">Details</a>
-                                </td>
-                                </td>
-
-
-                                </tr>
+                                    </tr>
                                 @endforeach
 
                             </tbody>

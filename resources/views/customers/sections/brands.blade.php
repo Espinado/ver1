@@ -1,21 +1,38 @@
- <?php
-    use App\Models\Admins\Brand;
-    $brands = Brand::all();
-    ?>
+ <div id="brands-carousel" class="logo-slider wow fadeInUp">
+            <div class="logo-slider-inner">
+                <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
+                    <div class="item m-t-15"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand1.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
 
-    <section class="categories">
-        <div class="container">
-            <div class="row">
-                <div class="categories__slider owl-carousel">
-                    @foreach ($brands as $brand)
-                        <div class="col-lg-3">
-                            <div class="categories__item set-bg" data-setbg="{{ asset('brands/' . $brand->brand_logo) }}">
-                                <h5><a href="#">{{ $brand->brand_name }}</a></h5>
-                            </div>
-                        </div>
-                    @endforeach
+                    <div class="item m-t-10"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand2.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
 
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand3.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand4.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand5.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand6.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand2.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand4.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand1.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
+
+                    <div class="item"> <a href="#" class="image"> <img data-echo="{{asset('customers/assets/images/brands/brand5.png')}}" src="{{asset('customers/assets/images/blank.gif')}}" alt=""> </a> </div>
+                    <!--/.item-->
                 </div>
+                <!-- /.owl-carousel #logo-slider -->
             </div>
+            <!-- /.logo-slider-inner -->
+
         </div>
-    </section>
