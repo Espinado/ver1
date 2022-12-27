@@ -37,6 +37,10 @@ class Category extends Model
     {
         return $this->children()->with('childrenRecursive');
     }
+    public function parentRecursive()
+    {
+        return $this->parent()->with('parentRecursive');
+    }
 
 
     public function products()

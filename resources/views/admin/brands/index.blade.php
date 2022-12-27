@@ -1,163 +1,126 @@
 @extends('admin.layouts.admin_master')
-@section('dashboard')
-    <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i>
-            starlight</a></div>
-    <div class="sl-sideleft">
+@section('title')
+    Dashboard
+@endsection
+@section('content')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <div class="container-full">
+        <!-- Content Header (Page header) -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
 
-        <label class="sidebar-label">Navigation</label>
-        <div class="sl-sideleft-menu">
-            <a href="{{ LaravelLocalization::localizeUrl('/admin/') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-                    <span class="menu-item-label">{{ __('system.dashboard') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.admins') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.admins') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
+                <div class="col-8">
 
-            <a href="{{ route('admin.sellers.companies') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.sellers') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.categories') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.categories') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.brands') }}" class="sl-menu-link  active">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.brands') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="#" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.items') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <ul class="sl-menu-sub nav flex-column">
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Brand list</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center">Brand name</th>
+                                            <th style="text-align: center">Logo</th>
+                                            <th style="text-align: center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($brands as $brand)
+                                            <tr>
+                                                <td style="text-align: center">{{ $brand->brand_name }}</td>
+                                                <td style="text-align: center"><img src="{{ asset($brand->brand_logo) }}" style="width: 70px";
+                                                        height="40px";></td>
+                                                <td style="text-align: center">
+                                                    <a href="{{route('admin.brand.edit', $brand->id)}}" class="btn btn-info">Edit</a>
+                                                    <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
 
-                <li class="nav-item"><a href="{{ route('admin.products') }}"
-                        class="nav-link">{{ __('system.confirmed_items') }}</a></li>
-                <li class="nav-item"><a href="" class="nav-link">{{ __('system.unconfirmed_items') }}</a>
-                </li>
-
-            </ul>
-
-
-        </div><!-- sl-sideleft-menu -->
-        </a><!-- sl-menu-link -->
-
-    </div><!-- sl-sideleft-menu -->
-
-    <br>
-    </div><!-- sl-sideleft -->
-    <!-- ########## END: LEFT PANEL ########## -->
-
-    <!-- ########## START: MAIN PANEL ########## -->
-    <div class="sl-pagebody">
-        <div class="sl-mainpanel">
-            <nav class="breadcrumb sl-breadcrumb">
-                <a class="breadcrumb-item" href="{{ route('admin.dashboard') }}">Starlight</a>
-
-                <span class="breadcrumb-item active">{{ __('system.brands') }}</span>
-            </nav>
-          
-
-            <div class="sl-pagebody">
-                <div class="sl-page-title">
-                    <h5>{{ __('system.brands') }}</h5>
-
-                </div><!-- sl-page-title -->
-
-                <div class="card pd-20 pd-sm-40">
-                    <h6 class="card-body-title">{{ __('system.brands') }}</h6>
-                    <a href="#" class="btn btn-sm btn-warning" style="float: right;" data-toggle="modal"
-                        data-target="#modaldemo3">{{ __('system.add_brand') }}</a>
-
-
-                    <div class="table-wrapper">
-                        <table id="datatable1" class="table display responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="wd-15p">Brand name</th>
-                                    <th class="wd-15p">Brand logo</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($brands as $brand)
-                                <tr>
-                                    <td>{{$brand->brand_name}}</td>
-                                    <td><img src="/brands/{{$brand->brand_logo}}"  /></td>
-
-                                </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div><!-- table-wrapper -->
-                </div><!-- card -->
-
-            </div><!-- sl-pagebody -->
-
-        </div><!-- sl-mainpanel -->
-        <!-- ########## END: MAIN PANEL ########## -->
-        <div id="modaldemo3" class="modal fade">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content tx-size-sm">
-                    <div class="modal-header pd-x-20">
-                        <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">{{ __('system.add_brand') }}</h6>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
                     </div>
+                    <!-- /.box -->
 
 
-                    <div class="modal-body pd-20">
-                        <div class="col-xl-35 mg-t-35 mg-xl-t-0">
-                            <div class="card pd-30 pd-sm-50 form-layout form-layout-5">
+                    <!-- /.box -->
+                </div>
+
+                <div class="col-4">
+
+                    <div class="box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Add brand</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
                                 <form method="post" action="{{ route('admin.brand.store') }}"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    <div class="row row-xs">
-                                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span>
-                                            Name: </label>
-                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                            <input type="text" class="form-control" name="brand_name" required>
+
+                                    <div class="form-group">
+                                        <h5>Brand name <span class="text-danger">*</span></h5>
+                                        <div class="controls">
+                                            <input type="text" name="brand_name" class="form-control" id="brand_name">
+                                            @error('brand_name')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+
                                         </div>
-                                    </div><!-- row -->
-                                     <div class="row row-xs">
-                                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span>
-                                            Logo: </label>
-                                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                                            <input type="file" class="form-control" name="brand_logo" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h5>Brand logo <span class="text-danger">*</span></h5>
+                                        <div class="controls">
+                                            <input type="file" name="brand_logo" class="form-control" required=""
+                                                id="brand_logo">
                                         </div>
-                                    </div><!-- row -->
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="widget-user-image">
+                                            <img class="rounded-circle" src="{{ url('no_image.jpg') }}"
+                                                style="width:70px; height:40px;" alt="User Avatar" id="brand_logo_preview">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="text-xs-right">
+                                        <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update">
+                                    </div>
+
+                                </form>
                             </div>
-                            <!-- card -->
-
-                        </div><!-- col-6 -->
-
-                    </div><!-- modal-body -->
-
-                    <div class="modal-footer">
-                        <input type="submit" class="btn btn-success pd-x-20" value="Add"></button>
-
-                        <button type="button" class="btn btn-danger pd-x-20" data-dismiss="modal">Cancel</button>
-                        </form>
+                        </div>
+                        <!-- /.box-body -->
                     </div>
+                    <!-- /.box -->
+
+
+                    <!-- /.box -->
                 </div>
-            </div><!-- modal-dialog -->
-        </div><!-- modal -->
-    @endsection
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#brand_logo').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#brand_logo_preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0'])
+            })
+        })
+    </script>
+@endsection

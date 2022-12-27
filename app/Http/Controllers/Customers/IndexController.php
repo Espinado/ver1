@@ -13,13 +13,9 @@ class IndexController extends Controller
 {
     public function index() {
 
-
         $categories = Category::with('childrenRecursive')->get();
-        // dd($categories);
         $productIds=$categories->pluck('id')->toArray();
-        // dd($productIds);
         $products=Product::whereIn('category_id', $productIds)->get();
-        // dd($products);
-        return view('customers.index', compact ('categories', 'products'));
+              return view('customers.index', compact ('categories', 'products'));
     }
 }
