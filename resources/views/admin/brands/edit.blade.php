@@ -10,65 +10,27 @@
         <section class="content">
             <div class="row">
 
-                <div class="col-8">
+
+
+                <div class="col-12">
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Brand list</h3>
+                            <h3 class="box-title">Edit brand</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">Brand name</th>
-                                            <th style="text-align: center">Logo</th>
-                                            <th style="text-align: center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($brands as $brand)
-                                            <tr>
-                                                <td style="text-align: center">{{ $brand->brand_name }}</td>
-                                                <td style="text-align: center"><img src="{{ asset($brand->brand_logo) }}" style="width: 70px";
-                                                        height="40px";></td>
-                                                <td style="text-align: center">
-                                                    <a href="{{route('admin.brand.edit', $brand->id)}}" class="btn btn-info">Edit</a>
-                                                    <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger">Delete</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-
-
-                    <!-- /.box -->
-                </div>
-
-                <div class="col-4">
-
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Add brand</h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <form method="post" action="{{ route('admin.brand.store') }}"
+                                <form method="post" action="{{ route('admin.brand.update', $brand->id) }}"
                                     enctype="multipart/form-data">
                                     @csrf
+                                    <input type="hidden" name="id" value="{{ $brand->id }}">
+                                    <input type="hidden" name="old_image" value="{{$brand->brand_logo}}">
 
                                     <div class="form-group">
                                         <h5>Brand name <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="brand_name" class="form-control" id="brand_name">
+                                            <input type="text" name="brand_name" class="form-control" id="brand_name" value="{{$brand->brand_name}}">
                                             @error('brand_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -79,13 +41,12 @@
                                     <div class="form-group">
                                         <h5>Brand logo <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="file" name="brand_logo" class="form-control" required=""
-                                                id="brand_logo">
+                                            <input type="file" name="brand_logo" class="form-control" id="brand_logo">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="widget-user-image">
-                                            <img class="rounded-circle" src="{{ url('no_image.jpg') }}"
+                                            <img class="rounded-circle" src="{{ $brand->brand_logo ? url($brand->brand_logo):  url('no_image.jpg')}}"
                                                 style="width:70px; height:40px;" alt="User Avatar" id="brand_logo_preview">
 
                                         </div>

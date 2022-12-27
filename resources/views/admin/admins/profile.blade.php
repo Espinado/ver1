@@ -17,8 +17,7 @@
                             <h6 class="widget-user-desc">Designer</h6>
                         </div>
                         <div class="widget-user-image">
-{{--                            @dd($adminData->profile_photo_path)--}}
-                            <img class="rounded-circle" src="{{ $adminData->profile_photo_path ? url('admin_images/'.$adminData->profile_photo_path):  url('no_image.jpg')}}" alt="User Avatar">
+                           <img class="rounded-circle" src="{{ $adminData->profile_photo_path ? url('admin_images/'.$adminData->profile_photo_path):  url('no_image.jpg')}}" alt="User Avatar">
 
                         </div>
                         <div class="box-footer">

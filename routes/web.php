@@ -57,6 +57,9 @@ Route::group(
 
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands')->middleware('admin');
         Route::post('/brand/register', [BrandController::class, 'store'])->name('admin.brand.store')->middleware('admin');
+        Route::post('/brand/update/{id}', [BrandController::class, 'update'])->name('admin.brand.update')->middleware('admin');
+        Route::get('/brand/edit/{id}', [BrandController::class, 'edit'])->name('admin.brand.edit')->middleware('admin');
+        Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('admin.brand.delete')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
         Route::get('/product/view/{id}',[ProductController::class, 'productView'])->name('product.view')->middleware('admin');
