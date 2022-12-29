@@ -15,20 +15,19 @@
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Edit category</h3>
+                            <h3 class="box-title">Edit subcategory</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <form method="post" action="{{ route('admin.category.update', $category->id) }}"
-                                    enctype="multipart/form-data">
+                                <form method="post" action="{{ route('admin.subcategory.update', $subcategory->id) }}">
                                     @csrf
-                                    <input type="hidden" name="id" value="{{$category->id}}">
+                                    <input type="hidden" name="id" value="{{$subcategory->id}}">
                                     <div class="form-group">
-                                        <h5>Category name <span class="text-danger">*</span></h5>
+                                        <h5>Subcategory name <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="category_name" class="form-control" id="category_name" value="{{$category->category_name}}">
-                                            @error('category_name')
+                                            <input type="text" name="subcategory_name" class="form-control" id="subcategory_name" value="{{$subcategory->subcategory_name}}">
+                                            @error('subcategory_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
 
@@ -36,11 +35,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <h5>Category icon <span class="text-danger">*</span></h5>
+                                        <h5>Subcategory icon <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <input type="text" name="category_icon" class="form-control"
-                                                id="category_icon" value="{{$category->icon}}">
-                                                 @error('category_icon')
+                                            <input type="text" name="subcategory_icon" class="form-control"
+                                                id="subcategory_icon" value="{{$subcategory->icon}}">
+                                                 @error('subcategory_icon')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admins\AdminController;
 use App\Http\Controllers\Admins\SellerController;
 use App\Http\Controllers\Admins\CategoryController;
+use App\Http\Controllers\Admins\SubcategoryController;
 use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\Admins\BrandController;
 use App\Http\Controllers\Admins\AdminProfileController;
@@ -33,7 +34,7 @@ use Illuminate\Http\Request;
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . '/admin' ,
+        'prefix' => LaravelLocalization::setLocale() . '/admin',
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
         //  'namespace' => 'admin'
     ],
@@ -54,6 +55,14 @@ Route::group(
         Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store')->middleware('admin');
         Route::get('/category/edit/{id}', [CategoryController::class, 'edit_form'])->name('admin.category.edit')->middleware('admin');
         Route::post('/category/update', [CategoryController::class, 'update'])->name('admin.category.update')->middleware('admin');
+        Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete')->middleware('admin');
+
+        Route::get('/subcategories', [SubcategoryController::class, 'index'])->name('admin.subcategories')->middleware('admin');
+        Route::post('/subcategory/store', [SubcategoryController::class, 'store'])->name('admin.subcategory.store')->middleware('admin');
+        Route::get('/subcategory/edit/{id}', [SubcategoryController::class, 'edit_form'])->name('admin.subcategory.edit')->middleware('admin');
+        Route::post('/subcategory/update', [SubcategoryController::class, 'update'])->name('admin.subcategory.update')->middleware('admin');
+        Route::get('/subcategory/delete/{id}', [SubcategoryController::class, 'delete'])->name('admin.subcategory.delete')->middleware('admin');
+
 
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands')->middleware('admin');
         Route::post('/brand/register', [BrandController::class, 'store'])->name('admin.brand.store')->middleware('admin');
@@ -62,7 +71,7 @@ Route::group(
         Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('admin.brand.delete')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
-        Route::get('/product/view/{id}',[ProductController::class, 'productView'])->name('product.view')->middleware('admin');
+        Route::get('/product/view/{id}', [ProductController::class, 'productView'])->name('product.view')->middleware('admin');
         Route::get('/product/add', [ProductController::class, 'productAdd'])->name('product.add')->middleware('admin');
         Route::post('/product/store', [ProductController::class, 'productStore'])->name('product.store')->middleware('admin');
 
@@ -74,25 +83,19 @@ Route::group(
         Route::get('/seller/view/{id}', [SellerController::class, 'SellerView'])->name('seller.company.view')->middleware('admin');
         Route::post('/seller/employee/store', [SellerController::class, 'SellerEmployeeStore'])->name('seller.employee.store')->middleware('admin');
         Route::get('/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout')->middleware('admin');
-
     }
 );
 
 
 //-----------Seller routes
-Route::prefix('seller')->group(function() {
+Route::prefix('seller')->group(function () {
 
     Route::post('/login/seller', [Seller::class, 'Login'])->name('seller.login');
-     Route::get('/', [Seller::class, 'Dashboard'])->name('seller.dashboard')->middleware('seller');
+    Route::get('/', [Seller::class, 'Dashboard'])->name('seller.dashboard')->middleware('seller');
     Route::get('/logout', [Seller::class, 'SellerLogout'])->name('seller.logout')->middleware('seller');
     Route::get('/accept/{token}/{invitee_id}', [Seller::class, 'ConfirmRegister'])->name('seller.invite.accept');
     Route::post('/confirmed/seller', [Seller::class, 'SellerConfirmed'])->name('seller.confirmed');
     Route::get('/confirmed/login/{email}/{password}', [Seller::class, 'LoginAfterConfirm'])->name('confirmed.login');
-
-
-
-
-
 });
 
 //--------End of admin route
@@ -114,8 +117,3 @@ Route::group(
         require __DIR__ . '/auth.php';
     }
 );
-
-
-
-
-

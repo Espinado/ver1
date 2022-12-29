@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Admins\Category;
 use Illuminate\Support\Facades\Validator;
 use LaravelLocalization;
+use Image;
+
 
 
 class CategoryController extends Controller
@@ -19,64 +21,80 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::where('parent_id', null)->get();
+        // $categories = Category::where('parent_id', null)->get();
 
-        $locale = LaravelLocalization::GetCurrentLocale();
-        foreach ($categories as $cat) {
-            if (!property_exists(json_decode($cat->category_name), $locale)) {
-                $locale = config('app.fallback_locale');
-            }
-        }
-        return view('admin.categories.index', compact('categories', 'locale'));
+        // $locale = LaravelLocalization::GetCurrentLocale();
+        // foreach ($categories as $cat) {
+        //     if (!property_exists(json_decode($cat->category_name), $locale)) {
+        //         $locale = config('app.fallback_locale');
+        //     }
+        // }
+        $categories = Category::latest()->get();
+
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            "category_name"    => "required|array|min:3",
-            "category_name.*"  => "required|min:3",
-        ]);
-        if ($validator->fails()) {
-            $messages = $validator->errors();
-            return back()->with('error', $messages);
-        } else {
-            if ($request->parent_id) {
-                $parent_id = $request->parent_id;
-            } else {
-                $parent_id = null;
-            }
-            $category = new Category;
-            $category->parent_id = $parent_id;
-            $category->category_name = json_encode($request->category_name);
-            $category->save();
-        }
-        return back()->with('success', 'Recorded');
+        $request->validate(
+            [
+                'category_name'    => 'required',
+                'category_icon' => 'required'
+            ],
+            [
+                'category_name.required'    => 'Incorrect category name',
+                'category_icon.required'    => 'Incorrect category icon',
+            ]
+        );
+        //TODO: validation to request
+        //TODo data to json
+        $category = new Category();
+        $category->icon = $request->category_icon;
+        $category->category_name = $request->category_name;
+        $category->save();
+        $notification = array('message' => 'Category recorded', 'alert-type' => 'success');
+        return back()->with($notification);
     }
 
     public function edit_form($id)
     {
-        $category = Category::where('id', $id)->first();
-        $cat_array = json_decode($category->category_name);
-        foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
-            if (!property_exists($cat_array, $properties['short'])) {
-                $dev = $properties['short'];
-                $cat_array->$dev = '';
-            }
-        }
-        return view('admin.categories.cat_edit_form', compact('cat_array', 'id'));
+        $category = Category::FindOrFail($id);
+
+        // $cat_array = json_decode($category->category_name);
+        // foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties) {
+        //     if (!property_exists($cat_array, $properties['short'])) {
+        //         $dev = $properties['short'];
+        //         $cat_array->$dev = '';
+        //     }
+        // }
+        //TODO back to json
+        return view('admin.categories.cat_edit_form', compact('category'));
     }
     public function update(Request $request)
     {
-        // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            "category_name"    => "required|array|min:3",
-            "category_name.*"  => "required|min:3",
+        $request->validate(
+            [
+                'category_name'    => 'required',
+                'category_icon' => 'required'
+            ],
+            [
+                'category_name.required'    => 'Incorrect category name',
+                'category_icon.required'    => 'Incorrect category icon',
+            ]
+        );
+        Category::where('id', $request->id)->update([
+            'category_name' => $request->category_name,
+            'icon' => $request->category_icon
         ]);
-        if ($validator->fails()) {
-            $messages = $validator->errors();
-            return back()->with('error', $messages);
-        }
-        Category::where('id', $request->id)->update(['category_name' => json_encode($request->category_name)]);
-        return redirect('admin/categories')->with('success', 'Updated');
+        $notification = array('message' => 'Category recorded', 'alert-type' => 'success');
+        return redirect('admin/categories')->with($notification);
     }
+
+    public function delete($id)
+    {
+        Category::FindOrFail($id)->delete();
+        $notification = array('message' => 'Category deleted', 'alert-type' => 'info');
+        return redirect('admin/categories')->with($notification);
+    }
+
 }
