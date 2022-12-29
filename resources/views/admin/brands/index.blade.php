@@ -10,7 +10,7 @@
         <section class="content">
             <div class="row">
 
-                <div class="col-8">
+                <div class="col-6">
 
                     <div class="box">
                         <div class="box-header with-border">
@@ -31,11 +31,14 @@
                                         @foreach ($brands as $brand)
                                             <tr>
                                                 <td style="text-align: center">{{ $brand->brand_name }}</td>
-                                                <td style="text-align: center"><img src="{{ asset($brand->brand_logo) }}" style="width: 70px";
-                                                        height="40px";></td>
+                                                <td style="text-align: center"><img src="{{ asset($brand->brand_logo) }}"
+                                                        style="width: 70px"; height="40px";></td>
                                                 <td style="text-align: center">
-                                                    <a href="{{route('admin.brand.edit', $brand->id)}}" class="btn btn-info">Edit</a>
-                                                    <a href="{{route('admin.brand.delete', $brand->id)}}" class="btn btn-danger">Delete</a>
+                                                    <a href="{{ route('admin.brand.edit', $brand->id) }}"
+                                                        class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
+                                                    <a href="{{ route('admin.brand.delete', $brand->id) }}"
+                                                        class="btn btn-danger" id="delete" title="Delete"><i
+                                                            class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -52,7 +55,7 @@
                     <!-- /.box -->
                 </div>
 
-                <div class="col-4">
+                <div class="col-6">
 
                     <div class="box">
                         <div class="box-header with-border">
