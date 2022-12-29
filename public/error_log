@@ -1,0 +1,5 @@
+[28-Dec-2022 13:19:53 Europe/Riga] PHP Warning:  require(/home3/argusslv/shop.arguss.lv/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/argusslv/shop.arguss.lv/public/index.php on line 34
+[28-Dec-2022 13:19:53 Europe/Riga] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/argusslv/shop.arguss.lv/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home3/argusslv/shop.arguss.lv/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home3/argusslv/shop.arguss.lv/public/index.php on line 34
