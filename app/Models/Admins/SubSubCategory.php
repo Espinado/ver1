@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class SubCategory extends Model
+class SubSubCategory extends Model
 {
 
     use
@@ -15,7 +15,7 @@ class SubCategory extends Model
         HasSlug;
 
     protected $fillable = [
-        'subcategory_name',
+        'subsubcategory_name',
         'category_id',
         'slug',
         'icon'
@@ -24,12 +24,16 @@ class SubCategory extends Model
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('subcategory_name')
+            ->generateSlugsFrom('subsubcategory_name')
             ->saveSlugsTo('slug');
     }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
-
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class, 'subcategory_id', 'id');
+    }
 }

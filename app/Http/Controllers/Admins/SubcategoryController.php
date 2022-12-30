@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admins\SubCategory;
+use App\Models\Admins\SubSubCategory;
 use App\Models\Admins\Category;
 
 class SubcategoryController extends Controller
@@ -13,13 +14,13 @@ class SubcategoryController extends Controller
     {
         $this->middleware('admin');
     }
-    public function index()
+    public function SubCategoryIndex()
     {
         $categories = Category::orderBy('category_name', 'asc')->get();;
         $subcategories = SubCategory::latest()->get();
         return view('admin.subcategories.index', compact('subcategories', 'categories'));
     }
-    public function store(Request $request)
+    public function SubCategoryStore(Request $request)
     {
         // dd($request->all());
         $request->validate(
@@ -44,7 +45,7 @@ class SubcategoryController extends Controller
         $notification = array('message' => 'Subcategory recorded', 'alert-type' => 'success');
         return back()->with($notification);
     }
-    public function edit_form($id)
+    public function SubCategoryEdit_form($id)
     {
         $subcategory = Subcategory::FindOrFail($id);
 
@@ -59,7 +60,7 @@ class SubcategoryController extends Controller
         return view('admin.subcategories.subcat_edit_form', compact('subcategory'));
     }
 
-    public function update(Request $request)
+    public function SubCategoryUpdate(Request $request)
     {
         $request->validate(
             [
@@ -78,10 +79,19 @@ class SubcategoryController extends Controller
         $notification = array('message' => 'Subcategory updated', 'alert-type' => 'success');
         return redirect('admin/subcategories')->with($notification);
     }
-    public function delete($id)
+    public function SubCategoryDelete($id)
     {
         Subcategory::FindOrFail($id)->delete();
         $notification = array('message' => 'Subcategory deleted', 'alert-type' => 'info');
         return redirect('admin/subcategories')->with($notification);
     }
+
+    //------------------------------
+    public function SubSubCategoryIndex()
+    {
+        $categories = Category::orderBy('category_name', 'asc')->get();;
+        $subsubcategories = SubSubCategory::latest()->get();
+        return view('admin.subcategories.sub_subcategory_view', compact('subsubcategories', 'categories'));
+    }
+
 }

@@ -57,11 +57,17 @@ Route::group(
         Route::post('/category/update', [CategoryController::class, 'update'])->name('admin.category.update')->middleware('admin');
         Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('admin.category.delete')->middleware('admin');
 
-        Route::get('/subcategories', [SubcategoryController::class, 'index'])->name('admin.subcategories')->middleware('admin');
-        Route::post('/subcategory/store', [SubcategoryController::class, 'store'])->name('admin.subcategory.store')->middleware('admin');
-        Route::get('/subcategory/edit/{id}', [SubcategoryController::class, 'edit_form'])->name('admin.subcategory.edit')->middleware('admin');
-        Route::post('/subcategory/update', [SubcategoryController::class, 'update'])->name('admin.subcategory.update')->middleware('admin');
-        Route::get('/subcategory/delete/{id}', [SubcategoryController::class, 'delete'])->name('admin.subcategory.delete')->middleware('admin');
+        Route::get('/subcategories', [SubcategoryController::class, 'SubCategoryIndex'])->name('admin.subcategories')->middleware('admin');
+        Route::post('/subcategory/store', [SubcategoryController::class, 'SubCategoryStore'])->name('admin.subcategory.store')->middleware('admin');
+        Route::get('/subcategory/edit/{id}', [SubcategoryController::class, 'SubCategoryEdit_form'])->name('admin.subcategory.edit')->middleware('admin');
+        Route::post('/subcategory/update', [SubcategoryController::class, 'SubCategoryUpdate'])->name('admin.subcategory.update')->middleware('admin');
+        Route::get('/subcategory/delete/{id}', [SubcategoryController::class, 'SubCategoryDelete'])->name('admin.subcategory.delete')->middleware('admin');
+
+        Route::get('/subsubcategories', [SubcategoryController::class, 'SubSubCategoryIndex'])->name('admin.subsubcategories')->middleware('admin');
+        Route::post('/subsubcategory/store', [SubcategoryController::class, 'store'])->name('admin.subsubcategory.store')->middleware('admin');
+        Route::get('/subsubcategory/edit/{id}', [SubcategoryController::class, 'edit_form'])->name('admin.subsubcategory.edit')->middleware('admin');
+        Route::post('/subsubcategory/update', [SubcategoryController::class, 'update'])->name('admin.subsubcategory.update')->middleware('admin');
+        Route::get('/subsubcategory/delete/{id}', [SubcategoryController::class, 'delete'])->name('admin.subsubcategory.delete')->middleware('admin');
 
 
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands')->middleware('admin');
