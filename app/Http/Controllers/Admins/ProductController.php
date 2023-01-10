@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admins\Product;
 use Intervention\Image\Facades\Image;
+use App\Models\Admins\Category;
+use App\Models\Admins\SubCategory;
+use App\Models\Admins\SubSubCategory;
+use App\Models\Admins\Brand;
 
 class ProductController extends Controller
 {
@@ -22,24 +26,25 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    public function productView($id)
-    {
-        dd($id);
-    }
+
     public function productAdd()
     {
-        return view('admin.products.add_product');
+        $categories=Category::latest()->get();
+        $brands=Brand::latest()->get();
+        return view('admin.products.add_product', compact('categories', 'brands'));
     }
     public function productStore(Request $request)
     {
-        // dd($request->all());
+
+
+
+
+        dd($request->all());
         if (request()->hasFile('product_trumbnail')) {
-            $originalImage = $request->file('product_trumbnail');
-            $trumbName=$originalImage->getClientOriginalName();
-            $trumbnail = Image::make($originalImage);
-            $path = public_path() . '/products/trumbnails/';
-            $trumbnail->resize(150, 150);
-            $trumbnail->save($path .$trumbName);
+            $image = $request->file('product_thambnail');
+            $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
+            Image::make($image)->resize(917, 1000)->save(public_path().'/products/thambnails/' . $name_gen);
+            $save_url = 'upload/products/thambnail/' . $name_gen;
         }
 
         $image = [];
@@ -53,7 +58,6 @@ class ProductController extends Controller
                 array_push($image, $name);
             }
         }
-// dd($trumbName);
 
         $product = new Product();
         $product->product_name            = json_encode($request->product_name);

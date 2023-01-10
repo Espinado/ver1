@@ -11,75 +11,25 @@
         <section class="content">
             <div class="row">
 
-                <div class="col-6">
+
+
+                <div class="col-12">
 
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">SubSubcategory list</h3>
+                            <h3 class="box-title">Edit subsubcategory</h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">SubSubcategory name</th>
-                                            <th style="text-align: center">Category name</th>
-                                            <th style="text-align: center">Subcategory name</th>
-                                            <th style="text-align: center">Icon</th>
-                                            <th style="text-align: center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($subsubcategories as $subsubcategory)
-                                            <tr>
-                                                <td style="text-align: center">{{ $subsubcategory->subsubcategory_name }}
-                                                </td>
-                                                <td style="text-align: center">
-                                                    {{ $subsubcategory['category']['category_name'] }}</td>
-                                                    <td style="text-align: center">{{$subsubcategory['subcategory']['subcategory_name'] }}</td>
-                                                <td style="text-align: center"><i class="{{ $subsubcategory->icon }} "></i>
-                                                </td>
-                                                <td style="text-align: center; width:30%">
-                                                    <a href="{{ route('admin.subsubcategory.edit', $subsubcategory->id) }}"
-                                                        class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{ route('admin.subsubcategory.delete', $subsubcategory->id) }}"
-                                                        class="btn btn-danger" id="delete" title="Delete"><i
-                                                            class="fa fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-
-
-                    <!-- /.box -->
-                </div>
-
-                <div class="col-6">
-
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Add subsubcategory</h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <form method="post" action="{{ route('admin.subsubcategory.store') }}"
-                                    enctype="multipart/form-data">
+                                <form method="post" action="{{ route('admin.subsubcategory.update') }}">
                                     @csrf
 
                                     <div class="form-group">
                                         <h5>SubSubcategory name <span class="text-danger">*</span></h5>
                                         <div class="controls">
                                             <input type="text" name="subsubcategory_name" class="form-control"
-                                                id="category_name" value="{{ old('subsubcategory_name') }}">
+                                                id="category_name" value="{{ $subsubcategory->subsubcategory_name }}">
                                             @error('subsubcategory_name')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -91,7 +41,7 @@
                                         <h5>Subsubcategory icon <span class="text-danger">*</span></h5>
                                         <div class="controls">
                                             <input type="text" name="subsubcategory_icon" class="form-control"
-                                                id="category_icon" value="{{ old('subsubcategory_icon') }}">
+                                                id="category_icon" value="{{ $subsubcategory->icon }}">
                                             @error('subsubcategory_icon')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -103,7 +53,9 @@
                                             <select class="form-control" id="select" name="category_id">
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category_name }}
+                                                    <option value="{{ $category->id }}"
+                                                        {{$category->id==$subsubcategory->category_id ? 'selected' : ''}}>
+                                                        {{ $category->category_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -116,7 +68,12 @@
                                         <div class="controls">
                                             <h5>Subcategory<span class="text-danger">*</span></h5>
                                             <select class="form-control" id="select" name="subcategory_id">
-                                                <option value="" selected="" disabled="">Select</option>
+                                               @foreach ($subcategories as $subcategory)
+                                                    <option value="{{ $subcategory->id }}"
+                                                        {{$subcategory->id==$subsubcategory->subcategory_id ? 'selected' : ''}}>
+                                                        {{ $subcategory->subcategory_name }}
+                                                    </option>
+                                                @endforeach
 
                                             </select>
                                             @error('subcategory_id')

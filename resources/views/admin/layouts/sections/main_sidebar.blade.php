@@ -77,16 +77,40 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ $route == 'admin.categories' ? 'active' : '' }}"><a href="{{ route('admin.categories') }}">
-                        <i class="ti-more"></i>All categories</a></li>
-                    <li class="{{ $route == 'admin.subcategories' ? 'active' : '' }}"><a href="{{ route('admin.subcategories') }}">
-                        <a href="{{ route('admin.subcategories') }}">
-                            <i class="ti-more"></i>Subcategory</a></li>
-                    <li class="{{ $route == 'admin.subsubcategories' ? 'active' : '' }}"><a href="{{ route('admin.subsubcategories') }}">
-                        <a href="{{ route('admin.subsubcategories') }}">
+                    <li class="{{ $route == 'admin.categories' ? 'active' : '' }}"><a
+                            href="{{ route('admin.categories') }}">
+                            <i class="ti-more"></i>All categories</a></li>
+                    <li class="{{ $route == 'admin.subcategories' ? 'active' : '' }}"><a
+                            href="{{ route('admin.subcategories') }}">
+                            <a href="{{ route('admin.subcategories') }}">
+                                <i class="ti-more"></i>Subcategory</a></li>
+                    <li class="{{ $route == 'admin.subsubcategories' ? 'active' : '' }}"><a
+                            href="{{ route('admin.subsubcategories') }}">
+
                             <i class="ti-more"></i>Sub-Subcategory</a></li>
                 </ul>
             </li>
+            <li class="treeview {{ $route == 'admin.products' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="file"></i>
+                    <span>Products</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.add.products' ? 'active' : '' }}">
+                        <a href="{{ route('admin.add.products') }}">
+                            <i class="ti-more"></i>Add products</a>
+                    </li>
+                    <li class="{{ $route == 'admin.manage.products' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.products') }}">
+                            <i class="ti-more"></i>Manage products</a>
+                    </li>
+
+                </ul>
+            </li>
+
 
             <li class="header nav-small-cap">User Interface</li>
 

@@ -32,6 +32,8 @@ use Illuminate\Http\Request;
 
 //----------Admin Route
 
+Route::get('/category/subcategory/ajax/{category_id}', [SubCategoryController::class, 'SubCategoryAjax']);
+Route::get('/category/subsubcategory/ajax/{category_id}', [SubCategoryController::class, 'SubSubCategoryAjax']);
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/admin',
@@ -64,10 +66,12 @@ Route::group(
         Route::get('/subcategory/delete/{id}', [SubcategoryController::class, 'SubCategoryDelete'])->name('admin.subcategory.delete')->middleware('admin');
 
         Route::get('/subsubcategories', [SubcategoryController::class, 'SubSubCategoryIndex'])->name('admin.subsubcategories')->middleware('admin');
-        Route::post('/subsubcategory/store', [SubcategoryController::class, 'store'])->name('admin.subsubcategory.store')->middleware('admin');
-        Route::get('/subsubcategory/edit/{id}', [SubcategoryController::class, 'edit_form'])->name('admin.subsubcategory.edit')->middleware('admin');
-        Route::post('/subsubcategory/update', [SubcategoryController::class, 'update'])->name('admin.subsubcategory.update')->middleware('admin');
-        Route::get('/subsubcategory/delete/{id}', [SubcategoryController::class, 'delete'])->name('admin.subsubcategory.delete')->middleware('admin');
+        Route::post('/subsubcategory/store', [SubcategoryController::class, 'SubSubCategoryStore'])->name('admin.subsubcategory.store')->middleware('admin');
+        Route::get('/subsubcategory/edit/{id}', [SubcategoryController::class, 'SubSubCategoryEdit_form'])->name('admin.subsubcategory.edit')->middleware('admin');
+        Route::post('/subsubcategory/update', [SubcategoryController::class, 'SubSubCategoryUpdate'])->name('admin.subsubcategory.update')->middleware('admin');
+        Route::get('/subsubcategory/delete/{id}', [SubcategoryController::class, 'SubSubCategoryDelete'])->name('admin.subsubcategory.delete')->middleware('admin');
+
+
 
 
         Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands')->middleware('admin');
@@ -77,9 +81,9 @@ Route::group(
         Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('admin.brand.delete')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
-        Route::get('/product/view/{id}', [ProductController::class, 'productView'])->name('product.view')->middleware('admin');
-        Route::get('/product/add', [ProductController::class, 'productAdd'])->name('product.add')->middleware('admin');
-        Route::post('/product/store', [ProductController::class, 'productStore'])->name('product.store')->middleware('admin');
+        Route::get('/manage/product/', [ProductController::class, 'productView'])->name('admin.manage.products')->middleware('admin');
+        Route::get('/add/product', [ProductController::class, 'productAdd'])->name('admin.add.products')->middleware('admin');
+        Route::post('store/product', [ProductController::class, 'productStore'])->name('admin.product.store')->middleware('admin');
 
 
 
