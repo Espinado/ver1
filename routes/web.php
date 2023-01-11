@@ -81,7 +81,7 @@ Route::group(
         Route::get('/brand/delete/{id}', [BrandController::class, 'delete'])->name('admin.brand.delete')->middleware('admin');
 
         Route::get('/products', [ProductController::class, 'index'])->name('admin.products')->middleware('admin');
-        Route::get('/manage/product/', [ProductController::class, 'productView'])->name('admin.manage.products')->middleware('admin');
+        Route::get('/manage/product/', [ProductController::class, 'index'])->name('admin.manage.products')->middleware('admin');
         Route::get('/add/product', [ProductController::class, 'productAdd'])->name('admin.add.products')->middleware('admin');
         Route::post('store/product', [ProductController::class, 'productStore'])->name('admin.product.store')->middleware('admin');
 
