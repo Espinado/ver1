@@ -110,6 +110,27 @@
 
                 </ul>
             </li>
+            <li class="treeview {{ $route == 'admin.sliders' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="file"></i>
+                    <span>Sliders</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.manage.sliders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.sliders') }}">
+                            <i class="ti-more"></i>Manage sliders</a>
+                    </li>
+                    {{-- <li class="{{ $route == 'admin.manage.products' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.products')}}">
+                            <i class="ti-more"></i>Manage products</a>
+                    </li> --}}
+
+                </ul>
+            </li>
+
 
 
             <li class="header nav-small-cap">User Interface</li>

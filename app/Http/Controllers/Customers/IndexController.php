@@ -18,7 +18,7 @@ class IndexController extends Controller
         // $products=Product::whereIn('category_id', $productIds)->get();
         //   return view('customers.index', compact ('categories', 'products'));
 
-$products=Product::latest()->get();
+$products=Product::where('status', true)->get();
 
         return view('customers.index', compact( 'products'));
 

@@ -28,8 +28,10 @@
 							<tr>
 								<th style="text-align: center">Image </th>
 								<th style="text-align: center">Product Name</th>
-								<th style="text-align: center">Barcode</th>
+								<th style="text-align: center">Selling price</th>
+                                <th style="text-align: center">Discount price</th>
 								<th style="text-align: center">Quantity </th>
+                                <th style="text-align: center">Status </th>
 								<th style="text-align: center">Action</th>
 
 							</tr>
@@ -39,12 +41,25 @@
 	 <tr>
 		<td style="text-align: center"> <img src="{{ asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
 		<td style="text-align: center">{{ $item->product_name}}</td>
-		 <td style="text-align: center"></td>
+		 <td style="text-align: center">{{$item->selling_price}}</td>
+         <td style="text-align: center">{{$item->discount_price}}</td>
 		 <td style="text-align: center">{{ $item->product_qty }}</td>
+         <td style="text-align: center">
+             @if($item->status == 1)
+             <span class="badge badge-pill badge-success">Active</span>
+             @else
+              <span class="badge badge-pill badge-danger">Inactive</span>
+             @endif
+         </td>
 		<td style="text-align: center">
  <a href="{{route('admin.edit.products', $item->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
- <a href="#" class="btn btn-danger" title="Delete Data" id="delete">
+ <a href="{{ route('admin.product.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">
  	<i class="fa fa-trash"></i></a>
+    @if($item->status == 1)
+ <a href="{{ route('admin.product.inactive',$item->id) }}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
+	 @else
+ <a href="{{ route('admin.product.active',$item->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
+	 @endif
 		</td>
 
 	 </tr>

@@ -14,6 +14,7 @@ use App\Http\Controllers\SellerController as Seller;
 use App\Http\Controllers\Customers\IndexController;
 use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
+use App\Http\Controllers\Admins\SliderController;
 
 
 use Illuminate\Http\Request;
@@ -86,7 +87,15 @@ Route::group(
         Route::post('store/product', [ProductController::class, 'productStore'])->name('admin.product.store')->middleware('admin');
         Route::get('/edit/product/{id}', [ProductController::class, 'productEdit'])->name('admin.edit.products')->middleware('admin');
         Route::post('update/product', [ProductController::class, 'productUpdate'])->name('admin.product.update')->middleware('admin');
+        Route::get('/delete/{id}', [ProductController::class, 'ProductDelete'])->name('admin.product.delete');
         Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('admin.update.product.image');
+        Route::get('/image/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('admin.delete.product.image');
+
+        Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('admin.product.inactive');
+        Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('admin.product.active');
+
+        Route::get('/sliders', [SliderController::class, 'index'])->name('admin.sliders')->middleware('admin');
+        Route::get('/manage/sliders', [SliderController::class, 'sliderView'])->name('admin.manage.sliders')->middleware('admin');
 
 
 

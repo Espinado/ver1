@@ -11,7 +11,8 @@ use Spatie\Sluggable\SlugOptions;
 class Product extends Model
 {
     use HasFactory, HasSlug;
-   
+
+    protected $guarded = [];
 
     protected $fillable = [
         'category_id',

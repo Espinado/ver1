@@ -876,7 +876,7 @@
                                             <div class="product">
                                                 <div class="product-image">
                                                     <div class="image"> <a href="detail.html">
-                                                        <img  src="{{ $product->product_thambnail ? asset('products/thambnail/' .  $product->product_thambnail) : url('no_image.jpg') }}" alt=""></a>
+                                                        <img  src="{{ $product->product_thambnail ? asset($product->product_thambnail) : url('no_image.jpg') }}" alt=""></a>
                                                     </div>
                                                     <!-- /.image -->
 
@@ -888,7 +888,7 @@
                                                     <h3 class="name"><a href="detail.html">{{$product->product_name}}</a></h3>
                                                     <div class="rating rateit-small"></div>
                                                     <div class="description"></div>
-                                                    <div class="product-price"> <span class="price"> ${{$product->selling_price}} </span> <span class="price-before-discount">$ {{$product->discount_price}}</span> </div>
+                                                    <div class="product-price"> <span class="price"> ${{$product->discount_price}} </span> <span class="price-before-discount">$ {{$product->selling_price}}</span> </div>
                                                     <!-- /.product-price -->
 
                                                 </div>

@@ -49,6 +49,7 @@
                                                     </div>
                                                 </div>
 
+
                                             </div> <!-- end col md 4 -->
 
                                             <div class="col-md-3">
@@ -135,6 +136,7 @@
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+                                                <input type="hidden" name="id" value="{{ $products->id }}">
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -340,7 +342,7 @@
 
                                     <div class="text-xs-right">
                                         <input type="submit" class="btn btn-rounded btn-primary mb-5"
-                                            value="Add Product">
+                                            value="Update Product">
                                     </div>
                             </form>
 
@@ -374,10 +376,10 @@
 
                                         <div class="card">
                                             <img src="{{ asset($img->photo_name) }}" class="card-img-top"
-                                                style="height: 130px; width: 280px;">
+                                                style="height: 200px; width: 280px;">
                                             <div class="card-body">
                                                 <h5 class="card-title">
-                                                    <a href="" class="btn btn-sm btn-danger" id="delete"
+                                                    <a href="{{route('admin.delete.product.image', $img->id)}}" class="btn btn-sm btn-danger" id="delete"
                                                         title="Delete Data"><i class="fa fa-trash"></i> </a>
                                                 </h5>
                                                 <p class="card-text">
