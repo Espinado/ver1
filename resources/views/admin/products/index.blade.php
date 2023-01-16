@@ -27,8 +27,8 @@
 						<thead>
 							<tr>
 								<th style="text-align: center">Image </th>
-								<th style="text-align: center">Product Name En</th>
-								<th style="text-align: center">Product Name Hin </th>
+								<th style="text-align: center">Product Name</th>
+								<th style="text-align: center">Barcode</th>
 								<th style="text-align: center">Quantity </th>
 								<th style="text-align: center">Action</th>
 
@@ -39,10 +39,10 @@
 	 <tr>
 		<td style="text-align: center"> <img src="{{ asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
 		<td style="text-align: center">{{ $item->product_name}}</td>
-		 <td style="text-align: center">{{ $item->product_name }}</td>
+		 <td style="text-align: center"></td>
 		 <td style="text-align: center">{{ $item->product_qty }}</td>
 		<td style="text-align: center">
- <a href="#" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
+ <a href="{{route('admin.edit.products', $item->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
  <a href="#" class="btn btn-danger" title="Delete Data" id="delete">
  	<i class="fa fa-trash"></i></a>
 		</td>

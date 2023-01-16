@@ -12,6 +12,7 @@ use App\Models\Admins\SubSubCategory;
 use App\Models\Admins\Brand;
 use App\Models\Admins\ProductImage;
 use Carbon\Carbon;
+use App\Models\Admins\MultiImg;
 
 
 class ProductController extends Controller
@@ -40,7 +41,6 @@ class ProductController extends Controller
     {
 
 //TODO ProductRequest
-
 
             $image = $request->file('product_thambnail');
             $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -86,5 +86,76 @@ class ProductController extends Controller
         }
         $notification = array('message' => 'Product added', 'alert-type' => 'success');
         return redirect('admin/add/product')->with($notification);
+    }
+
+    public  function productEdit($id){
+
+        $categories = Category::latest()->get();
+        $brands = Brand::latest()->get();
+        $subcategory = SubCategory::latest()->get();
+        $subsubcategory = SubSubCategory::latest()->get();
+        $products = Product::findOrFail($id);
+        $multiImgs = ProductImage::where('product_id', $id)->get();
+
+        return view('admin.products.edit_product', compact('categories', 'brands', 'subcategory', 'subsubcategory', 'products', 'multiImgs'));
+    }
+    public function productUpdate(Request $request)
+    {
+
+
+
+       Product::where('id', $request->id)->update([
+        'product_name'          => $request->product_name,
+        'brand_id'              => $request->brand_id,
+        'category_id'           => $request->category_id,
+        'subcategory_id'        => $request->subcategory_id,
+        'subsubcategory_id'     => $request->subsubcategory_id,
+        'product_code'          => $request->product_code,
+        'product_qty'           => $request->product_qty,
+        'product_color_en'      => $request->product_color,
+        'short_description'     => $request->short_descp,
+        'product_tags'          => $request->product_tags,
+        'product_size'          => $request->product_size,
+        'long_description'      => $request->long_descp,
+        'selling_price'         => $request->selling_price,
+        'discount_price'        => $request->discount_price,
+        'featured'              => $request->featured,
+        'hot_deals'             => $request->hot_deals,
+        'special_offer'         => $request->special_offer,
+        'special_deals'         => $request->special_deals,
+        ]);
+
+        if ($request->file('product_thambnail')) {
+            dd(Product::FindOrFail($request->id));
+            $trumbnail = $request->product_thambnail;
+
+            $name_gen = hexdec(uniqid()) . '.' . $trumbnail->getClientOriginalExtension();
+            Image::make($trumbnail)->resize(917, 1000)->save('products/trumbnails/' . $name_gen);
+            $save_url = 'products/trumbnails/' . $name_gen;
+           Product::where('id', $request->id)->update([
+
+                'product_thambnail'     => $save_url,
+           ]);
+        }
+
+    }
+    public function MultiImageUpdate(Request $request)
+     {
+
+        $imgs=$request->multi_img;
+        foreach ($imgs as $id => $img){
+            $imgDel=ProductImage::FindOrFail($id);
+            unlink($imgDel->photo_name);
+            $make_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
+            Image::make($img)->resize(917, 1000)->save('products/images/' . $make_gen);
+            $upload_url = 'products/images/' . $make_gen;
+            ProductImage::where('id', $id)->update([
+            'photo_name'=>$upload_url,
+            'updated_at'=>Carbon::now()
+            ]);
+        }
+        $notification = array('message' => 'Image changed', 'alert-type' => 'success');
+        return redirect()->back()->with($notification);
+
     }
 }

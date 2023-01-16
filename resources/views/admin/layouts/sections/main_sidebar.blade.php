@@ -104,7 +104,7 @@
                             <i class="ti-more"></i>Add products</a>
                     </li>
                     <li class="{{ $route == 'admin.manage.products' ? 'active' : '' }}">
-                        <a href="{{ route('admin.manage.products') }}">
+                        <a href="{{ route('admin.manage.products')}}">
                             <i class="ti-more"></i>Manage products</a>
                     </li>
 

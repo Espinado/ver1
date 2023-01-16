@@ -84,6 +84,9 @@ Route::group(
         Route::get('/manage/product/', [ProductController::class, 'index'])->name('admin.manage.products')->middleware('admin');
         Route::get('/add/product', [ProductController::class, 'productAdd'])->name('admin.add.products')->middleware('admin');
         Route::post('store/product', [ProductController::class, 'productStore'])->name('admin.product.store')->middleware('admin');
+        Route::get('/edit/product/{id}', [ProductController::class, 'productEdit'])->name('admin.edit.products')->middleware('admin');
+        Route::post('update/product', [ProductController::class, 'productUpdate'])->name('admin.product.update')->middleware('admin');
+        Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('admin.update.product.image');
 
 
 
