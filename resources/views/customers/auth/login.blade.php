@@ -9,7 +9,7 @@
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
                     <li><a href="home.html">{{ route('index') }}</a></li>
-                    <li class='active'>Login</li>
+                    <li class='active'>{{ __('auth.login') }}</li>
                 </ul>
             </div><!-- /.breadcrumb-inner -->
         </div><!-- /.container -->
@@ -20,8 +20,8 @@
                 <div class="row">
                     <!-- Sign-in -->
                     <div class="col-md-6 col-sm-6 sign-in">
-                        <h4 class="">Sign in</h4>
-                        <p class="">Hello, Welcome to your account.</p>
+                        <h4 class="">{{ __('auth.signin') }}</h4>
+                        <p class="">{{ __('auth.welcome_to_account') }}</p>
                         <div class="social-sign-in outer-top-xs">
                             <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
                                 Facebook</a>
@@ -31,7 +31,7 @@
                             action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
+                                <label class="info-title" for="exampleInputEmail1">{{ __('auth.email_address') }} <span>*</span></label>
                                 <input type="email" class="form-control unicase-form-control text-input"
                                     id="exampleInputEmail1" name="email" value="{{ old('email') }}">
                                      @error('email')
@@ -41,27 +41,26 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
+                                <label class="info-title" for="exampleInputPassword1">{{ __('auth.account') }} <span>*</span></label>
                                 <input type="password" class="form-control unicase-form-control text-input"
                                     id="exampleInputPassword1" name="password">
                             </div>
                             <div class="radio outer-xs">
                                 <label>
                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"
-                                        name="remember">Remember me!
+                                        name="remember">{{ __('auth.remember_me') }}!
                                 </label>
-                                <a href="{{ route('password.request') }}" class="forgot-password pull-right">Forgot your
-                                    Password?</a>
+                                <a href="{{ route('password.request') }}" class="forgot-password pull-right">{{ __('auth_forgot_password')}}?</a>
                             </div>
-                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">{{ __('auth.login') }}</button>
                         </form>
                     </div>
                     <!-- Sign-in -->
 
                     <!-- create a new account -->
                     <div class="col-md-6 col-sm-6 create-new-account">
-                        <h4 class="checkout-subtitle">Create a new account</h4>
-                        <p class="text title-tag-line">Create your new account.</p>
+                        <h4 class="checkout-subtitle">{{ __('auth.create_account') }}</h4>
+                        <p class="text title-tag-line">{{ __('auth.create_account') }}.</p>
                         <form class="register-form outer-top-xs" role="form" method="post"
                             action="{{ route('register') }}">
                             @csrf
@@ -99,7 +98,7 @@
                                 <input type="password" class="form-control unicase-form-control text-input"
                                     id="exampleInputEmail1" name="password_confirmation">
                             </div>
-                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Sign Up</button>
+                            <button type="submit" class="btn-upper btn btn-primary checkout-page-button">{{ __('auth.signup') }}</button>
                         </form>
 
 

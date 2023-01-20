@@ -91,11 +91,17 @@ Route::group(
         Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('admin.update.product.image');
         Route::get('/image/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('admin.delete.product.image');
 
-        Route::get('/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('admin.product.inactive');
-        Route::get('/active/{id}', [ProductController::class, 'ProductActive'])->name('admin.product.active');
+        Route::get('/product/inactive/{id}', [ProductController::class, 'ProductInactive'])->name('admin.product.inactive');
+        Route::get('/product/active/{id}', [ProductController::class, 'ProductActive'])->name('admin.product.active');
 
         Route::get('/sliders', [SliderController::class, 'index'])->name('admin.sliders')->middleware('admin');
         Route::get('/manage/sliders', [SliderController::class, 'sliderView'])->name('admin.manage.sliders')->middleware('admin');
+        Route::post('/slider/register', [SliderController::class, 'store'])->name('admin.slider.store')->middleware('admin');
+        Route::post('/slider/update/{id}', [SliderController::class, 'update'])->name('admin.slider.update')->middleware('admin');
+        Route::get('/slider/edit/{id}', [SliderController::class, 'edit'])->name('admin.slider.edit')->middleware('admin');
+        Route::get('/slider/delete/{id}', [SliderController::class, 'delete'])->name('admin.slider.delete')->middleware('admin');
+        Route::get('/slider/inactive/{id}', [SliderController::class, 'SliderInactive'])->name('admin.slider.inactive');
+        Route::get('/slider/active/{id}', [SliderController::class, 'SliderActive'])->name('admin.slider.active');
 
 
 
