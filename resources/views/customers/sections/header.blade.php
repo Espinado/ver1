@@ -6,14 +6,15 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
-                        <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                        <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="#"><i class="icon fa fa-user"></i>{{ __('system.account') }}</a></li>
+                        <li><a href="#"><i class="icon fa fa-heart"></i>{{ __('system.my_wish') }}</a></li>
+                        <li><a href="#"><i class="icon fa fa-shopping-cart"></i>{{ __('system.my_cart') }}</a></li>
+                        <li><a href="#"><i class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
                         @auth
-                         <li><a href="{{ route('profile.index') }}" ><i class="icon fa fa-user"></i>{{Auth::user()->name}}</a></li>
+                            <li><a href="{{ route('profile.index') }}"><i
+                                        class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
                         @else
-                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a></li>
+                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('auth.login-register') }}</a></li>
                         @endauth
                     </ul>
                 </div>
@@ -31,12 +32,23 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle"
-                                data-hover="dropdown" data-toggle="dropdown"><span class="value">English </span><b
+                                data-hover="dropdown" data-toggle="dropdown"><span class="value">{{LaravelLocalization::getCurrentLocaleNative()}}  </span><b
                                     class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">English</a></li>
+
+                                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                    <li>
+                                        @if (LaravelLocalization::getCurrentLocale() != $localeCode)
+                                        <a rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                            {{ $properties['native'] }}
+                                        </a>
+                                        @endif
+                                    </li>
+                                @endforeach
+                                {{-- <li><a href="#">English</a></li>
                                 <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
+                                <li><a href="#">German</a></li> --}}
                             </ul>
                         </li>
                     </ul>
@@ -71,7 +83,7 @@
                             <div class="control-group">
                                 <ul class="categories-filter animate-dropdown">
                                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown"
-                                            href="category.html">Categories <b class="caret"></b></a>
+                                            href="category.html">{{ __('system.categories') }} <b class="caret"></b></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li class="menu-header">Computer</li>
                                             <li role="presentation"><a role="menuitem" tabindex="-1"
@@ -85,7 +97,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                                <input class="search-field" placeholder="Search here..." />
+                                <input class="search-field" placeholder="{{ __('system.search_here') }}..." />
                                 <a class="search-button" href="#"></a>
                             </div>
                         </form>
@@ -103,7 +115,7 @@
                             <div class="items-cart-inner">
                                 <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
                                 <div class="basket-item-count"><span class="count">2</span></div>
-                                <div class="total-price-basket"> <span class="lbl">cart -</span> <span
+                                <div class="total-price-basket"> <span class="lbl">{{ __('system.my_cart') }} -</span> <span
                                         class="total-price"> <span class="sign">$</span><span
                                             class="value">600.00</span> </span> </div>
                             </div>
@@ -236,7 +248,8 @@
                                                     <div class="col-xs-12 col-sm-6 col-md-4 col-menu banner-image">
                                                         <img class="img-responsive"
                                                             src="{{ asset('customers/assets/images/banners/top-menu-banner.jpg') }}"
-                                                            alt=""> </div>
+                                                            alt="">
+                                                    </div>
                                                     <!-- /.yamm-content -->
                                                 </div>
                                             </div>

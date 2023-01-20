@@ -1,131 +1,94 @@
 @extends('admin.layouts.admin_master')
-@section('page_title')
-    Unitas Dashboard
+@section('content')
+
+
+  <!-- Content Wrapper. Contains page content -->
+
+	  <div class="container-full">
+		<!-- Content Header (Page header) -->
+
+
+		<!-- Main content -->
+		<section class="content">
+		  <div class="row">
+
+
+
+			<div class="col-12">
+
+			 <div class="box">
+				<div class="box-header with-border">
+				  <h3 class="box-title">Product List</h3>
+				</div>
+				<!-- /.box-header -->
+				<div class="box-body">
+					<div class="table-responsive">
+					  <table id="example1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th style="text-align: center">Image </th>
+								<th style="text-align: center">Product Name</th>
+								<th style="text-align: center">Selling price</th>
+                                <th style="text-align: center">Discount price</th>
+								<th style="text-align: center">Quantity </th>
+                                <th style="text-align: center">Status </th>
+								<th style="text-align: center">Action</th>
+
+							</tr>
+						</thead>
+						<tbody>
+	 @foreach($products as $item)
+	 <tr>
+		<td style="text-align: center"> <img src="{{ asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
+		<td style="text-align: center">{{ $item->product_name}}</td>
+		 <td style="text-align: center">{{$item->selling_price}}</td>
+         <td style="text-align: center">{{$item->discount_price}}</td>
+		 <td style="text-align: center">{{ $item->product_qty }}</td>
+         <td style="text-align: center">
+             @if($item->status == 1)
+             <span class="badge badge-pill badge-success">Active</span>
+             @else
+              <span class="badge badge-pill badge-danger">Inactive</span>
+             @endif
+         </td>
+		<td style="text-align: center">
+ <a href="{{route('admin.edit.products', $item->id)}}" class="btn btn-info" title="Edit Data"><i class="fa fa-pencil"></i> </a>
+ <a href="{{ route('admin.product.delete',$item->id) }}" class="btn btn-danger" title="Delete Data" id="delete">
+ 	<i class="fa fa-trash"></i></a>
+    @if($item->status == 1)
+ <a href="{{ route('admin.product.inactive',$item->id) }}" class="btn btn-danger" title="Inactive Now"><i class="fa fa-arrow-down"></i> </a>
+	 @else
+ <a href="{{ route('admin.product.active',$item->id) }}" class="btn btn-success" title="Active Now"><i class="fa fa-arrow-up"></i> </a>
+	 @endif
+		</td>
+
+	 </tr>
+	  @endforeach
+						</tbody>
+
+					  </table>
+					</div>
+				</div>
+				<!-- /.box-body -->
+			  </div>
+			  <!-- /.box -->
+
+
+			</div>
+			<!-- /.col -->
+
+
+
+
+
+		  </div>
+		  <!-- /.row -->
+		</section>
+		<!-- /.content -->
+
+	  </div>
+
+
+
+
 @endsection
-@section('dashboard')
-    <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i> starlight</a>
-    </div>
-    <div class="sl-sideleft">
-
-        <label class="sidebar-label">Navigation</label>
-        <div class="sl-sideleft-menu">
-            <a href="{{ LaravelLocalization::localizeUrl('/admin/') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-                    <span class="menu-item-label">{{ __('system.dashboard') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.admins') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.admins') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-
-            <a href="{{ route('admin.sellers.companies') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.sellers') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- sl-menu-link -->
-            <a href="{{ route('admin.categories') }}" class="sl-menu-link">
-                <div class="sl-menu-item">
-                    <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                    <span class="menu-item-label">{{ __('system.categories') }}</span>
-                </div><!-- menu-item -->
-                <a href="{{ route('admin.brands') }}" class="sl-menu-link">
-                    <div class="sl-menu-item">
-                        <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                        <span class="menu-item-label">{{ __('system.brands') }}</span>
-                    </div><!-- menu-item -->
-                </a><!-- sl-menu-link -->
-                <a href="#" class="sl-menu-link active">
-                    <div class="sl-menu-item">
-                        <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                        <span class="menu-item-label">{{ __('system.items') }}</span>
-                    </div><!-- menu-item -->
-                </a><!-- sl-menu-link -->
-                <ul class="sl-menu-sub nav flex-column">
-
-                    <li class="nav-item"><a href="{{ route('admin.products') }}"
-                            class="nav-link ">{{ __('system.confirmed_items') }}</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">{{ __('system.unconfirmed_items') }}</a></li>
-
-                </ul>
-
-
-        </div><!-- sl-sideleft-menu -->
-        </a><!-- sl-menu-link -->
-
-    </div><!-- sl-sideleft-menu -->
-
-    <br>
-    </div><!-- sl-sideleft -->
-    <!-- ########## END: LEFT PANEL ########## -->
-    <!-- ########## START: MAIN PANEL ########## -->
-    <div class="sl-pagebody">
-        <div class="sl-mainpanel">
-            <nav class="breadcrumb sl-breadcrumb">
-                <a class="breadcrumb-item" href="{{ route('admin.dashboard') }}">Starlight</a>
-
-                <span class="breadcrumb-item active">{{ __('system.products') }}</span>
-            </nav>
-
-
-            <div class="sl-pagebody">
-                <div class="sl-page-title">
-                    <h5>{{ __('system.products') }}</h5>
-
-                </div><!-- sl-page-title -->
-
-                <div class="card pd-20 pd-sm-40">
-                    <h6 class="card-body-title">{{ __('system.products') }}</h6>
-                    <a href="{{ route('product.add') }}" class="btn btn-sm btn-warning">{{ __('system.add_product') }}</a>
-
-                    <div class="table-wrapper">
-                        <table id="datatable1" class="table display responsive nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="wd-15p">Product name</th>
-                                    <th class="wd-15p">Product code</th>
-                                    <th class="wd-15p">Product images</th>
-                                    <th class="wd-15p">Product info</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($products as $product)
-                                    <tr>
-                                        <td>
-                                            @foreach (json_decode($product->product_name) as $key => $name)
-                                                {{ $key }}=>{{ $name }}
-                                            @endforeach
-                                        </td>
-                                        <td>{{ $product->product_code }}</td>
-                                        <td>
-                                            @if ($product->trumbnail)
-                                                <img src="/products/trumbnails/{{ $product->trumbnail }}" / width="30"
-                                                    height="30">
-                                            @else
-                                                <img src="{{ asset('no_image.jpg') }}" / width="100" height="100">
-                                            @endif
-                                        </td>
-                                        <td><a href="{{ route('product.view', $product->id) }}"
-                                                class="btn btn-danger">Details</a>
-                                        </td>
-                                        </td>
-
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                        </table>
-                    </div><!-- table-wrapper -->
-                </div><!-- card -->
-
-            </div><!-- sl-pagebody -->
-
-        </div><!-- sl-mainpanel -->
-        <!-- ########## END: MAIN PANEL ########## -->
-    @endsection

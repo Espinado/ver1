@@ -11,26 +11,33 @@ use Spatie\Sluggable\SlugOptions;
 class Product extends Model
 {
     use HasFactory, HasSlug;
-    protected $casts = [
-        'product_name'     => 'array',
-        'product_details'  => 'array',
-    ];
+
+    protected $guarded = [];
 
     protected $fillable = [
         'category_id',
-        'brand_id_id',
+        'subcategory_id',
+        'subsubcategory_id',
+        'brand_id',
         'product_name',
         'slug',
         'product_code',
-        'product_quantity',
-        'product_details',
-        'product_color',
+        'product_qty',
+        'product_tags',
         'product_size',
+        'short_description',
+        'long_description',
+        'product_color',
         'selling_price',
         'discount_price',
         'images',
         'status',
-        'trumbnail'
+        'product_thambnail',
+        'hot_deals',
+        'featured',
+        'special_offer',
+        'special_deals',
+        'status'
     ];
 
     public function category()

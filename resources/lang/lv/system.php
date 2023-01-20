@@ -36,6 +36,11 @@ return [
     'edit'                           =>  'Labot',
     'description'                     => 'Apraksts',
     'submit'                          => 'Apstiprināt',
-    'cancel'                          => 'Atcelt'
+    'cancel'                          => 'Atcelt',
+    'latest_from_blog'               => 'Pedējas ziņas',
+    'read_more'                      => 'Lasīt vairāk',
+    'search_here'   => 'Meklēt',
+    'my_cart'   => 'Mans grozs',
+    'account' => 'Mans konts'
 
 ];
