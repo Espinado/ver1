@@ -141,7 +141,7 @@ Route::group(
         Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
         Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
-        Route::get('/product/details/{id}', [IndexController::class, 'productDetails'])->name('product.details');
+        Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('product.details');
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';
     }

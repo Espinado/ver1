@@ -8,6 +8,7 @@ use App\Models\Admins\Category;
 use LaravelLocalization;
 use App\Helpers\CatMultilangArray;
 use App\Models\Admins\Product;
+use App\Models\Admins\ProductImage;
 
 class IndexController extends Controller
 {
@@ -25,9 +26,10 @@ class IndexController extends Controller
         return view('customers.index', compact('products'));
     }
 
-    public function productDetails($id)
+    public function productDetails($id, $slug)
     {
         $product=Product::findOrFail($id);
-        return view ('customers.products.product_details', compact('product'));
+        $images=ProductImage::where('product_id',$id)->get();
+        return view ('customers.products.product_details', compact('product', 'images'));
     }
 }
