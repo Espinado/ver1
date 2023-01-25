@@ -131,15 +131,17 @@
                                                     @php
                                                         $subcategories = App\Models\Admins\SubCategory::where('category_id', $category->id)->orderBy('subcategory_name', 'asc')->get();
                                                     @endphp
+
                                                     @foreach ($subcategories as $subcategory )
 
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                                         <h2 class="title">{{$subcategory->subcategory_name}}</h2>
                                                           @php
-                                                        $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $category->id)->orderBy('subsubcategory_name', 'asc')->get();
+                                                        $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $subcategory->id)->orderBy('subsubcategory_name', 'asc')->get();
                                                     @endphp
                                                         <ul class="links">
                                                             @foreach ($subsubcategories as $subsubcategory)
+                                                           
                                                             <li><a href="#">{{$subsubcategory->subsubcategory_name}}</a></li>
                                                            @endforeach
                                                         </ul>
