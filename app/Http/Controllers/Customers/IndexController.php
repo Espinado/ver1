@@ -32,4 +32,12 @@ class IndexController extends Controller
         $images=ProductImage::where('product_id',$id)->get();
         return view ('customers.products.product_details', compact('product', 'images'));
     }
+
+    public function productTag($product_tag) {
+        $products=Product::where('status', true)
+                         ->where('product_tags', $product_tag)
+                         ->orderBy('id', 'desc')->get();
+                        
+      return view('customers.products.tags_view', compact('products', 'product_tag'));
+    }
 }

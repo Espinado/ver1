@@ -2,6 +2,12 @@
                         <div class="more-info-tab clearfix ">
                             <h3 class="new-product-title pull-left">New Products</h3>
                             <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
+                                
+<div class="accordion">
+                                      @php
+                                    $categories = App\Models\Admins\Category::orderBy('category_name', 'asc')->get();
+                                @endphp
+                                   <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
                                 <li class="active"><a data-transition-type="backSlide" href="#all"
                                         data-toggle="tab">All</a></li>
 
@@ -10,6 +16,9 @@
                                             data-toggle="tab">{{ $category->category_name }}</a>
                                     </li>
                                 @endforeach
+
+                            </ul>
+
 
                             </ul>
                             <!-- /.nav-tabs -->
