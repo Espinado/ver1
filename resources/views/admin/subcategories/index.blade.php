@@ -32,10 +32,10 @@
                                         @foreach ($subcategories as $subcategory)
                                             <tr>
                                                 <td style="text-align: center">{{ $subcategory->subcategory_name }}</td>
-                                                <td style="text-align: center">{{ $subcategory->category_id }}</td>
+                                                <td style="text-align: center">{{ $subcategory['category']['category_name'] }}</td>
                                                 <td style="text-align: center"><i class="{{ $subcategory->icon }} "></i>
                                                 </td>
-                                                <td style="text-align: center">
+                                                <td style="text-align: center; width:30%">
                                                     <a href="{{ route('admin.subcategory.edit', $subcategory->id) }}"
                                                         class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
                                                     <a href="{{ route('admin.subcategory.delete', $subcategory->id) }}"

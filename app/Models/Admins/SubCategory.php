@@ -28,4 +28,8 @@ class SubCategory extends Model
             ->saveSlugsTo('slug');
     }
 
+    public function category() {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
 }
