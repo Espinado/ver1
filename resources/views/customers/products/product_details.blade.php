@@ -34,7 +34,9 @@
                         <img src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
                     </div>
 
-
+                    <!-- ================================== TOP NAVIGATION ================================== -->
+                    @include('customers.sections.top_navigation')
+                    <!-- ================================== TOP NAVIGATION : END ================================== -->
 
                     <!-- ============================================== HOT DEALS ============================================== -->
                     @include('customers.sections.products.hot_deals')
@@ -61,9 +63,9 @@
                             <div class="product-item-holder size-big single-product-gallery small-gallery">
 
                                 <div id="owl-single-product">
-                                    @foreach ($images as  $image)
-                                        <div class="single-product-gallery-item" id="slide{{$image->id}}">
-                                            <a data-lightbox="image-{{$image->id}}" data-title="Gallery"
+                                    @foreach ($images as $image)
+                                        <div class="single-product-gallery-item" id="slide{{ $image->id }}">
+                                            <a data-lightbox="image-{{ $image->id }}" data-title="Gallery"
                                                 href="{{ asset($image->photo_name) }}">
                                                 <img class="img-responsive" alt=""
                                                     src="{{ asset($image->photo_name) }}"
@@ -80,10 +82,10 @@
                                 <div class="single-product-gallery-thumbs gallery-thumbs">
 
                                     <div id="owl-single-product-thumbnails">
-                                        @foreach ($images as  $image)
+                                        @foreach ($images as $image)
                                             <div class="item">
                                                 <a class="horizontal-thumb active" data-target="#owl-single-product"
-                                                    data-slide="{{$image->id}}" href="#slide{{$image->id}}">
+                                                    data-slide="{{ $image->id }}" href="#slide{{ $image->id }}">
                                                     <img class="img-responsive" width="85" alt=""
                                                         src="{{ asset($image->photo_name) }}"
                                                         data-echo="{{ asset($image->photo_name) }}" />

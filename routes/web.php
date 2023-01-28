@@ -143,6 +143,9 @@ Route::group(
         Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
         Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('product.details');
         Route::get('/product/tag/{product_tag}', [IndexController::class, 'productTag'])->name('product.tag');
+        Route::get('/product/subcategory/{id}/{subcategory_slug}', [IndexController::class, 'SubCategoryProductView'])->name('subcategory.product.view');
+        Route::get('/product/subsubcategory/{id}/{subsubcategory_slug}', [IndexController::class, 'SubSubCategoryProductView'])->name('subsubcategory.product.view');
+
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';
     }
