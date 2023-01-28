@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
 @section('title')
-    Subcategory Product
+    sSubcategory Product
 @endsection
 
 
@@ -291,14 +291,16 @@
                                 <div class="row">
 
 
-
+@if($products->isEmpty())
+<h1 style="text-align: center"><span class="text-danger">No products found</span></h1>
+@endif
                                     @foreach ($products as $product)
                                         <div class="col-sm-6 col-md-4 wow fadeInUp">
                                             <div class="products">
                                                 <div class="product">
                                                     <div class="product-image">
                                                         <div class="image"> <a
-                                                                href="{{ url('product/details/' . $product->id . '/' . $product->product_slug_en) }}"><img
+                                                                href="{{ url('product/details/' . $product->id . '/' . $product->product_slug) }}"><img
                                                                     src="{{ asset($product->product_thambnail) }}"
                                                                     alt=""></a> </div>
                                                         <!-- /.image -->
