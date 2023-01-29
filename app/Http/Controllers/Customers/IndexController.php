@@ -20,7 +20,6 @@ class IndexController extends Controller
         // $products=Product::whereIn('category_id', $productIds)->get();
         //   return view('customers.index', compact ('categories', 'products'));
 
-        $products = Product::where('status', true)->get();
 
         $products = Product::where('status', true)->get();
         return view('customers.index', compact('products'));
@@ -29,8 +28,12 @@ class IndexController extends Controller
     public function productDetails($id, $slug)
     {
         $product = Product::findOrFail($id);
+        $product_colors=$product->product_color_en;
+        $product_size=$product->product_size;
+        $product_size=explode(',',$product_size);
+        $product_colors=explode(',', $product_colors);
         $images = ProductImage::where('product_id', $id)->get();
-        return view('customers.products.product_details', compact('product', 'images'));
+        return view('customers.products.product_details', compact('product', 'images','product_colors', 'product_size'));
     }
 
     public function productTag($product_tag)
@@ -38,26 +41,29 @@ class IndexController extends Controller
             $products = Product::where('status', true)
             ->where('product_tags', $product_tag)
             ->orderBy('id', 'desc')->get();
+        $product_colors = Product::groupBy('product_color_en')
+        ->select('product_color_en')
+        ->get();
+       
 
-        return view('customers.products.tags_view', compact('products', 'product_tag'));
+        return view('customers.products.tags_view', compact('products', 'product_tag', 'product_colors'));
     }
 
-    public function productCategory($id, $product_category)
-    {
 
-        $products = Product::where('status', 1)->where('category_id', $id)->orderBy('id', 'DESC')->get();
-        dd($products);
-        // $categories = Category::orderBy('category_name_en', 'ASC')->get();
-
-    }
     public function SubCategoryProductView($id, $product_subcategory)
     {
         $products = Product::where('status', 1)->where('subcategory_id', $id)->orderBy('id', 'DESC')->get();
-       return view  ('customers.products.category_view', compact('products'));
+        $product_colors=Product::where('subcategory_id', $id)->groupBy('product_color_en')
+        ->select('product_color_en')
+        ->get();
+       return view  ('customers.products.category_view', compact('products', 'product_colors'));
     }
     public function SubSubCategoryProductView($id, $product_subcategory)
     {
         $products = Product::where('status', 1)->where('subsubcategory_id', $id)->orderBy('id', 'DESC')->get();
-        return view('customers.products.category_view', compact('products'));
+        $product_colors = Product::where('subsubcategory_id', $id)->groupBy('product_color_en')
+        ->select('product_color_en')
+        ->get();
+        return view('customers.products.category_view', compact('products', 'product_colors'));
     }
 }

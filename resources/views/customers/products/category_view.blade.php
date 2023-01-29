@@ -140,22 +140,7 @@
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== MANUFACTURES: END ============================================== -->
                         <!-- ============================================== COLOR============================================== -->
-                        <div class="sidebar-widget wow fadeInUp">
-                            <div class="widget-header">
-                                <h4 class="widget-title">Colors</h4>
-                            </div>
-                            <div class="sidebar-widget-body">
-                                <ul class="list">
-                                    <li><a href="#">Red</a></li>
-                                    <li><a href="#">Blue</a></li>
-                                    <li><a href="#">Yellow</a></li>
-                                    <li><a href="#">Pink</a></li>
-                                    <li><a href="#">Brown</a></li>
-                                    <li><a href="#">Teal</a></li>
-                                </ul>
-                            </div>
-                            <!-- /.sidebar-widget-body -->
-                        </div>
+                       @include('customers.sections.products.color_list')
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== COLOR: END ============================================== -->
                         <!-- == ======= COMPARE==== ==== -->
@@ -205,9 +190,9 @@
 
                 <!-- == ==== SECTION – HERO === ====== -->
 
-               @include('customers.sections.slider')
+                @include('customers.sections.slider')
 
-@include('customers.sections.info_boxes')
+                @include('customers.sections.info_boxes')
 
 
                 <div class="clearfix filters-container m-t-10">
@@ -229,8 +214,8 @@
                                 <div class="lbl-cnt"> <span class="lbl">Sort by</span>
                                     <div class="fld inline">
                                         <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
-                                            <button data-toggle="dropdown" type="button"
-                                                class="btn dropdown-toggle"> Position <span class="caret"></span>
+                                            <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
+                                                Position <span class="caret"></span>
                                             </button>
                                             <ul role="menu" class="dropdown-menu">
                                                 <li role="presentation"><a href="#">position</a></li>
@@ -249,8 +234,8 @@
                                 <div class="lbl-cnt"> <span class="lbl">Show</span>
                                     <div class="fld inline">
                                         <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
-                                            <button data-toggle="dropdown" type="button"
-                                                class="btn dropdown-toggle"> 1 <span class="caret"></span> </button>
+                                            <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
+                                                1 <span class="caret"></span> </button>
                                             <ul role="menu" class="dropdown-menu">
                                                 <li role="presentation"><a href="#">1</a></li>
                                                 <li role="presentation"><a href="#">2</a></li>
@@ -291,9 +276,10 @@
                                 <div class="row">
 
 
-@if($products->isEmpty())
-<h1 style="text-align: center"><span class="text-danger">No products found</span></h1>
-@endif
+                                    @if ($products->isEmpty())
+                                        <h1 style="text-align: center"><span class="text-danger">No products
+                                                found</span></h1>
+                                    @endif
                                     @foreach ($products as $product)
                                         <div class="col-sm-6 col-md-4 wow fadeInUp">
                                             <div class="products">
@@ -315,7 +301,8 @@
                                                                 <div class="tag new"><span>new</span></div>
                                                             @else
                                                                 <div class="tag hot">
-                                                                    <span>{{ round($discount) }}%</span></div>
+                                                                    <span>{{ round($discount) }}%</span>
+                                                                </div>
                                                             @endif
                                                         </div>
 

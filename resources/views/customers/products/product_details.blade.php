@@ -141,8 +141,6 @@
 
                                 <div class="price-container info-container m-t-20">
                                     <div class="row">
-
-
                                         <div class="col-sm-6">
                                             <div class="price-box">
                                                 @if ($product->discount_price == null)
@@ -172,6 +170,41 @@
                                         </div>
 
                                     </div><!-- /.row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Choose color
+                                                    <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker"
+                                                    style="display: none;">
+                                                    <option selected="" disabled="">--Select color--</option>
+                                                    @foreach ($product_colors as $color)
+                                                        <option value="{{ $color }}">{{ $color }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Select size
+                                                    <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker"
+                                                    style="display: none;">
+                                                    <option selected="" disabled="">--Select size--</option>
+                                                    @foreach ($product_size as $size)
+                                                        <option value="{{ $size }}">{{ $size }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div><!-- /.row -->
+
                                 </div><!-- /.price-container -->
 
                                 <div class="quantity-container info-container">
@@ -199,6 +232,7 @@
                                             <a href="#" class="btn btn-primary"><i
                                                     class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
                                         </div>
+
 
 
                                     </div><!-- /.row -->
