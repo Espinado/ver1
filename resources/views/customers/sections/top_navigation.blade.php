@@ -7,7 +7,7 @@
                                 @endphp
 
                                 @foreach ($categories as $category)
-                                    <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle"
+                                    <li class="dropdown menu-item"> <a href="{{url('/product/category/'.$category->id.'/'.$category->slug)}}" class="dropdown-toggle"
                                             data-toggle="dropdown"><i class="icon fa fa-shopping-bag"
                                                 aria-hidden="true"></i>{{ $category->category_name }}</a>
                                         <ul class="dropdown-menu mega-menu">
@@ -20,7 +20,7 @@
                                                     @endphp
                                                     @foreach ($subcategories as $subcategory)
                                                         <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                            <h2 class="title">{{ $subcategory->subcategory_name }}</h2>
+                                                            <a href="{{url('/product/subcategory/'.$subcategory->id.'/'.$subcategory->slug)}}"><h2 class="title">{{ $subcategory->subcategory_name }}</h2></a>
                                                             @php
                                                                 $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $category->id)
                                                                     ->orderBy('subsubcategory_name', 'asc')
@@ -29,7 +29,7 @@
                                                             <ul class="links">
                                                                 @foreach ($subsubcategories as $subsubcategory)
                                                                     <li><a
-                                                                            href="#">{{ $subsubcategory->subsubcategory_name }}</a>
+                                                                            href="{{url('/product/subsubcategory/'.$subsubcategory->id.'/'.$subsubcategory->slug)}}">{{ $subsubcategory->subsubcategory_name }}</a>
                                                                     </li>
                                                                 @endforeach
                                                             </ul>

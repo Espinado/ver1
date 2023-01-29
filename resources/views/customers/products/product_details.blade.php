@@ -34,7 +34,9 @@
                         <img src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
                     </div>
 
-
+                    <!-- ================================== TOP NAVIGATION ================================== -->
+                    @include('customers.sections.top_navigation')
+                    <!-- ================================== TOP NAVIGATION : END ================================== -->
 
                     <!-- ============================================== HOT DEALS ============================================== -->
                     @include('customers.sections.products.hot_deals')
@@ -61,9 +63,9 @@
                             <div class="product-item-holder size-big single-product-gallery small-gallery">
 
                                 <div id="owl-single-product">
-                                    @foreach ($images as  $image)
-                                        <div class="single-product-gallery-item" id="slide{{$image->id}}">
-                                            <a data-lightbox="image-{{$image->id}}" data-title="Gallery"
+                                    @foreach ($images as $image)
+                                        <div class="single-product-gallery-item" id="slide{{ $image->id }}">
+                                            <a data-lightbox="image-{{ $image->id }}" data-title="Gallery"
                                                 href="{{ asset($image->photo_name) }}">
                                                 <img class="img-responsive" alt=""
                                                     src="{{ asset($image->photo_name) }}"
@@ -80,10 +82,10 @@
                                 <div class="single-product-gallery-thumbs gallery-thumbs">
 
                                     <div id="owl-single-product-thumbnails">
-                                        @foreach ($images as  $image)
+                                        @foreach ($images as $image)
                                             <div class="item">
                                                 <a class="horizontal-thumb active" data-target="#owl-single-product"
-                                                    data-slide="{{$image->id}}" href="#slide{{$image->id}}">
+                                                    data-slide="{{ $image->id }}" href="#slide{{ $image->id }}">
                                                     <img class="img-responsive" width="85" alt=""
                                                         src="{{ asset($image->photo_name) }}"
                                                         data-echo="{{ asset($image->photo_name) }}" />
@@ -139,8 +141,6 @@
 
                                 <div class="price-container info-container m-t-20">
                                     <div class="row">
-
-
                                         <div class="col-sm-6">
                                             <div class="price-box">
                                                 @if ($product->discount_price == null)
@@ -170,6 +170,41 @@
                                         </div>
 
                                     </div><!-- /.row -->
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Choose color
+                                                    <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker"
+                                                    style="display: none;">
+                                                    <option selected="" disabled="">--Select color--</option>
+                                                    @foreach ($product_colors as $color)
+                                                        <option value="{{ $color }}">{{ $color }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="info-title control-label">Select size
+                                                    <span>*</span></label>
+                                                <select class="form-control unicase-form-control selectpicker"
+                                                    style="display: none;">
+                                                    <option selected="" disabled="">--Select size--</option>
+                                                    @foreach ($product_size as $size)
+                                                        <option value="{{ $size }}">{{ $size }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                    </div><!-- /.row -->
+
                                 </div><!-- /.price-container -->
 
                                 <div class="quantity-container info-container">
@@ -197,6 +232,7 @@
                                             <a href="#" class="btn btn-primary"><i
                                                     class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
                                         </div>
+
 
 
                                     </div><!-- /.row -->

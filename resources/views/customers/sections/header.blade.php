@@ -22,7 +22,7 @@
 
             <div class="cnt-block">
                 <ul class="list-unstyled list-inline">
-                    <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
+                    {{-- <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
                             data-toggle="dropdown"><span class="value">USD </span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">USD</a></li>
@@ -30,7 +30,7 @@
                             <li><a href="#">GBP</a></li>
 
                         </ul>
-                    </li>
+                    </li> --}}
                     <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
                             data-toggle="dropdown"><span
                                 class="value">{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
@@ -121,7 +121,7 @@
                             @endphp
 
                             @foreach ($categories as $category)
-                                <li class="dropdown yamm mega-menu"> <a href="{{ route('index') }}"
+                                <li class="dropdown yamm mega-menu"> <a href="#"
                                         data-hover="dropdown" class="dropdown-toggle"
                                         data-toggle="dropdown">{{ $category->category_name }}</a>
                                     <ul class="dropdown-menu container">
@@ -135,14 +135,14 @@
                                                     @foreach ($subcategories as $subcategory )
 
                                                     <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                        <h2 class="title">{{$subcategory->subcategory_name}}</h2>
+                                                       <a href="{{url('/product/subcategory/'.$subcategory->id.'/'.$subcategory->slug)}}"> <h2 class="title">{{$subcategory->subcategory_name}}</h2></a>
                                                           @php
                                                         $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $subcategory->id)->orderBy('subsubcategory_name', 'asc')->get();
                                                     @endphp
                                                         <ul class="links">
                                                             @foreach ($subsubcategories as $subsubcategory)
-                                                           
-                                                            <li><a href="#">{{$subsubcategory->subsubcategory_name}}</a></li>
+
+                                                            <li><a href="{{url('/product/subsubcategory/'.$subsubcategory->id.'/'.$subsubcategory->slug)}}">{{$subsubcategory->subsubcategory_name}}</a></li>
                                                            @endforeach
                                                         </ul>
                                                     </div>
