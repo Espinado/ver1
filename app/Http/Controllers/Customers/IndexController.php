@@ -32,8 +32,11 @@ class IndexController extends Controller
         $product_size=$product->product_size;
         $product_size=explode(',',$product_size);
         $product_colors=explode(',', $product_colors);
+        $related_products=Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $id)
+        ->orderBy('id', 'DESC')->get();
         $images = ProductImage::where('product_id', $id)->get();
-        return view('customers.products.product_details', compact('product', 'images','product_colors', 'product_size'));
+        return view('customers.products.product_details', compact('product', 'images','product_colors', 'product_size', 'related_products'));
     }
 
     public function productTag($product_tag)
@@ -44,7 +47,7 @@ class IndexController extends Controller
         $product_colors = Product::groupBy('product_color_en')
         ->select('product_color_en')
         ->get();
-       
+
 
         return view('customers.products.tags_view', compact('products', 'product_tag', 'product_colors'));
     }
@@ -66,4 +69,23 @@ class IndexController extends Controller
         ->get();
         return view('customers.products.category_view', compact('products', 'product_colors'));
     }
+
+    /// Product View With Ajax
+    public function ProductViewAjax($id)
+    {
+        $product = Product::with('category', 'brand')->findOrFail($id);
+
+        $color = $product->product_color_en;
+        $product_color = explode(',', $color);
+
+        $size = $product->product_size;
+        $product_size = explode(',', $size);
+
+        return response()->json(array(
+            'product' => $product,
+            'color' => $product_color,
+            'size' => $product_size,
+
+        ));
+    } // end method
 }
