@@ -13,8 +13,9 @@
                  <div class="products">
                      <div class="product">
                          <div class="product-image">
-                             <div class="image"> <a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}"><img src="{{ asset($product->product_thambnail) }}"
-                                         alt=""></a>
+                             <div class="image"> <a
+                                     href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}"><img
+                                         src="{{ asset($product->product_thambnail) }}" alt=""></a>
                              </div>
                              <!-- /.image -->
 
@@ -33,7 +34,9 @@
                          <!-- /.product-image -->
 
                          <div class="product-info text-left">
-                             <h3 class="name"><a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a></h3>
+                             <h3 class="name"><a
+                                     href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
+                             </h3>
                              <div class="rating rateit-small"></div>
                              <div class="description"></div>
                              @if ($product->discount_price == null)
@@ -48,7 +51,7 @@
 
                          </div>
                          <!-- /.product-info -->
-                        @include('customers.sections.products.carts')
+                         @include('customers.sections.products.carts')
                          <!-- /.cart -->
                      </div>
                      <!-- /.product -->

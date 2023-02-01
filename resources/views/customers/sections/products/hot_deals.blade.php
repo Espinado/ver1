@@ -11,9 +11,9 @@
                   <div class="products">
                       <div class="hot-deal-wrapper">
                           <div class="image">
-                             <a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">
-                                <img src="{{ asset($product->product_thambnail) }}" alt=""></a>
-                             </div>
+                              <a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">
+                                  <img src="{{ asset($product->product_thambnail) }}" alt=""></a>
+                          </div>
                           @php
                               $amount = $product->selling_price - $product->discount_price;
                               $discount = round(($amount / $product->selling_price) * 100);
@@ -21,8 +21,8 @@
                           @if ($product->discount_price == null)
                               <div class="sale-offer-tag"><span>NEW</span></div>
                           @else
-                              <div class="sale-offer-tag"><span>{{$discount}} %<br>
-                                  off</span></div>
+                              <div class="sale-offer-tag"><span>{{ $discount }} %<br>
+                                      off</span></div>
                           @endif
 
 
@@ -48,14 +48,17 @@
                       <!-- /.hot-deal-wrapper -->
 
                       <div class="product-info text-left m-t-20">
-                          <h3 class="name"><a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a></h3>
+                          <h3 class="name"><a
+                                  href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
+                          </h3>
                           <div class="rating rateit-small"></div>
                           @if ($product->discount_price == null)
                               <div class="product-price"> <span class="price"> $ {{ $product->selling_price }} </span>
                               </div>
                           @else
                               <div class="product-price"> <span class="price"> $ {{ $product->discount_price }} </span>
-                                  <span class="price-before-discount">$ {{ $product->selling_price }}</span> </div>
+                                  <span class="price-before-discount">$ {{ $product->selling_price }}</span>
+                              </div>
                               <!-- /.product-price -->
                           @endif
                       </div>
@@ -69,7 +72,8 @@
                                   <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                                       <i class="fa fa-shopping-cart"></i> </button>
                                   <button class="btn btn-primary cart-btn" data-toggle="modal"
-                          data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to
+                                      data-target="#exampleModal" id="{{ $product->id }}"
+                                      onclick="productView(this.id)">Add to
                                       cart</button>
                               </div>
                           </div>

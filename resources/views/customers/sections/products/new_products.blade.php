@@ -71,7 +71,7 @@
 
                                      </div>
                                      <!-- /.product-info -->
-@include('customers.sections.products.carts')
+                                     @include('customers.sections.products.carts')
                                      <!-- /.cart -->
                                  </div>
                                  <!-- /.product -->
@@ -141,7 +141,7 @@
 
                                          </div>
                                          <!-- /.product-info -->
-                                        @include('customers.sections.products.carts')
+                                         @include('customers.sections.products.carts')
                                          <!-- /.cart -->
                                      </div>
                                      <!-- /.product -->

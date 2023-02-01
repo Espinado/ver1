@@ -11,8 +11,9 @@
                  <div class="products">
                      <div class="product">
                          <div class="product-image">
-                             <div class="image"> <a href="{{ url('product/details/' . $product->id . '/' . $product->slug) }}"><img src="{{ asset($product->product_thambnail) }}"
-                                         alt=""></a> </div>
+                             <div class="image"> <a
+                                     href="{{ url('product/details/' . $product->id . '/' . $product->slug) }}"><img
+                                         src="{{ asset($product->product_thambnail) }}" alt=""></a> </div>
                              <!-- /.image -->
                              @php
                                  $amount = $product->selling_price - $product->discount_price;
@@ -31,19 +32,22 @@
                              <h3 class="name"><a href="detail.html">{{ $product->product_name }}</a></h3>
                              <div class="rating rateit-small"></div>
                              <div class="description"></div>
-                            @if ($product->discount_price == null)
-                              <div class="product-price"> <span class="price"> $ {{ $product->selling_price }} </span>
-                              </div>
-                          @else
-                              <div class="product-price"> <span class="price"> $ {{ $product->discount_price }} </span>
-                                  <span class="price-before-discount">$ {{ $product->selling_price }}</span> </div>
-                              <!-- /.product-price -->
-                          @endif
+                             @if ($product->discount_price == null)
+                                 <div class="product-price"> <span class="price"> $ {{ $product->selling_price }}
+                                     </span>
+                                 </div>
+                             @else
+                                 <div class="product-price"> <span class="price"> $ {{ $product->discount_price }}
+                                     </span>
+                                     <span class="price-before-discount">$ {{ $product->selling_price }}</span>
+                                 </div>
+                                 <!-- /.product-price -->
+                             @endif
                              <!-- /.product-price -->
 
                          </div>
                          <!-- /.product-info -->
-                        @include('customers.sections.products.carts')
+                         @include('customers.sections.products.carts')
                          <!-- /.cart -->
                      </div>
                      <!-- /.product -->

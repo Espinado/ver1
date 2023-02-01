@@ -70,6 +70,7 @@
     <script src="{{ asset('customers/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/scripts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
@@ -152,11 +153,7 @@
             var color = $('#color option:selected').text();
             var size = $('#size option:selected').text();
             var quantity = $('#quantity').val();
-            console.log(id);
-            console.log(product_name);
-            console.log(color);
-            console.log(size);
-            console.log(quantity);
+
             $.ajax({
                 method: "POST",
                 dataType: "json",
@@ -167,10 +164,29 @@
                     size: size,
                     quantity: quantity,
                 },
-                url: "/cart/data/store/"+id,
+                url: "/cart/data/store/" + id,
                 success: function(data) {
-                     $('#closeModal').click();
-                console.log(data);
+                    $('#closeModal').click();
+                    const toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        showConfirmButton: false,
+                        timer: 3500
+                    })
+                    if ($.isEmptyObject(data.error)) {
+                        toast.fire({
+                            type: 'success',
+                            'title': data.success
+                        })
+                    } else {
+                        toast.fire({
+                            type: 'error',
+                            'title': data.error
+                        })
+                    }
+
                 },
             })
 
@@ -179,7 +195,7 @@
 
     <!-- Add to Cart Product Modal -->
     <!-- Button trigger modal -->
-   
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
