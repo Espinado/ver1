@@ -34,6 +34,12 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800'
         rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        .modal-content {
+            width: 800px;
+            right: 100px;
+        }
+    </style>
 </head>
 
 <body class="cnt-home">
@@ -84,45 +90,104 @@
         @endif
     </script>
     <script type="text/javascript">
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-        }
-    })
-// Start Product View with Modal
-function productView(id){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        })
+        // Start Product View with Modal
+        function productView(id) {
 
-    $.ajax({
-        type: 'GET',
-        url: '/product/view/modal/'+id,
-        dataType:'json',
-        success:function(data){
-             $('#pname').text(data.product.product_name);
-            $('#price').text(data.product.selling_price);
-            $('#pcode').text(data.product.product_code);
-            $('#pstock').text(data.product.product_qty);
-            $('#pcategory').text(data.product.category.category_name);
-            $('#pbrand').text(data.product.brand.brand_name);
-           $('#pimage').attr('src','/'+data.product.product_thambnail);
-        }
-    })
+            $.ajax({
+                type: 'GET',
+                url: '/product/view/modal/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    $('#oldprice').empty();
+                    $('#pname').text(data.product.product_name);
+                    $('#product_id').val(data.product.id);
+                    $('#price').text(data.product.selling_price);
+                    $('#pcode').text(data.product.product_code);
+                    if (data.product.product_qty > 0) {
+                        $('#available').text(data.product.product_qty);
+                        $('#notavailable').text('');
+                    } else {
+                        $('#available').text('');
+                        $('#notavailable').text('Not in stock');
+                    }
+                    $('#pcategory').text(data.product.category.category_name);
+                    $('#pbrand').text(data.product.brand.brand_name);
+                    $('#pimage').attr('src', '/' + data.product.product_thambnail);
+                    if (data.product.discount_price == null) {
+                        $('#pprice').text(data.product.selling_price);
+                        $('#oldprice').text('');
+                    } else {
+                        $('#pprice').text(data.product.discount_price);
+                        $('#oldprice').text(data.product.selling_price);
+                    }
+                    $('select[name="color"]').empty();
+                    $.each(data.color, function(key, value) {
+                        $('select[name="color"]').append('<option value="' + value + '">' + value +
+                            '</option>');
+                    })
+                    $('select[name="size"]').empty();
+                    $.each(data.size, function(key, value) {
+                        $('select[name="size"]').append('<option value="' + value + '">' + value +
+                            '</option>');
+                        if (data.size == "") {
+                            $('#sizeArea').hide();
+                        } else {
+                            $('#sizeArea').show();
+                        }
+                    })
+                }
+            })
 
-}
-</script>
+        }
+
+        //Add to cart
+        function addToCart() {
+            var product_name = $('#pname').text();
+            var id = $('#product_id').val();
+            var color = $('#color option:selected').text();
+            var size = $('#size option:selected').text();
+            var quantity = $('#quantity').val();
+            console.log(id);
+            console.log(product_name);
+            console.log(color);
+            console.log(size);
+            console.log(quantity);
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                data: {
+                    product_name: product_name,
+                    id: id,
+                    color: color,
+                    size: size,
+                    quantity: quantity,
+                },
+                url: "/cart/data/store/"+id,
+                success: function(data) {
+                     $('#closeModal').click();
+                console.log(data);
+                },
+            })
+
+        }
+    </script>
 
     <!-- Add to Cart Product Modal -->
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button>
+   
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><span id="pname"></span> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span></strong> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -130,46 +195,50 @@ function productView(id){
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card" style="width: 18rem;">
-                                <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 200px;" id="pimage">
+                                <img src=" " class="card-img-top" alt="..."
+                                    style="height: 200px; width: 200px;" id="pimage">
                             </div>
 
                         </div>
                         <div class="col-md-4">
                             <ul class="list-group">
-                                <li class="list-group-item">Product price:&nbsp; <strong id="price"></strong></li>
-                                <li class="list-group-item">Product code:&nbsp;  <strong id="pcode"></strong></li>
-                                <li class="list-group-item">Category:&nbsp; <strong id="pcategory"></strong></li>
-                                <li class="list-group-item">Brand:&nbsp; <strong id="pbrand"></strong></li>
-                                <li class="list-group-item">Stock:&nbsp;<strong id="pstock"></strong></li></li>
+                                <li class="list-group-item">Product price: <strong class="text-danger"><span
+                                            id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
+
+                                <li class="list-group-item">Product code: <strong id="pcode"></strong></li>
+                                <li class="list-group-item">Category: <strong id="pcategory"></strong></li>
+                                <li class="list-group-item">Brand: <strong id="pbrand"></strong></li>
+                                <li class="list-group-item">Stock:<span class="badge badge-pill badge-success"
+                                        id="available" style="background: green; color:white"></span>
+                                    <span class="badge badge-pill badge-danger" id="notavailable"
+                                        style="background: red; color:white"></span>
+                                    <strong id="pstock"></strong>
+                                </li>
+                                </li>
                             </ul>
 
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleFormControlSelect1">Choose color:</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <label for="color">Choose color:</label>
+                                <select class="form-control" id="color" name="color">
+
                                 </select>
                             </div>
-                             <div class="form-group">
-                                <label for="exampleFormControlSelect1">Choose size:</label>
-                                <select class="form-control" id="exampleFormControlSelect1">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                            <div class="form-group" id="sizeArea">
+                                <label for="size">Choose size:</label>
+                                <select class="form-control" id="size" name="size">
+
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Quantity</label>
-                                <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1">
+                                <input type="number" id="quantity" name="quantity" class="form-control"
+                                    value="1" min="1">
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2">Add to cart</button>
+                            <input type="hidden" name="product_id" id="product_id">
+                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">Add to
+                                cart</button>
 
                         </div>
 

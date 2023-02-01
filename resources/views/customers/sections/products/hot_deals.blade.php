@@ -68,7 +68,8 @@
                               <div class="add-cart-button btn-group">
                                   <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
                                       <i class="fa fa-shopping-cart"></i> </button>
-                                  <button class="btn btn-primary cart-btn" type="button">Add to
+                                  <button class="btn btn-primary cart-btn" data-toggle="modal"
+                          data-target="#exampleModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to
                                       cart</button>
                               </div>
                           </div>

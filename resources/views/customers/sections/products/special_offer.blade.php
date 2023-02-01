@@ -13,7 +13,7 @@
       <div class="row product-micro-row">
         <div class="col col-xs-5">
           <div class="product-image">
-            <div class="image"> <a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug ) }}"> <img src="{{ asset($product->product_thambnail) }}" alt=""> </a> </div>
+            <div class="image"> <a href="{{ url('product/details/'.$product->id.'/'.$product->slug ) }}"> <img src="{{ asset($product->product_thambnail) }}" alt=""> </a> </div>
             <!-- /.image -->
 
           </div>
@@ -22,7 +22,7 @@
         <!-- /.col -->
         <div class="col col-xs-7">
           <div class="product-info">
-            <h3 class="name"><a href="{{ url('product/details/'.$product->id.'/'.$product->product_slug ) }}"> {{ $product->product_name }} </a></h3>
+            <h3 class="name"><a href="{{ url('product/details/'.$product->id.'/'.$product->slug ) }}"> {{ $product->product_name }} </a></h3>
             <div class="rating rateit-small"></div>
  <div class="product-price"> <span class="price"> ${{ $product->selling_price }} </span> </div>
             <!-- /.product-price -->
