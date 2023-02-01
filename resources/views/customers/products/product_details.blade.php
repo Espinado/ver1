@@ -180,7 +180,7 @@
                                                     style="display: none;">
                                                     <option selected="" disabled="">--Select color--</option>
                                                     @foreach ($product_colors as $color)
-                                                        <option value="{{ $color }}">{{ucwords($color) }}
+                                                        <option value="{{ $color }}">{{ ucwords($color) }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -189,16 +189,19 @@
 
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="info-title control-label">Select size
-                                                    <span>*</span></label>
-                                                <select class="form-control unicase-form-control selectpicker"
-                                                    style="display: none;">
-                                                    <option selected="" disabled="">--Select size--</option>
-                                                    @foreach ($product_size as $size)
-                                                        <option value="{{ $size }}">{{ $size }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                @if ($product->product_size == null)
+                                                @else
+                                                    <label class="info-title control-label">Select size
+                                                        <span>*</span></label>
+                                                    <select class="form-control unicase-form-control selectpicker"
+                                                        style="display: none;">
+                                                        <option selected="" disabled="">--Select size--</option>
+                                                        @foreach ($product_size as $size)
+                                                            <option value="{{ $size }}">{{ $size }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                             </div>
 
                                         </div>

@@ -5,31 +5,47 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admins\Product;
- use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
-   public function add_wishlist ($id) {
-    // dd(session()->all('cart'));
-    // session()->forget('cart');
-        $product = Product::findOrFail($id);
-dump($product);
-        $cart = session()->get('cart', []);
 
-        if(isset($cart[3])) {
-            $cart[$id]['quantity']++;
+    public function AddToCart(Request $request, $id)
+    {
+        // dd($request->quantity);
+       $product=Product::findOrFail($id);
+        if ($product->discount_price == NULL) {
+            Cart::add([
+                'id' => $id,
+                'name' => $request->product_name,
+                'qty' => $request->quantity,
+                'price' => $product->selling_price,
+                'weight' => 1,
+                'options' => [
+                    'image' => $product->product_thambnail,
+                    'color' => $request->color,
+                    'size' => $request->size,
+                ],
+            ]);
+
+            return response()->json(['success' => 'Successfully Added on Your Cart']);
         } else {
-            $cart[$id] = [
-                "name" => 'test',
-                "quantity" => 1,
-                "price" => $product->selling_price,
 
-            ];
+            Cart::add([
+                'id' => $id,
+                'name' => $request->product_name,
+                'qty' => 1,
+                'price' => $product->discount_price,
+                'weight' => 1,
+                'options' => [
+                    'image' => $product->product_thambnail,
+                    'color' => $request->color,
+                    'size' => $request->size,
+                ],
+            ]);
+            return response()->json(['success' => 'Successfully Added on Your Cart']);
         }
 
-        session()->put('cart', $cart);
-        
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
 
 }
