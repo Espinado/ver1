@@ -143,7 +143,6 @@
                     })
                 }
             })
-
         }
 
         //Add to cart
@@ -166,6 +165,7 @@
                 },
                 url: "/cart/data/store/" + id,
                 success: function(data) {
+                     miniCart()
                     $('#closeModal').click();
                     const toast = Swal.mixin({
                         toast: true,
@@ -186,9 +186,45 @@
                             'title': data.error
                         })
                     }
-
                 },
             })
+        }
+    </script>
+    <script type="text/javascript">
+        function miniCart() {
+            $.ajax({
+                type: "GET",
+                url: "/cart/data/read",
+                dataType: 'json',
+                success: function(response) {
+                      $('span[id="cartSubTotal"]').text(response.cartTotal);
+                $('#cartQty').text(response.cartQty);
+                    var miniCart = ""
+                    $.each(response.carts, function(key, value) {
+                        miniCart += `<div class="cart-item product-summary">
+                 <div class="row">
+            <div class="col-xs-4">
+              <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+            </div>
+            <div class="col-xs-7">
+              <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+              <div class="price"> ${value.price} * ${value.qty} </div>
+            </div>
+            <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
+          </div>
+        </div>
+        <!-- /.cart-item -->
+        <div class="clearfix"></div>
+        <hr>`
+                    });
+
+                    $('#miniCart').html(miniCart);
+                },
+                error: function(error) {
+
+                }
+
+            });
 
         }
     </script>

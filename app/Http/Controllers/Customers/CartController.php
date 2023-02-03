@@ -34,7 +34,7 @@ class CartController extends Controller
             Cart::add([
                 'id' => $id,
                 'name' => $request->product_name,
-                'qty' => 1,
+                'qty' => $request->quantity,
                 'price' => $product->discount_price,
                 'weight' => 1,
                 'options' => [
@@ -45,7 +45,18 @@ class CartController extends Controller
             ]);
             return response()->json(['success' => 'Successfully Added on Your Cart']);
         }
+    }
+    public function ReadCart() {
+        $carts=Cart::content();
+        $cartQty=Cart::count();
+        $cartTotal=Cart::total();
 
+        return response()->json(array(
+            'carts' => $carts,
+            'cartQty' => $cartQty,
+            'cartTotal' => round($cartTotal),
+
+        ));
     }
 
 }

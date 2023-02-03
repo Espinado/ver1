@@ -103,7 +103,7 @@
                         </div><!-- /.gallery-holder -->
                         <div class='col-sm-6 col-md-7 product-info-block'>
                             <div class="product-info">
-                                <h1 class="name">{{ $product->product_name }}</h1>
+                                <h1 class="name" id="pname">{{ $product->product_name }}</h1>
 
                                 <div class="rating-reviews m-t-20">
                                     <div class="row">
@@ -177,7 +177,7 @@
                                                 <label class="info-title control-label">Choose color
                                                     <span>*</span></label>
                                                 <select class="form-control unicase-form-control selectpicker"
-                                                    style="display: none;">
+                                                    style="display: none;" id="color">
                                                     <option selected="" disabled="">--Select color--</option>
                                                     @foreach ($product_colors as $color)
                                                         <option value="{{ $color }}">{{ ucwords($color) }}
@@ -194,10 +194,10 @@
                                                     <label class="info-title control-label">Select size
                                                         <span>*</span></label>
                                                     <select class="form-control unicase-form-control selectpicker"
-                                                        style="display: none;">
+                                                        style="display: none;" id="size">
                                                         <option selected="" disabled="">--Select size--</option>
                                                         @foreach ($product_size as $size)
-                                                            <option value="{{ $size }}">{{ $size }}
+                                                            <option value="{{ $size }}">{{ ucwords($size) }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -226,14 +226,16 @@
                                                         <div class="arrow minus gradient"><span class="ir"><i
                                                                     class="icon fa fa-sort-desc"></i></span></div>
                                                     </div>
-                                                    <input type="text" value="1">
+                                                    <input type="number" id="qty" value="1"
+                                                        min="1">
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <input type="hidden" name="id" id="product_id"
+                                            value="{{ $product->id }}">"
                                         <div class="col-sm-7">
-                                            <a href="#" class="btn btn-primary"><i
-                                                    class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</a>
+                                            <button type="submit" onclick="addToCart()" class="btn btn-primary">
+                                                <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</button>
                                         </div>
 
 
@@ -535,16 +537,5 @@
         <!-- == = BRANDS CAROUSEL : END = -->
     </div><!-- /.container -->
 </div><!-- /.body-content -->
-{{-- <script src="{{ asset('customers/assets/js/jquery-1.11.1.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/bootstrap-hover-dropdown.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/owl.carousel.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/echo.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/jquery.easing-1.3.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/bootstrap-slider.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/jquery.rateit.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('customers/assets/js/lightbox.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/bootstrap-select.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/wow.min.js') }}"></script>
-<script src="{{ asset('customers/assets/js/scripts.js') }}"></script> --}}
+
 @endsection
