@@ -140,7 +140,7 @@
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== MANUFACTURES: END ============================================== -->
                         <!-- ============================================== COLOR============================================== -->
-                       @include('customers.sections.products.color_list')
+                        @include('customers.sections.products.color_list')
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== COLOR: END ============================================== -->
                         <!-- == ======= COMPARE==== ==== -->
@@ -314,7 +314,7 @@
                                                         <h3 class="name"><a
                                                                 href="{{ url('product/details/' . $product->id . '/' . $product->slug) }}">
 
-                                                                    {{ $product->product_name }}
+                                                                {{ $product->product_name }}
 
                                                             </a>
                                                         </h3>
@@ -339,7 +339,7 @@
 
                                                     </div>
                                                     <!-- /.product-info -->
-                                                   @include('customers.sections.products.carts')
+                                                    @include('customers.sections.products.carts')
                                                     <!-- /.cart -->
                                                 </div>
                                                 <!-- /.product -->
@@ -383,7 +383,6 @@
 
 
                                 @foreach ($products as $product)
-
                                     <div class="category-product-inner wow fadeInUp">
                                         <div class="products">
                                             <div class="product-list product">
@@ -391,8 +390,9 @@
                                                     <div class="col col-sm-4 col-lg-4">
                                                         <div class="product-image">
                                                             <div class="image">
-                                                                 <img src="{{ asset($product->product_thambnail) }}" alt="">
-                                                                </div>
+                                                                <img src="{{ asset($product->product_thambnail) }}"
+                                                                    alt="">
+                                                            </div>
                                                         </div>
                                                         <!-- /.product-image -->
                                                     </div>
@@ -404,7 +404,7 @@
 
 
 
-                                                                        {{ $product->product_name }}
+                                                                    {{ $product->product_name }}
 
                                                                 </a>
                                                             </h3>
@@ -423,36 +423,11 @@
 
                                                             <!-- /.product-price -->
                                                             <div class="description m-t-10">
-                                                                @if (session()->get('language') == 'hindi')
-                                                                    {{ $product->short_descp_hin }}
-                                                                @else
-                                                                    {{ $product->short_descp_en }}
-                                                                @endif
+
+                                                                {{ $product->short_descp }}
+
                                                             </div>
-                                                            <div class="cart clearfix animate-effect">
-                                                                <div class="action">
-                                                                    <ul class="list-unstyled">
-                                                                        <li class="add-cart-button btn-group">
-                                                                            <button class="btn btn-primary icon"
-                                                                                data-toggle="dropdown" type="button">
-                                                                                <i class="fa fa-shopping-cart"></i>
-                                                                            </button>
-                                                                            <button class="btn btn-primary cart-btn"
-                                                                                type="button">Add to cart</button>
-                                                                        </li>
-                                                                        <li class="lnk wishlist"> <a
-                                                                                class="add-to-cart" href="detail.html"
-                                                                                title="Wishlist"> <i
-                                                                                    class="icon fa fa-heart"></i> </a>
-                                                                        </li>
-                                                                        <li class="lnk"> <a class="add-to-cart"
-                                                                                href="detail.html" title="Compare"> <i
-                                                                                    class="fa fa-signal"></i> </a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <!-- /.action -->
-                                                            </div>
+                                                            @include('customers.sections.products.carts_grid')
                                                             <!-- /.cart -->
 
                                                         </div>
@@ -528,64 +503,7 @@
         </div>
         <!-- /.row -->
         <!-- ============================================== BRANDS CAROUSEL ============================================== -->
-        <div id="brands-carousel" class="logo-slider wow fadeInUp">
-            <div class="logo-slider-inner">
-                <div id="brand-slider" class="owl-carousel brand-slider custom-carousel owl-theme">
-                    <div class="item m-t-15"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item m-t-10"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand3.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand6.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand2.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand4.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand1.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-
-                    <div class="item"> <a href="#" class="image"> <img
-                                data-echo="assets/images/brands/brand5.png" src="assets/images/blank.gif"
-                                alt=""> </a> </div>
-                    <!--/.item-->
-                </div>
-                <!-- /.owl-carousel #logo-slider -->
-            </div>
-            <!-- /.logo-slider-inner -->
-
-        </div>
+        @include('customers.sections.brands')
         <!-- /.logo-slider -->
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div>
