@@ -148,6 +148,7 @@ Route::group(
         Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
         Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
         Route::get('/cart/data/read', [CartController::class, 'ReadCart']);
+        Route::get('/cart/remove/item/{rowId}', [CartController::class, 'CartRemoveItem']);
 
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';

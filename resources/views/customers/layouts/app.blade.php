@@ -91,6 +91,9 @@
         @endif
     </script>
     <script type="text/javascript">
+    $(document).ready(function(){
+
+    })
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -153,6 +156,7 @@
             var size = $('#size option:selected').text();
             var quantity = $('#quantity').val();
 
+
             $.ajax({
                 method: "POST",
                 dataType: "json",
@@ -165,7 +169,7 @@
                 },
                 url: "/cart/data/store/" + id,
                 success: function(data) {
-                     miniCart()
+                    miniCart()
                     $('#closeModal').click();
                     const toast = Swal.mixin({
                         toast: true,
@@ -197,20 +201,22 @@
                 url: "/cart/data/read",
                 dataType: 'json',
                 success: function(response) {
-                      $('span[id="cartSubTotal"]').text(response.cartTotal);
-                $('#cartQty').text(response.cartQty);
+                    $('span[id="cartSubTotal"]').text(response.cartTotal);
+                    $('#cartQty').text(response.cartQty);
                     var miniCart = ""
                     $.each(response.carts, function(key, value) {
+                        console.log(value)
+                        console.log(value.id)
                         miniCart += `<div class="cart-item product-summary">
                  <div class="row">
             <div class="col-xs-4">
               <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
             </div>
             <div class="col-xs-7">
-              <h3 class="name"><a href="index.php?page-detail">${value.name}</a></h3>
+              <h3 class="name"><a href="product/details/"+${value.id}>${value.name}</a></h3>
               <div class="price"> ${value.price} * ${value.qty} </div>
             </div>
-            <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
+            <div class="col-xs-1 action"> <button type="submit" id="${value.rowId}" onclick="CartItemRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
           </div>
         </div>
         <!-- /.cart-item -->
@@ -220,13 +226,44 @@
 
                     $('#miniCart').html(miniCart);
                 },
-                error: function(error) {
-
-                }
+                error: function(error) {}
 
             });
 
         }
+        miniCart();
+
+        function CartItemRemove(rowId){
+        $.ajax({
+            type: 'GET',
+            url: '/cart/remove/item/'+rowId,
+            dataType:'json',
+            success:function(data){
+            miniCart();
+             // Start Message
+                const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      icon: 'success',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                if ($.isEmptyObject(data.error)) {
+                    Toast.fire({
+                        type: 'success',
+                        title: data.success
+                    })
+                }else{
+                    Toast.fire({
+                        type: 'error',
+                        title: data.error
+                    })
+                }
+                // End Message
+            }
+        });
+    }
+
     </script>
 
     <!-- Add to Cart Product Modal -->
