@@ -13,7 +13,7 @@ class CartController extends Controller
     public function AddToCart(Request $request, $id)
     {
         // dd($request->quantity);
-       $product=Product::findOrFail($id);
+        $product = Product::findOrFail($id);
         if ($product->discount_price == NULL) {
             Cart::add([
                 'id' => $id,
@@ -46,10 +46,11 @@ class CartController extends Controller
             return response()->json(['success' => 'Successfully Added on Your Cart']);
         }
     }
-    public function ReadCart() {
-        $carts=Cart::content();
-        $cartQty=Cart::count();
-        $cartTotal=Cart::total();
+    public function ReadCart()
+    {
+        $carts = Cart::content();
+        $cartQty = Cart::count();
+        $cartTotal = Cart::total();
 
         return response()->json(array(
             'carts' => $carts,
@@ -59,4 +60,9 @@ class CartController extends Controller
         ));
     }
 
+    public function CartRemoveItem($rowId)
+    {
+        Cart::remove($rowId);
+        return response()->json(['success' => 'Product Remove from Cart']);
+    }
 }
