@@ -15,6 +15,7 @@ use App\Http\Controllers\Customers\IndexController;
 use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
 use App\Http\Controllers\Admins\SliderController;
+use App\Http\Controllers\Customers\WishlistController;
 
 
 use Illuminate\Http\Request;
@@ -149,6 +150,8 @@ Route::group(
         Route::post('/cart/data/store/{id}', [CartController::class, 'AddToCart']);
         Route::get('/cart/data/read', [CartController::class, 'ReadCart']);
         Route::get('/cart/remove/item/{rowId}', [CartController::class, 'CartRemoveItem']);
+
+        Route::post('/cart/addToWishlist/item/{product_id}', [WishlistController::class, 'addToWishlist']);
 
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
         require __DIR__ . '/auth.php';
