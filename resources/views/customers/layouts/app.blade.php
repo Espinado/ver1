@@ -91,9 +91,9 @@
         @endif
     </script>
     <script type="text/javascript">
-    $(document).ready(function(){
+        $(document).ready(function() {
 
-    })
+        })
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -148,7 +148,7 @@
             })
         }
 
-        //Add to cart
+        // <!-- Add to Cart Product Modal -->
         function addToCart() {
             var product_name = $('#pname').text();
             var id = $('#product_id').val();
@@ -205,8 +205,6 @@
                     $('#cartQty').text(response.cartQty);
                     var miniCart = ""
                     $.each(response.carts, function(key, value) {
-                        console.log(value)
-                        console.log(value.id)
                         miniCart += `<div class="cart-item product-summary">
                  <div class="row">
             <div class="col-xs-4">
@@ -229,45 +227,75 @@
                 error: function(error) {}
 
             });
-
         }
         miniCart();
 
-        function CartItemRemove(rowId){
-        $.ajax({
-            type: 'GET',
-            url: '/cart/remove/item/'+rowId,
-            dataType:'json',
-            success:function(data){
-            miniCart();
-             // Start Message
-                const Toast = Swal.mixin({
-                      toast: true,
-                      position: 'top-end',
-                      icon: 'success',
-                      showConfirmButton: false,
-                      timer: 3000
+        function CartItemRemove(rowId) {
+            $.ajax({
+                type: 'GET',
+                url: '/cart/remove/item/' + rowId,
+                dataType: 'json',
+                success: function(data) {
+                    miniCart();
+                    // Start Message
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 3000
                     })
-                if ($.isEmptyObject(data.error)) {
-                    Toast.fire({
-                        type: 'success',
-                        title: data.success
-                    })
-                }else{
-                    Toast.fire({
-                        type: 'error',
-                        title: data.error
-                    })
+                    if ($.isEmptyObject(data.error)) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    } else {
+                        Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+                    }
+                    // End Message
                 }
-                // End Message
-            }
-        });
-    }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        //-Add to wish list start
 
+        function addToWishList(product_id) {
+            Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 6000
+                }),
+                $.ajax({
+                    type: "POST",
+                    dataType: 'json',
+                    url: '/cart/addToWishlist/item/' + product_id,
+                    success: function(data) {
+                        Toast.fire({
+                            type: 'success',
+                            title: data.success
+                        })
+                    },
+                    error: function(error) {
+                        var errorText = $.parseJSON(error.responseText);
+                        Toast.fire({
+                            icon: 'error',
+                            title: errorText.error,
+                        })
+                    }
+                })
+        }
+
+        //--End to wish list end
     </script>
 
-    <!-- Add to Cart Product Modal -->
-    <!-- Button trigger modal -->
+
 
 
     <!-- Modal -->
