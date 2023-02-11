@@ -22,7 +22,7 @@
                                                         <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                                             <a href="{{url('/product/subcategory/'.$subcategory->id.'/'.$subcategory->slug)}}"><h2 class="title">{{ $subcategory->subcategory_name }}</h2></a>
                                                             @php
-                                                                $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $category->id)
+                                                                $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $subcategory->id)
                                                                     ->orderBy('subsubcategory_name', 'asc')
                                                                     ->get();
                                                             @endphp
