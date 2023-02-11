@@ -62,7 +62,27 @@ class CartController extends Controller
 
     public function CartRemoveItem($rowId)
     {
+        // dd($rowId);
         Cart::remove($rowId);
         return response()->json(['success' => 'Product Remove from Cart']);
     }
+
+    public function MyCart() {
+
+        return view('customers.cart.view_mycart');
+    }
+
+    public function GetCartProduct()
+    {
+        $carts = Cart::content();
+        $cartQty = Cart::count();
+        $cartTotal = Cart::total();
+
+        return response()->json(array(
+            'carts' => $carts,
+            'cartQty' => $cartQty,
+            'cartTotal' => round($cartTotal),
+
+        ));
+    } //end method
 }
