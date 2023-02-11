@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
 @section('title')
-    sSubcategory Product
+    Subcategory Product
 @endsection
 
 

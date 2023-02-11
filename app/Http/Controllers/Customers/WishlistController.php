@@ -7,6 +7,7 @@ use App\Models\Customers\Wishlist;
 use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Carbon;
+use App\Models\Admins\Product;
 
 class WishlistController extends Controller
 {
@@ -25,10 +26,29 @@ class WishlistController extends Controller
                 ]);
                 return response()->json(['success' => 'Added to wishlist'], 200);
             }
-
-
         } else {
             return response()->json(['error' => 'Not authorised'], 320);
         }
     }
+
+    public function ReadWishlist()
+    {
+
+        return view ('customers.products.view_wishlist');
+    }
+    public function GetWishlistProduct()
+
+    {
+
+        $wishlist = Wishlist::with('product')->where('user_id', Auth::id())->latest()->get();
+       return response()->json($wishlist);
+    } // end mehtod
+
+    public function RemoveWishlistProduct($id)
+    {
+     
+        Wishlist::where('user_id', Auth::id())->where('id', $id)->delete();
+        return response()->json(['success' => 'Successfully Product Remove']);
+    }
+
 }

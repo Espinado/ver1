@@ -151,9 +151,14 @@ Route::group(
         Route::get('/cart/data/read', [CartController::class, 'ReadCart']);
         Route::get('/cart/remove/item/{rowId}', [CartController::class, 'CartRemoveItem']);
 
-        Route::post('/cart/addToWishlist/item/{product_id}', [WishlistController::class, 'addToWishlist']);
+        Route::get('/mycart', [CartController::class, 'MyCart'])->name('mycart');
+        Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
 
+        Route::post('/cart/addToWishlist/item/{product_id}', [WishlistController::class, 'addToWishlist']);
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');
+        Route::get('/wishlist/data/read', [WishlistController::class, 'ReadWishlist'])->name('wishlist');
+        Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
+        Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
         require __DIR__ . '/auth.php';
     }
 );

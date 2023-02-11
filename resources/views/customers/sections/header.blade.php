@@ -6,15 +6,21 @@
                 <ul class="list-unstyled">
 
 
-                    <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
-                    <li><a href="#"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                    <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
                     @auth
-                        <li><a href="{{ route('profile.index') }}"><i
-                                    class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
-                    @else
-                        <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a></li>
-                    @endauth
+                    <li onclick="wishlist"><a href="{{ route('wishlist') }}">
+                                <i class="icon fa fa-heart"></i>
+                                Wishlist <span class="badge badge-danger" id="count_wishes"> </span>
+                            </a>
+                            </li>
+                        @endauth
+                        <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        @auth
+                            <li><a href="{{ route('profile.index') }}"><i
+                                        class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a></li>
+                        @endauth
                 </ul>
                 </ul>
             </div>
@@ -121,31 +127,39 @@
                             @endphp
 
                             @foreach ($categories as $category)
-                                <li class="dropdown yamm mega-menu"> <a href="#"
-                                        data-hover="dropdown" class="dropdown-toggle"
+                                <li class="dropdown yamm mega-menu"> <a href="#" data-hover="dropdown"
+                                        class="dropdown-toggle"
                                         data-toggle="dropdown">{{ $category->category_name }}</a>
                                     <ul class="dropdown-menu container">
                                         <li>
                                             <div class="yamm-content ">
                                                 <div class="row">
                                                     @php
-                                                        $subcategories = App\Models\Admins\SubCategory::where('category_id', $category->id)->orderBy('subcategory_name', 'asc')->get();
+                                                        $subcategories = App\Models\Admins\SubCategory::where('category_id', $category->id)
+                                                            ->orderBy('subcategory_name', 'asc')
+                                                            ->get();
                                                     @endphp
 
-                                                    @foreach ($subcategories as $subcategory )
-
-                                                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
-                                                       <a href="{{url('/product/subcategory/'.$subcategory->id.'/'.$subcategory->slug)}}"> <h2 class="title">{{$subcategory->subcategory_name}}</h2></a>
-                                                          @php
-                                                        $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $subcategory->id)->orderBy('subsubcategory_name', 'asc')->get();
-                                                    @endphp
-                                                        <ul class="links">
-                                                            @foreach ($subsubcategories as $subsubcategory)
-
-                                                            <li><a href="{{url('/product/subsubcategory/'.$subsubcategory->id.'/'.$subsubcategory->slug)}}">{{$subsubcategory->subsubcategory_name}}</a></li>
-                                                           @endforeach
-                                                        </ul>
-                                                    </div>
+                                                    @foreach ($subcategories as $subcategory)
+                                                        <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+                                                            <a
+                                                                href="{{ url('/product/subcategory/' . $subcategory->id . '/' . $subcategory->slug) }}">
+                                                                <h2 class="title">{{ $subcategory->subcategory_name }}
+                                                                </h2>
+                                                            </a>
+                                                            @php
+                                                                $subsubcategories = App\Models\Admins\SubSubCategory::where('subcategory_id', $subcategory->id)
+                                                                    ->orderBy('subsubcategory_name', 'asc')
+                                                                    ->get();
+                                                            @endphp
+                                                            <ul class="links">
+                                                                @foreach ($subsubcategories as $subsubcategory)
+                                                                    <li><a
+                                                                            href="{{ url('/product/subsubcategory/' . $subsubcategory->id . '/' . $subsubcategory->slug) }}">{{ $subsubcategory->subsubcategory_name }}</a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
                                                     @endforeach
                                                     <!-- /.col -->
 
