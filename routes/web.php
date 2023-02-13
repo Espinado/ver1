@@ -8,6 +8,7 @@ use App\Http\Controllers\Admins\SubcategoryController;
 use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\Admins\BrandController;
 use App\Http\Controllers\Admins\AdminProfileController;
+use App\Http\Controllers\Admins\CouponController;
 
 use App\Http\Controllers\SellerController as Seller;
 
@@ -105,6 +106,14 @@ Route::group(
         Route::get('/slider/active/{id}', [SliderController::class, 'SliderActive'])->name('admin.slider.active');
 
 
+        Route::get('/manage/coupons/', [CouponController::class, 'couponView'])->name('admin.manage.coupons')->middleware('admin');
+        Route::post('/coupon/store', [CouponController::class, 'CouponStore'])->name('admin.coupon.store');
+        Route::get('/coupon/edit/{id}', [CouponController::class, 'couponEdit'])->name('admin.coupon.edit')->middleware('admin');
+        Route::get('/coupon/delete/{id}', [CouponController::class, 'couponDelete'])->name('admin.coupon.delete')->middleware('admin');
+        Route::post('/coupon/update/{id}', [CouponController::class, 'couponUpdate'])->name('admin.coupon.update')->middleware('admin');
+
+        Route::get('/manage/division', [CouponController::class, 'couponView'])->name('admin.manage.division')->middleware('admin');
+
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
         Route::get('/seller/register', [SellerController::class, 'SellerRegister'])->name('seller.register')->middleware('admin');
@@ -153,6 +162,8 @@ Route::group(
 
         Route::get('/mycart', [CartController::class, 'MyCart'])->name('mycart');
         Route::get('/get-cart-product', [CartController::class, 'GetCartProduct']);
+        Route::get('/cart-increment/{rowId}', [CartController::class, 'CartIncrement']);
+        Route::get('/cart-decrement/{rowId}', [CartController::class, 'CartDecrement']);
 
         Route::post('/cart/addToWishlist/item/{product_id}', [WishlistController::class, 'addToWishlist']);
         Route::get('add_wishlist/{id}', [CartController::class, 'add_wishlist'])->name('add_wishlist');

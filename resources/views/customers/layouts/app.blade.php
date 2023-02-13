@@ -112,6 +112,7 @@
                     $('#product_id').val(data.product.id);
                     $('#price').text(data.product.selling_price);
                     $('#pcode').text(data.product.product_code);
+                    $("#quantity").prop('max', data.product.product_qty);
                     if (data.product.product_qty > 0) {
                         $('#available').text(data.product.product_qty);
                         $('#notavailable').text('');
@@ -147,7 +148,7 @@
                 }
             })
         }
-//cart ajax function
+        //cart ajax function
         // <!-- Add to Cart Product Modal -->
         function addToCart() {
             var product_name = $('#pname').text();
@@ -238,7 +239,7 @@
                 dataType: 'json',
                 success: function(data) {
                     miniCart();
-                      cart()
+                    cart()
                     // Start Message
                     const Toast = Swal.mixin({
                         toast: false,
@@ -265,7 +266,7 @@
 
         }
     </script>
-     <script type="text/javascript">
+    <script type="text/javascript">
         function cart() {
             $.ajax({
                 type: 'GET',
@@ -292,9 +293,13 @@
             </td>
 
 <td class="col-md-2">
-               <button type="submit" class="btn btn-success btn-sm">+</button>
+ ${value.qty > 1
+            ? `<button type="submit" class="btn btn-danger btn-sm" id="${value.rowId}" onclick="cartDecrement(this.id)" >-</button> `
+            : `<button type="submit" class="btn btn-danger btn-sm" disabled >-</button> `
+            }
+
         <input type="text" value="${value.qty}" min="1" max="100" disabled="" style="width:25px;" >
-        <button type="submit" class="btn btn-danger btn-sm">-</button>
+         <button type="submit" class="btn btn-success btn-sm" id="${value.rowId}" onclick="cartIncrement(this.id)" >+</button>
             </td>
              <td class="col-md-2">
             <strong>$${value.subtotal} </strong>
@@ -312,6 +317,30 @@
             })
         }
         cart();
+
+        function cartIncrement(rowId) {
+            $.ajax({
+                type: 'GET',
+                url: "/cart-increment/" + rowId,
+                dataType: 'json',
+                success: function(data) {
+                    cart();
+                    miniCart();
+                }
+            });
+        }
+
+        function cartDecrement(rowId) {
+            $.ajax({
+                type: 'GET',
+                url: "/cart-decrement/" + rowId,
+                dataType: 'json',
+                success: function(data) {
+                    cart();
+                    miniCart();
+                }
+            });
+        }
     </script>
     <script type="text/javascript">
         //-Add to wish list start

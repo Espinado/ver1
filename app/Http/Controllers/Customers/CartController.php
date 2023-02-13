@@ -67,7 +67,8 @@ class CartController extends Controller
         return response()->json(['success' => 'Product Remove from Cart']);
     }
 
-    public function MyCart() {
+    public function MyCart()
+    {
 
         return view('customers.cart.view_mycart');
     }
@@ -85,4 +86,19 @@ class CartController extends Controller
 
         ));
     } //end method
+
+    public function CartIncrement($rowId)
+    {
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty + 1);
+
+        return response()->json('increment');
+    }
+    public function CartDecrement($rowId)
+    {
+        $row = Cart::get($rowId);
+        Cart::update($rowId, $row->qty - 1);
+
+        return response()->json('decrement');
+    }
 }
