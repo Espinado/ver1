@@ -9,6 +9,7 @@ use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\Admins\BrandController;
 use App\Http\Controllers\Admins\AdminProfileController;
 use App\Http\Controllers\Admins\CouponController;
+use App\Http\Controllers\Admins\ShippingAreaController as Ship;
 
 use App\Http\Controllers\SellerController as Seller;
 
@@ -37,6 +38,8 @@ use Illuminate\Http\Request;
 
 Route::get('/category/subcategory/ajax/{category_id}', [SubCategoryController::class, 'SubCategoryAjax']);
 Route::get('/category/subsubcategory/ajax/{category_id}', [SubCategoryController::class, 'SubSubCategoryAjax']);
+Route::get('/division/district/ajax/{division_id}', [Ship::class, 'DistrictAjax']);
+
 Route::group(
     [
         'prefix' => LaravelLocalization::setLocale() . '/admin',
@@ -48,6 +51,7 @@ Route::group(
         Route::get('/register', [AdminController::class, 'AdminRegister'])->name('admin.register');
         Route::post('/login/owner', [AdminController::class, 'Login'])->name('admin.login');
         Route::post('/register/create', [AdminController::class, 'AdminRegisterCreate'])->name('admin.register.create');
+
         Route::get('/', [AdminController::class, 'Dashboard'])->name('admin.dashboard')->middleware('admin');
         Route::get('/admins', [AdminController::class, 'adminList'])->name('admin.admins')->middleware('admin');
         Route::get('admin/profile', [AdminProfileController::class, 'showProfile'])->name('admin.profile')->middleware('admin');
@@ -112,7 +116,23 @@ Route::group(
         Route::get('/coupon/delete/{id}', [CouponController::class, 'couponDelete'])->name('admin.coupon.delete')->middleware('admin');
         Route::post('/coupon/update/{id}', [CouponController::class, 'couponUpdate'])->name('admin.coupon.update')->middleware('admin');
 
-        Route::get('/manage/division', [CouponController::class, 'couponView'])->name('admin.manage.division')->middleware('admin');
+        Route::get('/manage/division', [Ship::class, 'divisionView'])->name('admin.manage.division')->middleware('admin');
+        Route::post('/division/store', [Ship::class, 'divisionStore'])->name('admin.division.store');
+        Route::get('/division/edit/{id}', [Ship::class, 'divisionEdit'])->name('admin.division.edit')->middleware('admin');
+        Route::get('/division/delete/{id}', [Ship::class, 'divisionDelete'])->name('admin.division.delete')->middleware('admin');
+        Route::post('/division/update/{id}', [Ship::class, 'divisionUpdate'])->name('admin.division.update')->middleware('admin');
+
+        Route::get('/manage/ship_district', [Ship::class, 'districtView'])->name('admin.manage.ship_district')->middleware('admin');
+        Route::post('/ship_district/store', [Ship::class, 'districtStore'])->name('admin.ship_district.store');
+        Route::get('/ship_district/edit/{id}', [Ship::class, 'districtEdit'])->name('admin.ship_district.edit')->middleware('admin');
+        Route::get('/ship_district/delete/{id}', [Ship::class, 'districtDelete'])->name('admin.ship_district.delete')->middleware('admin');
+        Route::post('/ship_district/update/{id}', [Ship::class, 'districtUpdate'])->name('admin.ship_district.update')->middleware('admin');
+
+        Route::get('/manage/ship_state', [Ship::class, 'stateView'])->name('admin.manage.ship_state')->middleware('admin');
+        Route::post('/ship_state/store', [Ship::class, 'stateStore'])->name('admin.ship_state.store');
+        Route::get('/ship_state/edit/{id}', [Ship::class, 'stateEdit'])->name('admin.ship_state.edit')->middleware('admin');
+        Route::get('/ship_state/delete/{id}', [Ship::class, 'stateDelete'])->name('admin.ship_state.delete')->middleware('admin');
+        Route::post('/ship_state/update/{id}', [Ship::class, 'stateUpdate'])->name('admin.ship_state.update')->middleware('admin');
 
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
@@ -170,6 +190,12 @@ Route::group(
         Route::get('/wishlist/data/read', [WishlistController::class, 'ReadWishlist'])->name('wishlist');
         Route::get('/get-wishlist-product', [WishlistController::class, 'GetWishlistProduct']);
         Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
+
+        Route::post('/coupons/apply', [CartController::class, 'applyCoupon']);
+
+
+
+
         require __DIR__ . '/auth.php';
     }
 );
