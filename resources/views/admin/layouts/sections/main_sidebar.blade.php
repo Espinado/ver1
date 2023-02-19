@@ -42,32 +42,6 @@
                 </ul>
             </li>
 
-            {{-- <li class="treeview {{ $route == 'admin.categories' ? 'active' : '' }}">
-                <a href="{{ route('admin.categories') }}">
-                    <i data-feather="mail"></i>
-                    <span>Category</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-right pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="{{ $route == 'admin.categories' ? 'active' : '' }}"><a href="{{ route('admin.categories') }}"><i
-                                class="ti-more {{ $route == 'admin.categories' ? 'active' : '' }}"></i>All
-                            categories</a></li>
-                </ul>
-                <ul class="treeview-menu">
-                    <li class="{{ $route == 'admin.subcategories' ? 'active' : '' }}"><a href="{{ route('admin.subcategories') }}"><i
-                                class="ti-more {{ $route == 'admin.subcategories' ? 'active' : '' }}"></i>All
-                            subcategories</a></li>
-                </ul>
-                <ul class="treeview-menu">
-                    <li class="{{ $route == 'admin.categories' ? 'active' : '' }}"><a href="{{ route('admin.categories') }}"><i
-                                class="ti-more {{ $route == 'admin.categories' ? 'active' : '' }}"></i>All
-                            categories</a></li>
-                </ul>
-
-            </li> --}}
-
             <li class="treeview {{ $route == 'admin.categories' ? 'active' : '' }}">
                 <a href="{{ route('admin.categories') }}">
                     <i data-feather="file"></i>
@@ -163,6 +137,14 @@
                     <li class="{{ $route == 'admin.manage.division' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage.division') }}">
                             <i class="ti-more"></i>Manage division</a>
+                    </li>
+                     <li class="{{ $route == 'admin.manage.ship_district' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.ship_district') }}">
+                            <i class="ti-more"></i>Ship district</a>
+                    </li>
+                    <li class="{{ $route == 'admin.manage.ship_state' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.ship_state') }}">
+                            <i class="ti-more"></i>Ship state</a>
                     </li>
 
                 </ul>

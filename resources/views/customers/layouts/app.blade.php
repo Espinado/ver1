@@ -148,6 +148,7 @@
                 }
             })
         }
+        // -----------------------------------------------
         //cart ajax function
         // <!-- Add to Cart Product Modal -->
         function addToCart() {
@@ -182,20 +183,23 @@
                     })
                     if ($.isEmptyObject(data.error)) {
                         toast.fire({
-                            type: 'success',
+                            type: 'error',
                             'title': data.success
                         })
                     } else {
                         toast.fire({
-                            type: 'error',
+                            icon: 'error',
                             'title': data.error
                         })
                     }
-
                 },
+
             })
         }
     </script>
+
+    //----------------------------------------------------------------
+
     <script type="text/javascript">
         function miniCart() {
             $.ajax({
@@ -232,6 +236,8 @@
         }
         miniCart();
 
+        //--------------------------------------
+
         function CartItemRemove(rowId) {
             $.ajax({
                 type: 'GET',
@@ -266,6 +272,9 @@
 
         }
     </script>
+
+    //----------------------------------------------------------------
+
     <script type="text/javascript">
         function cart() {
             $.ajax({
@@ -273,7 +282,7 @@
                 url: '/get-cart-product',
                 dataType: 'json',
                 success: function(response) {
-                    console.log(response)
+                    console.log(response.carts)
                     var rows = ""
                     $.each(response.carts, function(key, value) {
                         rows += `<tr>
@@ -313,10 +322,12 @@
                     });
 
                     $('#cartPage').html(rows);
+
                 }
             })
         }
         cart();
+        //--------------------------------
 
         function cartIncrement(rowId) {
             $.ajax({
@@ -329,6 +340,7 @@
                 }
             });
         }
+        //--------------------------------
 
         function cartDecrement(rowId) {
             $.ajax({
@@ -342,6 +354,7 @@
             });
         }
     </script>
+    //--------------------------------
     <script type="text/javascript">
         //-Add to wish list start
 
@@ -360,12 +373,14 @@
                     dataType: 'json',
                     url: '/cart/addToWishlist/item/' + product_id,
                     success: function(data) {
+
                         Toast.fire({
                             type: 'success',
                             title: data.success
                         })
                     },
                     error: function(error) {
+
                         var errorText = $.parseJSON(error.responseText);
                         Toast.fire({
                             icon: 'error',
@@ -377,6 +392,8 @@
         }
 
         //--End to wish list end
+
+        //------------------------------
 
         function wishlist() {
             $.ajax({
@@ -417,6 +434,9 @@
         }
         wishlist();
 
+        //-----------------------------------------------------
+
+
         function wishlistRemove(id) {
             $.ajax({
                 type: 'GET',
@@ -451,7 +471,36 @@
             wishlist();
         }
         // End Wishlist remove
+
+        //---Coupon apply start
+        function applyCoupon() {
+            var coupon_name = $('#coupon_name').val();
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: "{{ url('/coupons/apply') }}",
+                data: {
+                    coupon_name: coupon_name
+                },
+                success: function(data) {
+                    if (data.validity == true) {
+                        $('#couponField').hide();
+                    }
+
+                },
+                error: function(error) {
+
+
+                }
+
+
+            })
+            //--Apply coupon end
+        }
     </script>
+
+
 
 
 

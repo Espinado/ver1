@@ -178,7 +178,7 @@
                                                     <span>*</span></label>
                                                 <select class="form-control unicase-form-control selectpicker"
                                                     style="display: none;" id="color">
-                                                    <option selected="" disabled="">--Select color--</option>
+                                                    <option selected="" disabled="" value="">--Select color--</option>
                                                     @foreach ($product_colors as $color)
                                                         <option value="{{ $color }}">{{ ucwords($color) }}
                                                         </option>
@@ -195,7 +195,7 @@
                                                         <span>*</span></label>
                                                     <select class="form-control unicase-form-control selectpicker"
                                                         style="display: none;" id="size">
-                                                        <option selected="" disabled="">--Select size--</option>
+                                                        <option >--Select size--</option>
                                                         @foreach ($product_size as $size)
                                                             <option value="{{ $size }}">{{ ucwords($size) }}
                                                             </option>

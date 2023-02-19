@@ -6,44 +6,50 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admins\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Carbon;
+use App\Models\Admins\Coupon;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
 
     public function AddToCart(Request $request, $id)
     {
-        // dd($request->quantity);
+
         $product = Product::findOrFail($id);
-        if ($product->discount_price == NULL) {
-            Cart::add([
-                'id' => $id,
-                'name' => $request->product_name,
-                'qty' => $request->quantity,
-                'price' => $product->selling_price,
-                'weight' => 1,
-                'options' => [
-                    'image' => $product->product_thambnail,
-                    'color' => $request->color,
-                    'size' => $request->size,
-                ],
-            ]);
-
-            return response()->json(['success' => 'Successfully Added on Your Cart']);
+        if ($product->product_qty < $request->quantity) {
+            return response()->json(['error' => 'Not available']);
         } else {
+            if ($product->discount_price == NULL) {
+                Cart::add([
+                    'id' => $id,
+                    'name' => $request->product_name,
+                    'qty' => $request->quantity,
+                    'price' => $product->selling_price,
+                    'weight' => 1,
+                    'options' => [
+                        'image' => $product->product_thambnail,
+                        'color' => $request->color,
+                        'size' => $request->size,
+                    ],
+                ]);
+                return response()->json(['success' => 'Successfully Added on Your Cart']);
+            } else {
 
-            Cart::add([
-                'id' => $id,
-                'name' => $request->product_name,
-                'qty' => $request->quantity,
-                'price' => $product->discount_price,
-                'weight' => 1,
-                'options' => [
-                    'image' => $product->product_thambnail,
-                    'color' => $request->color,
-                    'size' => $request->size,
-                ],
-            ]);
-            return response()->json(['success' => 'Successfully Added on Your Cart']);
+                Cart::add([
+                    'id' => $id,
+                    'name' => $request->product_name,
+                    'qty' => $request->quantity,
+                    'price' => $product->discount_price,
+                    'weight' => 1,
+                    'options' => [
+                        'image' => $product->product_thambnail,
+                        'color' => $request->color,
+                        'size' => $request->size,
+                    ],
+                ]);
+                return response()->json(['success' => 'Successfully Added on Your Cart']);
+            }
         }
     }
     public function ReadCart()
@@ -100,5 +106,27 @@ class CartController extends Controller
         Cart::update($rowId, $row->qty - 1);
 
         return response()->json('decrement');
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('coupon_validity', '>=', Carbon::now()->format('Y-m-d'))->first();
+        if ($coupon) {
+
+            Session::put('coupon',[
+                'coupon_name' => $coupon->coupon_name,
+                'coupon_discount' => $coupon->coupon_discount,
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100)
+            ]);
+
+            return response()->json(array(
+
+                'success' => 'Coupon Applied Successfully',
+                'validity' => true,
+            ));
+        } else {
+            return response()->json(['error' => 'Invalid Coupon']);
+        }
     }
 }
