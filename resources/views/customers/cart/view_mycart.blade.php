@@ -41,11 +41,17 @@
                         </table>
                     </div>
                 </div>
-  <div class="col-md-4 col-sm-12 estimate-ship-tax">
-  </div>
+                <div class="col-md-4 col-sm-12 estimate-ship-tax">
+                    @if (Session::has('coupon'))
+
+                    @else
+
+                    @endif
+                </div>
 
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
-                    <table class="table"  id="couponField">
+                     @if(!Session::has('coupon'))
+                    <table class="table" id="couponField">
                         <thead>
                             <tr>
                                 <th>
@@ -54,6 +60,7 @@
                                 </th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <tr>
                                 <td>
@@ -62,27 +69,22 @@
                                             placeholder="You Coupon.." id="coupon_name">
                                     </div>
                                     <div class="clearfix pull-right">
-                                        <button type="submit" class="btn-upper btn btn-primary" onclick="applyCoupon()">APPLY COUPON</button>
+                                        <button type="submit" class="btn-upper btn btn-primary"
+                                            onclick="applyCoupon()">APPLY COUPON</button>
                                     </div>
                                 </td>
                             </tr>
                         </tbody><!-- /tbody -->
+
                     </table><!-- /table -->
+                    @endif
                 </div><!-- /.estimate-ship-tax -->
+
 
                 <div class="col-md-4 col-sm-12 cart-shopping-total">
                     <table class="table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="cart-sub-total">
-                                        Subtotal<span class="inner-left-md" id="cart_subtotal">EUR </span>
-                                    </div>
-                                    <div class="cart-grand-total">
-                                        Grand Total<span class="inner-left-md">$600.00</span>
-                                    </div>
-                                </th>
-                            </tr>
+                        <thead id="couponCalc">
+                           
                         </thead><!-- /thead -->
                         <tbody>
                             <tr>

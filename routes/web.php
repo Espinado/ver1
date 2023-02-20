@@ -192,6 +192,8 @@ Route::group(
         Route::get('/wishlist-remove/{id}', [WishlistController::class, 'RemoveWishlistProduct']);
 
         Route::post('/coupons/apply', [CartController::class, 'applyCoupon']);
+        Route::get('/coupons/calculate', [CartController::class, 'calculateCoupon']);
+        Route::get('/coupons/remove', [CartController::class, 'removeCoupon']);
 
 
 
