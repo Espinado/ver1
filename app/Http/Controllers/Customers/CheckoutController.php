@@ -64,6 +64,7 @@ class CheckoutController extends Controller
         $data['district_id'] = $request->district_id;
         $data['state_id'] = $request->state_id;
         $data['notes'] = $request->notes;
+        $data['cartTotal']=Cart::total();
 
 
         if ($request->payment_method == 'stripe') {
@@ -73,5 +74,8 @@ class CheckoutController extends Controller
         } else {
             return 'cash';
         }
+    }
+    public function StripeOrder() {
+        
     }
 }
