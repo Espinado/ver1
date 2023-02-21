@@ -311,7 +311,7 @@
             : `<button type="submit" class="btn btn-danger btn-sm" disabled >-</button> `
             }
 
-        <input type="text" value="${value.qty}" min="1" max="100" disabled="" style="width:25px;" >
+        <input type="text" value="${value.qty}" min="1" max="100" disabled="" style="width:25px;" id="wish_qty" >
          <button type="submit" class="btn btn-success btn-sm" id="${value.rowId}" onclick="cartIncrement(this.id)" >+</button>
             </td>
              <td class="col-md-2">
@@ -334,9 +334,12 @@
         //--------------------------------
 
         function cartIncrement(rowId) {
+            var id=$('#wish_qty').val();
+            console.log(id)
             $.ajax({
                 type: 'GET',
                 url: "/cart-increment/" + rowId,
+                data: {id:id},
                 dataType: 'json',
                 success: function(data) {
                     couponCalculation()

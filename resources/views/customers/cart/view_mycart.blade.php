@@ -84,14 +84,14 @@
                 <div class="col-md-4 col-sm-12 cart-shopping-total">
                     <table class="table">
                         <thead id="couponCalc">
-                           
+
                         </thead><!-- /thead -->
                         <tbody>
                             <tr>
                                 <td>
                                     <div class="cart-checkout-btn pull-right">
-                                        <button type="submit" class="btn btn-primary checkout-btn">PROCCED TO
-                                            CHEKOUT</button>
+                                        <a href="{{route('product.checkout')}}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO
+                                            CHEKOUT</a>
 
                                     </div>
                                 </td>

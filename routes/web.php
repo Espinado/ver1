@@ -18,6 +18,7 @@ use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
 use App\Http\Controllers\Admins\SliderController;
 use App\Http\Controllers\Customers\WishlistController;
+use App\Http\Controllers\Customers\CheckoutController;
 
 
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ use Illuminate\Http\Request;
 Route::get('/category/subcategory/ajax/{category_id}', [SubCategoryController::class, 'SubCategoryAjax']);
 Route::get('/category/subsubcategory/ajax/{category_id}', [SubCategoryController::class, 'SubSubCategoryAjax']);
 Route::get('/division/district/ajax/{division_id}', [Ship::class, 'DistrictAjax']);
+Route::get('/get/states/ajax/{district_id}', [CheckoutController::class, 'AjaxGetStates']);
 
 Route::group(
     [
@@ -194,6 +196,9 @@ Route::group(
         Route::post('/coupons/apply', [CartController::class, 'applyCoupon']);
         Route::get('/coupons/calculate', [CartController::class, 'calculateCoupon']);
         Route::get('/coupons/remove', [CartController::class, 'removeCoupon']);
+
+        Route::get('checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+
 
 
 
