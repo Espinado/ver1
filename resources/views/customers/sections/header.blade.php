@@ -14,7 +14,7 @@
                             </li>
                         @endauth
                         <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
                         @auth
                             <li><a href="{{ route('profile.index') }}"><i
                                         class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>

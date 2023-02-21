@@ -9,6 +9,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Carbon;
 use App\Models\Admins\Coupon;
 use Illuminate\Support\Facades\Session;
+use Auth;
 
 class CartController extends Controller
 {
@@ -110,22 +111,28 @@ class CartController extends Controller
 
     public function CartIncrement($rowId)
     {
+        // dump($rowId, $id);
         $row = Cart::get($rowId);
+        // $product = Product::findOrFail($id);
         Cart::update($rowId, $row->qty + 1);
-        if (Session::has('coupon')) {
+        // if ($product->product_qty < $request->quantity) {
+        //     return response()->json(['error' => 'Not available']);
+        // } else {
+            if (Session::has('coupon')) {
 
-            $coupon_name = Session::get('coupon')['coupon_name'];
-            $coupon = Coupon::where('coupon_name', $coupon_name)->first();
+                $coupon_name = Session::get('coupon')['coupon_name'];
+                $coupon = Coupon::where('coupon_name', $coupon_name)->first();
 
-            Session::put('coupon', [
-                'coupon_name' => $coupon->coupon_name,
-                'coupon_discount' => $coupon->coupon_discount,
-                'discount_amount' => round(Cart::total() * $coupon->coupon_discount / 100),
-                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount / 100)
-            ]);
-        }
+                Session::put('coupon', [
+                    'coupon_name' => $coupon->coupon_name,
+                    'coupon_discount' => $coupon->coupon_discount,
+                    'discount_amount' => round(Cart::total() * $coupon->coupon_discount / 100),
+                    'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount / 100)
+                ]);
+            }
 
-        return response()->json('increment');
+            return response()->json('increment');
+        // }
     }
     public function CartDecrement($rowId)
     {
@@ -152,11 +159,11 @@ class CartController extends Controller
         $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('coupon_validity', '>=', Carbon::now()->format('Y-m-d'))->first();
         if ($coupon) {
 
-            Session::put('coupon',[
+            Session::put('coupon', [
                 'coupon_name' => $coupon->coupon_name,
                 'coupon_discount' => $coupon->coupon_discount,
-                'discount_amount' => round(Cart::total() * $coupon->coupon_discount/100),
-                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount/100)
+                'discount_amount' => round(Cart::total() * $coupon->coupon_discount / 100),
+                'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount / 100)
             ]);
 
             return response()->json(array(
@@ -169,7 +176,8 @@ class CartController extends Controller
         }
     }
 
-    public function calculateCoupon() {
+    public function calculateCoupon()
+    {
 
         if (Session::has('coupon')) {
             return response()->json(array(
@@ -185,8 +193,11 @@ class CartController extends Controller
             ));
         }
     }
-    public function removeCoupon() {
+    public function removeCoupon()
+    {
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Remove Successfully']);
     }
+
+   
 }
