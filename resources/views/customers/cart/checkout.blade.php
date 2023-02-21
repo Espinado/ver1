@@ -32,12 +32,15 @@
                                     <div class="row">
 
                                         <!-- already-registered-login -->
+                                     <form class="register-form" action="{{ route('checkout.store') }}" method="POST">
+                                        @csrf
                                         <div class="col-md-6 col-sm-6 already-registered-login">
                                             <h4 class="checkout-subtitle"><b>Shipping address</b></h4>
 
-                                            <form class="register-form" role="form">
+
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping name</b>
+                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping
+                                                            name</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
@@ -46,7 +49,8 @@
                                                         @auth value="{{ Auth::user()->name }}" @endauth>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping email</b>
+                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping
+                                                            email</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
@@ -55,7 +59,8 @@
                                                         @auth value="{{ Auth::user()->email }}" @endauth>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping name</b>
+                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping
+                                                            name</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
@@ -64,7 +69,8 @@
                                                         @auth value="{{ Auth::user()->phone }}" @endauth>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping postcode</b>
+                                                    <label class="info-title" for="exampleInputEmail1"><b>Shipping
+                                                            postcode</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
@@ -75,6 +81,7 @@
 
 
                                         </div>
+
                                         <!-- already-registered-login -->
 
                                         <!-- already-registered-login -->
@@ -85,7 +92,7 @@
                                                 <div class="controls">
                                                     <select name="division_id" class="form-control">
                                                         <option value="" selected="" disabled=""><b>Select
-                                                            Division</b></option>
+                                                                Division</b></option>
                                                         @foreach ($divisions as $div)
                                                             <option value="{{ $div->id }}">
                                                                 {{ $div->division_name }}</option>
@@ -102,12 +109,8 @@
                                                 <div class="controls">
                                                     <select name="district_id" class="form-control">
                                                         <option value="" selected="" disabled=""><b>Select
-                                                            district</b></option>
-                                                        {{-- @foreach ($districts as $dis)
-                                                            <option value="{{ $dis->id }}">
-                                                                {{ $dis->district_name }}</option>
-                                                            </option>
-                                                        @endforeach --}}
+                                                                district</b></option>
+
                                                     </select>
                                                     @error('district_id')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -119,12 +122,8 @@
                                                 <div class="controls">
                                                     <select name="state_id" class="form-control">
                                                         <option value="" selected="" disabled=""><b>Select
-                                                            state</b></option>
-                                                        {{-- @foreach ($states as $state)
-                                                            <option value="{{ $state->id }}">
-                                                                {{ $state->state_name }}</option>
-                                                            </option>
-                                                        @endforeach --}}
+                                                                state</b></option>
+
                                                     </select>
                                                     @error('state_id')
                                                         <span class="text-danger">{{ $message }}</span>
@@ -135,18 +134,59 @@
                                                 <label class="info-title" for="exampleInputEmail1"><b>Notes</b>
                                                     <span>*</span></label>
                                                 <textarea class="form-control" cols="30" rows="5" placeholder="Notes" name="notes"></textarea>
-                                            </div> <!-- // end form group  -->
-                                            <button type="submit"
-                                                class="btn-upper btn btn-primary checkout-page-button">Login</button>
-                                            </form>
+                                            </div>
+
                                         </div>
+                                    </div class="row">
+                                    <hr>
+                                    <!-- already-registered-login -->
+                                    <div class="row">
+                                        <!-- already-registered-login -->
+                                        <div class="col-md-6 col-sm-6 already-registered-login">
+                                            <h4 class="checkout-subtitle"><b>Select payment method</b></h4>
+                                            <div class="form-group">
+                                                <label class="info-title" for="payment"><b>Stripe</b>&nbsp;&nbsp; </label>
+                                                <input type="radio" name="payment_method" value="stripe">
+                                                <img src="{{asset('customers/assets/images/payments/4.png')}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="info-title" for="payment"><b>Card</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                                                <input type="radio" name="payment_method" value="card">
+                                                 <img src="{{asset('customers/assets/images/payments/3.png')}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="info-title" for="payment"><b>Cash</b>&nbsp;&nbsp;&nbsp;&nbsp; </label>
+                                                <input type="radio" name="payment_method" value="cash">
+                                                 <img src="{{asset('customers/assets/images/payments/2.png')}}">
+                                            </div>
+                                        </div> <!
+                                        <hr>
+
+
+
+
+
                                         <!-- already-registered-login -->
 
-                                    </div>
-                                </div>
+                                        <!-- already-registered-login -->
+                                        <div class="col-md-6 col-sm-6 already-registered-login">
+                                            <h4 class="checkout-subtitle"><b>Select shipping method</b></h4>
+
+                                            <div class="form-group">
+                                                <label class="info-title" for="shipping_method"><b>Receive in store</b> </label>
+                                                <input type="radio" name="shipping_method" value="self" selected>
+                                            </div>
+
+
+                                        </div>
+                                        <!-- already-registered-login -->
+                                     </div>
+                                                           </div>
                                 <!-- panel-body  -->
 
+
                             </div><!-- row -->
+                             <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Payment Step</button>
                         </div>
                         <!-- checkout-step-01  -->
 
@@ -198,7 +238,10 @@
                     </div>
                     <!-- checkout-progress-sidebar -->
                 </div>
+
             </div><!-- /.row -->
+        </form>
+
         </div><!-- /.checkout-box -->
         <!-- ============================================== BRANDS CAROUSEL ============================================== -->
         @include('customers.sections.brands')
@@ -209,51 +252,53 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-         $('select[name="division_id"]').on('change', function() {
-                var division_id = $(this).val();
-                if (division_id) {
-                    $.ajax({
-                        url: "{{ url('/division/district/ajax') }}/" + division_id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('select[name="district_id"]').html('');
-                             $('select[name="state_id"]').html('');
+        $('select[name="division_id"]').on('change', function() {
+            var division_id = $(this).val();
+            if (division_id) {
+                $.ajax({
+                    url: "{{ url('/division/district/ajax') }}/" + division_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        $('select[name="district_id"]').html('');
+                        $('select[name="state_id"]').html('');
+                        $('select[name="district_id"]').append(
+                            '<option value="" disabled="" selected="">Select it</option>'
+                        );
+                        $('select[name="state_id"]').append(
+                            '<option value="" disabled="" selected="">Select it</option>'
+                        );
+                        $.each(data, function(key, value) {
                             $('select[name="district_id"]').append(
-                                '<option value="" disabled="" selected="">Select it</option>');
-                                 $('select[name="state_id"]').append(
-                                '<option value="" disabled="" selected="">Select it</option>');
-                            $.each(data, function(key, value) {
-                                $('select[name="district_id"]').append(
-                                    '<option value="' + value.id + '">' + value
-                                    .district_name + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-             $('select[name="district_id"]').on('change', function() {
-                var district_id = $(this).val();
-                if (district_id) {
-                    $.ajax({
-                        url: "{{ url('/get/states/ajax') }}/" + district_id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
+                                '<option value="' + value.id + '">' + value
+                                .district_name + '</option>');
+                        });
+                    },
+                });
+            } else {
+                alert('danger');
+            }
+        });
+        $('select[name="district_id"]').on('change', function() {
+            var district_id = $(this).val();
+            if (district_id) {
+                $.ajax({
+                    url: "{{ url('/get/states/ajax') }}/" + district_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
 
-                            $.each(data, function(key, value) {
-                                $('select[name="state_id"]').append(
-                                    '<option value="' + value.id + '">' + value
-                                    .state_name + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
+                        $.each(data, function(key, value) {
+                            $('select[name="state_id"]').append(
+                                '<option value="' + value.id + '">' + value
+                                .state_name + '</option>');
+                        });
+                    },
+                });
+            } else {
+                alert('danger');
+            }
+        });
     });
 </script>
 @endsection

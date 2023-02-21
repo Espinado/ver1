@@ -21,10 +21,8 @@ class CheckoutController extends Controller
                 $cartQty = Cart::count();
                 $cartTotal = Cart::total();
                 $divisions = ShipDivision::orderBy('division_name', 'ASC')->get();
-                $districts = ShipDistrict::orderBy('district_name', 'ASC')->get();
-                $states = ShipState::orderBy('state_name', 'ASC')->get();
 
-                return view('customers.cart.checkout', compact('carts', 'cartQty', 'cartTotal', 'divisions', 'districts', 'states'));
+                return view('customers.cart.checkout', compact('carts', 'cartQty', 'cartTotal', 'divisions'));
             } else {
 
                 $notification = array(
@@ -54,6 +52,9 @@ class CheckoutController extends Controller
     {
         $states = ShipState::where('district_id', $district_id)->orderBy('state_name', 'ASC')->get();
         return json_encode($states);
-
+    }
+    public function store(Request $request)
+    {
+        dd($request->all());
     }
 }
