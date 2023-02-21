@@ -198,6 +198,7 @@ Route::group(
         Route::get('/coupons/remove', [CartController::class, 'removeCoupon']);
 
         Route::get('checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+        Route::post('checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
 
 
 
