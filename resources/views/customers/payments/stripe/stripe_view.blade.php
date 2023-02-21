@@ -1,5 +1,6 @@
 @extends('customers.layouts.app')
 @section('content')
+
 @section('title')
     Checkout
 @endsection
