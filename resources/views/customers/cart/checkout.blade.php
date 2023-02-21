@@ -60,12 +60,12 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="info-title" for="exampleInputEmail1"><b>Shipping
-                                                            name</b>
+                                                           phone</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_phone"
-                                                        placeholder="Full name" required=""
+                                                        placeholder="Phone" required=""
                                                         @auth value="{{ Auth::user()->phone }}" @endauth>
                                                 </div>
                                                 <div class="form-group">
@@ -151,7 +151,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="info-title" for="payment"><b>Card</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                                                <input type="radio" name="payment_method" value="card">
+                                                <input type="radio" name="payment_method" value="card" disabled>
                                                  <img src="{{asset('customers/assets/images/payments/3.png')}}">
                                             </div>
                                             <div class="form-group">

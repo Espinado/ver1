@@ -197,8 +197,9 @@ Route::group(
         Route::get('/coupons/calculate', [CartController::class, 'calculateCoupon']);
         Route::get('/coupons/remove', [CartController::class, 'removeCoupon']);
 
-        Route::get('checkout', [CheckoutController::class, 'index'])->name('product.checkout');
-        Route::post('checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+        Route::get('/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
+        Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
+        Route::post('/stripe/order', [CheckoutController::class, 'StripeOrder'])->name('stripe.order');
 
 
 

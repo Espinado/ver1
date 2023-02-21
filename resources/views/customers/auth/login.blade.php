@@ -22,11 +22,11 @@
                     <div class="col-md-6 col-sm-6 sign-in">
                         <h4 class="">{{ __('auth.signin') }}</h4>
                         <p class="">{{ __('auth.welcome_to_account') }}</p>
-                        <div class="social-sign-in outer-top-xs">
+                        {{-- <div class="social-sign-in outer-top-xs">
                             <a href="#" class="facebook-sign-in"><i class="fa fa-facebook"></i> Sign In with
                                 Facebook</a>
                             <a href="#" class="twitter-sign-in"><i class="fa fa-twitter"></i> Sign In with Twitter</a>
-                        </div>
+                        </div> --}}
                         <form class="register-form outer-top-xs" role="form" method="POST"
                             action="{{ route('login') }}">
                             @csrf
@@ -86,7 +86,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Phone Number <span>*</span></label>
-                                <input type="email" class="form-control unicase-form-control text-input"
+                                <input type="text" class="form-control unicase-form-control text-input"
                                     id="exampleInputEmail1" name="phone" value="{{ old('phone') }}">
                             </div>
                             <div class="form-group">
