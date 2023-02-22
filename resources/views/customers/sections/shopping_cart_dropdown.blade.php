@@ -19,7 +19,7 @@
               <div class="pull-right"> <span class="text">Sub Total :</span>
                     <span class='price'  id="cartSubTotal"> </span> </div>
                  <div class="clearfix"></div>
-                 <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                 <a href="{{route('product.checkout')}}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
              </div>
              <!-- /.cart-total-->
 
