@@ -24,16 +24,21 @@
                                     enctype="multipart/form-data">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$category->id}}">
-                                    <div class="form-group">
-                                        <h5>Category name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="category_name" class="form-control" id="category_name" value="{{$category->category_name}}">
-                                            @error('category_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
 
+
+                                     @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                        <div class="form-group">
+                                            <h5>Category name-{{ $locale['native'] }} <span class="text-danger">*</span>
+                                            </h5>
+                                            <div class="controls">
+                                                <input type="text" name="category_name[{{ $key }}]]"
+                                                    class="form-control" id="category_name[{{$key}}]" value="{{$category->getTranslation('category_name', $key)}}">
+                                                @error("category_name.{$key}")
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
                                     <div class="form-group">
                                         <h5>Category icon <span class="text-danger">*</span></h5>

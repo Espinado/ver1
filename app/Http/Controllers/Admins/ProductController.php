@@ -13,6 +13,7 @@ use App\Models\Admins\Brand;
 use App\Models\Admins\ProductImage;
 use Carbon\Carbon;
 use App\Models\Admins\MultiImg;
+use LaravelLocalization;
 
 
 class ProductController extends Controller
@@ -40,7 +41,33 @@ class ProductController extends Controller
     public function productStore(Request $request)
     {
 
+        $rules = [];
+        $rules['brand_id']='required';
+        $rules['category_id'] = 'required';
+        $rules['subcategory_id'] = 'required';
+        $rules['subsubcategory_id'] = 'required';
+        $rules['selling_price'] = 'required';
+        foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {
+            $rules["product_name.{$key}"] = 'required|string|max:255';
+            $rules["product_name.{$key}"] = 'required|string|max:255';
+            $rules["product_tags.{$key}"] = 'required|string|max:255';
+            $rules["product_color.{$key}"] = 'required|string|max:255';
+            $rules["short_descp.{$key}"] = 'required|string|max:255';
+            $rules["long_descp.{$key}"] = 'required|string|max:255';
+        }
+        $messages = [];
+        foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {
+            $messages["product_name.{$key}.required"] = "The {$locale['native']} product name field is required.";
+            $messages["product_name.{$key}.string"] = "The {$locale['native']} product name field must be a string.";
+            $messages["product_tags.{$key}.required"] = "The {$locale['native']} product tags field is required.";
+            $messages["product_color.{$key}.required"] = "The {$locale['native']} product colors field is required.";
+            $messages["short_descp.{$key}.required"] = "The {$locale['native']} short description is required.";
+            $messages["long_descp.{$key}.required"] = "The {$locale['native']} long description is required.";
+        }
+        $validatedData = $request->validate($rules, $messages);
+
         //TODO ProductRequest
+        // dd($request->all());
 
         $image = $request->file('product_thambnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -56,7 +83,8 @@ class ProductController extends Controller
         $product->subsubcategory_id       = $request->subsubcategory_id;
         $product->product_code            = $request->product_code;
         $product->product_qty             = $request->product_qty;
-        $product->product_color_en           = $request->product_color;
+       $product ->slug = 'item';
+        $product->product_color_en        = $request->product_color;
         $product->short_description       = $request->short_descp;
         $product->product_tags            = $request->product_tags;
         $product->product_size            = $request->product_size;
@@ -160,7 +188,7 @@ class ProductController extends Controller
 
     public function MultiImageDelete($id)
     {
-        $oldImg=ProductImage::FindOrFail($id);
+        $oldImg = ProductImage::FindOrFail($id);
         unlink($oldImg->photo_name);
         ProductImage::findOrFail($id)->delete();
         $notification = array('message' => 'Deleted', 'alert-type' => 'success');
@@ -207,5 +235,5 @@ class ProductController extends Controller
         );
 
         return redirect()->back()->with($notification);
-    }// end method
+    } // end method
 }

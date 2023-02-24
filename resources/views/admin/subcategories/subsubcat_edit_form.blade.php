@@ -24,19 +24,20 @@
                             <div class="table-responsive">
                                 <form method="post" action="{{ route('admin.subsubcategory.update') }}">
                                     @csrf
-
-                                    <div class="form-group">
-                                        <h5>SubSubcategory name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="subsubcategory_name" class="form-control"
-                                                id="category_name" value="{{ $subsubcategory->subsubcategory_name }}">
-                                            @error('subsubcategory_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
+                                         <input type="hidden" name="id" value="{{ $subsubcategory->id }}">"
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                        <div class="form-group">
+                                            <h5>Subsubcategory name-{{ $locale['native'] }} <span class="text-danger">*</span>
+                                            </h5>
+                                            <div class="controls">
+                                                <input type="text" name="subsubcategory_name[{{ $key }}]]"
+                                                    class="form-control" id="subsubcategory_name[{{$key}}]" value="{{$subsubcategory->getTranslation('subsubcategory_name', $key)}}">
+                                                @error('subsubcategory_name[{{ $key }}]')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
-
+                                    @endforeach
                                     <div class="form-group">
                                         <h5>Subsubcategory icon <span class="text-danger">*</span></h5>
                                         <div class="controls">

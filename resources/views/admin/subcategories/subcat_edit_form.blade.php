@@ -23,16 +23,20 @@
                                 <form method="post" action="{{ route('admin.subcategory.update', $subcategory->id) }}">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$subcategory->id}}">
-                                    <div class="form-group">
-                                        <h5>Subcategory name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="subcategory_name" class="form-control" id="subcategory_name" value="{{$subcategory->subcategory_name}}">
-                                            @error('subcategory_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                        <div class="form-group">
+                                            <h5>Subcategory name-{{ $locale['native'] }} <span class="text-danger">*</span>
+                                            </h5>
+                                            <div class="controls">
+                                                <input type="text" name="subcategory_name[{{ $key }}]]"
+                                                    class="form-control" id="subcategory_name[{{$key}}]" value="{{$subcategory->getTranslation('subcategory_name', $key)}}">
+                                                @error('subcategory_name[{{ $key }}]')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
 
                                     <div class="form-group">
                                         <h5>Subcategory icon <span class="text-danger">*</span></h5>
@@ -44,6 +48,7 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    
 
 
                                     <div class="text-xs-right">

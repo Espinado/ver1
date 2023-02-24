@@ -41,9 +41,12 @@ class IndexController extends Controller
 
     public function productTag($product_tag)
     {
+        // dd($product_tag);
             $products = Product::where('status', true)
-            ->where('product_tags', $product_tag)
+            ->whereJsonContains('product_tags->'.app()->getlocale(), $product_tag)
             ->orderBy('id', 'desc')->get();
+
+          
         $product_colors = Product::groupBy('product_color_en')
         ->select('product_color_en')
         ->get();
@@ -89,5 +92,5 @@ class IndexController extends Controller
         ));
     } // end method
 
-    
+
 }

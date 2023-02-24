@@ -6,11 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
+use Psy\Util\Str;
 
 
 class Product extends Model
 {
     use HasFactory, HasSlug;
+    use HasTranslations;
+
+    public $translatable = [
+        'product_name',
+        'product_tags',
+        'short_description',
+        'long_description',
+        'product_color_en',
+    ];
 
     protected $guarded = [];
 
@@ -27,7 +38,7 @@ class Product extends Model
         'product_size',
         'short_description',
         'long_description',
-        'product_color',
+        'product_color_en',
         'selling_price',
         'discount_price',
         'images',
@@ -51,20 +62,14 @@ class Product extends Model
 
     public function getSlugOptions(): SlugOptions
     {
+        $localKey='en';
+        // dd($localKey);
         return SlugOptions::create()
-            ->generateSlugsFrom('product_name')
+            ->generateSlugsFrom('product_name'.$localKey)
             ->saveSlugsTo('slug');
     }
-
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
     public function getRouteKeyName()
     {
         return 'slug';
     }
-
-
 }

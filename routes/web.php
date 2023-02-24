@@ -37,8 +37,8 @@ use Illuminate\Http\Request;
 
 //----------Admin Route
 
-Route::get('/category/subcategory/ajax/{category_id}', [SubCategoryController::class, 'SubCategoryAjax']);
-Route::get('/category/subsubcategory/ajax/{category_id}', [SubCategoryController::class, 'SubSubCategoryAjax']);
+
+
 Route::get('/division/district/ajax/{division_id}', [Ship::class, 'DistrictAjax']);
 Route::get('/get/states/ajax/{district_id}', [CheckoutController::class, 'AjaxGetStates']);
 
@@ -79,6 +79,8 @@ Route::group(
         Route::get('/subsubcategory/edit/{id}', [SubcategoryController::class, 'SubSubCategoryEdit_form'])->name('admin.subsubcategory.edit')->middleware('admin');
         Route::post('/subsubcategory/update', [SubcategoryController::class, 'SubSubCategoryUpdate'])->name('admin.subsubcategory.update')->middleware('admin');
         Route::get('/subsubcategory/delete/{id}', [SubcategoryController::class, 'SubSubCategoryDelete'])->name('admin.subsubcategory.delete')->middleware('admin');
+        Route::get('/category/subcategory/ajax/{category_id}', [SubCategoryController::class, 'SubCategoryAjax']);
+        Route::get('/category/subsubcategory/ajax/{category_id}', [SubCategoryController::class, 'SubSubCategoryAjax']);
 
 
 

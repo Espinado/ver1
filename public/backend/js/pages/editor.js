@@ -25,4 +25,59 @@ $(function () {
     $('.textarea').wysihtml5();
 
 });
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor3')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor4')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor5')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor6')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('editor7')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+
+
+
+
+
 

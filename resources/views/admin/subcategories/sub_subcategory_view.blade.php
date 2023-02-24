@@ -37,7 +37,8 @@
                                                 </td>
                                                 <td style="text-align: center">
                                                     {{ $subsubcategory['category']['category_name'] }}</td>
-                                                    <td style="text-align: center">{{$subsubcategory['subcategory']['subcategory_name'] }}</td>
+                                                <td style="text-align: center">
+                                                    {{ $subsubcategory['subcategory']['subcategory_name'] }}</td>
                                                 <td style="text-align: center"><i class="{{ $subsubcategory->icon }} "></i>
                                                 </td>
                                                 <td style="text-align: center; width:30%">
@@ -75,17 +76,21 @@
                                     enctype="multipart/form-data">
                                     @csrf
 
-                                    <div class="form-group">
-                                        <h5>SubSubcategory name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="subsubcategory_name" class="form-control"
-                                                id="category_name" value="{{ old('subsubcategory_name') }}">
-                                            @error('subsubcategory_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                        <div class="form-group">
+                                            <h5>Subsubcategory name-{{ $locale['native'] }} <span
+                                                    class="text-danger">*</span>
+                                            </h5>
+                                            <div class="controls">
+                                                <input type="text" name="subsubcategory_name[{{ $key }}]]"
+                                                    class="form-control" id="subsubcategory_name"
+                                                    value="{{ old('subsubcategory_name.' . $key) }}">
+                                                @error("subsubcategory_name.{$key}")
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
                                     <div class="form-group">
                                         <h5>Subsubcategory icon <span class="text-danger">*</span></h5>
@@ -103,7 +108,8 @@
                                             <select class="form-control" id="select" name="category_id">
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->category_name }}
+                                                    <option value="{{ $category->id }}">
+                                                        {{ $category->category_name }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -153,10 +159,11 @@
                 var category_id = $(this).val();
                 if (category_id) {
                     $.ajax({
-                        url: "{{ url('/category/subcategory/ajax') }}/" + category_id,
+                        url: '/admin/category/subcategory/ajax/' + category_id,
                         type: "GET",
                         dataType: "json",
                         success: function(data) {
+
                             var d = $('select[name="subcategory_id"]').empty();
                             $.each(data, function(key, value) {
                                 $('select[name="subcategory_id"]').append(
