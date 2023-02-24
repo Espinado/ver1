@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class SubCategory extends Model
 {
@@ -20,6 +21,9 @@ class SubCategory extends Model
         'slug',
         'icon'
     ];
+    use HasTranslations;
+
+    public $translatable = ['subcategory_name'];
 
     public function getSlugOptions(): SlugOptions
     {

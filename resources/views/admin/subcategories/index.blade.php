@@ -29,10 +29,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         @foreach ($subcategories as $subcategory)
                                             <tr>
                                                 <td style="text-align: center">{{ $subcategory->subcategory_name }}</td>
-                                                <td style="text-align: center">{{ $subcategory['category']['category_name'] }}</td>
+                                                <td style="text-align: center">
+                                                    {{ $subcategory['category']['category_name'] }}</td>
                                                 <td style="text-align: center"><i class="{{ $subcategory->icon }} "></i>
                                                 </td>
                                                 <td style="text-align: center; width:30%">
@@ -69,24 +71,27 @@
                                 <form method="post" action="{{ route('admin.subcategory.store') }}"
                                     enctype="multipart/form-data">
                                     @csrf
-
-                                    <div class="form-group">
-                                        <h5>Subcategory name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="subcategory_name" class="form-control"
-                                                id="category_name" value="{{old('subcategory_name')}}">
-                                            @error('subcategory_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
+                                    @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                        <div class="form-group">
+                                            <h5>Subcategory name-{{ $locale['native'] }} <span class="text-danger">*</span>
+                                            </h5>
+                                            <div class="controls">
+                                                <input type="text" name="subcategory_name[{{ $key }}]]"
+                                                    class="form-control" id="subcategory_name"
+                                                    value="{{ old('subcategory_name.' . $key) }}">
+                                                @error("subcategory_name.{$key}")
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
+
 
                                     <div class="form-group">
                                         <h5>Subategory icon <span class="text-danger">*</span></h5>
                                         <div class="controls">
                                             <input type="text" name="subcategory_icon" class="form-control"
-                                                id="category_icon" value="{{old('subcategory_icon')}}">
+                                                id="category_icon" value="{{ old('subcategory_icon') }}">
                                             @error('subcategory_icon')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -97,9 +102,13 @@
                                             <select class="form-control" id="select" name="category_id">
                                                 <option value="" selected="" disabled="">Select</option>
                                                 @foreach ($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                                    <option value="{{ $category->id }}"
+                                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                        {{ $category->category_name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
+
                                             @error('category_id')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror

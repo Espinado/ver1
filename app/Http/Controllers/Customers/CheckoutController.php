@@ -147,9 +147,7 @@ class CheckoutController extends Controller
             if (Session::has('coupon')) {
                 Session::forget('coupon');
             }
-
             Cart::destroy();
-
             $notification = array(
                 'message' => 'Your Order Place Successfully',
                 'alert-type' => 'success'
