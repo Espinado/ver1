@@ -125,19 +125,24 @@
                                             </div> <!-- end col md 4 -->
                                         </div> <!-- end 1st row  -->
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <h5>Product name <span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <input type="text" name="product_name" class="form-control"
-                                                            value="{{ $products->product_name }}">
+                                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <h5>Product name-{{ $locale['native'] }} <span
+                                                                class="text-danger">*</span>
+                                                        </h5>
+                                                        <div class="controls">
+                                                            <input type="text" name="product_name[{{ $key }}]"
+                                                                class="form-control" id="product_name"
+                                                                value="{{$products->getTranslation('product_name', $key)}}">
+                                                            @error("product_name.{$key}")
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
-                                                    @error('product_name')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
-                                                <input type="hidden" name="id" value="{{ $products->id }}">
-                                            </div>
+                                            @endforeach
+
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <h5>Product code <span class="text-danger">*</span></h5>
@@ -170,19 +175,25 @@
 
                                         <div class="row">
                                             <!-- start 1st row  -->
-
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <h5>Product Tags <span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <input type="text" name="product_tags" class="form-control"
-                                                            value="{{ $products->product_tags }}" data-role="tagsinput">
-                                                        @error('product_tags')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
+                                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <h5>Product tags-{{ $locale['native'] }} <span
+                                                                class="text-danger">*</span>
+                                                        </h5>
+                                                        <div class="controls">
+                                                            <input type="text" name="product_tags[{{ $key }}]"
+                                                                class="form-control" id="product_name"
+                                                                value="{{$products->getTranslation('product_tags', $key)}}">
+                                                            @error("product_tags.{$key}")
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
+
+
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <h5>Product size <span class="text-danger">*</span></h5>
@@ -195,19 +206,24 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <h5>Product color <span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <input type="text" name="product_color" class="form-control"
-                                                            value="{{ $products->product_color_en }}"
-                                                            data-role="tagsinput">
-                                                        @error('product_color')
-                                                            <span class="text-danger">{{ $message }}</span>
-                                                        @enderror
+                                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <h5>Product colors-{{ $locale['native'] }} <span
+                                                                class="text-danger">*</span>
+                                                        </h5>
+                                                        <div class="controls">
+                                                            <input type="text" name="product_color[{{ $key }}]"
+                                                                class="form-control" id="product_color"
+                                                                value="{{$products->getTranslation('product_color_en', $key)}}">
+                                                            @error("product_color.{$key}")
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
+
                                         </div>
 
                                         <div class="row">
@@ -245,7 +261,7 @@
                                                     <h5>Main Thambnail <span class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <input type="file" name="product_thambnail"
-                                                            class="form-control" id="product_trambnail">
+                                                            class="form-control" id="product_trambnail"  value="{{ old('product_thambnail') }}">
                                                         @error('product_thambnail')
                                                             <span class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -268,26 +284,54 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <h5>Short Description-{{ $locale['native'] }} <span
+                                                                class="text-danger">*</span>
+                                                        </h5>
+                                                        <div class="controls">
 
-                                                <div class="form-group">
-                                                    <h5>Short Description<span class="text-danger">*</span></h5>
-                                                    <div class="controls">
-                                                        <textarea name="short_descp" id="textarea" class="form-control" required placeholder="Textarea text">{{ $products->short_description }}</textarea>
+                                                        <textarea name="short_descp[{{ $key }}]" id="textarea"
+                                                         class="form-control" required
+                                                         placeholder="Textarea text">{{$products->getTranslation('short_description', $key)}}</textarea>
+                                                            @error("short_descp.{$key}")
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            @endforeach
 
-                                            </div> <!-- end col md 6 -->
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                             @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <h5>Long Description-{{ $locale['native'] }} <span
+                                                                class="text-danger">*</span>
+                                                        </h5>
+                                                        <div class="controls">
+
+                                                        <textarea name="long_descp[{{ $key }}]" id="editor{{ $loop->iteration }}" rows="10" cols="100"
+                                                         class="form-control" required
+                                                         placeholder="Textarea text">{{$products->getTranslation('long_description', $key)}}</textarea>
+                                                            @error("long_descp.{$key}")
+                                                                <span class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+
+                                            {{-- <div class="col-md-12">
                                                 <div class="form-group">
                                                     <h5>Long Description<span class="text-danger">*</span></h5>
                                                     <div class="controls">
-                                                        <textarea id="editor1" name="long_descp" rows="10" cols="100">{!! $products->long_description !!}</textarea>
+                                                        <textarea id="editor" name="long_descp" rows="10" cols="100">{!! $products->long_description !!}</textarea>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <hr>
 

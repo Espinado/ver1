@@ -261,7 +261,7 @@
                                         <div class="form-group">
                                             <h5>Main Thambnail preview</h5>
                                             <div class="widget-user-image">
-                                                <img class="rounded-circle" src="{{ url('no_image.jpg') }}"
+                                                <img class="rounded-circle" src="{{ old('product_thambnail') ? asset('storage/' . old('product_thambnail')) : asset('no_image.jpg') }}"
                                                     style="width:100px; height:70px;" alt="User Avatar"
                                                     id="product_trambnail_preview">
 
@@ -271,15 +271,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-4">
-
                                         <div class="form-group">
                                             <h5>Multiple Image <span class="text-danger">*</span></h5>
                                             <div class="controls">
                                                 <input type="file" name="multi_img[]" class="form-control"
                                                     multiple="" id="multiImg">
-                                                @error('multi_img')
-                                                    <span class="text-danger">{{ $message }}</span>
-                                                @enderror
+                                                @if ($errors->has('multi_img'))
+                                                ssss
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach ($errors->get('multi_img') as $error)
+                                                                <li><span class="text-danger">{{ $error }}</span>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 
