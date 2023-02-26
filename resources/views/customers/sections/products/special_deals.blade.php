@@ -30,7 +30,7 @@
                                         <div class="col col-xs-7">
                                             <div class="product-info">
                                                 <h3 class="name"><a href="#">{{$deal->product_name}}</a></h3>
-                                                <div class="rating rateit-small"></div>
+                                                {{-- <div class="rating rateit-small"></div> --}}
                                                 @if ($deal->discount_price == null)
                                                                 <div class="product-price"> <span class="price">$
                                                                         {{ $deal->selling_price }}</span>

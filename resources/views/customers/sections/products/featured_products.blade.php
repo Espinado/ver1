@@ -1,5 +1,5 @@
  <section class="section featured-product wow fadeInUp">
-     <h3 class="section-title">Featured products</h3>
+     <h3 class="section-title">{{ __('system.featured_products') }}</h3>
      <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 
          <!-- /.item -->
@@ -24,7 +24,7 @@
                                  $discount = round(($amount / $product->selling_price) * 100);
                              @endphp
                              @if ($product->discount_price == null)
-                                 <div class="tag new"><span>NEW</span></div>
+                                 <div class="tag new"><span>{{ __('system.new') }}</span></div>
                              @else
                                  <div class="tag hot"><span>-{{ $discount }} %</span>
                                  </div>
@@ -37,14 +37,14 @@
                              <h3 class="name"><a
                                      href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
                              </h3>
-                             <div class="rating rateit-small"></div>
+                             {{-- <div class="rating rateit-small"></div> --}}
                              <div class="description"></div>
                              @if ($product->discount_price == null)
-                                 <div class="product-price"> <span class="price"> $ {{ $product->selling_price }}
+                                 <div class="product-price"> <span class="price"> EUR {{ $product->selling_price }}
                                      </span></div>
                              @else
-                                 <div class="product-price"> <span class="price"> $ {{ $product->discount_price }}
-                                     </span> <span class="price-before-discount">$ {{ $product->selling_price }}</span>
+                                 <div class="product-price"> <span class="price"> EUR {{ $product->discount_price }}
+                                     </span> <span class="price-before-discount">EUR {{ $product->selling_price }}</span>
                                  </div>
                                  <!-- /.product-price -->
                              @endif

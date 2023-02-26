@@ -19,14 +19,14 @@
                               $discount = round(($amount / $product->selling_price) * 100);
                           @endphp
                           @if ($product->discount_price == null)
-                              <div class="sale-offer-tag"><span>NEW</span></div>
+                              <div class="sale-offer-tag"><span>{{ __('system.new') }}</span></div>
                           @else
                               <div class="sale-offer-tag"><span>{{ $discount }} %<br>
-                                      off</span></div>
+                                      {{ __('system.off') }}</span></div>
                           @endif
 
 
-                          <div class="timing-wrapper">
+                          {{-- <div class="timing-wrapper">
                               <div class="box-wrapper">
                                   <div class="date box"> <span class="key">120</span> <span
                                           class="value">DAYS</span> </div>
@@ -43,7 +43,7 @@
                                   <div class="seconds box"> <span class="key">60</span> <span
                                           class="value">SEC</span> </div>
                               </div>
-                          </div>
+                          </div> --}}
                       </div>
                       <!-- /.hot-deal-wrapper -->
 
@@ -51,13 +51,13 @@
                           <h3 class="name"><a
                                   href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
                           </h3>
-                          <div class="rating rateit-small"></div>
+                          {{-- <div class="rating rateit-small"></div> --}}
                           @if ($product->discount_price == null)
-                              <div class="product-price"> <span class="price"> $ {{ $product->selling_price }} </span>
+                              <div class="product-price"> <span class="price"> EUR {{ $product->selling_price }} </span>
                               </div>
                           @else
-                              <div class="product-price"> <span class="price"> $ {{ $product->discount_price }} </span>
-                                  <span class="price-before-discount">$ {{ $product->selling_price }}</span>
+                              <div class="product-price"> <span class="price">EUR {{ $product->discount_price }} </span>
+                                  <span class="price-before-discount">EUR {{ $product->selling_price }}</span>
                               </div>
                               <!-- /.product-price -->
                           @endif
@@ -73,8 +73,7 @@
                                       <i class="fa fa-shopping-cart"></i> </button>
                                   <button class="btn btn-primary cart-btn" data-toggle="modal"
                                       data-target="#exampleModal" id="{{ $product->id }}"
-                                      onclick="productView(this.id)">Add to
-                                      cart</button>
+                                      onclick="productView(this.id)">{{ __('system.add_to_cart') }}</button>
                               </div>
                           </div>
                           <!-- /.action -->

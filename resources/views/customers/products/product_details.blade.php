@@ -18,9 +18,12 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Clothing</a></li>
-                <li class='active'>Floral Print Buttoned</li>
+                <li><a href="{{route('index')}}">Home</a></li>
+                <li><a href="#">{{$product['category']['category_name']}}</a></li>
+                @if($product['subcategory']['subcategory_name'])
+                <li><a href="#">{{$product['subcategory']['subcategory_name']}}</a></li>
+                @endif
+                <li class='active'>{{$product->product_name}}</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
     </div><!-- /.container -->
@@ -105,38 +108,32 @@
                             <div class="product-info">
                                 <h1 class="name" id="pname">{{ $product->product_name }}</h1>
 
-                                <div class="rating-reviews m-t-20">
+                                {{-- <div class="rating-reviews m-t-20">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <div class="rating rateit-small"></div>
                                         </div>
-                                        <div class="col-sm-8">
-                                            <div class="reviews">
-                                                <a href="#" class="lnk">(13 Reviews)</a>
-                                            </div>
-                                        </div>
+
                                     </div><!-- /.row -->
-                                </div><!-- /.rating-reviews -->
+                                </div><!-- /.rating-reviews --> --}}
 
                                 <div class="stock-container info-container m-t-10">
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="stock-box">
-                                                <span class="label">Availability :</span>
+                                                <span class="label">{{ __('system.available') }} :</span>
                                             </div>
                                         </div>
                                         <div class="col-sm-9">
                                             <div class="stock-box">
-                                                <span class="value">{{ $product->product_qty }}</span>
+                                                <span class="value">{{ $product->product_qty }}&nbsp; {{ __('system.pieces') }}</span>
                                             </div>
                                         </div>
                                     </div><!-- /.row -->
                                 </div><!-- /.stock-container -->
 
                                 <div class="description-container m-t-20">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                  {!!$product->short_description!!}
                                 </div><!-- /.description-container -->
 
                                 <div class="price-container info-container m-t-20">
@@ -144,10 +141,10 @@
                                         <div class="col-sm-6">
                                             <div class="price-box">
                                                 @if ($product->discount_price == null)
-                                                    <span class="price">$ {{ $product->selling_price }}</span>
+                                                    <span class="price">EUR {{ $product->selling_price }}</span>
                                                 @else
-                                                    <span class="price">$ {{ $product->discount_price }}</span>
-                                                    <span class="price-strike">$ {{ $product->selling_price }}</span>
+                                                    <span class="price">EUR {{ $product->discount_price }}</span>
+                                                    <span class="price-strike">EUR {{ $product->selling_price }}</span>
                                                 @endif
                                             </div>
                                         </div>
@@ -158,14 +155,14 @@
                                                     title="Wishlist" href="#">
                                                     <i class="fa fa-heart"></i>
                                                 </a>
-                                                <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
+                                                {{-- <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
                                                     title="Add to Compare" href="#">
                                                     <i class="fa fa-signal"></i>
                                                 </a>
                                                 <a class="btn btn-primary" data-toggle="tooltip"
                                                     data-placement="right" title="E-mail" href="#">
                                                     <i class="fa fa-envelope"></i>
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
 
@@ -174,11 +171,11 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="info-title control-label">Choose color
+                                                <label class="info-title control-label">{{ __('system.choose_color') }}
                                                     <span>*</span></label>
                                                 <select class="form-control unicase-form-control selectpicker"
                                                     style="display: none;" id="color">
-                                                    <option selected="" disabled="" value="">--Select color--</option>
+                                                    <option selected="" disabled="" value="">--{{ __('system.choose_color') }}--</option>
                                                     @foreach ($product_colors as $color)
                                                         <option value="{{ $color }}">{{ ucwords($color) }}
                                                         </option>
@@ -191,11 +188,11 @@
                                             <div class="form-group">
                                                 @if ($product->product_size == null)
                                                 @else
-                                                    <label class="info-title control-label">Select size
+                                                    <label class="info-title control-label">{{ __('system.choose_size') }}
                                                         <span>*</span></label>
                                                     <select class="form-control unicase-form-control selectpicker"
                                                         style="display: none;" id="size">
-                                                        <option >--Select size--</option>
+                                                        <option >--{{ __('system.choose_size') }}--</option>
                                                         @foreach ($product_size as $size)
                                                             <option value="{{ $size }}">{{ ucwords($size) }}
                                                             </option>
@@ -214,7 +211,7 @@
                                     <div class="row">
 
                                         <div class="col-sm-2">
-                                            <span class="label">Qty :</span>
+                                            <span class="label">{{ __('system.qty') }} :</span>
                                         </div>
 
                                         <div class="col-sm-2">
@@ -235,7 +232,7 @@
                                             value="{{ $product->id }}">"
                                         <div class="col-sm-7">
                                             <button type="submit" onclick="addToCart()" class="btn btn-primary">
-                                                <i class="fa fa-shopping-cart inner-right-vs"></i> ADD TO CART</button>
+                                                <i class="fa fa-shopping-cart inner-right-vs"></i>{{ __('system.add_to_cart') }}</button>
                                         </div>
 
 
@@ -257,9 +254,8 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <ul id="product-tabs" class="nav nav-tabs nav-tab-cell">
-                                <li class="active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
-                                <li><a data-toggle="tab" href="#review">REVIEW</a></li>
-                                <li><a data-toggle="tab" href="#tags">TAGS</a></li>
+                                <li class="active"><a data-toggle="tab" href="#description">{{ __('system.description') }}</a></li>
+
                             </ul><!-- /.nav-tabs #product-tabs -->
                         </div>
                         <div class="col-sm-9">
@@ -268,176 +264,12 @@
 
                                 <div id="description" class="tab-pane in active">
                                     <div class="product-tab">
-                                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                                            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                                            est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.<br><br> Duis aute irure dolor in reprehenderit in
-                                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                                            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                                            anim id est laborum.</p>
+                                        <p class="text">{!!$product->long_description!!}</p>
                                     </div>
                                 </div><!-- /.tab-pane -->
 
-                                <div id="review" class="tab-pane">
-                                    <div class="product-tab">
-
-                                        <div class="product-reviews">
-                                            <h4 class="title">Customer Reviews</h4>
-
-                                            <div class="reviews">
-                                                <div class="review">
-                                                    <div class="review-title"><span class="summary">We love this
-                                                            product</span><span class="date"><i
-                                                                class="fa fa-calendar"></i><span>1 days
-                                                                ago</span></span></div>
-                                                    <div class="text">"Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit.Aliquam suscipit."</div>
-                                                </div>
-
-                                            </div><!-- /.reviews -->
-                                        </div><!-- /.product-reviews -->
 
 
-
-                                        <div class="product-add-review">
-                                            <h4 class="title">Write your own review</h4>
-                                            <div class="review-table">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="cell-label">&nbsp;</th>
-                                                                <th>1 star</th>
-                                                                <th>2 stars</th>
-                                                                <th>3 stars</th>
-                                                                <th>4 stars</th>
-                                                                <th>5 stars</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="cell-label">Quality</td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="1"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="2"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="3"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="4"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="5"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="cell-label">Price</td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="1"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="2"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="3"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="4"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="5"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="cell-label">Value</td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="1"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="2"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="3"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="4"></td>
-                                                                <td><input type="radio" name="quality"
-                                                                        class="radio" value="5"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table><!-- /.table .table-bordered -->
-                                                </div><!-- /.table-responsive -->
-                                            </div><!-- /.review-table -->
-
-                                            <div class="review-form">
-                                                <div class="form-container">
-                                                    <form role="form" class="cnt-form">
-
-                                                        <div class="row">
-                                                            <div class="col-sm-6">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputName">Your Name <span
-                                                                            class="astk">*</span></label>
-                                                                    <input type="text" class="form-control txt"
-                                                                        id="exampleInputName" placeholder="">
-                                                                </div><!-- /.form-group -->
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputSummary">Summary <span
-                                                                            class="astk">*</span></label>
-                                                                    <input type="text" class="form-control txt"
-                                                                        id="exampleInputSummary" placeholder="">
-                                                                </div><!-- /.form-group -->
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="exampleInputReview">Review <span
-                                                                            class="astk">*</span></label>
-                                                                    <textarea class="form-control txt txt-review" id="exampleInputReview" rows="4" placeholder=""></textarea>
-                                                                </div><!-- /.form-group -->
-                                                            </div>
-                                                        </div><!-- /.row -->
-
-                                                        <div class="action text-right">
-                                                            <button class="btn btn-primary btn-upper">SUBMIT
-                                                                REVIEW</button>
-                                                        </div><!-- /.action -->
-
-                                                    </form><!-- /.cnt-form -->
-                                                </div><!-- /.form-container -->
-                                            </div><!-- /.review-form -->
-
-                                        </div><!-- /.product-add-review -->
-
-                                    </div><!-- /.product-tab -->
-                                </div><!-- /.tab-pane -->
-
-                                <div id="tags" class="tab-pane">
-                                    <div class="product-tag">
-
-                                        <h4 class="title">Product Tags</h4>
-                                        <form role="form" class="form-inline form-cnt">
-                                            <div class="form-container">
-
-                                                <div class="form-group">
-                                                    <label for="exampleInputTag">Add Your Tags: </label>
-                                                    <input type="email" id="exampleInputTag"
-                                                        class="form-control txt">
-
-
-                                                </div>
-
-                                                <button class="btn btn-upper btn-primary" type="submit">ADD
-                                                    TAGS</button>
-                                            </div><!-- /.form-container -->
-                                        </form><!-- /.form-cnt -->
-
-                                        <form role="form" class="form-inline form-cnt">
-                                            <div class="form-group">
-                                                <label>&nbsp;</label>
-                                                <span class="text col-md-offset-3">Use spaces to separate tags. Use
-                                                    single quotes (') for phrases.</span>
-                                            </div>
-                                        </form><!-- /.form-cnt -->
-
-                                    </div><!-- /.product-tab -->
-                                </div><!-- /.tab-pane -->
 
                             </div><!-- /.tab-content -->
                         </div><!-- /.col -->
@@ -447,8 +279,7 @@
                 <!-- ============================================== UPSELL PRODUCTS ============================================== -->
                 <section class="section featured-product wow fadeInUp">
                     @if ($related_products->isEmpty())
-                        <h1 style="text-align: center"><span class="text-danger">No related products
-                                found</span></h1>
+                        <h1 style="text-align: center"><span class="text-danger">{{ __('system.no_related_products_found') }}</span></h1>
                     @endif
                     <div class="owl-carousel home-owl-carousel upsell-product custom-carousel owl-theme outer-top-xs">
                         @foreach ($related_products as $related_product)
@@ -463,22 +294,22 @@
                                                         alt=""></a>
                                             </div><!-- /.image -->
 
-                                            <div class="tag hot"><span>sale</span></div>
+                                            <div class="tag hot"><span>{{ __('system.sale') }}</span></div>
                                         </div><!-- /.product-image -->
 
 
                                         <div class="product-info text-left">
                                             <h3 class="name"><a
                                                     href="detail.html">{{ $related_product->product_name }}</a></h3>
-                                            <div class="rating rateit-small"></div>
+                                            {{-- <div class="rating rateit-small"></div> --}}
                                             <div class="description"></div>
 
                                             <div class="product-price">
                                                 @if ($product->discount_price == null)
-                                                    <span class="price">$ {{ $product->selling_price }}</span>
+                                                    <span class="price">EUR {{ $product->selling_price }}</span>
                                                 @else
-                                                    <span class="price">$ {{ $product->discount_price }}</span>
-                                                    <span class="price-strike">$ {{ $product->selling_price }}</span>
+                                                    <span class="price">EUR {{ $product->discount_price }}</span>
+                                                    <span class="price-before-discount">EUR {{ $product->selling_price }}</span>
                                                 @endif
 
                                             </div><!-- /.product-price -->
