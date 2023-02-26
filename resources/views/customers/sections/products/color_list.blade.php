@@ -1,6 +1,6 @@
     <div class="sidebar-widget wow fadeInUp">
                             <div class="widget-header">
-                                <h4 class="widget-title">Colors</h4>
+                                <h4 class="widget-title">{{ __('system.colors') }}</h4>
                             </div>
                             <div class="sidebar-widget-body">
                                 <ul class="list">

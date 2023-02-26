@@ -12,7 +12,7 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="#">Home</a></li>
+                <li><a href="#">{{ __('system.home') }}</a></li>
                 <li class='active'>Handbags</li>
             </ul>
         </div>
@@ -100,7 +100,7 @@
                         <!-- ============================================== SIDEBAR CATEGORY : END ============================================== -->
 
                         <!-- ============================================== PRICE SILDER============================================== -->
-                        <div class="sidebar-widget wow fadeInUp">
+                        {{-- <div class="sidebar-widget wow fadeInUp">
                             <div class="widget-header">
                                 <h4 class="widget-title">Price Slider</h4>
                             </div>
@@ -116,11 +116,11 @@
                                 <a href="#" class="lnk btn btn-primary">Show Now</a>
                             </div>
                             <!-- /.sidebar-widget-body -->
-                        </div>
+                        </div> --}}
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== PRICE SILDER : END ============================================== -->
                         <!-- ============================================== MANUFACTURES============================================== -->
-                        <div class="sidebar-widget wow fadeInUp">
+                        {{-- <div class="sidebar-widget wow fadeInUp">
                             <div class="widget-header">
                                 <h4 class="widget-title">Manufactures</h4>
                             </div>
@@ -136,7 +136,7 @@
                                 <!--<a href="#" class="lnk btn btn-primary">Show Now</a>-->
                             </div>
                             <!-- /.sidebar-widget-body -->
-                        </div>
+                        </div> --}}
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== MANUFACTURES: END ============================================== -->
                         <!-- ============================================== COLOR============================================== -->
@@ -144,7 +144,7 @@
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== COLOR: END ============================================== -->
                         <!-- == ======= COMPARE==== ==== -->
-                        <div class="sidebar-widget wow fadeInUp outer-top-vs">
+                        {{-- <div class="sidebar-widget wow fadeInUp outer-top-vs">
                             <h3 class="section-title">Compare products</h3>
                             <div class="sidebar-widget-body">
                                 <div class="compare-report">
@@ -153,7 +153,7 @@
                                 <!-- /.compare-report -->
                             </div>
                             <!-- /.sidebar-widget-body -->
-                        </div>
+                        </div> --}}
                         <!-- /.sidebar-widget -->
                         <!-- ============================================== COMPARE: END ============================================== -->
 
@@ -201,9 +201,9 @@
                             <div class="filter-tabs">
                                 <ul id="filter-tabs" class="nav nav-tabs nav-tab-box nav-tab-fa-icon">
                                     <li class="active"> <a data-toggle="tab" href="#grid-container"><i
-                                                class="icon fa fa-th-large"></i>Grid</a> </li>
+                                                class="icon fa fa-th-large"></i>{{ __('system.grid') }}</a> </li>
                                     <li><a data-toggle="tab" href="#list-container"><i
-                                                class="icon fa fa-th-list"></i>List</a></li>
+                                                class="icon fa fa-th-list"></i>{{ __('system.list') }}</a></li>
                                 </ul>
                             </div>
                             <!-- /.filter-tabs -->
@@ -211,17 +211,17 @@
                         <!-- /.col -->
                         <div class="col col-sm-12 col-md-6">
                             <div class="col col-sm-3 col-md-6 no-padding">
-                                <div class="lbl-cnt"> <span class="lbl">Sort by</span>
+                                <div class="lbl-cnt"> <span class="lbl">{{ __('system.sort_by') }}</span>
                                     <div class="fld inline">
                                         <div class="dropdown dropdown-small dropdown-med dropdown-white inline">
                                             <button data-toggle="dropdown" type="button" class="btn dropdown-toggle">
-                                                Position <span class="caret"></span>
+                                               {{ __('system.position') }} <span class="caret"></span>
                                             </button>
                                             <ul role="menu" class="dropdown-menu">
-                                                <li role="presentation"><a href="#">position</a></li>
-                                                <li role="presentation"><a href="#">Price:Lowest first</a></li>
-                                                <li role="presentation"><a href="#">Price:HIghest first</a></li>
-                                                <li role="presentation"><a href="#">Product Name:A to Z</a></li>
+                                                <li role="presentation"><a href="#">{{ __('system.position') }}</a></li>
+                                                <li role="presentation"><a href="#">{{ __('system.price_lowest_first') }}</a></li>
+                                                <li role="presentation"><a href="#">{{ __('system.price_highest_first') }}</a></li>
+                                                <li role="presentation"><a href="#">{{ __('system.product_name_a_z') }}</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -277,8 +277,7 @@
 
 
                                     @if ($products->isEmpty())
-                                        <h1 style="text-align: center"><span class="text-danger">No products
-                                                found</span></h1>
+                                        <h1 style="text-align: center"><span class="text-danger">{{ __('system.no_products_found') }}</span></h1>
                                     @endif
                                     @foreach ($products as $product)
                                         <div class="col-sm-6 col-md-4 wow fadeInUp">
@@ -298,7 +297,7 @@
 
                                                         <div>
                                                             @if ($product->discount_price == null)
-                                                                <div class="tag new"><span>new</span></div>
+                                                                <div class="tag new"><span>{{ __('system.new') }}</span></div>
                                                             @else
                                                                 <div class="tag hot">
                                                                     <span>{{ round($discount) }}%</span>

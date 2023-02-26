@@ -5,7 +5,7 @@
                  @php
                      $categories = App\Models\Admins\Category::orderBy('category_name', 'asc')->get();
                  @endphp
-                 <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">Categories <b
+                 <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="category.html">{{ __('system.categories') }} <b
                              class="caret"></b></a>
                      <ul class="dropdown-menu" role="menu">
                          {{-- <li class="menu-header">Computer</li> --}}
@@ -18,7 +18,7 @@
                      </ul>
                  </li>
              </ul>
-             <input class="search-field" placeholder="Search here..." />
+             <input class="search-field" placeholder="{{ __('system.search') }}" />
              <a class="search-button" href="#"></a>
          </div>
      </form>

@@ -46,7 +46,7 @@ class IndexController extends Controller
             ->whereJsonContains('product_tags->'.app()->getlocale(), $product_tag)
             ->orderBy('id', 'desc')->get();
 
-          
+
         $product_colors = Product::groupBy('product_color_en')
         ->select('product_color_en')
         ->get();
@@ -76,20 +76,34 @@ class IndexController extends Controller
     /// Product View With Ajax
     public function ProductViewAjax($id)
     {
-        $product = Product::with('category', 'brand')->findOrFail($id);
+        // dd($id);
+        $product1 = Product::with('category', 'brand')->findOrFail($id);
+        $productData = $product1->getTranslation('product_name', app()->getLocale());
 
-        $color = $product->product_color_en;
-        $product_color = explode(',', $color);
+        $productColor = $product1->getTranslation('product_color_en', app()->getLocale());
+        $productColor = explode(',', $productColor);
 
-        $size = $product->product_size;
-        $product_size = explode(',', $size);
+        $product = [
+            'product_name' => $productData,
+            'id' => $product1->id,
+            'category_name' => $product1->category->category_name,
+            'product_thambnail'=>$product1->product_thambnail,
+            'selling_price' => $product1->selling_price,
+            'discount_price' => $product1->discount_price,
+            'product_qty' => $product1->product_qty,
+            'brand_name' => $product1->brand->brand_name,
+            'product_thumbnail' => $product1->product_thumbnail,
+            'product_code' => $product1->product_code,
+        ];
 
-        return response()->json(array(
+        $size = $product1->product_size;
+        $productSize = explode(',', $size);
+
+        return response()->json([
             'product' => $product,
-            'color' => $product_color,
-            'size' => $product_size,
-
-        ));
+            'color' => $productColor,
+            'size' => $productSize,
+        ]);
     } // end method
 
 

@@ -9,17 +9,17 @@
                     @auth
                     <li onclick="wishlist"><a href="{{ route('wishlist') }}">
                                 <i class="icon fa fa-heart"></i>
-                                Wishlist <span class="badge badge-danger" id="count_wishes"> </span>
+                                {{ __('system.wishlist') }} <span class="badge badge-danger" id="count_wishes"> </span>
                             </a>
                             </li>
                         @endauth
-                        <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-                        <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>Checkout</a></li>
+                        <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>{{ __('system.cart') }}</a></li>
+                        <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
                         @auth
                             <li><a href="{{ route('profile.index') }}"><i
                                         class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
                         @else
-                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>Login/Register</a></li>
+                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('auth.login/register') }}</a></li>
                         @endauth
                 </ul>
                 </ul>
@@ -121,7 +121,7 @@
                     <div class="nav-outer">
                         <ul class="nav navbar-nav">
                             <li class="active dropdown yamm-fw"> <a href="{{ route('index') }}" data-hover="dropdown"
-                                    class="dropdown-toggle" data-toggle="dropdown">Home</a> </li>
+                                    class="dropdown-toggle" data-toggle="dropdown">{{ __('system.home') }}</a> </li>
                             @php
                                 $categories = App\Models\Admins\Category::orderBy('category_name', 'asc')->get();
                             @endphp
@@ -178,8 +178,7 @@
                                 </li>
                             @endforeach
 
-                            <li class="dropdown  navbar-right special-menu"> <a href="#">Todays
-                                    offer</a> </li>
+                            <li class="dropdown  navbar-right special-menu"> <a href="#">{{ __('system.today_offer') }}</a> </li>
                         </ul>
                         <!-- /.navbar-nav -->
                         <div class="clearfix"></div>

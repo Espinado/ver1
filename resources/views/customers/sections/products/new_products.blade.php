@@ -1,6 +1,6 @@
  <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
      <div class="more-info-tab clearfix ">
-         <h3 class="new-product-title pull-left">New Products</h3>
+         <h3 class="new-product-title pull-left">{{ __('system.new_products') }}</h3>
          <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
 
              <div class="accordion">
@@ -8,7 +8,7 @@
                      $categories = App\Models\Admins\Category::orderBy('category_name', 'asc')->get();
                  @endphp
                  <ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
-                     <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>
+                     <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">{{ __('system.all') }}</a></li>
 
                      @foreach ($categories as $category)
                          <li><a data-transition-type="backSlide" href="#category{{ $category->id }}"
@@ -41,7 +41,7 @@
                                              $discount = round(($amount / $product->selling_price) * 100);
                                          @endphp
                                          @if ($product->discount_price == null)
-                                             <div class="tag new"><span>NEW</span></div>
+                                             <div class="tag new"><span>{{ __('system.new') }}</span></div>
                                          @else
                                              <div class="tag hot"><span>-{{ $discount }} %</span>
                                              </div>
@@ -54,16 +54,16 @@
                                          <h3 class="name"><a
                                                  href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
                                          </h3>
-                                         <div class="rating rateit-small"></div>
+                                         {{-- <div class="rating rateit-small"></div> --}}
                                          <div class="description"></div>
                                          @if ($product->discount_price == null)
-                                             <div class="product-price"> <span class="price">$
+                                             <div class="product-price"> <span class="price">EUR
                                                      {{ $product->selling_price }}</span>
                                              </div>
                                          @else
-                                             <div class="product-price"> <span class="price"> $
+                                             <div class="product-price"> <span class="price">EUR
                                                      {{ $product->discount_price }}
-                                                 </span> <span class="price-before-discount">$
+                                                 </span> <span class="price-before-discount">EUR
                                                      {{ $product->selling_price }}</span>
                                              </div>
                                          @endif
@@ -112,7 +112,7 @@
                                              <!-- /.image -->
 
                                              @if ($product->discount_price == null)
-                                                 <div class="tag new"><span>NEW</span></div>
+                                                 <div class="tag new"><span>{{ __('system.new') }}</span></div>
                                              @else
                                                  <div class="tag hot"><span>- {{ $discount }}
                                                          %</span></div>
@@ -124,16 +124,16 @@
                                              <h3 class="name"><a
                                                      href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
                                              </h3>
-                                             <div class="rating rateit-small"></div>
+                                             {{-- <div class="rating rateit-small"></div> --}}
                                              <div class="description"></div>
                                              @if ($product->discount_price == null)
-                                                 <div class="product-price"> <span class="price">$
+                                                 <div class="product-price"> <span class="price">EUR
                                                          {{ $product->selling_price }}</span>
                                                  </div>
                                              @else
-                                                 <div class="product-price"> <span class="price"> $
+                                                 <div class="product-price"> <span class="price"> EUR
                                                          {{ $product->discount_price }}
-                                                     </span> <span class="price-before-discount">$
+                                                     </span> <span class="price-before-discount">EUR
                                                          {{ $product->selling_price }}</span>
                                                  </div>
                                              @endif
@@ -150,7 +150,7 @@
                                  <!-- /.products -->
                              </div>
                          @empty
-                             <h5 class="text-danger">No products</h5>
+                             <h5 class="text-danger">{{ __('system.no_products_found') }}</h5>
                          @endforelse
                          <!-- /.item -->
 
