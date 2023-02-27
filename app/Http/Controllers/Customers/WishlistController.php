@@ -17,17 +17,17 @@ class WishlistController extends Controller
         if (Auth::check()) {
             $exists = Wishlist::where('user_id', Auth::id())->where('product_id', $product_id)->first();
             if ($exists) {
-                return response()->json(['error' => 'Already in wishlist'], 320);
+                return response()->json(['error' => __('system.already_in_wishlist', [], app()->getLocale())], 320);
             } else {
                 Wishlist::insert([
                     'user_id'    => Auth::id(),
                     'product_id' => $product_id,
                     'created_at' => Carbon::now(),
                 ]);
-                return response()->json(['success' => 'Added to wishlist'], 200);
+                return response()->json(['success' => __('system.added_to_wishlist', [], app()->getLocale())], 200);
             }
         } else {
-            return response()->json(['error' => 'Not authorised'], 320);
+            return response()->json(['error' => __('system.not authorised', [], app()->getLocale())], 320);
         }
     }
 
@@ -46,9 +46,9 @@ class WishlistController extends Controller
 
     public function RemoveWishlistProduct($id)
     {
-     
+
         Wishlist::where('user_id', Auth::id())->where('id', $id)->delete();
-        return response()->json(['success' => 'Successfully Product Remove']);
+        return response()->json(['success' => __('system.removed_from_wishlist', [], app()->getLocale())]);
     }
 
 }

@@ -33,7 +33,7 @@ class CheckoutController extends Controller
             } else {
 
                 $notification = array(
-                    'message' => 'Shopping At list One Product',
+                    'message' => __('system.shop_one_product', [], app()->getLocale()),
                     'alert-type' => 'error'
                 );
 
@@ -42,7 +42,7 @@ class CheckoutController extends Controller
         } else {
 
             $notification = array(
-                'message' => 'You Need to Login First',
+                'message' => __('system.please_login', [], app()->getLocale()),
                 'alert-type' => 'error'
             );
 
@@ -149,7 +149,7 @@ class CheckoutController extends Controller
             }
             Cart::destroy();
             $notification = array(
-                'message' => 'Your Order Place Successfully',
+                'message' => __('system.placed_order', [], app()->getLocale()),
                 'alert-type' => 'success'
             );
 

@@ -22,7 +22,7 @@ class CartController extends Controller
         // }
         $product = Product::findOrFail($id);
         if ($product->product_qty < $request->quantity) {
-            return response()->json(['error' => 'Not available']);
+            return response()->json(['error' => __('system.not_available', [], app()->getLocale())]);
         } else {
             if ($product->discount_price == NULL) {
                 Cart::add([
@@ -37,7 +37,7 @@ class CartController extends Controller
                         'size' => $request->size,
                     ],
                 ]);
-                return response()->json(['success' => 'Successfully Added on Your Cart']);
+                return response()->json(['success' => __('system.added_to_cart', [], app()->getLocale())]);
             } else {
 
                 Cart::add([
@@ -52,7 +52,7 @@ class CartController extends Controller
                         'size' => $request->size,
                     ],
                 ]);
-                return response()->json(['success' => 'Successfully Added on Your Cart']);
+                return response()->json(['success' => __('system.added_to_cart', [], app()->getLocale())]);
             }
         }
     }
@@ -86,7 +86,7 @@ class CartController extends Controller
                 'total_amount' => round(Cart::total() - Cart::total() * $coupon->coupon_discount / 100)
             ]);
         }
-        return response()->json(['success' => 'Product Remove from Cart']);
+        return response()->json(['success' => __('system.removed_from_cart', [], app()->getLocale())]);
     }
 
     public function MyCart()
@@ -168,11 +168,11 @@ class CartController extends Controller
 
             return response()->json(array(
 
-                'success' => 'Coupon Applied Successfully',
+                'success' => __('system.coupon_applied', [], app()->getLocale()),
                 'validity' => true,
             ));
         } else {
-            return response()->json(['error' => 'Invalid Coupon']);
+            return response()->json(['error' => __('system.invalid_coupon', [], app()->getLocale())]);
         }
     }
 
@@ -196,8 +196,8 @@ class CartController extends Controller
     public function removeCoupon()
     {
         Session::forget('coupon');
-        return response()->json(['success' => 'Coupon Remove Successfully']);
+        return response()->json(['success' => __('system.coupon_removed', [], app()->getLocale())]);
     }
 
-   
+
 }

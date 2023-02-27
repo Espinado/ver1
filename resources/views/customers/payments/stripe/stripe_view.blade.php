@@ -2,7 +2,7 @@
 @section('content')
 
 @section('title')
-    Stripe payment process
+    Stripe {{ __('system.payment_process') }}
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
@@ -10,7 +10,7 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">{{ __('system.home') }}</a></li>
                 <li class='active'>Stripe</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
@@ -29,7 +29,7 @@
                         <div class="panel-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="unicase-checkout-title">Your Shopping Amount </h4>
+                                    <h4 class="unicase-checkout-title">{{ __('system.shopping_amount') }} </h4>
                                 </div>
                                 <div class="">
                                     <ul class="nav nav-checkout-progress list-unstyled">
@@ -38,26 +38,26 @@
                                         <hr>
                                         <li>
                                             @if (Session::has('coupon'))
-                                                <strong>SubTotal: </strong> ${{ $data['cartTotal'] }}
+                                                <strong>{{ __('system.subtotal') }}: </strong> ${{ $data['cartTotal'] }}
                                                 <hr>
 
-                                                <strong>Coupon Name : </strong>
+                                                <strong>{{ __('system.coupon_name') }} : </strong>
                                                 {{ session()->get('coupon')['coupon_name'] }}
                                                 ( {{ session()->get('coupon')['coupon_discount'] }} % )
                                                 <hr>
 
-                                                <strong>Coupon Discount : </strong>
+                                                <strong>{{ __('system.coupon_discount') }} : </strong>
                                                 ${{ session()->get('coupon')['discount_amount'] }}
                                                 <hr>
 
-                                                <strong>Grand Total : </strong>
+                                                <strong>{{ __('system.grand_total') }} : </strong>
                                                 ${{ session()->get('coupon')['total_amount'] }}
                                                 <hr>
                                             @else
-                                                <strong>SubTotal: </strong> ${{ $data['cartTotal'] }}
+                                                <strong>{{ __('system.subtotal') }}: </strong> ${{ $data['cartTotal'] }}
                                                 <hr>
 
-                                                <strong>Grand Total : </strong> ${{ $data['cartTotal'] }}
+                                                <strong>{{ __('system.grand_total') }} : </strong> ${{ $data['cartTotal'] }}
                                                 <hr>
                                             @endif
 
@@ -78,7 +78,7 @@
                         <div class="panel-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="unicase-checkout-title"> Payment Method</h4>
+                                    <h4 class="unicase-checkout-title"> {{ __('system.payment_method') }}</h4>
                                 </div>
 
 
@@ -96,7 +96,7 @@
                                                 value="{{ $data['district_id'] }}">
                                             <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
                                             <input type="hidden" name="notes" value="{{ $data['notes'] }}">
-                                            Credit or debit card
+                                            {{ __('system.credit_or_debit_card') }}
                                         </label>
 
                                         <div id="card-element">
@@ -106,7 +106,7 @@
                                         <div id="card-errors" role="alert"></div>
                                     </div>
                                     <br>
-                                    <button class="btn btn-primary">Submit Payment</button>
+                                    <button class="btn btn-primary">{{ __('system.submit_payment') }}</button>
                                 </form>
                                 <hr>
                             </div>
