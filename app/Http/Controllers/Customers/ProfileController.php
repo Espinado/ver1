@@ -38,7 +38,7 @@ class ProfileController extends Controller
             $data['profile_photo_path'] = $filename;
         }
         $data->save();
-        $notification = array('message' => 'User profile updated', 'alert-type' => 'success');
+        $notification = array('message' => __('system.profile_updated', [], app()->getLocale()), 'alert-type' => 'success');
         return redirect()->route('profile.index')->with($notification);
     }
 
@@ -61,10 +61,10 @@ class ProfileController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
             Auth::logout();
-            $notification = array('message' => 'Password changed', 'alert-type' => 'success');
+            $notification = array('message' => __('system.password_changed', [], app()->getLocale()), 'alert-type' => 'success');
             return redirect()->route('index')->with($notification);
         } else {
-            $notification = array('message' => 'Error', 'alert-type' => 'error');
+            $notification = array('message' => __('system.error', [], app()->getLocale()), 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
     }
