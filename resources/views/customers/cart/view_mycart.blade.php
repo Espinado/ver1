@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
 @section('title')
-    My Cart Page
+    {{ __('system.cart_page') }}
 @endsection
 
 
@@ -9,8 +9,8 @@
     <div class="container">
         <div class="breadcrumb-inner">
             <ul class="list-inline list-unstyled">
-                <li><a href="home.html">Home</a></li>
-                <li class='active'>MyCart</li>
+                <li><a href="home.html">{{ __('system.home') }}</a></li>
+                <li class='active'>{{ __('system.cart') }}</li>
             </ul>
         </div><!-- /.breadcrumb-inner -->
     </div><!-- /.container -->
@@ -25,13 +25,13 @@
                         <table class="table">
                             <thead>
 
-                                <th class="cart-romove item">Image</th>
-                                <th class="cart-description item">Name</th>
-                                <th class="cart-product-name item">Color</th>
-                                <th class="cart-edit item">Size</th>
-                                <th class="cart-qty item">Quantity</th>
-                                <th class="cart-sub-total item">Subtotal</th>
-                                <th class="cart-total last-item">Remove</th>
+                                <th class="cart-romove item">{{ __('system.image') }}</th>
+                                <th class="cart-description item">{{ __('system.name') }}</th>
+                                <th class="cart-product-name item">{{ __('system.color') }}</th>
+                                <th class="cart-edit item">{{ __('system.size') }}</th>
+                                <th class="cart-qty item">{{ __('system.quantity') }}</th>
+                                <th class="cart-sub-total item">{{ __('system.subtotal') }}</th>
+                                <th class="cart-total last-item">{{ __('system.remove') }}</th>
                             </thead>
                             <tbody id="cartPage">
 
@@ -55,8 +55,8 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <span class="estimate-title">Discount Code</span>
-                                    <p>Enter your coupon code if you have one..</p>
+                                    <span class="estimate-title">{{ __('system.discount_code') }}</span>
+                                    <p>{{ __('system.enter_coupon') }}</p>
                                 </th>
                             </tr>
                         </thead>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="clearfix pull-right">
                                         <button type="submit" class="btn-upper btn btn-primary"
-                                            onclick="applyCoupon()">APPLY COUPON</button>
+                                            onclick="applyCoupon()">{{ __('system.apply_coupon') }}</button>
                                     </div>
                                 </td>
                             </tr>
@@ -90,8 +90,7 @@
                             <tr>
                                 <td>
                                     <div class="cart-checkout-btn pull-right">
-                                        <a href="{{route('product.checkout')}}" type="submit" class="btn btn-primary checkout-btn">PROCCED TO
-                                            CHEKOUT</a>
+                                        <a href="{{route('product.checkout')}}" type="submit" class="btn btn-primary checkout-btn">{{ __('system.proceed_to_checkout') }}</a>
 
                                     </div>
                                 </td>

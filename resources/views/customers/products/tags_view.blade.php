@@ -269,7 +269,7 @@
                                                         <h3 class="name"><a
                                                                 href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
                                                         </h3>
-                                                        <div class="rating rateit-small"></div>
+                                                        {{-- <div class="rating rateit-small"></div> --}}
                                                         <div class="description"></div>
                                                         @if ($product->discount_price == null)
                                                             <div class="product-price"> <span class="price">$

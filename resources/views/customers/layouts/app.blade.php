@@ -684,13 +684,13 @@
                         </div>
                         <div class="col-md-4">
                             <ul class="list-group">
-                                <li class="list-group-item">Product price: <strong class="text-danger"><span
+                                <li class="list-group-item">{{ __('system.product_price') }}: <strong class="text-danger"><span
                                             id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
 
-                                <li class="list-group-item">Product code: <strong id="pcode"></strong></li>
-                                <li class="list-group-item">Category: <strong id="pcategory"></strong></li>
-                                <li class="list-group-item">Brand: <strong id="pbrand"></strong></li>
-                                <li class="list-group-item">Stock:<span class="badge badge-pill badge-success"
+                                <li class="list-group-item">{{ __('system.product_code') }}: <strong id="pcode"></strong></li>
+                                <li class="list-group-item">{{ __('system.category') }}: <strong id="pcategory"></strong></li>
+                                <li class="list-group-item">{{ __('system.brand') }}: <strong id="pbrand"></strong></li>
+                                <li class="list-group-item">{{ __('system.stock') }}:<span class="badge badge-pill badge-success"
                                         id="available" style="background: green; color:white"></span>
                                     <span class="badge badge-pill badge-danger" id="notavailable"
                                         style="background: red; color:white"></span>
@@ -702,25 +702,24 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="color">Choose color:</label>
+                                <label for="color">{{ __('system.choose_color') }}:</label>
                                 <select class="form-control" id="color" name="color">
 
                                 </select>
                             </div>
                             <div class="form-group" id="sizeArea">
-                                <label for="size">Choose size:</label>
+                                <label for="size">{{ __('system.choose_size') }}:</label>
                                 <select class="form-control" id="size" name="size">
 
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="quantity">Quantity</label>
+                                <label for="quantity">{{ __('system.quantity') }}</label>
                                 <input type="number" id="quantity" name="quantity" class="form-control"
                                     value="1" min="1">
                             </div>
                             <input type="hidden" name="product_id" id="product_id">
-                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">Add to
-                                cart</button>
+                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">{{ __('system.add_to_cart') }}</button>
 
                         </div>
 

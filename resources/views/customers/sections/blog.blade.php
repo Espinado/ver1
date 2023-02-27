@@ -1,5 +1,5 @@
 <section class="section latest-blog outer-bottom-vs wow fadeInUp">
-                    <h3 class="section-title">{{ __('system.latest_from_blog') }}</h3>
+                    <h3 class="section-title">{{ __('system.blog') }}</h3>
                     <div class="blog-slider-container outer-top-xs">
                         <div class="owl-carousel blog-slider custom-carousel">
                             <div class="item">
