@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
-@section('page_title')
-    Login
+@section('title')
+    {{ __('system.profile') }}
 @endsection
 @section('content')
     <div class="body-content">

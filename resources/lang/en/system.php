@@ -164,6 +164,12 @@ return [
     'forgot_password'               => 'Forgot your password',
     'confirm_password'              => 'Confirm your password',
     'signup'                        =>'Signup',
+    'profile'                       =>'Profile',
+    'update_password'               => 'Update password',
+    'change_password'               => 'Change password',
+    'logout'                        => 'Logout',
+    'terms_conditions'             => 'Terms and conditions',
+    'delivery_conditions'          => 'Delivery conditions',
 
 
 
