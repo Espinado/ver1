@@ -19,7 +19,7 @@
                             <li><a href="{{ route('profile.index') }}"><i
                                         class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
                         @else
-                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('auth.login/register') }}</a></li>
+                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('system.login/register') }}</a></li>
                         @endauth
                 </ul>
                 </ul>

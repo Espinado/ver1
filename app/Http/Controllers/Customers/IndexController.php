@@ -10,6 +10,8 @@ use App\Helpers\CatMultilangArray;
 use App\Models\Admins\Product;
 use App\Models\Admins\ProductImage;
 
+
+
 class IndexController extends Controller
 {
     public function index()
