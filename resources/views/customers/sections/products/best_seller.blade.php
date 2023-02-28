@@ -13,6 +13,7 @@
          <div class="owl-carousel best-seller custom-carousel owl-theme outer-top-xs">
 
              @foreach ($bestSellers as $best)
+              @if ($best['product'] && $best['product']['id'] && $best['product']['slug'])
                  <div class="item">
                      <div class="products best-product">
                          <div class="product">
@@ -61,6 +62,7 @@
 
                      </div>
                  </div>
+                 @endif
              @endforeach
 
 
