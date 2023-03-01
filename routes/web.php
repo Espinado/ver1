@@ -19,6 +19,7 @@ use App\Http\Controllers\Customers\CartController;
 use App\Http\Controllers\Admins\SliderController;
 use App\Http\Controllers\Customers\WishlistController;
 use App\Http\Controllers\Customers\CheckoutController;
+use App\Http\Controllers\Admins\BlogController;
 
 
 use Illuminate\Http\Request;
@@ -137,6 +138,10 @@ Route::group(
         Route::get('/ship_state/edit/{id}', [Ship::class, 'stateEdit'])->name('admin.ship_state.edit')->middleware('admin');
         Route::get('/ship_state/delete/{id}', [Ship::class, 'stateDelete'])->name('admin.ship_state.delete')->middleware('admin');
         Route::post('/ship_state/update/{id}', [Ship::class, 'stateUpdate'])->name('admin.ship_state.update')->middleware('admin');
+
+        Route::get('/manage/blogs/', [BlogController::class, 'blogView'])->name('admin.manage.blogs')->middleware('admin');
+        Route::get('/add/blog/', [BlogController::class, 'addBlog'])->name('admin.add.blog')->middleware('admin');
+        Route::post('store/blog', [BlogController::class, 'storeBlog'])->name('admin.store.blog')->middleware('admin');
 
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');

@@ -170,6 +170,7 @@ return [
     'logout'                        => 'Logout',
     'terms_conditions'             => 'Terms and conditions',
     'delivery_conditions'          => 'Delivery conditions',
+    'sold'                         =>'Sold',
 
 
 
