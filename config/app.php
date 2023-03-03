@@ -165,6 +165,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        
 
         /*
          * Package Service Providers...
@@ -236,6 +237,7 @@ return [
         'Invite' => App\Helpers\invite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+
 
     ],
 

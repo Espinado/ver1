@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('title')
-    Add blog
+    Edit blog
 @endsection
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -14,14 +14,14 @@
             <!-- Basic Forms -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Add blog </h4>
+                    <h4 class="box-title">Update blog </h4>
 
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="row">
                         <div class="col">
-                            <form method="POST" action="{{ route('admin.store.blog') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.blog.update', $blog->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     @foreach (LaravelLocalization::getSupportedLocales() as $key => $locale)
@@ -32,7 +32,7 @@
                                                 <div class="controls">
                                                     <input type="text" name="blog_title[{{ $key }}]"
                                                         class="form-control" id="blog_title"
-                                                        value="{{ old('blog_title.' . $key) }}">
+                                                        value="{!!$blog->getTranslation('title', $key)!!}">
                                                     @error("blog_title.{$key}")
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -50,7 +50,7 @@
                                             <h5>Blog image <span class="text-danger">*</span></h5>
                                             <div class="controls">
                                                 <input type="file" name="blog_image" class="form-control"
-                                                    id="blog_image">
+                                                    id="blog_image" value={{$blog->image}}>
                                                 @error('blog_image')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -63,7 +63,7 @@
                                             <h5>Blog image preview</h5>
                                             <div class="widget-user-image">
                                                 <img class="rounded-circle"
-                                                    src="{{ old('blog_image') ? asset('storage/' . old('blog_image')) : asset('no_image.jpg') }}"
+                                                    src="{{asset($blog->image)}}"
                                                     style="width:100px; height:70px;" alt="User Avatar"
                                                     id="blog_image_preview">
 
@@ -83,7 +83,7 @@
                                                         class="text-danger">*</span></h5>
                                                 <div class="controls">
                                                     <textarea id="editor{{ $loop->iteration }}" name="short_blog[{{ $key }}]" rows="10" cols="100">
-                                                 {{ old('short_blog.' . $key) }}
+                                                 {!!$blog->getTranslation('short_blog', $key)!!}
                                                     </textarea>
                                                     @error('short_blog.' . $key)
                                                         <span class="text-danger">{{ $message }}</span>
@@ -104,7 +104,7 @@
                                                         class="text-danger">*</span></h5>
                                                 <div class="controls">
                                                     <textarea id="blog_editor{{ $loop->iteration }}" name="full_blog[{{ $key }}]" rows="10" cols="100">
-                                                 { old('full_blog.' . $key) }}
+                                                 {!!$blog->getTranslation('full_blog', $key)!!}
                                                     </textarea>
                                                     @error('full_blog.' . $key)
                                                         <span class="text-danger">{{ $message }}</span>
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="text-xs-right">
-                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Add blog" title="Add blog">
+                            <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update blog" title="Update blog">
                         </div>
                         </form>
 

@@ -44,8 +44,8 @@
 
                         <div class="module-body">
                             <ul class='list-unstyled'>
-                                <li class="first"><a href="#" title="{{ __('system.terms_conditions') }}">{{ __('system.terms_conditions') }}</a></li>
-                                <li><a href="#" title="{{ __('system.faq') }}">{{ __('system.faq') }}</a></li>
+                                <li class="first"><a href="{{route('terms')}}" title="{{ __('system.terms_conditions') }}">{{ __('system.terms_conditions') }}</a></li>
+                                <li><a href="{{route('faq')}}" title="{{ __('system.faq') }}">{{ __('system.faq') }}</a></li>
                                 <li><a href="#" title="{{ __('system.delivery_conditions') }}">{{ __('system.delivery_conditions') }}</a></li>
                                 <li class="last"><a href="#" title="{{ __('system.contactus') }}">{{ __('system.contactus') }}</a>
                                 </li>

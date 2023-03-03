@@ -38,9 +38,9 @@
                                                         <td style="text-align: center">{!! $blog->short_blog !!}</td>
                                                         <td style="text-align: center">{!! $blog->full_blog !!}</td>
                                                 <td style="text-align: center">
-                                                    <a href="{{ route('admin.brand.edit', $blog->id) }}"
+                                                    <a href="{{ route('admin.blog.edit', $blog->id) }}"
                                                         class="btn btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
-                                                    <a href="{{ route('admin.brand.delete', $blog->id) }}"
+                                                    <a href="{{ route('admin.blog.delete', $blog->id) }}"
                                                         class="btn btn-danger" id="delete" title="Delete"><i
                                                             class="fa fa-trash"></i></a>
                                                 </td>
