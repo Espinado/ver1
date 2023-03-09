@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Admins\Product;
-
+use LaravelLocalization;
 class WishlistController extends Controller
 {
 
@@ -27,7 +27,9 @@ class WishlistController extends Controller
                 return response()->json(['success' => __('system.added_to_wishlist', [], app()->getLocale())], 200);
             }
         } else {
-            return response()->json(['error' => __('system.not authorised', [], app()->getLocale())], 320);
+            // dump( LaravelLocalization::getCurrentLocaleNative());
+            // dd(__('system.not_authorized'));
+            return response()->json(['error' => __('system.not_authorized', [], app()->getLocale())], 320);
         }
     }
 
@@ -41,6 +43,7 @@ class WishlistController extends Controller
     {
 
         $wishlist = Wishlist::with('product')->where('user_id', Auth::id())->latest()->get();
+        // dd($wishlist);
        return response()->json($wishlist);
     } // end mehtod
 

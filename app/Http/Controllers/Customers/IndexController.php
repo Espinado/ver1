@@ -14,10 +14,12 @@ use App\Models\Admins\FAQ;
 
 
 
+
 class IndexController extends Controller
 {
     public function index()
     {
+        // dump( LaravelLocalization::getCurrentLocaleNative());
 // WebToPay::getPaymentMethodList('EUR', '1');
         // $categories = Category::with('childrenRecursive')->get();
         // $productIds=$categories->pluck('id')->toArray();

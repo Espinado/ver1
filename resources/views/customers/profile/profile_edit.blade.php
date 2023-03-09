@@ -28,7 +28,7 @@
                                 @csrf
 
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputEmail2">Name </label>
+                                <label class="info-title" for="exampleInputEmail2">{{ __('system.name') }} </label>
                                 <input type="text" class="form-control unicase-form-control text-input"
                                     id="name"name="name" value="{{$user->name}}">
                                 @error('name')
@@ -38,7 +38,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputEmail2">Email Address</label>
+                                <label class="info-title" for="exampleInputEmail2">{{ __('system.email') }}</label>
                                 <input type="email" class="form-control unicase-form-control text-input"
                                     name="email" value="{{$user->email}}">
                                 @error('email')
@@ -48,7 +48,7 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputEmail2">Phone</label>
+                                <label class="info-title" for="exampleInputEmail2">{{ __('system.phone_number') }}</label>
                                 <input type="phone" class="form-control unicase-form-control text-input"
                                     name="phone" value="{{$user->phone}}">
                                 @error('phone')
@@ -58,12 +58,12 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label class="info-title" for="exampleInputEmail2">Image</label>
+                                <label class="info-title" for="exampleInputEmail2">{{ __('system.image') }}</label>
                                 <input type="file" class="form-control unicase-form-control text-input"
                                     name="profile_image" id="image" >
                             </div>
                             <div class="form-group">
-                               <button type="submit" class="btn btn-danger">Update</button>
+                               <button type="submit" class="btn btn-danger">{{ __('system.update') }}</button>
                             </div>
                             </form>
 

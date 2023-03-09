@@ -189,6 +189,8 @@ Route::group(
         Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
         Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
+        Route::get('/my-orders', [ProfileController::class, 'userOrders'])->name('user.orders');
+        Route::get('/order_details/{order_id}', [ProfileController::class, 'OrderDetails'])->name('user.order.details');
         Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
         Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('product.details');
         Route::get('/product/tag/{product_tag}', [IndexController::class, 'productTag'])->name('product.tag');

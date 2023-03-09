@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 
 <head>
     <!-- Meta -->
@@ -437,7 +437,7 @@
                 url: '/get-wishlist-product',
                 dataType: 'json',
                 success: function(response) {
-
+console.log(response);
                     $('#count_wishes').text(response.length)
                     var rows = ""
                     $.each(response, function(key, value) {

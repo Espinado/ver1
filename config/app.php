@@ -165,7 +165,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
-        
+
 
         /*
          * Package Service Providers...

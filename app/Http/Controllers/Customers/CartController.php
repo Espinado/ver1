@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Admins\Coupon;
 use Illuminate\Support\Facades\Session;
 use Auth;
+use LaravelLocalization;
 
 class CartController extends Controller
 {
@@ -156,6 +157,7 @@ class CartController extends Controller
 
     public function applyCoupon(Request $request)
     {
+        dd( LaravelLocalization::getCurrentLocaleNative());
         $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('coupon_validity', '>=', Carbon::now()->format('Y-m-d'))->first();
         if ($coupon) {
 
