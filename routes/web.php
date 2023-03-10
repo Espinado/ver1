@@ -19,6 +19,8 @@ use App\Http\Controllers\Customers\CartController;
 use App\Http\Controllers\Admins\SliderController;
 use App\Http\Controllers\Customers\WishlistController;
 use App\Http\Controllers\Customers\CheckoutController;
+use App\Http\Controllers\Admins\BlogController;
+use App\Http\Controllers\Admins\FAQController;
 
 
 use Illuminate\Http\Request;
@@ -138,6 +140,15 @@ Route::group(
         Route::get('/ship_state/delete/{id}', [Ship::class, 'stateDelete'])->name('admin.ship_state.delete')->middleware('admin');
         Route::post('/ship_state/update/{id}', [Ship::class, 'stateUpdate'])->name('admin.ship_state.update')->middleware('admin');
 
+        Route::get('/manage/blogs/', [BlogController::class, 'blogView'])->name('admin.manage.blogs')->middleware('admin');
+        Route::get('/add/blog/', [BlogController::class, 'addBlog'])->name('admin.add.blog')->middleware('admin');
+        Route::post('store/blog', [BlogController::class, 'storeBlog'])->name('admin.store.blog')->middleware('admin');
+        Route::get('/blog/edit/{id}', [BlogController::class, 'editBlog'])->name('admin.blog.edit')->middleware('admin');
+        Route::get('/blog/delete/{id}', [BlogController::class, 'deleteBlog'])->name('admin.blog.delete')->middleware('admin');
+        Route::post('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('admin.blog.update')->middleware('admin');
+
+        Route::get('/manage/faqs/', [FAQController::class, 'faqView'])->name('admin.manage.faqs')->middleware('admin');
+
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
         Route::get('/seller/register', [SellerController::class, 'SellerRegister'])->name('seller.register')->middleware('admin');
@@ -170,10 +181,16 @@ Route::group(
     ],
     function () {
         Route::get('/', [IndexController::class, 'index'])->name('index');
+        Route::get('/faq', [IndexController::class, 'faq'])->name('faq');
+        Route::get('/terms', [IndexController::class, 'terms'])->name('terms');
+
+
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
         Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
+        Route::get('/my-orders', [ProfileController::class, 'userOrders'])->name('user.orders');
+        Route::get('/order_details/{order_id}', [ProfileController::class, 'OrderDetails'])->name('user.order.details');
         Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
         Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('product.details');
         Route::get('/product/tag/{product_tag}', [IndexController::class, 'productTag'])->name('product.tag');
@@ -202,6 +219,7 @@ Route::group(
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
         Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
         Route::post('/stripe/order', [CheckoutController::class, 'StripeOrder'])->name('stripe.order');
+        Route::post('/cash/order', [CheckoutController::class, 'cashOrder'])->name('cash.order');
 
 
 

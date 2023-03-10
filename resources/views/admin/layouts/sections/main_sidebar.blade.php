@@ -78,7 +78,7 @@
                             <i class="ti-more"></i>Add products</a>
                     </li>
                     <li class="{{ $route == 'admin.manage.products' ? 'active' : '' }}">
-                        <a href="{{ route('admin.manage.products')}}">
+                        <a href="{{ route('admin.manage.products') }}">
                             <i class="ti-more"></i>Manage products</a>
                     </li>
 
@@ -120,7 +120,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'admin.manage.coupons' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage.coupons') }}"><i class="ti-more"></i>Manage coupons</a>
-                        </li>
+                    </li>
 
                 </ul>
             </li>
@@ -138,7 +138,7 @@
                         <a href="{{ route('admin.manage.division') }}">
                             <i class="ti-more"></i>Manage division</a>
                     </li>
-                     <li class="{{ $route == 'admin.manage.ship_district' ? 'active' : '' }}">
+                    <li class="{{ $route == 'admin.manage.ship_district' ? 'active' : '' }}">
                         <a href="{{ route('admin.manage.ship_district') }}">
                             <i class="ti-more"></i>Ship district</a>
                     </li>
@@ -150,6 +150,32 @@
                 </ul>
             </li>
 
+            <li class="header nav-small-cap">Blogs</li>
+
+            <li class="treeview {{ $route == 'admin.manage.blogs' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="credit-card"></i>
+                    <span>Blogs</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.manage.blogs' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.blogs') }}">
+                            <i class="ti-more"></i>Blogs</a>
+                    </li>
+                    <li class="{{ $route == 'admin.add.blog' ? 'active' : '' }}">
+                        <a href="{{ route('admin.add.blog') }}">
+                            <i class="ti-more"></i>Add blog</a>
+                    </li>
+
+
+                </ul>
+            </li>
+
+
+
 
 
 
@@ -158,13 +184,13 @@
 
     <div class="sidebar-footer">
         <!-- item-->
-        <a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Settings"
-            aria-describedby="tooltip92529"><i class="ti-settings"></i></a>
+        <a href="javascript:void(0)" class="link" data-toggle="tooltip" title=""
+            data-original-title="Settings" aria-describedby="tooltip92529"><i class="ti-settings"></i></a>
         <!-- item-->
-        <a href="mailbox_inbox.html" class="link" data-toggle="tooltip" title="" data-original-title="Email"><i
-                class="ti-email"></i></a>
+        <a href="mailbox_inbox.html" class="link" data-toggle="tooltip" title=""
+            data-original-title="Email"><i class="ti-email"></i></a>
         <!-- item-->
-        <a href="javascript:void(0)" class="link" data-toggle="tooltip" title="" data-original-title="Logout"><i
-                class="ti-lock"></i></a>
+        <a href="javascript:void(0)" class="link" data-toggle="tooltip" title=""
+            data-original-title="Logout"><i class="ti-lock"></i></a>
     </div>
 </aside>

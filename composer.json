@@ -39,7 +39,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/Invite.php"
+            "app/Helpers/Invite.php",
+            "app/libwebtopay/WebToPay.php"
         ],
         "psr-4": {
             "App\\": "app/",

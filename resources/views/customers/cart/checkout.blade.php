@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
 @section('title')
-   {{ __('system.checkout') }}
+    {{ __('system.checkout') }}
 @endsection
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <div class="breadcrumb">
@@ -32,154 +32,207 @@
                                     <div class="row">
 
                                         <!-- already-registered-login -->
-                                     <form class="register-form" action="{{ route('checkout.store') }}" method="POST">
-                                        @csrf
-                                        <div class="col-md-6 col-sm-6 already-registered-login">
-                                            <h4 class="checkout-subtitle"><b>{{ __('system.shipping_address') }}</b></h4>
+                                        <form class="register-form" action="{{ route('checkout.store') }}"
+                                            method="POST">
+                                            @csrf
+                                            <div class="col-md-6 col-sm-6 already-registered-login">
+                                                <h4 class="checkout-subtitle"><b>{{ __('system.shipping_address') }}</b>
+                                                </h4>
 
 
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>{{ __('system.shipping_name') }}</b>
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_name') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_name"
-                                                        placeholder="Full name" required=""
+                                                        placeholder="Full name"
                                                         @auth value="{{ Auth::user()->name }}" @endauth>
+                                                    @error('shipping_name')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>{{ __('system.shipping_email') }}</b>
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_email') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_email"
-                                                        placeholder="Full email" required=""
+                                                        placeholder="Full email"
                                                         @auth value="{{ Auth::user()->email }}" @endauth>
+                                                    @error('shipping_email')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>{{ __('system.shipping_phone') }}</b>
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_phone') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_phone"
-                                                        placeholder="Phone" required=""
+                                                        placeholder="Phone"
                                                         @auth value="{{ Auth::user()->phone }}" @endauth>
+                                                         @error('shipping_phone')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title" for="exampleInputEmail1"><b>{{ __('system.shipping_postcode') }}</b>
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_postcode') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                        id="exampleInputEmail1" name="shipping_postcode" required=""
+                                                        id="exampleInputEmail1" name="shipping_postcode"
                                                         placeholder="Postcode"
                                                         @auth value="{{ Auth::user()->postcode }}" @endauth>
+                                                    @error('shipping_postcode')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
                                                 </div>
 
 
-                                        </div>
+                                            </div>
 
-                                        <!-- already-registered-login -->
+                                            <!-- already-registered-login -->
 
-                                        <!-- already-registered-login -->
-                                        <div class="col-md-6 col-sm-6 already-registered-login">
+                                            <!-- already-registered-login -->
+                                            <div class="col-md-6 col-sm-6 already-registered-login">
 
-                                            <div class="form-group">
-                                                <h5><b>{{ __('system.division') }}</b><span class="text-danger">*</span></h5>
-                                                <div class="controls">
-                                                    <select name="division_id" class="form-control">
-                                                        <option value="" selected="" disabled=""><b>{{ __('system.select_division') }}</b></option>
-                                                        @foreach ($divisions as $div)
-                                                            <option value="{{ $div->id }}">
-                                                                {{ $div->division_name }}</option>
+                                                <div class="form-group">
+                                                    <h5><b>{{ __('system.division') }}</b><span
+                                                            class="text-danger">*</span></h5>
+                                                    <div class="controls">
+                                                        <select name="division_id" class="form-control">
+                                                            <option value="" selected="" disabled="">
+                                                                <b>{{ __('system.select_division') }}</b>
                                                             </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('division_id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                            @foreach ($divisions as $div)
+                                                                <option value="{{ $div->id }}">
+                                                                    {{ $div->division_name }}</option>
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('division_id')
+                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h5><b>{{ __('system.district') }}</b> <span class="text-danger">*</span></h5>
-                                                <div class="controls">
-                                                    <select name="district_id" class="form-control">
-                                                        <option value="" selected="" disabled=""><b>{{ __('system.select_district') }}</b></option>
+                                                <div class="form-group">
+                                                    <h5><b>{{ __('system.district') }}</b> <span
+                                                            class="text-danger">*</span></h5>
+                                                    <div class="controls">
+                                                        <select name="district_id" class="form-control">
+                                                            <option value="" selected="" disabled="">
+                                                                <b>{{ __('system.select_district') }}</b>
+                                                            </option>
 
-                                                    </select>
-                                                    @error('district_id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                        </select>
+                                                        @error('district_id')
+                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <h5>{{ __('system.state') }} <span class="text-danger">*</span></h5>
-                                                <div class="controls">
-                                                    <select name="state_id" class="form-control">
-                                                        <option value="" selected="" disabled=""><b>{{ __('system.select_state') }}</b></option>
+                                                <div class="form-group">
+                                                    <h5>{{ __('system.state') }} <span class="text-danger">*</span>
+                                                    </h5>
+                                                    <div class="controls">
+                                                        <select name="state_id" class="form-control">
+                                                            <option value="" selected="" disabled="">
+                                                                <b>{{ __('system.select_state') }}</b>
+                                                            </option>
 
-                                                    </select>
-                                                    @error('state_id')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
+                                                        </select>
+                                                        @error('state_id')
+                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="info-title" for="exampleInputEmail1"><b>{{ __('system.notes') }}</b>
-                                                    <span>*</span></label>
-                                                <textarea class="form-control" cols="30" rows="5" placeholder="{{ __('system.notes') }}" name="notes"></textarea>
-                                            </div>
+                                                <div class="form-group">
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.notes') }}</b>
+                                                        <span>*</span></label>
+                                                    <textarea class="form-control" cols="30" rows="5" placeholder="{{ __('system.notes') }}" name="notes"></textarea>
+                                                </div>
 
-                                        </div>
+                                            </div>
                                     </div class="row">
                                     <hr>
                                     <!-- already-registered-login -->
                                     <div class="row">
                                         <!-- already-registered-login -->
                                         <div class="col-md-6 col-sm-6 already-registered-login">
-                                            <h4 class="checkout-subtitle"><b>{{ __('system.select_payment_method') }}</b></h4>
-                                            <div class="form-group">
-                                                <label class="info-title" for="payment"><b>Stripe</b>&nbsp;&nbsp; </label>
-                                                <input type="radio" name="payment_method" value="stripe">
-                                                <img src="{{asset('customers/assets/images/payments/4.png')}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="info-title" for="payment"><b>{{ __('system.credit_or_debit_card') }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                                                <input type="radio" name="payment_method" value="card" disabled>
-                                                 <img src="{{asset('customers/assets/images/payments/3.png')}}">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="info-title" for="payment"><b>{{ __('system.cash') }}</b>&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                                                <input type="radio" name="payment_method" value="cash" disabled>
-                                                 <img src="{{asset('customers/assets/images/payments/2.png')}}">
-                                            </div>
-                                        </div> <!
-                                        <hr>
-
-
-
-
-
-                                        <!-- already-registered-login -->
-
-                                        <!-- already-registered-login -->
-                                        <div class="col-md-6 col-sm-6 already-registered-login">
-                                            <h4 class="checkout-subtitle"><b>{{ __('system.shipment_method') }}</b></h4>
+                                            <h4 class="checkout-subtitle">
+                                                <b>{{ __('system.select_payment_method') }}</b>
+                                            </h4>
 
                                             <div class="form-group">
-                                                <label class="info-title" for="shipping_method"><b>{{ __('system.select_in_store') }}</b> </label>
-                                                <input type="radio" name="shipping_method" value="self" selected>
+                                                <label class="info-title" for="payment"><b><img
+                                                            src="{{ asset('customers/assets/images/payments/3.png') }}"></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </label>
+                                                <input type="radio" name="payment_method" value="stripe"
+                                                    title="card">
+
                                             </div>
+                                            <div class="form-group" title="cash">
+                                                <label class="info-title" for="payment"><b> <img
+                                                            src="{{ asset('customers/assets/images/payments/cash.png') }}"
+                                                            height="34px" title="cash"></b>
 
-
+                                                </label>
+                                                <input type="radio" name="payment_method" value="cash"
+                                                    title="cash">
+                                            </div>
+                                            @error('payment_method')
+                                                <span class="text-danger"><b>{{ $message }}</b></span>
+                                            @enderror
                                         </div>
-                                        <!-- already-registered-login -->
-                                     </div>
-                                                           </div>
+                                        <! <hr>
+
+
+
+
+
+                                            <!-- already-registered-login -->
+
+                                            <!-- already-registered-login -->
+                                            <div class="col-md-6 col-sm-6 already-registered-login">
+                                                <h4 class="checkout-subtitle">
+                                                    <b>{{ __('system.shipment_method') }}</b>
+                                                </h4>
+
+                                                <div class="form-group">
+                                                    <label class="info-title"
+                                                        for="shipping_method"><b>{{ __('system.select_in_store') }}</b>
+                                                        &nbsp;</label>
+                                                    <input type="radio" name="shipping_method" value="self"
+                                                        selected>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="info-title"
+                                                        for="shipping_method"><b>{{ __('system.delivery') }}</b>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    </label>
+                                                    <input type="radio" name="shipping_method" value="delivery"
+                                                        selected>
+                                                </div>
+                                                @error('shipping_method')
+                                                    <span class="text-danger"><b>{{ $message }}</b></span>
+                                                @enderror
+
+
+                                            </div>
+                                            <!-- already-registered-login -->
+                                    </div>
+                                </div>
                                 <!-- panel-body  -->
 
 
                             </div><!-- row -->
-                             <button type="submit" class="btn-upper btn btn-primary checkout-page-button">{{ __('system.payment_step') }}</button>
+                            <button type="submit"
+                                class="btn-upper btn btn-primary checkout-page-button">{{ __('system.payment_step') }}</button>
                         </div>
                         <!-- checkout-step-01  -->
 
@@ -198,28 +251,34 @@
                                         @foreach ($carts as $item)
                                             <li><img src="{{ asset($item->options->image) }}"
                                                     style="height:50px; width:50px;"> </li>
-                                            <li><strong>{{ __('system.product') }}:</strong>&nbsp;{{ $item->name }}</li>
+                                            <li><strong>{{ __('system.product') }}:</strong>&nbsp;{{ $item->name }}
+                                            </li>
                                             <li>
                                                 <strong>{{ __('system.qty') }}:</strong>&nbsp;({{ $item->qty }})&nbsp;
-                                                <strong>{{ __('system.color') }}: &nbsp</strong>({{ $item->options->color }})&nbsp;
-                                                <strong>{{ __('system.sie') }}: &nbsp</strong>({{ $item->options->size }})
+                                                <strong>{{ __('system.color') }}:
+                                                    &nbsp</strong>({{ $item->options->color }})&nbsp;
+                                                <strong>{{ __('system.size') }}:
+                                                    &nbsp</strong>({{ $item->options->size }})
                                             </li>
                                             <br>
                                         @endforeach
                                         <li>
                                             @if (Session::has('coupon'))
-                                                <strong>{{ __('system.subtotal') }}:</strong> &nbsp;{{ $cartTotal }}
+                                                <strong>{{ __('system.subtotal') }}:</strong>
+                                                &nbsp;{{ $cartTotal }}
                                                 <hr>
                                                 <strong>{{ __('system.coupon') }}:</strong>
                                                 &nbsp;{{ session()->get('coupon')['coupon_name'] }}&nbsp;
                                                 {{ session()->get('coupon')['coupon_discount'] }}%<br>
-                                                <strong>{{ __('system.discount') }}:</strong>&nbsp;{{ session()->get('coupon')['discount_amount'] }}&nbsp;EUR
+                                                <strong>{{ __('system.discount') }}:</strong>&nbsp;{{ session()->get('coupon')['discount_amount'] }}
                                                 <hr>
-                                                <strong>{{ __('system.total') }}:</strong>&nbsp;{{ session()->get('coupon')['total_amount'] }}&nbsp;EUR
+                                                <strong>{{ __('system.total') }}:</strong>&nbsp;{{ session()->get('coupon')['total_amount'] }}
                                             @else
-                                                <strong>{{ __('system.subtotal') }}:</strong> &nbsp;{{ $cartTotal }}
+                                                <strong>{{ __('system.subtotal') }}:</strong>
+                                                &nbsp;{{ $cartTotal }}&nbsp;EUR
                                                 <hr>
-                                                <strong>{{ __('system.grand_total') }}:</strong> &nbsp;{{ $cartTotal }}
+                                                <strong>{{ __('system.grand_total') }}:</strong>
+                                                &nbsp;{{ $cartTotal }}&nbsp;EUR
                                                 <hr>
                                             @endif
 
@@ -233,7 +292,7 @@
                 </div>
 
             </div><!-- /.row -->
-        </form>
+            </form>
 
         </div><!-- /.checkout-box -->
         <!-- ============================================== BRANDS CAROUSEL ============================================== -->

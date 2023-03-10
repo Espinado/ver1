@@ -75,7 +75,76 @@ $(function () {
     $('.textarea').wysihtml5();
 
 });
+$(function () {
+    "use strict";
 
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor1')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor2')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor3')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor4')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor5')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor6')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
+$(function () {
+    "use strict";
+
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('blog_editor7')
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5();
+
+});
 
 
 

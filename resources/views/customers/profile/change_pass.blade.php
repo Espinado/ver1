@@ -1,7 +1,7 @@
 @extends('customers.layouts.app')
 @section('content')
 @section('page_title')
-    Login
+    {{ __('system.update_password') }}
 @endsection
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -17,8 +17,7 @@
 
                 <div class="col-md-6"><br><br>
                     <div class="card">
-                        <h3 class="text-center"><span class="text-danger">Hi, {{ $user->name }}!, update your
-                                password</span></h3>
+                        <h3 class="text-center"><span class="text-danger">Hi, {{ $user->name }}!, {{ __('system.update_password') }}</span></h3>
                         <div class="card-body">
                             <form method="post" action="{{ route('user.update.password')}}">
                                 @csrf
@@ -43,7 +42,7 @@
                             </div>
 
                             <div class="form-group">
-                               <button type="submit" class="btn btn-danger">Update</button>
+                               <button type="submit" class="btn btn-danger">{{ __('system.update') }}</button>
                             </div>
                             </form>
 

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customers\Order;
+use App\Models\Customers\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+
+
 
 class ProfileController extends Controller
 {
@@ -67,5 +71,18 @@ class ProfileController extends Controller
             $notification = array('message' => __('system.error', [], app()->getLocale()), 'alert-type' => 'error');
             return redirect()->back()->with($notification);
         }
+    }
+
+    public function userOrders()
+    {
+        $orders = Order::where('user_id', Auth::id())->orderBy('created_at', 'DESC')->paginate(5);
+        return view('customers.profile.orders', compact('orders'));
+    }
+
+    public function OrderDetails($order_id)
+    {
+        $order = Order::where('id', $order_id)->where('user_id', Auth::id())->first();
+        $orderItem = OrderItem::where('order_id', $order_id)->orderBy('id', 'DESC')->get();
+        return view('customers.profile.order_details', compact('order', 'orderItem'));
     }
 }

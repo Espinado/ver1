@@ -9,6 +9,9 @@ use LaravelLocalization;
 use App\Helpers\CatMultilangArray;
 use App\Models\Admins\Product;
 use App\Models\Admins\ProductImage;
+use WebToPay;
+use App\Models\Admins\FAQ;
+
 
 
 
@@ -16,7 +19,8 @@ class IndexController extends Controller
 {
     public function index()
     {
-
+        // dump( LaravelLocalization::getCurrentLocaleNative());
+// WebToPay::getPaymentMethodList('EUR', '1');
         // $categories = Category::with('childrenRecursive')->get();
         // $productIds=$categories->pluck('id')->toArray();
         // $products=Product::whereIn('category_id', $productIds)->get();
@@ -107,6 +111,15 @@ class IndexController extends Controller
             'size' => $productSize,
         ]);
     } // end method
+
+    public function faq() {
+        $faqs=Faq::all();
+        return view ('customers.faq.faqView', compact('faqs'));
+
+    }
+    public function terms() {
+        return view ('customers.terms.termsView');
+    }
 
 
 }

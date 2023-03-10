@@ -6,7 +6,7 @@
              ->orderByDesc('total_qty')
              ->with('product')
              ->get();
-         //  dd($bestSellers);
+
      @endphp
      <h3 class="section-title">Best seller</h3>
      <div class="sidebar-widget-body outer-top-xs">
@@ -48,7 +48,7 @@
                                                  </div>
                                                  <!-- /.product-price -->
                                              @endif
-                                             Sold:{{ $best->total_qty }}
+                                             {{ __('system.sold') }}:{{ $best->total_qty }}
 
                                          </div>
                                      </div>
