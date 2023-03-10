@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Customers\CheckoutRequest;
 use App\Mail\OrderMail;
 use Illuminate\Http\Request;
 use Auth;
@@ -62,8 +63,9 @@ class CheckoutController extends Controller
         $states = ShipState::where('district_id', $district_id)->orderBy('state_name', 'ASC')->get();
         return json_encode($states);
     }
-    public function checkoutStore(Request $request)
+    public function checkoutStore(CheckoutRequest $request)
     {
+        // dd($request->all());
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
         $data['shipping_email'] = $request->shipping_email;
@@ -75,13 +77,17 @@ class CheckoutController extends Controller
         $data['notes'] = $request->notes;
         $data['cartTotal'] = Cart::total();
 
+        if (Session::has('coupon')) {
+            $total_amount = Session::get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
 
         if ($request->payment_method == 'stripe') {
             return view('customers.payments.stripe.stripe_view', compact('data'));
-        } elseif ($request->payment_method == 'card') {
-            return 'card';
-        } else {
-            return 'cash';
+        } elseif ($request->payment_method == 'cash') {
+
+            return view('customers.payments.cash.cash', compact('data'));
         }
     }
     public function StripeOrder(Request $request)

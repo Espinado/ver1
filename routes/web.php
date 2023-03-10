@@ -219,6 +219,7 @@ Route::group(
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
         Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
         Route::post('/stripe/order', [CheckoutController::class, 'StripeOrder'])->name('stripe.order');
+        Route::post('/cash/order', [CheckoutController::class, 'cashOrder'])->name('cash.order');
 
 
 
