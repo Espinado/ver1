@@ -26,6 +26,7 @@ class SubCategoryRequest extends FormRequest
     {
         $rules = [
             'subcategory_icon' => 'required',
+            'category_id' => 'required',
 
         ];
 
@@ -40,7 +41,9 @@ class SubCategoryRequest extends FormRequest
     {
         $messages = [
             'subcategory_icon.required' => 'Icon is required',
-           
+            'cacategory_id.required' => 'Category not selected',
+
+
         ];
 
         foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {

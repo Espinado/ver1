@@ -190,7 +190,7 @@ return [
     'transaction_id'                => 'Transaction ID',
     'status'                        => 'Status',
     'select_in_store'               => 'Select in store',
-
+  
 
 
 
