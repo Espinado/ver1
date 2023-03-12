@@ -157,7 +157,7 @@ class CartController extends Controller
 
     public function applyCoupon(Request $request)
     {
-        dd( LaravelLocalization::getCurrentLocaleNative());
+        // dd( LaravelLocalization::getCurrentLocaleNative());
         $coupon = Coupon::where('coupon_name', $request->coupon_name)->where('coupon_validity', '>=', Carbon::now()->format('Y-m-d'))->first();
         if ($coupon) {
 
