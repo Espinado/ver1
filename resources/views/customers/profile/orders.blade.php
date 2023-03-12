@@ -83,7 +83,7 @@
                                                     <a href="{{ route('user.order.details',$order->id ) }}" class="btn btn-sm btn-primary"><i
                                                             class="fa fa-eye"></i> {{ __('system.view') }}</a>
 
-                                                    <a href="" class="btn btn-sm btn-danger"><i
+                                                    <a href="" class="btn btn-sm btn-danger" style="margin-top: 5px"><i
                                                             class="fa fa-download" style="color: white;"></i> {{ __('system.invoice') }} </a>
 
                                                 </td>

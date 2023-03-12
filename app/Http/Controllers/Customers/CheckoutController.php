@@ -222,7 +222,7 @@ class CheckoutController extends Controller
             'payment_type' => 'Cash On Delivery',
             'payment_method' => 'Cash On Delivery',
 
-            'currency' =>  'Usd',
+            'currency' =>  'EUR',
             'amount' => $total_amount,
 
 

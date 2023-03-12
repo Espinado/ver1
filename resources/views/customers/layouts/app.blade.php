@@ -68,6 +68,7 @@
 </head>
 
 <body class="cnt-home">
+    {!! EuCookieConsent::getPopup() !!}
 
     <!-- ============================================== HEADER ============================================== -->
     <header class="header-style-1">

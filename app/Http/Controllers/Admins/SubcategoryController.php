@@ -24,6 +24,7 @@ class SubcategoryController extends Controller
     }
     public function SubCategoryStore(SubCategoryRequest $request)
     {
+        // dd($request->all());
         $validatedData = $request->validated();
         $subcategory = new Subcategory();
         $subcategory->icon = $validatedData['subcategory_icon'];
@@ -115,7 +116,7 @@ class SubcategoryController extends Controller
 
     public function SubSubCategoryUpdate(SubSubCategoryRequest $request)
     {
-       
+
         $validatedData = $request->validated();
         SubSubcategory::where('id', $request->id)->update([
             'subsubcategory_name' => $validatedData['subsubcategory_name'],
