@@ -46,10 +46,10 @@ class ProductRequest extends FormRequest
             $rules["product_color.$key"] = 'required|max:255';
         }
         foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {
-            $rules["short_descp.$key"] = 'required|max:255';
+            $rules["short_descp.$key"] = 'required';
         }
         foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {
-            $rules["long_descp.$key"] = 'required|max:255';
+            $rules["long_descp.$key"] = 'required';
         }
 
         return $rules;

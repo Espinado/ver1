@@ -73,7 +73,7 @@ class ProductController extends Controller
         $product->save();
         $validatedImages = $imageRequest->validated();
 
-        $images = $validatedImages->file('multi_img');
+        $images = $request->file('multi_img');
         foreach ($images as $img) {
             $make_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
             Image::make($img)->resize(917, 1000)->save('products/images/' . $make_gen);
