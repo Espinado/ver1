@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('title')
-    Profile
+    {{ __('system.profile') }}
 @endsection
 @section('content')
 

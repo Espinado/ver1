@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('title')
-    Edit profile
+    {{ __('system.edit_profile') }}
 @endsection
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -12,7 +12,7 @@
                 <!-- Basic Forms -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Admin profile edit</h4>
+                        <h4 class="box-title">{{ __('system.edit_profile') }}</h4>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -25,7 +25,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <h5>Name <span class="text-danger">*</span></h5>
+                                                    <h5>{{ __('system.name') }} <span class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <input type="text" name="name" class="form-control"
                                                                required="" value="{{$adminProfileData->name}}">
@@ -64,7 +64,7 @@
 
                                         <div class="text-xs-right">
                                             <input type="submit" class="btn btn-rounded btn-primary mb-5"
-                                                   value="Update">
+                                                   value="{{ __('system.update') }}">
                                         </div>
                                     </div>
                                 </div>

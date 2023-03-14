@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('title')
-    Add blog
+    {{ __('system.add_blog') }}
 @endsection
 @section('content')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -14,7 +14,7 @@
             <!-- Basic Forms -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h4 class="box-title">Add blog </h4>
+                    <h4 class="box-title">{{ __('system.add_blog') }} </h4>
 
                 </div>
                 <!-- /.box-header -->
