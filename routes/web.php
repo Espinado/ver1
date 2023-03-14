@@ -7,6 +7,7 @@ use App\Http\Controllers\Admins\CategoryController;
 use App\Http\Controllers\Admins\SubcategoryController;
 use App\Http\Controllers\Admins\ProductController;
 use App\Http\Controllers\Admins\BrandController;
+use App\Http\Controllers\Admins\OrderController;
 use App\Http\Controllers\Admins\AdminProfileController;
 use App\Http\Controllers\Admins\CouponController;
 use App\Http\Controllers\Admins\ShippingAreaController as Ship;
@@ -122,6 +123,9 @@ Route::group(
         Route::get('/coupon/delete/{id}', [CouponController::class, 'couponDelete'])->name('admin.coupon.delete')->middleware('admin');
         Route::post('/coupon/update/{id}', [CouponController::class, 'couponUpdate'])->name('admin.coupon.update')->middleware('admin');
 
+        Route::get('/pending/orders/', [OrderController::class, 'pendingOrders'])->name('admin.pending.orders')->middleware('admin');
+        Route::get('/pending/orders/details/{order_id}', [OrderController::class, 'pendingOrdersDetails'])->name('admin.pending.orders.details')->middleware('admin');
+
         Route::get('/manage/division', [Ship::class, 'divisionView'])->name('admin.manage.division')->middleware('admin');
         Route::post('/division/store', [Ship::class, 'divisionStore'])->name('admin.division.store');
         Route::get('/division/edit/{id}', [Ship::class, 'divisionEdit'])->name('admin.division.edit')->middleware('admin');
@@ -191,6 +195,7 @@ Route::group(
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
         Route::get('/my-orders', [ProfileController::class, 'userOrders'])->name('user.orders');
         Route::get('/order_details/{order_id}', [ProfileController::class, 'OrderDetails'])->name('user.order.details');
+        Route::get('/order_invoice/{order_id}', [ProfileController::class, 'OrderInvoice'])->name('user.order.invoice');
         Route::post('/password/update', [ProfileController::class, 'updatePassword'])->name('user.update.password');
         Route::get('/product/details/{id}/{slug}', [IndexController::class, 'productDetails'])->name('product.details');
         Route::get('/product/tag/{product_tag}', [IndexController::class, 'productTag'])->name('product.tag');

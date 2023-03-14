@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
+
 
 
 
@@ -84,5 +87,18 @@ class ProfileController extends Controller
         $order = Order::where('id', $order_id)->where('user_id', Auth::id())->first();
         $orderItem = OrderItem::where('order_id', $order_id)->orderBy('id', 'DESC')->get();
         return view('customers.profile.order_details', compact('order', 'orderItem'));
+    }
+    public function OrderInvoice($order_id)
+    {
+        $order = Order::with('division', 'district', 'state', 'user')
+            ->where('id', $order_id)
+            ->where('user_id', Auth::id())->first();
+        $orderItem = OrderItem::with('product')
+            ->where('order_id', $order_id)
+            ->orderBy('id', 'DESC')->get();
+        $pdf = Pdf::loadView('customers.invoice.order_invoice', compact('order', 'orderItem'))
+        ->setPaper('a4');
+          return $pdf->download($order->invoice_no.'-'.Carbon::now()->format('Ymd').'.pdf');
+        // return view('customers.invoice.order_invoice', compact('order', 'orderItem'));
     }
 }

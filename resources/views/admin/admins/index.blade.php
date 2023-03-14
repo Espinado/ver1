@@ -5,7 +5,7 @@
     </div>
     <div class="sl-sideleft">
 
-        <label class="sidebar-label">Navigation</label>
+        <label class="sidebar-label">{{ __('system.navigation') }}</label>
         <div class="sl-sideleft-menu">
             <a href="{{ LaravelLocalization::localizeUrl('/admin/') }}" class="sl-menu-link">
                 <div class="sl-menu-item">
@@ -135,7 +135,7 @@
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success pd-x-20" value="Add"></button>
 
-                    <button type="button" class="btn btn-danger pd-x-20" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger pd-x-20" data-dismiss="modal">{{ __('system.cancel') }}</button>
                     </form>
                 </div>
             </div>
