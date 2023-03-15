@@ -57,7 +57,7 @@
     <table width="100%" style="background: #F7F7F7; padding:0 20px 0 20px;">
         <tr>
             <td valign="top">
-                <img src="{{ asset('customers/assets/images/logo.png') }}" alt="" width="150"/>
+                <img src="customers/assets/images/logo.png" alt="" width="150"/>
                 <h2 style="color: green; font-size: 26px;"><strong>RvRShop</strong></h2>
             </td>
             <td align="right">
