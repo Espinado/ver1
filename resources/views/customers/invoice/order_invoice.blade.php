@@ -57,7 +57,7 @@
     <table width="100%" style="background: #F7F7F7; padding:0 20px 0 20px;">
         <tr>
             <td valign="top">
-                <img src="{{ asset('public/customers/assets/images/logo.png') }}" alt="" width="150"/>
+                <img src="{{ public_path('customers/assets/images/logo.png') }}" alt="" width="150"/>
                 <h2 style="color: green; font-size: 26px;"><strong>RvRShop</strong></h2>
             </td>
             <td align="right">
@@ -79,11 +79,11 @@
         <tr>
             <td>
                 <p class="font" style="margin-left: 20px;">
-                    <strong>{{ __('system.name') }}:</strong> {{ $order['user']['name'] }} <br>
-                    <strong>{{ __('system.email') }}:</strong> {{ $order['user']['email'] }} <br>
-                    <strong>{{ __('system.phone') }}:</strong> {{ $order['user']['phone'] }} <br>
+                    <strong>{{ __('system.name') }}:</strong> {{ $order->user->name }} <br>
+                    <strong>{{ __('system.email') }}:</strong> {{ $order->user->email }} <br>
+                    <strong>{{ __('system.phone') }}:</strong> {{ $order->user->phone }} <br>
 
-                    <strong>{{ __('system.address') }}:</strong> {{ $order['district']['district_name'] }} <br>
+                    <strong>{{ __('system.address') }}:</strong> {{ $order->district->district_name }} <br>
                     <strong>{{ __('system.postcode') }}:</strong> {{ $order->shipping_postcode }}
                 </p>
             </td>
@@ -122,16 +122,16 @@
             <tr class="font">
 
                     <td align="center">
-                        <img src="{{ asset($item['product']['product_thambnail']) }}" height="60px;" width="60px;"
+                        <img src="{{ public_path($item->product->product_thambnail) }}" height="60px;" width="60px;"
                             alt="">
                     </td>
 
-                    <td align="center">{{ $item['product']['product_name'] }}</td>
+                    <td align="center">{{ $item->product->product_name }}</td>
                     <td align="center">
-                        {{ $item['product']['product_size'] }}
+                        {{ $item->product->product_size }}
                     </td>
-                    <td align="center"> {{ $item['product']['product_color_en'] }}</td>
-                    <td align="center"> {{ $item['product']['product_code'] }}</td>
+                    <td align="center"> {{ $item->product->product_color_en }}</td>
+                    <td align="center"> {{ $item->product->product_code }}</td>
                     <td align="center">{{$item->qty}}</td>
                     <td align="center"> {{$item->price * ((100-21) / 100)}}  EUR</td>
                     <td align="center"> 21%</td>
