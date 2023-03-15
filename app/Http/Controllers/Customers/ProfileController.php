@@ -97,7 +97,9 @@ class ProfileController extends Controller
             ->where('order_id', $order_id)
             ->orderBy('id', 'DESC')->get();
         $pdf = Pdf::loadView('customers.invoice.order_invoice', compact('order', 'orderItem'))
-        ->setPaper('a4');
+        ->setPaper('a4')
+        ->setOptions(['tempDir' =>public_path(),
+                      'chroot' =>public_path()]);
           return $pdf->download($order->invoice_no.'-'.Carbon::now()->format('Ymd').'.pdf');
         // return view('customers.invoice.order_invoice', compact('order', 'orderItem'));
     }
