@@ -120,7 +120,7 @@
                                 <tr>
                                     <th> {{ __('system.status') }} : </th>
                                     <th> <span class="badge badge-pill badge-warning"
-                                            style="background: #418DB9;">{{__('system.' . App\Enums\OrderStatus::getKey($order->status))}} </span> </th>
+                                            style="background: #418DB9;">{{__('system.' . App\Enums\OrderStatus::getKey(intval($order->status)))}} </span> </th>
                                 </tr>
 
                             </table>
