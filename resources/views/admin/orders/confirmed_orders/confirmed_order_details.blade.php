@@ -1,26 +1,25 @@
-@extends('customers.layouts.app')
-@section('content')
+@extends('admin.layouts.admin_master')
 @section('title')
-    {{ __('system.profile') }}
+    {{ __('system.confirmed_orders') }}
 @endsection
 @section('content')
-    @php
+ {{-- @php
         $user = Auth::user();
-    @endphp
+    @endphp --}}
 
     <div class="body-content">
         <div class="container">
             <div class="row">
-                <div class="col-md-2"><br><br>
+                {{-- <div class="col-md-2"><br><br>
                     <img class="card-img-top" style="border-radius: 50%"
                         src="{{ $user->profile_photo_path ? url('user_images/' . $user->profile_photo_path) : url('no_image.jpg') }}"
                         height="100%" width="100%"><br><br>
                     @include('customers.profile.includes.menu')
-                </div>
+                </div> --}}
                 <div class="col-md-5">
                     <div class="card">
                         <div class="card-header">
-                            <h4>{{ __('system.shipping_details') }}</h4>
+                            <h4>{{ __('system.order_details') }}</h4>
                         </div>
                         <hr>
                         <div class="card-body" style="background: #E9EBEC;">

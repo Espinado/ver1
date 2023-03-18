@@ -74,7 +74,7 @@
                                                 <td class="col-md-2">
                                                     <label for="">
                                                         <span class="badge badge-pill badge-warning"
-                                                            style="background: #418DB9;">{{ $order->status }} </span>
+                                                            style="background: #418DB9;">{{__('system.' . App\Enums\OrderStatus::getKey($order->status))}} </span>
 
                                                     </label>
                                                 </td>

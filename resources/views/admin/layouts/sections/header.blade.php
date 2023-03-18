@@ -14,6 +14,24 @@
 
             </ul>
         </div>
+         <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
+                            data-toggle="dropdown"><span
+                                class="value"><span class="{{LaravelLocalization::getCurrentLocaleIcon()}}"></span>&nbsp;&nbsp;{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                <li>
+                                    @if (LaravelLocalization::getCurrentLocale() != $localeCode)
+                                        <a rel="alternate" hreflang="{{ $localeCode }}"
+                                            href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                           <span class="{{ $properties['icon'] }}"> </span>&nbsp;&nbsp; {{ $properties['native'] }}
+                                        </a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
 
         <div class="navbar-custom-menu r-side">
             <ul class="nav navbar-nav">
@@ -95,6 +113,7 @@
                     $adminData = Admin::where('id', Auth('admin')->user()->id)->first();
                     @endphp
                     <!-- User Account-->
+
                 <li class="dropdown user user-menu">
                     <a href="#" class="waves-effect waves-light rounded dropdown-toggle p-0" data-toggle="dropdown"
                        title="User">

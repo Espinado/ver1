@@ -126,6 +126,19 @@ Route::group(
         Route::get('/pending/orders/', [OrderController::class, 'pendingOrders'])->name('admin.pending.orders')->middleware('admin');
         Route::get('/pending/orders/details/{order_id}', [OrderController::class, 'pendingOrdersDetails'])->name('admin.pending.orders.details')->middleware('admin');
 
+        Route::get('/confirmed/orders/', [OrderController::class, 'confirmedOrders'])->name('admin.confirmed.orders')->middleware('admin');
+        Route::get('/confirmed/orders/details/{order_id}', [OrderController::class, 'confirmedOrdersDetails'])->name('admin.confirmed.orders.details')->middleware('admin');
+
+        Route::get('/processing/orders/', [OrderController::class, 'processingOrders'])->name('admin.processing.orders')->middleware('admin');
+        Route::get('/processing/orders/details/{order_id}', [OrderController::class, 'processingOrdersDetails'])->name('admin.processing.orders.details')->middleware('admin');
+
+        Route::get('/picked/orders/', [OrderController::class, 'pickedOrders'])->name('admin.picked.orders')->middleware('admin');
+        Route::get('/picked/orders/details/{order_id}', [OrderController::class, 'pickedOrdersDetails'])->name('admin.picked.orders.details')->middleware('admin');
+
+        Route::get('/shipped/orders/', [OrderController::class, 'shippedOrders'])->name('admin.shipped.orders')->middleware('admin');
+        Route::get('/shippedg/orders/details/{order_id}', [OrderController::class, 'shippedOrdersDetails'])->name('admin.shipped.orders.details')->middleware('admin');
+
+
         Route::get('/manage/division', [Ship::class, 'divisionView'])->name('admin.manage.division')->middleware('admin');
         Route::post('/division/store', [Ship::class, 'divisionStore'])->name('admin.division.store');
         Route::get('/division/edit/{id}', [Ship::class, 'divisionEdit'])->name('admin.division.edit')->middleware('admin');

@@ -57,7 +57,7 @@
     <table width="100%" style="background: #F7F7F7; padding:0 20px 0 20px;">
         <tr>
             <td valign="top">
-                <img src="{{ public_path('products/trumbnails/1760175001408710.jpg') }}" alt="" width="150"/>
+                <img src="{{ public_path('backend/images/logo/logo-1.jpg') }}" alt="" width="150"/>
                 <h2 style="color: green; font-size: 26px;"><strong>RvRShop</strong></h2>
             </td>
             <td align="right">
