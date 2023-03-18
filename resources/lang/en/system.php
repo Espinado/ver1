@@ -199,6 +199,12 @@ return [
     'my_orders'                     => 'My orders',
     'orders'                        => 'Orders',
     'pending_orders'                => 'Pending orders',
+    'pending'                       => 'Pending',
+    'confirmed_orders'              => 'Confirmed orders',
+    'confirmed'                   => 'Confirmed',
+    'processing_orders'            => 'Processing orders',
+    'shipped_orders'                => 'Shipped orders',
+    'picked_orders'                 => 'Picked orders',
     'error'                         =>'Error',
     'date'                          => 'Date',
     'time'                          => 'Time',
@@ -231,7 +237,7 @@ return [
     'shipping_area'                => 'Shipping area',
     'manage_division'              => 'Manage division',
     'amount'                       => 'Amount',
-    
+
 
 
 

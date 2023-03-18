@@ -39,7 +39,7 @@
                     </li> --}}
                     <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
                             data-toggle="dropdown"><span
-                                class="value">{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
+                                class="value"><span class="{{LaravelLocalization::getCurrentLocaleIcon()}}"></span>&nbsp;&nbsp;{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu">
 
@@ -48,7 +48,7 @@
                                     @if (LaravelLocalization::getCurrentLocale() != $localeCode)
                                         <a rel="alternate" hreflang="{{ $localeCode }}"
                                             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                            {{ $properties['native'] }}
+                                           <span class="{{ $properties['icon'] }}"> </span>&nbsp;&nbsp; {{ $properties['native'] }}
                                         </a>
                                     @endif
                                 </li>
@@ -66,6 +66,7 @@
     <!-- /.container -->
 </div>
 <!-- /.header-top -->
+
 <!-- ============================================== TOP MENU : END ============================================== -->
 <div class="main-header">
     <div class="container">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customers;
 
+use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Customers\CheckoutRequest;
 use App\Mail\OrderMail;
@@ -18,6 +19,7 @@ use FFI\Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+
 
 
 class CheckoutController extends Controller
@@ -134,11 +136,11 @@ class CheckoutController extends Controller
                 'order_date' => Carbon::now()->format('d F Y'),
                 'order_month' => Carbon::now()->format('F'),
                 'order_year' => Carbon::now()->format('Y'),
-                'status' => 'Pending',
+                'status' => OrderStatus::pending,
                 'created_at' => Carbon::now(),
 
             ]);
-            $invoice=Order::FindOrFail($order_id);
+            $invoice = Order::FindOrFail($order_id);
             $data = [
                 'invoice_no' => $invoice->invoice_no,
                 'amount'     => $total_amount,
@@ -230,7 +232,7 @@ class CheckoutController extends Controller
             'order_date' => Carbon::now()->format('d F Y'),
             'order_month' => Carbon::now()->format('F'),
             'order_year' => Carbon::now()->format('Y'),
-            'status' => 'Pending',
+            'status' => OrderStatus::Pending,
             'created_at' => Carbon::now(),
 
         ]);

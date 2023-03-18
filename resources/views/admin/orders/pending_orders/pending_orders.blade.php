@@ -34,19 +34,20 @@
                                     <tbody>
                                         @foreach ($orders as $order)
                                             <tr>
+
                                                 <td style="text-align: center">{{$order->order_date}}</td>
                                                 <td style="text-align: center">{{$order->invoice_no}}</td>
                                                  <td style="text-align: center">{{$order->amount}}&nbsp;EUR</td>
                                                   <td style="text-align: center">{{$order->payment_method}}</td>
-                                                  <td style="text-align: center"><span class="badge badge-pill badge-primary">{{$order->status}}</span></td>
+                                                  <td style="text-align: center"><span class="badge badge-pill badge-primary">{{__('system.' . App\Enums\OrderStatus::getKey($order->status))}}</span></td>
                                                     <td style="text-align: center">
                                                          <a href="{{ route('admin.pending.orders.details',$order->id ) }}" class="btn btn-sm btn-primary"><i
                                                             class="fa fa-eye"></i> </a>
 
-
                                                     </td>
 
                                             </tr>
+                                           
                                         @endforeach
 
                                     </tbody>

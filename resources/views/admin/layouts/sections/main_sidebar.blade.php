@@ -187,8 +187,22 @@
                     <li class="{{ $route == 'admin.pending.orders' ? 'active' : '' }}">
                         <a href="{{ route('admin.pending.orders') }}"><i class="ti-more"></i>{{ __('system.pending_orders') }}</a>
                     </li>
+                     <li class="{{ $route == 'admin.confirmed.orders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.confirmed.orders') }}"><i class="ti-more"></i>{{ __('system.confirmed_orders') }}</a>
+                    </li>
+                    <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.processing_orders') }}</a>
+                    </li>
+                     <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.picked_orders') }}</a>
+                    </li>
+                     <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.shipped_orders') }}</a>
+                    </li>
 
                 </ul>
+
+
             </li>
 
 

@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('customers/assets/css/bootstrap-select.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
 
     <!-- Icons/Glyphs -->
