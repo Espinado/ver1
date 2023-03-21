@@ -19,7 +19,8 @@ use FFI\Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
-
+use Firebase\JWT\JWT;
+use GuzzleHttp\Client;
 
 
 class CheckoutController extends Controller
@@ -85,12 +86,18 @@ class CheckoutController extends Controller
             $total_amount = round(Cart::total());
         }
 
+   
+
+
         if ($request->payment_method == 'stripe') {
             return view('customers.payments.stripe.stripe_view', compact('data'));
         } elseif ($request->payment_method == 'cash') {
 
             return view('customers.payments.cash.cash', compact('data'));
-        }
+        } else if (
+            $request->payment_method == 'bank') {
+            return view('customers.payments.bank.bank', compact('data'));
+            }
     }
     public function StripeOrder(Request $request)
     {

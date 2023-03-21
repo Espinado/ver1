@@ -75,6 +75,8 @@
     <header class="header-style-1">
         @include('customers.sections.header')
     </header>
+    <div class="spinner-border"></div>
+</div>
 
     <!-- ============================================== HEADER : END ============================================== -->
     @yield('content')

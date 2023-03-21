@@ -185,6 +185,16 @@
                                                 <input type="radio" name="payment_method" value="cash"
                                                     title="cash">
                                             </div>
+                                             <div class="form-group" title="bank">
+                                                <label class="info-title" for="payment"><b> <img
+                                                            src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
+                                                            height="34px" title="bank"></b>
+
+                                                </label>
+                                                <input type="radio" name="payment_method" value="bank"
+                                                    title="bank">
+                                            </div>
+
                                             @error('payment_method')
                                                 <span class="text-danger"><b>{{ $message }}</b></span>
                                             @enderror
@@ -300,6 +310,8 @@
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div><!-- /.container -->
 </div>
+</div>
+
 <!-- /.body-content -->
 
 <script type="text/javascript">

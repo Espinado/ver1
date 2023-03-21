@@ -55,6 +55,11 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+    'montonio' => [
+        'access'=> '1c3fe208-034b-4127-8c0a-63ec69bf02b2',
+        'secret'=> 'RzkV6rOzXYKXy/pgGptbYW2QFktghnLot3l1uBH0clCL'
+
+    ],
 
     /*
     |--------------------------------------------------------------------------
