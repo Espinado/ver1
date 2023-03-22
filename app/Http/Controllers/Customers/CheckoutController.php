@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             $total_amount = round(Cart::total());
         }
 
-   
+
 
 
         if ($request->payment_method == 'stripe') {
@@ -96,7 +96,79 @@ class CheckoutController extends Controller
             return view('customers.payments.cash.cash', compact('data'));
         } else if (
             $request->payment_method == 'bank') {
-            return view('customers.payments.bank.bank', compact('data'));
+
+            $payload = [
+                'accessKey'         => config('app.montonio.access'),
+                'merchantReference' => md5(rand()),
+                'returnUrl'         => 'http://ver1/ru/profile',
+                'notificationUrl'   => 'http://ver1/ru/profile',
+                'currency'          => 'EUR',
+                'grandTotal'        => $total_amount,
+                'locale'            => 'lv',
+                'billingAddress'    => [
+                    'firstName'    => $request->shipping_name,
+                    'email'        => $request->shipping_email,
+                    'addressLine1' => 'Kai 1',
+                    'locality'     => $request->district_id,
+                    'region'       => $request->state_id,
+                    'country'      => 'LV',
+                    'postalCode'   => $request->post_code,
+                ],
+                'shippingAddress'   => [
+                    'firstName'    => $request->shipping_name,
+
+                    'email'        => $request->shipping_email,
+                    'addressLine1' => 'Kai 1',
+                    'locality'     => $request->district_id,
+                    'region'       =>  $request->state_id,
+                    'country'      => 'LV',
+                    'postalCode'   => $request->post_code,
+                ],
+                'lineItems'         => [
+                    [
+                        'name'       => 'Hoverboard',
+                        'quantity'   => 1,
+                        'finalPrice' => $total_amount,
+                    ],
+                ],
+            ];
+            $payload['payment'] = [
+                'method'        => 'paymentInitiation',
+                'methodDisplay' => 'Pay with your bank',
+                'amount'        => $total_amount, // Yes, this is the same as order->grandTotal.
+                'currency'      => 'EUR', // This must match the currency of the order.
+                'methodOptions' => [
+                    'paymentReference'   => '1010109',
+                    'paymentDescription' => 'Payment for order 123',
+                    'preferredCountry'   => 'LV',
+                    // This is the code of the bank that the customer chose at checkout.
+                    // See the GET /stores/setup endpoint for the list of available banks.
+                    // 'preferredProvider'  => 'LHVBEE22',
+                ],
+            ];
+
+            // add expiry to payment data for JWT validation
+            $payload['exp'] = time() + (10 * 60);
+
+            // 3. Generate the token using Firebase's JWT library
+            $token = JWT::encode($payload, config('app.montonio.secret'), 'HS256');
+
+            // 5. Get the payment URL
+            $client = new Client();
+            $response = $client->post('https://sandbox-stargate.montonio.com/api/orders', [
+                'headers' => [
+                    'Content-Type' => 'application/json'
+                ],
+                'json' => [
+                    'body' => $token
+                ]
+            ]);
+
+            $result = $response->getBody()->getContents();
+            $data = json_decode($result, true);
+
+            return redirect()->away($data['paymentUrl']);
+
             }
     }
     public function StripeOrder(Request $request)
