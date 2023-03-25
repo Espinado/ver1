@@ -238,6 +238,10 @@ Route::group(
         Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
         Route::post('/stripe/order', [CheckoutController::class, 'StripeOrder'])->name('stripe.order');
         Route::post('/cash/order', [CheckoutController::class, 'cashOrder'])->name('cash.order');
+        Route::get('/afterpayment', [CheckoutController::class, 'afterPayment'])->name('product.afterpayment');
+        Route::post('/afterpayment/notification', [CheckoutController::class, 'afterPaymentNotify'])->name('product.afterpayment.notification');
+
+
 
 
 
