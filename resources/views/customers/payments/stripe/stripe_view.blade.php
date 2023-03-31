@@ -54,10 +54,12 @@
                                                 ${{ session()->get('coupon')['total_amount'] }}
                                                 <hr>
                                             @else
-                                                <strong>{{ __('system.subtotal') }}: </strong> ${{ $data['cartTotal'] }}
+                                                <strong>{{ __('system.subtotal') }}: </strong>
+                                                ${{ $data['cartTotal'] }}
                                                 <hr>
 
-                                                <strong>{{ __('system.grand_total') }} : </strong> ${{ $data['cartTotal'] }}
+                                                <strong>{{ __('system.grand_total') }} : </strong>
+                                                ${{ $data['cartTotal'] }}
                                                 <hr>
                                             @endif
 
@@ -88,6 +90,8 @@
                                         <label for="card-element">
                                             <input type="hidden" name="name" value="{{ $data['shipping_name'] }}">
                                             <input type="hidden" name="email" value="{{ $data['shipping_email'] }}">
+                                            <input type="hidden" name="payment_type" value="Card">
+                                            <input type="hidden" name="payment_method" value="Card">
                                             <input type="hidden" name="phone" value="{{ $data['shipping_phone'] }}">
                                             <input type="hidden" name="post_code" value="{{ $data['post_code'] }}">
                                             <input type="hidden" name="division_id"

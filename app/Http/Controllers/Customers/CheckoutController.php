@@ -24,10 +24,13 @@ use \Firebase\JWT\Key;
 use GuzzleHttp\Client;
 use LaravelLocalization;
 use GuzzleHttp\Exception\RequestException;
-
+use App\Helpers\newOrder;
+use App\Notifications\OrderCreated;
 
 class CheckoutController extends Controller
 {
+
+
     public function index()
     {
         if (Auth::check()) {
@@ -83,14 +86,6 @@ class CheckoutController extends Controller
         $data['notes'] = $request->notes;
         $data['cartTotal'] = Cart::total();
 
-        if (Session::has('coupon')) {
-            $total_amount = Session::get('coupon')['total_amount'];
-        } else {
-            $total_amount = round(Cart::total());
-        }
-
-
-
 
         if ($request->payment_method == 'stripe') {
             return view('customers.payments.stripe.stripe_view', compact('data'));
@@ -100,7 +95,11 @@ class CheckoutController extends Controller
         } else if (
             $request->payment_method == 'bank'
         ) {
-            // dd($request->all());
+            if (Session::has('coupon')) {
+                $total_amount = Session::get('coupon')['total_amount'];
+            } else {
+                $total_amount = round(Cart::total());
+            }
             $carts = Cart::content();
             $payload = [
                 'accessKey'         => config('app.montonio.access'),
@@ -116,25 +115,26 @@ class CheckoutController extends Controller
                     'firstName'    => $request->shipping_name,
                     'email'        => $request->shipping_email,
                     'addressLine1' => 'Kai 1',
-                    'locality'     => $request->state_id,
-                    'region'       => $request->district_id,
+                    'locality'     => $request->district_id,
+                    // 'region'       =>'aaaa',
                     'country'      => $request->division_id,
                     'postalCode'   => $request->post_code,
+                    'phoneNumber' => $request->shipping_phone,
+
                 ],
                 'shippingAddress'   => [
                     'firstName'    => $request->shipping_name,
-
                     'email'        => $request->shipping_email,
                     'addressLine1' => 'Kai 1',
-                    'locality'     => $request->state_id,
-                    'region'       =>  $request->district_id,
+                    'locality'     => $request->district_id,
+                    // 'region'       => $request->state_id,
                     'country'      => $request->division_id,
                     'postalCode'   => $request->post_code,
+                    'phoneNumber' => $request->shipping_phone,
                 ],
                 'lineItems'         => [],
             ];
             $carts = Cart::content();
-
             foreach ($carts as $cart) {
                 $lineItem = [
                     'name'       => $cart->name,
@@ -153,9 +153,8 @@ class CheckoutController extends Controller
                 // 'invoice_number' => 'RvR' . mt_rand(10000000, 99999999),
                 'methodOptions' => [
                     'paymentReference'   => 'RvR-' . substr(md5(rand()), 0, 10),
-                    'paymentDescription' =>'RvR' . mt_rand(10000000, 99999999),
+                    'paymentDescription' => 'RvR' . mt_rand(10000000, 99999999),
                     'preferredCountry'   => 'LV',
-
 
                 ],
             ];
@@ -178,10 +177,8 @@ class CheckoutController extends Controller
             ]);
 
             $result = $response->getBody()->getContents();
-
+            // dd($result  );
             $data = json_decode($result, true);
-
-
             return redirect()->away($data['paymentUrl']);
         }
     }
@@ -193,10 +190,10 @@ class CheckoutController extends Controller
             $total_amount = round(Cart::total());
         }
 
+
         \Stripe\Stripe::setApiKey('sk_test_51MdxE0LYuNRuHnSIhONSDVwEZcL8ufLCYoyx2sX69ZbwNv1q4nPb5K6P0ocnpxlzalUQsx0p9dc0jZrMPa9msHFQ0035WAp0Fv');
 
         $token = $_POST['stripeToken'];
-
         try {
             $charge = \Stripe\Charge::create([
                 'amount' => $total_amount * 100,
@@ -205,59 +202,21 @@ class CheckoutController extends Controller
                 'source' => $token,
                 'metadata' => ['order_id' => uniqid()],
             ]);
+            // dd($charge);
+            $data = $request->all();
+            $data['transaction_id'] = $charge->balance_transaction;
+            $order_id = newOrder::createOrderRecord($data, $total_amount);
 
-            $order_id = Order::insertGetId([
-                'user_id' => Auth::id(),
-                'division_id' => $request->division_id,
-                'district_id' => $request->district_id,
-                'state_id' => $request->state_id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'post_code' => $request->post_code,
-                'notes' => $request->notes,
-
-                'payment_type' => 'Stripe',
-                'payment_method' => 'Stripe',
-                'payment_type' => $charge->payment_method,
-                'transaction_id' => $charge->balance_transaction,
-                'currency' => $charge->currency,
-                'amount' => $total_amount,
-                'order_number' => 'RvR-'. substr(md5(rand()), 0, 10),
-                'invoice_no' => 'RvR' . mt_rand(10000000, 99999999),
-                'order_date' => Carbon::now()->format('d F Y'),
-                'order_month' => Carbon::now()->format('F'),
-                'order_year' => Carbon::now()->format('Y'),
-                'status' => OrderStatus::pending,
-                'created_at' => Carbon::now(),
-
-            ]);
             $invoice = Order::FindOrFail($order_id);
             $data = [
                 'invoice_no' => $invoice->invoice_no,
                 'amount'     => $total_amount,
                 'name'       => $invoice->name,
                 'email'      => $invoice->email,
-                'order_number' =>$invoice->order_number,
+                'order_number' => $invoice->order_number,
             ];
-            Mail::to($request->email)->send(new OrderMail($data));
-            $carts = Cart::content();
-            foreach ($carts as $cart) {
-                OrderItem::insert([
-                    'order_id' => $order_id,
-                    'product_id' => $cart->id,
-                    'color' => $cart->options->color,
-                    'size' => $cart->options->size,
-                    'qty' => $cart->qty,
-                    'price' => $cart->price,
-                    'created_at' => Carbon::now(),
+            Auth::user()->notify(new OrderCreated($data));
 
-                ]);
-            }
-            if (Session::has('coupon')) {
-                Session::forget('coupon');
-            }
-            Cart::destroy();
             $notification = array(
                 'message' => __('system.placed_order', [], app()->getLocale()),
                 'alert-type' => 'success'
@@ -291,41 +250,15 @@ class CheckoutController extends Controller
     }
     public function CashOrder(Request $request)
     {
-
-
         if (Session::has('coupon')) {
             $total_amount = Session::get('coupon')['total_amount'];
         } else {
             $total_amount = round(Cart::total());
         }
-
-
-
-        // dd($charge);
-
-        $order_id = Order::insertGetId([
-            'user_id' => Auth::id(),
-            'division_id' => $request->division_id,
-            'district_id' => $request->district_id,
-            'state_id' => $request->state_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'post_code' => $request->post_code,
-            'notes' => $request->notes,
-            'order_number' =>'RvR-' . substr(md5(rand()), 0, 10),
-            'invoice_no' => 'RvR' . mt_rand(10000000, 99999999),
-            'payment_type' => 'Cash On Delivery',
-            'payment_method' => 'Cash On Delivery',
-            'currency' =>  'EUR',
-            'amount' => $total_amount,
-            'order_date' => Carbon::now()->format('d F Y'),
-            'order_month' => Carbon::now()->format('F'),
-            'order_year' => Carbon::now()->format('Y'),
-            'status' => OrderStatus::pending,
-            'created_at' => Carbon::now(),
-
-        ]);
+        $data = $request->all();
+        $data['state_id']=$request->state_id ? $request->state_id : null;
+        $data['transaction_id']=null;
+        $order_id = newOrder::createOrderRecord($data, $total_amount);
 
         // Start Send Email
         $invoice = Order::findOrFail($order_id);
@@ -336,32 +269,8 @@ class CheckoutController extends Controller
             'email'      => $invoice->email,
             'order_number' => $invoice->order_number,
         ];
-
-        Mail::to($request->email)->send(new OrderMail($data));
-
+        Auth::user()->notify(new OrderCreated($data));
         // End Send Email
-
-
-        $carts = Cart::content();
-        foreach ($carts as $cart) {
-            OrderItem::insert([
-                'order_id' => $order_id,
-                'product_id' => $cart->id,
-                'color' => $cart->options->color,
-                'size' => $cart->options->size,
-                'qty' => $cart->qty,
-                'price' => $cart->price,
-                'created_at' => Carbon::now(),
-
-            ]);
-        }
-
-
-        if (Session::has('coupon')) {
-            Session::forget('coupon');
-        }
-
-        Cart::destroy();
 
         $notification = array(
             'message' => 'Your Order Place Successfully',
@@ -373,6 +282,11 @@ class CheckoutController extends Controller
 
     public function afterPayment(Request $request)
     {
+        if (Session::has('coupon')) {
+            $total_amount = Session::get('coupon')['total_amount'];
+        } else {
+            $total_amount = round(Cart::total());
+        }
         $order_token = $request->get('order-token');
         JWT::$leeway = 60 * 5;
         $decoded = JWT::decode(
@@ -381,7 +295,7 @@ class CheckoutController extends Controller
         );
         $client = new Client();
         try {
-            $response = $client->request('GET', 'https://sandbox-stargate.montonio.com/api/orders/'.$decoded->uuid, [
+            $response = $client->request('GET', 'https://sandbox-stargate.montonio.com/api/orders/' . $decoded->uuid, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $order_token
                 ]
@@ -395,40 +309,57 @@ class CheckoutController extends Controller
             // Handle request exception
         }
 
-        dump($order_token);
-        dump($content);
-        dd($decoded);
+        // dump($order_token);
+        // dump($content);
+        // dump($content['paymentIntents'][0]['paymentMethodMetadata']);
+        // dd($decoded);
+        // dd($content['shippingAddress']);
         if (
-            $decoded->paymentStatus === 'PAID' &&  $decoded->accessKey === config('app.montonio.access')) {
-            $order_id = Order::insertGetId([
-                'user_id' => Auth::id(),
-                'division_id' => $request->division_id,
-                'district_id' => $request->district_id,
-                'state_id' => $request->state_id,
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'post_code' => $request->post_code,
-                'notes' => $request->notes,
-                'order_number' => 'RvR-' . substr(md5(rand()), 0, 10),
-                'invoice_no' => 'RvR' . mt_rand(10000000, 99999999),
-                'payment_type' => 'Cash On Delivery',
-                'payment_method' => 'Cash On Delivery',
-                'currency' =>  'EUR',
-                'amount' => $total_amount,
-                'order_date' => Carbon::now()->format('d F Y'),
-                'order_month' => Carbon::now()->format('F'),
-                'order_year' => Carbon::now()->format('Y'),
-                'status' => OrderStatus::pending,
-                'created_at' => Carbon::now(),
+            $decoded->paymentStatus === 'PAID' &&  $decoded->accessKey === config('app.montonio.access')
+        ) {
+            $data=[];
+            $data['user_id']= Auth::id();
+            $data['division_id']= $content['shippingAddress']['country'];
+            $data['district_id'] = $content['shippingAddress']['locality'];
+            $data['state_id']=NULL;
+            $data['notes'] = NULL;
+            $data['name']= $content['shippingAddress']['firstName'];
+            $data['email'] = $content['shippingAddress']['email'];
+            $data['phone'] = $content['shippingAddress']['phoneNumber'];
+            $data['post_code']= $content['shippingAddress']['postalCode'];
+            $data['order_number']= $content['paymentIntents'][0]['paymentMethodMetadata']['paymentReference'];
+            $data['invoice_no'] = $content['paymentIntents'][0]['paymentMethodMetadata']['paymentDescription'];
+            $data['payment_type'] = $content['paymentIntents'][0]['paymentMethodMetadata']['providerName'];
+            $data['payment_method'] = $content['paymentIntents'][0]['paymentMethodMetadata']['providerName'];
+            $data['amount']= $content['grandTotal'];
+            $data['transaction_id'] = $content['uuid'];
+          
+            $order_id = newOrder::createOrderRecord($data, $total_amount);
 
-            ]);
-            return redirect()->route('profile.index');
+            $invoice = Order::FindOrFail($order_id);
+            $data = [
+                'invoice_no' => $invoice->invoice_no,
+                'amount'     => $total_amount,
+                'name'       => $invoice->name,
+                'email'      => $invoice->email,
+                'order_number' => $invoice->order_number,
+            ];
+            Auth::user()->notify(new OrderCreated($data));
+
+
+            $basic  = new \Vonage\Client\Credentials\Basic("e2150a5a", "MWcfcGSwbinezJ8a");
+            $client = new \Vonage\Client($basic);
+            $response = $client->sms()->send(
+                new \Vonage\SMS\Message\SMS('+37126161034', 'Arguss shop', 'Order Nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentReference'] . ',Invoice nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentDescription'])
+            );
+
+            $notification = array(
+                'message' => 'Your Order Place Successfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->route('profile.index')->with($notification);
         } else {
             // dd('b');
         }
-
-
-}
-
+    }
 }

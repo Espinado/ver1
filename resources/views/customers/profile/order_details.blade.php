@@ -52,7 +52,9 @@
 
                                 <tr>
                                     <th> {{ __('system.state') }} : </th>
+                                    @if($order->state_id)
                                     <th>{{ $order->state->state_name }} </th>
+                                    @endif
                                 </tr>
 
                                 <tr>

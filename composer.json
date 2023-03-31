@@ -31,7 +31,9 @@
         "srmklive/paypal": "^3.0",
         "stripe/stripe-php": "^10.6",
         "the42coders/eu-cookie-consent": "^1.0",
-        "tymon/jwt-auth": "^2.0"
+        "tymon/jwt-auth": "^2.0",
+        "vonage/client": "^4.0",
+        "vonage/vonage-laravel": "^1.0"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
@@ -53,11 +55,15 @@
             "Database\\Seeders\\": "database/seeders/"
         }
     },
+    "files": [
+        "app/Helpers/newOrder.php"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
         }
     },
+
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -83,6 +89,7 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+
     "minimum-stability": "dev",
     "prefer-stable": true
 }
