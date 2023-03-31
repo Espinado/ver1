@@ -14,8 +14,13 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        //
+       dd('a');
     }
+    public function creating(Order $order)
+    {
+        dd('a');
+    }
+
 
     /**
      * Handle the Order "updated" event.

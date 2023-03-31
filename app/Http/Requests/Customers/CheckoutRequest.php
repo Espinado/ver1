@@ -32,7 +32,7 @@ class CheckoutRequest extends FormRequest
             'shipping_phone' => 'required',
             'division_id' => 'required',
             'district_id' => 'required',
-            'state_id' => 'required',
+            // 'state_id' => 'required',
 
         ];
 

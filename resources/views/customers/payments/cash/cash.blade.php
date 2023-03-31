@@ -110,6 +110,8 @@
       <input type="hidden" name="district_id" value="{{ $data['district_id'] }}">
       <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
       <input type="hidden" name="notes" value="{{ $data['notes'] }}">
+      <input type="hidden" name="payment_type" value="Cash on delivery">
+      <input type="hidden" name="payment_method" value="Cash on delivery">
 
             </label>
 
