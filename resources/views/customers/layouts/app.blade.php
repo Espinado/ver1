@@ -65,17 +65,38 @@
 }
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;}
+ #loading {
+  position: fixed; /* Make the div fixed so it stays in place */
+   /* top: 0;Set the top position to 0 */
+   /*left: 0; Set the left position to 0 */
+  width: 100%; /* Set the width to 100% */
+  height: 100%; /* Set the height to 100% */
+  background-color: rgba(255, 255, 255, 0.5); /* Set the background color to semi-transparent white */
+  z-index: 9999; /* Set the z-index to a high number to ensure it displays on top of other elements */
+  /* Use flexbox to center the spinner vertically and horizontally */
+  justify-content: center;
+  align-items: center;
+}
+
+#loading img {
+  width: 200px; /* Set the width of the spinner image */
+  height: 200px; /* Set the height of the spinner image */
+  display: block; /* Set the display property to block to center the image horizontally */
+  margin: auto; /* Set the margin to auto to center the image horizontally */
+}
 </style>
 </head>
 
-<body class="cnt-home">
+<body class="cnt-home" id="body">
     {!! EuCookieConsent::getPopup() !!}
 
     <!-- ============================================== HEADER ============================================== -->
     <header class="header-style-1">
         @include('customers.sections.header')
     </header>
-    <div class="spinner-border"></div>
+  <div id="loading">
+     <img src="{{ asset('loader.gif') }}" alt="Loading...">
+</div>
 </div>
 
     <!-- ============================================== HEADER : END ============================================== -->
@@ -100,6 +121,7 @@
     <script src="{{ asset('customers/assets/js/scripts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+     <script src="{{ asset('customers/assets/js/loader.js') }}"></script>
     <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"

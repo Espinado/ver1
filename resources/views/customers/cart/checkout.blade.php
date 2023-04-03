@@ -3,7 +3,12 @@
 @section('title')
     {{ __('system.checkout') }}
 @endsection
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
+
+
+
 <div class="breadcrumb">
     <div class="container">
         <div class="breadcrumb-inner">
@@ -105,7 +110,7 @@
                                                     <h5><b>{{ __('system.division') }}</b><span
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
-                                                        <select name="division_id" class="form-control">
+                                                        <select name="division_id" class="form-control" id="division">
                                                             <option value="" selected="" disabled="">
                                                                 <b>{{ __('system.select_division') }}</b>
                                                             </option>
@@ -124,7 +129,7 @@
                                                     <h5><b>{{ __('system.district') }}</b> <span
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
-                                                        <select name="district_id" class="form-control">
+                                                        <select id="district" name="district_id" class="form-control">
                                                             <option value="" selected="" disabled="">
                                                                 <b>{{ __('system.select_district') }}</b>
                                                             </option>
@@ -139,7 +144,7 @@
                                                     <h5>{{ __('system.state') }} <span class="text-danger">*</span>
                                                     </h5>
                                                     <div class="controls">
-                                                        <select name="state_id" class="form-control">
+                                                        <select name="state_id" class="form-control" id="state">
                                                             <option value="" selected="" disabled="">
                                                                 <b>{{ __('system.select_state') }}</b>
                                                             </option>
@@ -316,6 +321,23 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+         $('#district').select2({
+            placeholder: 'Select district',
+            language: "fr",
+             theme: "classic"
+         });
+          $('#division').select2({
+            placeholder: 'Select division',
+            language: "fr",
+             theme: "classic"
+         });
+           $('#state').select2({
+            placeholder: 'Select division',
+             theme: "classic",
+             language: "fr"
+         });
+         
+
         $('select[name="division_id"]').on('change', function() {
             var division_id = $(this).val();
             if (division_id) {

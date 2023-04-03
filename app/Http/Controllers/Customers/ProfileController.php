@@ -21,6 +21,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+
         return view('customers.profile.profile', compact('user'));
     }
 
@@ -102,5 +103,13 @@ class ProfileController extends Controller
                       'chroot' =>public_path()]);
           return $pdf->download($order->invoice_no.'-'.Carbon::now()->format('Ymd').'.pdf');
         // return view('customers.invoice.order_invoice', compact('order', 'orderItem'));
+    }
+    public function userShippingInfo() {
+        $user=Auth::user();
+        // dd($user);
+        // dd($user['user_profile']);
+        dd($user->user_profile->division->division_name);
+        dd( $user->user_profile->division);
+        dd($user['user_profile']['division']['division_name']);
     }
 }

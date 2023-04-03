@@ -51,7 +51,9 @@
 
                                 <tr>
                                     <th> {{ __('system.state') }} : </th>
+                                    @if($order->state)
                                     <th>{{ $order->state->state_name }} </th>
+                                    @endif
                                 </tr>
 
                                 <tr>
@@ -63,6 +65,7 @@
                                     <th> {{ __('system.order_date') }} : </th>
                                     <th> {{ $order->order_date }} </th>
                                 </tr>
+
 
                             </table>
 
@@ -122,6 +125,8 @@
                                     <th> <span class="badge badge-pill badge-warning"
                                             style="background: #418DB9;">{{__('system.' . App\Enums\OrderStatus::getKey(intval($order->status)))}} </span> </th>
                                 </tr>
+                                <th></th>
+                                    <th><a href="{{route('admin.toProcess.order', $order->id)}}" class="btn btn-clock btn-success">To process</a></th>
 
                             </table>
 

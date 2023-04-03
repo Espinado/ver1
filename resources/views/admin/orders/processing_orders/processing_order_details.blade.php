@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin_master')
 @section('title')
-    {{ __('system.pending_orders') }}
+    {{ __('system.processing_orders') }}
 @endsection
 @section('content')
  {{-- @php
@@ -126,7 +126,9 @@
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <th><a href="{{route('admin.confirm.order', $order->id)}}" class="btn btn-clock btn-success">Confirm</a></th>
+                                    <th><a href="{{route('admin.pickedup.order', $order->id)}}" class="btn btn-clock btn-success">Picked up</a>
+
+                                    <a href="{{route('admin.shipped.order', $order->id)}}" class="btn btn-clock btn-info">Shipped</a></th>
 
                                 </tr>
 

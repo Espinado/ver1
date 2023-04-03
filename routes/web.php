@@ -60,7 +60,7 @@ Route::group(
         Route::get('/', [AdminController::class, 'Dashboard'])->name('admin.dashboard')->middleware('admin');
         Route::get('/admins', [AdminController::class, 'adminList'])->name('admin.admins')->middleware('admin');
         Route::get('admin/profile', [AdminProfileController::class, 'showProfile'])->name('admin.profile')->middleware('admin');
-        Route::get('admin/profile/edit', [AdminProfileController::class, 'editProfile'])->name('admin.profile.edit')->middleware('admin');
+        Route::get('admin/profile/edit', [AdminProfileController::class, 'editProfile'])->name('admin.password.edit')->middleware('admin');
         Route::post('admin/profile/update', [AdminProfileController::class, 'updateProfile'])->name('admin.profile.update')->middleware('admin');
         Route::get('admin/password/change', [AdminProfileController::class, 'changePassword'])->name('admin.change.password')->middleware('admin');
         Route::post('admin/password/update', [AdminProfileController::class, 'updatePassword'])->name('admin.update.password')->middleware('admin');
@@ -125,18 +125,22 @@ Route::group(
 
         Route::get('/pending/orders/', [OrderController::class, 'pendingOrders'])->name('admin.pending.orders')->middleware('admin');
         Route::get('/pending/orders/details/{order_id}', [OrderController::class, 'pendingOrdersDetails'])->name('admin.pending.orders.details')->middleware('admin');
+        Route::get('/confirm/order/{id}', [OrderController::class, 'confirmOrder'])->name('admin.confirm.order')->middleware('admin');
 
         Route::get('/confirmed/orders/', [OrderController::class, 'confirmedOrders'])->name('admin.confirmed.orders')->middleware('admin');
         Route::get('/confirmed/orders/details/{order_id}', [OrderController::class, 'confirmedOrdersDetails'])->name('admin.confirmed.orders.details')->middleware('admin');
+        Route::get('/toProcess/order/{id}', [OrderController::class, 'toProcessOrder'])->name('admin.toProcess.order')->middleware('admin');
 
         Route::get('/processing/orders/', [OrderController::class, 'processingOrders'])->name('admin.processing.orders')->middleware('admin');
         Route::get('/processing/orders/details/{order_id}', [OrderController::class, 'processingOrdersDetails'])->name('admin.processing.orders.details')->middleware('admin');
+        Route::get('/pickedup/order/{id}', [OrderController::class, 'markAsPickeupOrder'])->name('admin.pickedup.order')->middleware('admin');
+        Route::get('/shipped/order/', [OrderController::class, 'pickedupOrder'])->name('admin.shipped.order')->middleware('admin');
 
         Route::get('/picked/orders/', [OrderController::class, 'pickedOrders'])->name('admin.picked.orders')->middleware('admin');
         Route::get('/picked/orders/details/{order_id}', [OrderController::class, 'pickedOrdersDetails'])->name('admin.picked.orders.details')->middleware('admin');
 
         Route::get('/shipped/orders/', [OrderController::class, 'shippedOrders'])->name('admin.shipped.orders')->middleware('admin');
-        Route::get('/shippedg/orders/details/{order_id}', [OrderController::class, 'shippedOrdersDetails'])->name('admin.shipped.orders.details')->middleware('admin');
+        Route::get('/shipped/orders/details/{order_id}', [OrderController::class, 'shippedOrdersDetails'])->name('admin.shipped.orders.details')->middleware('admin');
 
 
         Route::get('/manage/division', [Ship::class, 'divisionView'])->name('admin.manage.division')->middleware('admin');
@@ -203,6 +207,7 @@ Route::group(
 
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/shipping/information', [ProfileController::class, 'userShippingInfo'])->name('user.shipping.info');
         Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
         Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
