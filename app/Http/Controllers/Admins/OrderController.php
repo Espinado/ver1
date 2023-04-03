@@ -11,6 +11,11 @@ use BenSampo\Enum\Enum;
 
 class OrderController extends Controller
 {
+    public function __construct()
+
+    {
+            $this->notification = array('message' => 'Status updated', 'alert-type' => 'success');
+    }
     public function pendingOrders()
     {
 
@@ -22,7 +27,7 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $order_id)->first();
         $orderItem = OrderItem::where('order_id', $order_id)->orderBy('id', 'DESC')->get();
-        return view('admin.orders.pending_orders.pending_order_details', compact('order','orderItem'));
+        return view('admin.orders.pending_orders.pending_order_details', compact('order', 'orderItem'));
     }
 
     public function confirmedOrders()
@@ -36,6 +41,45 @@ class OrderController extends Controller
     {
         $order = Order::where('id', $order_id)->first();
         $orderItem = OrderItem::where('order_id', $order_id)->orderBy('id', 'DESC')->get();
-        return view('admin.orders.confirmed_order_details', compact('order', 'orderItem'));
+        return view('admin.orders.confirmed_orders.confirmed_order_details', compact('order', 'orderItem'));
+    }
+    public function processingOrders()
+    {
+
+        $orders = Order::where('status', OrderStatus::processing)->get();
+        // dd($orders);
+        return view('admin.orders.processing_orders.processing_orders', compact('orders'));
+    }
+    public function processingOrdersDetails($order_id)
+    {
+        $order = Order::where('id', $order_id)->first();
+        $orderItem = OrderItem::where('order_id', $order_id)->orderBy('id', 'DESC')->get();
+        return view('admin.orders.processing_orders.processing_order_details', compact('order', 'orderItem'));
+    }
+
+
+    public function confirmOrder($id)
+    {
+        Order::where('id', $id)->update([
+         'status' => OrderStatus::confirmed
+        ]);
+
+
+        return redirect('admin/pending/orders/')->with($this->notification);
+    }
+    public function toProcessOrder($id)
+    {
+        Order::where('id', $id)->update([
+            'status' => OrderStatus::processing
+        ]);
+         return redirect('admin/confirmed/orders/')->with($this->notification);
+    }
+    public function markAsPickeupOrder($id)
+    {
+       
+        Order::where('id', $id)->update([
+            'status' => OrderStatus::picked
+        ]);
+        return redirect('admin/processing/orders/')->with($this->notification);
     }
 }

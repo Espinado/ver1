@@ -15,8 +15,8 @@ final class OrderStatus extends Enum
     const confirmed = 1;
     const shipped = 2;
     const processing=3;
-    const picked=3;
-    const delivered =4;
+    const picked=4;
+    const delivered =5;
 
 
 }

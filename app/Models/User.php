@@ -45,4 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function user_profile()
+    {
+        return $this->hasOne('App\Models\Customers\UserProfile', 'user_id', 'id');
+    }
+    public function division()
+    {
+        return $this->belongsTo('App\Models\Admins\ShipDivision', 'division_id', 'id');
+    }
 }

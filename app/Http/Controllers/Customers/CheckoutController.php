@@ -40,7 +40,6 @@ class CheckoutController extends Controller
                 $cartQty = Cart::count();
                 $cartTotal = Cart::total();
                 $divisions = ShipDivision::orderBy('division_name', 'ASC')->get();
-
                 return view('customers.cart.checkout', compact('carts', 'cartQty', 'cartTotal', 'divisions'));
             } else {
 
@@ -48,7 +47,6 @@ class CheckoutController extends Controller
                     'message' => __('system.shop_one_product', [], app()->getLocale()),
                     'alert-type' => 'error'
                 );
-
                 return redirect()->to('/')->with($notification);
             }
         } else {
@@ -57,7 +55,6 @@ class CheckoutController extends Controller
                 'message' => __('system.please_login', [], app()->getLocale()),
                 'alert-type' => 'error'
             );
-
             return redirect()->route('login')->with($notification);
         }
     }
@@ -100,7 +97,7 @@ class CheckoutController extends Controller
             } else {
                 $total_amount = round(Cart::total());
             }
-            $carts = Cart::content();
+
             $payload = [
                 'accessKey'         => config('app.montonio.access'),
                 'merchantReference' => md5(rand()),
@@ -158,7 +155,6 @@ class CheckoutController extends Controller
 
                 ],
             ];
-
             // add expiry to payment data for JWT validation
             $payload['exp'] = time() + (10 * 60);
 
@@ -175,9 +171,7 @@ class CheckoutController extends Controller
                     'body' => $token
                 ]
             ]);
-
             $result = $response->getBody()->getContents();
-            // dd($result  );
             $data = json_decode($result, true);
             return redirect()->away($data['paymentUrl']);
         }
@@ -189,10 +183,7 @@ class CheckoutController extends Controller
         } else {
             $total_amount = round(Cart::total());
         }
-
-
         \Stripe\Stripe::setApiKey('sk_test_51MdxE0LYuNRuHnSIhONSDVwEZcL8ufLCYoyx2sX69ZbwNv1q4nPb5K6P0ocnpxlzalUQsx0p9dc0jZrMPa9msHFQ0035WAp0Fv');
-
         $token = $_POST['stripeToken'];
         try {
             $charge = \Stripe\Charge::create([
@@ -309,11 +300,6 @@ class CheckoutController extends Controller
             // Handle request exception
         }
 
-        // dump($order_token);
-        // dump($content);
-        // dump($content['paymentIntents'][0]['paymentMethodMetadata']);
-        // dd($decoded);
-        // dd($content['shippingAddress']);
         if (
             $decoded->paymentStatus === 'PAID' &&  $decoded->accessKey === config('app.montonio.access')
         ) {
@@ -333,7 +319,7 @@ class CheckoutController extends Controller
             $data['payment_method'] = $content['paymentIntents'][0]['paymentMethodMetadata']['providerName'];
             $data['amount']= $content['grandTotal'];
             $data['transaction_id'] = $content['uuid'];
-          
+
             $order_id = newOrder::createOrderRecord($data, $total_amount);
 
             $invoice = Order::FindOrFail($order_id);
@@ -350,7 +336,7 @@ class CheckoutController extends Controller
             $basic  = new \Vonage\Client\Credentials\Basic("e2150a5a", "MWcfcGSwbinezJ8a");
             $client = new \Vonage\Client($basic);
             $response = $client->sms()->send(
-                new \Vonage\SMS\Message\SMS('+37126161034', 'Arguss shop', 'Order Nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentReference'] . ',Invoice nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentDescription'])
+                new \Vonage\SMS\Message\SMS('+37125554950', 'Arguss shop', 'Order Nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentReference'] . ',Invoice nr.' . $content['paymentIntents'][0]['paymentMethodMetadata']['paymentDescription'])
             );
 
             $notification = array(

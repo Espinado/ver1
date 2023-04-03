@@ -193,11 +193,8 @@
                     <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
                         <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.processing_orders') }}</a>
                     </li>
-                     <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
-                        <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.picked_orders') }}</a>
-                    </li>
-                     <li class="{{ $route == 'admin.processing.orders' ? 'active' : '' }}">
-                        <a href="{{ route('admin.processing.orders') }}"><i class="ti-more"></i>{{ __('system.shipped_orders') }}</a>
+                     <li class="{{ $route == 'admin.picked.orders' ? 'active' : '' }}">
+                        <a href="{{ route('admin.picked.orders') }}"><i class="ti-more"></i>{{ __('system.picked_orders') }}</a>
                     </li>
 
                 </ul>
