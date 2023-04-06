@@ -48,7 +48,7 @@
                                             </td>
 
                                             <td class="col-md-3">
-                                                <label for=""> {{ __('system.action') }} </label>
+                                                <label for=""> {{ __('system.status') }} </label>
                                             </td>
 
                                         </tr>

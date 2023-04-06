@@ -342,7 +342,7 @@
 
                     couponCalculation()
                     var rows = ""
-                    
+
 
 
                     $.each(response.carts, function(key, value) {
@@ -697,70 +697,50 @@ console.log(response);
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span></strong> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src=" " class="card-img-top" alt="..."
-                                    style="height: 200px; width: 200px;" id="pimage">
-                            </div>
-
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span></strong></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card" style="width: 100%;">
+                            <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 100%;" id="pimage">
                         </div>
-                        <div class="col-md-4">
-                            <ul class="list-group">
-                                <li class="list-group-item">{{ __('system.product_price') }}: <strong class="text-danger"><span
-                                            id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
-
-                                <li class="list-group-item">{{ __('system.product_code') }}: <strong id="pcode"></strong></li>
-                                <li class="list-group-item">{{ __('system.category') }}: <strong id="pcategory"></strong></li>
-                                <li class="list-group-item">{{ __('system.brand') }}: <strong id="pbrand"></strong></li>
-                                <li class="list-group-item">{{ __('system.stock') }}:<span class="badge badge-pill badge-success"
-                                        id="available" style="background: green; color:white"></span>
-                                    <span class="badge badge-pill badge-danger" id="notavailable"
-                                        style="background: red; color:white"></span>
-                                    <strong id="pstock"></strong>
-                                </li>
-                                </li>
-                            </ul>
-
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <ul class="list-group">
+                            <li class="list-group-item">{{ __('system.product_price') }}: <strong class="text-danger"><span id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
+                            <li class="list-group-item">{{ __('system.product_code') }}: <strong id="pcode"></strong></li>
+                            <li class="list-group-item">{{ __('system.category') }}: <strong id="pcategory"></strong></li>
+                            <li class="list-group-item">{{ __('system.brand') }}: <strong id="pbrand"></strong></li>
+                            <li class="list-group-item">{{ __('system.stock') }}:<span class="badge badge-pill badge-success" id="available" style="background: green; color:white"></span><span class="badge badge-pill badge-danger" id="notavailable" style="background: red; color:white"></span><strong id="pstock"></strong></li>
+                        </ul>
+                        <div class="form-group">
+                            <label for="color">{{ __('system.choose_color') }}:</label>
+                            <select class="form-control" id="color" name="color"></select>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="color">{{ __('system.choose_color') }}:</label>
-                                <select class="form-control" id="color" name="color">
-
-                                </select>
-                            </div>
-                            <div class="form-group" id="sizeArea">
-                                <label for="size">{{ __('system.choose_size') }}:</label>
-                                <select class="form-control" id="size" name="size">
-
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="quantity">{{ __('system.quantity') }}</label>
-                                <input type="number" id="quantity" name="quantity" class="form-control"
-                                    value="1" min="1">
-                            </div>
-                            <input type="hidden" name="product_id" id="product_id">
-                            <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">{{ __('system.add_to_cart') }}</button>
-
+                        <div class="form-group" id="sizeArea">
+                            <label for="size">{{ __('system.choose_size') }}:</label>
+                            <select class="form-control" id="size" name="size"></select>
                         </div>
-
+                        <div class="form-group">
+                            <label for="quantity">{{ __('system.quantity') }}</label>
+                            <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1">
+                        </div>
+                        <input type="hidden" name="product_id" id="product_id">
+                        <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">{{ __('system.add_to_cart') }}</button>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+</div>
+
     <!-- End Add to Cart Product Modal -->
 
 </body>

@@ -109,7 +109,7 @@
                                             <div class="col-md-6 col-sm-6 already-registered-login">
 
                                                 <div class="form-group">
-                                                    <h5><b>{{ __('system.division') }}</b><span
+                                                    <h5><b>{{ __('system.country') }}</b><span
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <select name="division_id" class="form-control" id="division">
@@ -129,7 +129,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <h5><b>{{ __('system.district') }}</b> <span
+                                                    <h5><b>{{ __('system.city') }}</b> <span
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <select id="district" name="district_id" class="form-control">
@@ -225,12 +225,12 @@
                                             <!-- already-registered-login -->
                                             <div class="col-md-6 col-sm-6 already-registered-login">
                                                 <h4 class="checkout-subtitle">
-                                                    <b>{{ __('system.shipment_method') }}</b>
+                                                    <b>{{ __('system.shipping_method') }}</b>
                                                 </h4>
 
                                                 <div class="form-group">
                                                     <label class="info-title"
-                                                        for="shipping_method"><b>{{ __('system.select_in_store') }}</b>
+                                                        for="shipping_method"><b>{{ __('system.collect_in_store') }}</b>
                                                         &nbsp;</label>
                                                     <input type="radio" name="shipping_method" value="self"
                                                         data-cost="0,00">
@@ -314,7 +314,7 @@
                                             @endif
 
                                         </li><strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
-                                            id="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR<li>
+                                            id="cost" name="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR<li>
                                     </ul>
                                 </div>
                             </div>
