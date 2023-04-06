@@ -7,7 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js" defer></script>
 
-
+@php
+    $user = Auth::user();
+@endphp
 
 <div class="breadcrumb">
     <div class="container">
@@ -53,7 +55,7 @@
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_name"
                                                         placeholder="Full name"
-                                                        @auth value="{{ Auth::user()->name }}" @endauth>
+                                                        value="{{ $user['user_profile']['name'] . ' ' . $user['user_profile']['surname'] }}">
                                                     @error('shipping_name')
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
@@ -66,7 +68,7 @@
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_email"
                                                         placeholder="Full email"
-                                                        @auth value="{{ Auth::user()->email }}" @endauth>
+                                                        value="{{ $user['user_profile']['email'] }}">
                                                     @error('shipping_email')
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
@@ -79,8 +81,8 @@
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_phone"
                                                         placeholder="Phone"
-                                                        @auth value="{{ Auth::user()->phone }}" @endauth>
-                                                         @error('shipping_phone')
+                                                        value="{{ $user['user_profile']['phone'] }}">
+                                                    @error('shipping_phone')
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
                                                 </div>
@@ -92,7 +94,7 @@
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_postcode"
                                                         placeholder="Postcode"
-                                                        @auth value="{{ Auth::user()->postcode }}" @endauth>
+                                                        @auth value="{{ $user['user_profile']['postcode'] }}" @endauth>
                                                     @error('shipping_postcode')
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
@@ -111,12 +113,13 @@
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <select name="division_id" class="form-control" id="division">
-                                                            <option value="" selected="" disabled="">
-                                                                <b>{{ __('system.select_division') }}</b>
+                                                            <option
+                                                                value="{{ $user->user_profile->division ? $user->user_profile->division->id : '' }}">
+                                                                <b>{{ $user->user_profile->division ? $user->user_profile->division->division_name : '' }}</b>
                                                             </option>
                                                             @foreach ($divisions as $div)
                                                                 <option value="{{ $div->id }}">
-                                                                    {{ $div->division_name }}</option>
+                                                                    {{ $div->division_name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -130,9 +133,16 @@
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <select id="district" name="district_id" class="form-control">
-                                                            <option value="" selected="" disabled="">
-                                                                <b>{{ __('system.select_district') }}</b>
+                                                          <option
+                                                                value="{{ $user->user_profile->district ? $user->user_profile->district->id : '' }}">
+                                                                <b>{{ $user->user_profile->district ? $user->user_profile->district->district_name : '' }}</b>
                                                             </option>
+                                                            @foreach ($districts as $dis)
+                                                                <option value="{{ $dis->id }}">
+                                                                    {{ $dis->district_name }}
+                                                                </option>
+                                                            @endforeach
+
 
                                                         </select>
                                                         @error('district_id')
@@ -190,7 +200,7 @@
                                                 <input type="radio" name="payment_method" value="cash"
                                                     title="cash">
                                             </div>
-                                             <div class="form-group" title="bank">
+                                            <div class="form-group" title="bank">
                                                 <label class="info-title" for="payment"><b> <img
                                                             src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
                                                             height="34px" title="bank"></b>
@@ -223,7 +233,9 @@
                                                         for="shipping_method"><b>{{ __('system.select_in_store') }}</b>
                                                         &nbsp;</label>
                                                     <input type="radio" name="shipping_method" value="self"
-                                                        selected>
+                                                        data-cost="0,00">
+                                                    <input type="text" name="shipping_cost" value="0.00"
+                                                        disabled style="width:50px;">EUR
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="info-title"
@@ -231,8 +243,12 @@
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     </label>
                                                     <input type="radio" name="shipping_method" value="delivery"
-                                                        selected>
+                                                        data-cost="{{$user['user_profile']['district']['delivery_cost']}}">
+                                                    <input type="text" name="shipping_cost" id="shipping_cost"
+                                                        value="{{ $user['user_profile']['district']? $user['user_profile']['district']['delivery_cost'] : 'N/A' }}"
+                                                        disabled style="width:50px;">EUR
                                                 </div>
+
                                                 @error('shipping_method')
                                                     <span class="text-danger"><b>{{ $message }}</b></span>
                                                 @enderror
@@ -297,7 +313,8 @@
                                                 <hr>
                                             @endif
 
-                                        </li>
+                                        </li><strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
+                                            id="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR<li>
                                     </ul>
                                 </div>
                             </div>
@@ -315,28 +332,28 @@
         <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
     </div><!-- /.container -->
 </div>
-</div>
+
 
 <!-- /.body-content -->
 
 <script type="text/javascript">
     $(document).ready(function() {
-         $('#district').select2({
+        $('#district').select2({
             placeholder: 'Select district',
             language: "fr",
-             theme: "classic"
-         });
-          $('#division').select2({
+            theme: "classic"
+        });
+        $('#division').select2({
             placeholder: 'Select division',
             language: "fr",
-             theme: "classic"
-         });
-           $('#state').select2({
+            theme: "classic"
+        });
+        $('#state').select2({
             placeholder: 'Select division',
-             theme: "classic",
-             language: "fr"
-         });
-         
+            theme: "classic",
+            language: "fr"
+        });
+
 
         $('select[name="division_id"]').on('change', function() {
             var division_id = $(this).val();
@@ -381,10 +398,44 @@
                         });
                     },
                 });
+                 $.ajax({
+                    url: "{{ url('/get/district/delivery/rates') }}/" + district_id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(rate) {
+                        console.log(rate.rate.delivery_cost)
+                        $('#cost').html(rate.rate.delivery_cost);
+                        $('#shipping_cost').val('');
+                         $('#shipping_cost').val(rate.rate.delivery_cost);
+
+
+                    },
+                });
             } else {
                 alert('danger');
             }
         });
+        $('input[name="shipping_method"]').on('change', function() {
+            // Get the value of the selected radio button's data-cost attribute
+            var shippingCost = $('input[name="shipping_method"]:checked').data('cost');
+
+            // Update the #cost element with the shippingCost value
+            $('#cost').html(shippingCost);
+
+            // Log the value to the console for debugging
+            console.log(shippingCost);
+            $('#cost').html(shippingCost)
+        });
+        var district_delivery_cost = $('#district').val();
+        console.log(district_delivery_cost)
+        //  $.ajax({
+        //                     url: "{{ url('/get/rates/ajax') }}/" + district_id,
+        //                     type: "GET",
+        //                     dataType: "json",
+        //                     success: function(data) {
+        //                     }
+        // $('#cost').html(district_delivery_cost);
+
     });
 </script>
 @endsection

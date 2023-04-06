@@ -40,7 +40,8 @@ class CheckoutController extends Controller
                 $cartQty = Cart::count();
                 $cartTotal = Cart::total();
                 $divisions = ShipDivision::orderBy('division_name', 'ASC')->get();
-                return view('customers.cart.checkout', compact('carts', 'cartQty', 'cartTotal', 'divisions'));
+                $districts = ShipDistrict::orderBy('district_name', 'ASC')->get();
+                return view('customers.cart.checkout', compact('carts', 'cartQty', 'cartTotal', 'divisions','districts'));
             } else {
 
                 $notification = array(
@@ -347,5 +348,13 @@ class CheckoutController extends Controller
         } else {
             // dd('b');
         }
+    }
+    public function GetDistrictDeliveryRates($district_id)
+    {
+        $dist_rate=ShipDistrict::where('id', $district_id)->first();
+      
+         return response()->json([
+            'rate'=>$dist_rate
+         ]);
     }
 }

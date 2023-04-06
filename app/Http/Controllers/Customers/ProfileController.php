@@ -11,6 +11,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Carbon;
+use App\Models\Admins\ShipDivision;
+use App\Models\Admins\ShipDistrict;
+use App\Http\Requests\Customers\UserShippingInfoRequest;
 
 
 
@@ -98,18 +101,41 @@ class ProfileController extends Controller
             ->where('order_id', $order_id)
             ->orderBy('id', 'DESC')->get();
         $pdf = Pdf::loadView('customers.invoice.order_invoice', compact('order', 'orderItem'))
-        ->setPaper('a4')
-        ->setOptions(['tempDir' =>public_path(),
-                      'chroot' =>public_path()]);
-          return $pdf->download($order->invoice_no.'-'.Carbon::now()->format('Ymd').'.pdf');
+            ->setPaper('a4')
+            ->setOptions([
+                'tempDir' => public_path(),
+                'chroot' => public_path()
+            ]);
+        return $pdf->download($order->invoice_no . '-' . Carbon::now()->format('Ymd') . '.pdf');
         // return view('customers.invoice.order_invoice', compact('order', 'orderItem'));
     }
-    public function userShippingInfo() {
-        $user=Auth::user();
-        // dd($user);
-        // dd($user['user_profile']);
-        dd($user->user_profile->division->division_name);
-        dd( $user->user_profile->division);
-        dd($user['user_profile']['division']['division_name']);
+    public function userShippingInfo()
+    {
+        $user = Auth::user();
+        $divisions = ShipDivision::get();
+        $districts = ShipDistrict::get();
+        return view('customers.profile.shipping_info.shipping_info', compact('user', 'divisions', 'districts'));
+    }
+
+    public function userShippingInfoUpdate(UserShippingInfoRequest $request)
+    {
+        // dd($request->all());
+        $validatedData = $request->validated();
+
+         $user = Auth::user();
+
+        $user->user_profile->name = $validatedData['name'];
+        $user->user_profile->surname = $validatedData['surname'];
+        $user->user_profile->email = $validatedData['email'];
+        $user->user_profile->phone = $validatedData['phone'];
+        $user->user_profile->postcode = $validatedData['postcode'];
+        $user->user_profile->division_id = $validatedData['division_id'];
+        $user->user_profile->district_id = $validatedData['district_id'];
+        if($request->state_id) {
+            $user->user_profile->state_id = $validatedData['state_id'];
+        }
+        $user->user_profile->save();
+        $notification = array('message' => __('system.profile_updated', [], app()->getLocale()), 'alert-type' => 'success');
+        return redirect()->route('profile.index')->with($notification);
     }
 }
