@@ -72,7 +72,7 @@ class CheckoutController extends Controller
     }
     public function checkoutStore(CheckoutRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
         $data['shipping_email'] = $request->shipping_email;
@@ -352,7 +352,7 @@ class CheckoutController extends Controller
     public function GetDistrictDeliveryRates($district_id)
     {
         $dist_rate=ShipDistrict::where('id', $district_id)->first();
-      
+
          return response()->json([
             'rate'=>$dist_rate
          ]);
