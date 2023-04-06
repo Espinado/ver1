@@ -44,6 +44,7 @@ use Illuminate\Http\Request;
 
 Route::get('/division/district/ajax/{division_id}', [Ship::class, 'DistrictAjax']);
 Route::get('/get/states/ajax/{district_id}', [CheckoutController::class, 'AjaxGetStates']);
+Route::get('/get/district/delivery/rates/{id}', [CheckoutController::class, 'GetDistrictDeliveryRates'])->name('getDistrictDeliveryRates');
 
 Route::group(
     [
@@ -208,6 +209,7 @@ Route::group(
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/shipping/information', [ProfileController::class, 'userShippingInfo'])->name('user.shipping.info');
+        Route::post('/shipping/information/update', [ProfileController::class, 'userShippingInfoUpdate'])->name('shipping.info.update');
         Route::get('/profile/edit', [ProfileController::class, 'profileEdit'])->name('user.profile.edit');
         Route::post('/profile/update', [ProfileController::class, 'profileUpdate'])->name('user.profile.update');
         Route::get('/password/change', [ProfileController::class, 'changePassword'])->name('user.change.password');
@@ -245,6 +247,9 @@ Route::group(
         Route::post('/cash/order', [CheckoutController::class, 'cashOrder'])->name('cash.order');
         Route::get('/afterpayment', [CheckoutController::class, 'afterPayment'])->name('product.afterpayment');
         Route::post('/afterpayment/notification', [CheckoutController::class, 'afterPaymentNotify'])->name('product.afterpayment.notification');
+
+
+
 
 
 

@@ -339,8 +339,12 @@
                 dataType: 'json',
                 success: function(response) {
 
+
                     couponCalculation()
                     var rows = ""
+                    
+
+
                     $.each(response.carts, function(key, value) {
                         rows += `<tr>
         <td class="col-md-2"><img src="/${value.options.image} " alt="imga" style="width:60px; height:60px;"></td>
@@ -378,12 +382,14 @@
                 </tr>`
                     });
 
+
                     $('#cartPage').html(rows);
 
                 }
             })
         }
         cart();
+
         //--------------------------------
 
         function cartIncrement(rowId) {

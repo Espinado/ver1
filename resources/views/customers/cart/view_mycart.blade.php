@@ -3,7 +3,10 @@
 @section('title')
     {{ __('system.cart_page') }}
 @endsection
-
+@php
+$cart=Cart::content();
+// dd($cart);
+@endphp
 
 <div class="breadcrumb">
     <div class="container">
@@ -19,9 +22,11 @@
 <div class="body-content">
     <div class="container">
         <div class="row ">
+             @if(!$cart->isEmpty())
             <div class="shopping-cart">
                 <div class="shopping-cart-table ">
                     <div class="table-responsive">
+
                         <table class="table">
                             <thead>
 
@@ -39,6 +44,7 @@
 
                             </tbody>
                         </table>
+
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12 estimate-ship-tax">
@@ -99,6 +105,9 @@
                     </table><!-- /table -->
                 </div><!-- /.cart-shopping-total -->
             </div><!-- /.row -->
+            @else
+            Empty cart
+            @endif
         </div><!-- /.sigin-in-->
 
 
