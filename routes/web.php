@@ -142,6 +142,7 @@ Route::group(
 
         Route::get('/shipped/orders/', [OrderController::class, 'shippedOrders'])->name('admin.shipped.orders')->middleware('admin');
         Route::get('/shipped/orders/details/{order_id}', [OrderController::class, 'shippedOrdersDetails'])->name('admin.shipped.orders.details')->middleware('admin');
+        Route::get('/order/invoice/{order_id}', [OrderController::class, 'orderInvoiceDownload'])->name('admin.order.invoice.download')->middleware('admin');
 
 
         Route::get('/manage/division', [Ship::class, 'divisionView'])->name('admin.manage.division')->middleware('admin');

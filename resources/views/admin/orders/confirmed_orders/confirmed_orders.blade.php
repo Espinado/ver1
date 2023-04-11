@@ -40,8 +40,10 @@
                                                   <td style="text-align: center">{{$order->payment_method}}</td>
                                                   <td style="text-align: center"><span class="badge badge-pill badge-warning">{{__('system.' . App\Enums\OrderStatus::getKey(intval($order->status)))}}</span></td>
                                                     <td style="text-align: center">
-                                                         <a href="{{ route('admin.confirmed.orders.details',$order->id ) }}" class="btn btn-sm btn-primary"><i
+                                                         <a href="{{ route('admin.confirmed.orders.details',$order->id ) }}" class="btn btn-info"><i
                                                             class="fa fa-eye"></i> </a>
+                                                            <a href="{{ route('admin.order.invoice.download',$order->id ) }}" class="btn btn-danger"><i
+                                                            class="fa fa-download" title="Download invoice"></i> </a>
 
 
                                                     </td>

@@ -52,8 +52,8 @@ class ProductController extends Controller
         $product->product_name            = $validatedData['product_name'];
         $product->brand_id                = $validatedData['brand_id'];
         $product->category_id             = $validatedData['category_id'];
-        $product->subcategory_id          = $validatedData['subcategory_id'];
-        $product->subsubcategory_id       = $validatedData['subsubcategory_id'];
+        $product->subcategory_id          = $request->subcategory_id;
+        $product->subsubcategory_id       = $request->subsubcategory_id;
         $product->product_code            = $validatedData['product_code'];
         $product->product_qty             = $validatedData['product_qty'];
         $product->slug                   = 'item';
