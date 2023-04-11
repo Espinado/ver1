@@ -8,13 +8,16 @@ use Illuminate\Http\Request;
 use App\Models\Customers\Order;
 use App\Models\Customers\OrderItem;
 use BenSampo\Enum\Enum;
+use PDF;
+use Illuminate\Support\Carbon;
+
 
 class OrderController extends Controller
 {
     public function __construct()
 
     {
-            $this->notification = array('message' => 'Status updated', 'alert-type' => 'success');
+        $this->notification = array('message' => 'Status updated', 'alert-type' => 'success');
     }
     public function pendingOrders()
     {
@@ -61,7 +64,7 @@ class OrderController extends Controller
     public function confirmOrder($id)
     {
         Order::where('id', $id)->update([
-         'status' => OrderStatus::confirmed
+            'status' => OrderStatus::confirmed
         ]);
 
 
@@ -72,14 +75,30 @@ class OrderController extends Controller
         Order::where('id', $id)->update([
             'status' => OrderStatus::processing
         ]);
-         return redirect('admin/confirmed/orders/')->with($this->notification);
+        return redirect('admin/confirmed/orders/')->with($this->notification);
     }
     public function markAsPickeupOrder($id)
     {
-       
+
         Order::where('id', $id)->update([
             'status' => OrderStatus::picked
         ]);
         return redirect('admin/processing/orders/')->with($this->notification);
+    }
+
+    public function orderInvoiceDownload($order_id)
+    {
+        $order = Order::with('division', 'district', 'state', 'user')
+        ->where('id', $order_id)->first();
+        $orderItem = OrderItem::with('product')
+        ->where('order_id', $order_id)
+            ->orderBy('id', 'DESC')->get();
+        $pdf = Pdf::loadView('customers.invoice.order_invoice', compact('order', 'orderItem'))
+        ->setPaper('a4')
+            ->setOptions([
+                'tempDir' => public_path(),
+                'chroot' => public_path()
+            ]);
+        return $pdf->download($order->invoice_no . '-' . Carbon::now()->format('Ymd') . '.pdf');
     }
 }

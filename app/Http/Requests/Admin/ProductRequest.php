@@ -27,8 +27,8 @@ class ProductRequest extends FormRequest
         $rules = [
             'brand_id'            => 'required',
             'category_id'         => 'required',
-            'subcategory_id'      => 'required',
-            'subsubcategory_id'   => 'required',
+            // 'subcategory_id'      => 'required',
+            // 'subsubcategory_id'   => 'required',
             'selling_price'       => 'required',
             'product_code' => 'required',
             'product_qty' => 'required',
@@ -61,8 +61,8 @@ class ProductRequest extends FormRequest
             'category_icon.required'        => 'Icon is required',
             'brand_id.required'             => 'Brand not selected',
             'category_id.required'          => 'Category not selected',
-            'subcategory_id.required'       => 'Category 1 not selected',
-            'subsubcategoryd_id.required'   => 'Category 2 not selected',
+            // 'subcategory_id.required'       => 'Category 1 not selected',
+            // 'subsubcategoryd_id.required'   => 'Category 2 not selected',
             'product_code.required'        => 'Product code is required',
             'product_qty.required'         => 'Product qty is required',
 
