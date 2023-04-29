@@ -55,56 +55,7 @@
 
                 <div class="col-6">
 
-                    {{-- <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">Add brand</h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <form method="post" action="{{ route('admin.brand.store') }}"
-                                    enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <h5>Brand name <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="brand_name" class="form-control" id="brand_name">
-                                            @error('brand_name')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <h5>Brand logo <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="file" name="brand_logo" class="form-control" required=""
-                                                id="brand_logo">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="widget-user-image">
-                                            <img class="rounded-circle" src="{{ url('no_image.jpg') }}"
-                                                style="width:70px; height:40px;" alt="User Avatar" id="brand_logo_preview">
-
-                                        </div>
-                                    </div>
-
-                                    <div class="text-xs-right">
-                                        <input type="submit" class="btn btn-rounded btn-primary mb-5" value="Update">
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
-                    </div> --}}
-                    <!-- /.box -->
-
-
-                    <!-- /.box -->
+                
                 </div>
                 <!-- /.col -->
             </div>

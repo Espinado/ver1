@@ -13,22 +13,22 @@
                                     <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                                 class="fa fa-map-marker fa-stack-1x fa-inverse"></i> </span> </div>
                                     <div class="media-body">
-                                        <p>ThemesGround, 789 Main rd, Anytown, CA 12345 USA</p>
+                                        <p>Čaka iela 24, Rīga</p>
                                     </div>
                                 </li>
                                 <li class="media">
                                     <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                                 class="fa fa-mobile fa-stack-1x fa-inverse"></i> </span> </div>
                                     <div class="media-body">
-                                        <p>+(888) 123-4567<br>
-                                            +(888) 456-7890</p>
+                                        <p>+(371) 110<br>
+                                            +(371) 112</p>
                                     </div>
                                 </li>
                                 <li class="media">
                                     <div class="pull-left"> <span class="icon fa-stack fa-lg"> <i
                                                 class="fa fa-envelope fa-stack-1x fa-inverse"></i> </span> </div>
                                     <div class="media-body"> <span><a
-                                                href="#">flipmart@themesground.com</a></span> </div>
+                                                href="#">honneybuney@arguss.lv</a></span> </div>
                                 </li>
                             </ul>
                         </div>
@@ -46,8 +46,8 @@
                             <ul class='list-unstyled'>
                                 <li class="first"><a href="{{route('terms')}}" title="{{ __('system.terms_conditions') }}">{{ __('system.terms_conditions') }}</a></li>
                                 <li><a href="{{route('faq')}}" title="{{ __('system.faq') }}">{{ __('system.faq') }}</a></li>
-                                <li><a href="#" title="{{ __('system.delivery_conditions') }}">{{ __('system.delivery_conditions') }}</a></li>
-                                <li class="last"><a href="#" title="{{ __('system.contactus') }}">{{ __('system.contactus') }}</a>
+                                {{-- <li><a href="#" title="{{ __('system.delivery_conditions') }}">{{ __('system.delivery_conditions') }}</a></li> --}}
+                                <li class="last"><a href="{{route('contacts')}}" title="{{ __('system.contactus') }}">{{ __('system.contactus') }}</a>
                                 </li>
                             </ul>
                         </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="copyright-bar">
             <div class="container">
-                <div class="col-xs-12 col-sm-6 no-padding social">
+                {{-- <div class="col-xs-12 col-sm-6 no-padding social">
                     <ul class="link">
                         <li class="fb pull-left"><a target="_blank" rel="nofollow" href="#"
                                 title="Facebook"></a></li>
@@ -78,7 +78,7 @@
                         <li class="youtube pull-left"><a target="_blank" rel="nofollow" href="#"
                                 title="Youtube"></a></li>
                     </ul>
-                </div>
+                </div> --}}
                 <div class="col-xs-12 col-sm-6 no-padding">
                     <div class="clearfix payment-methods">
                         <ul>
