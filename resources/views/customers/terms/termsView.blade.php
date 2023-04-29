@@ -41,7 +41,8 @@
 		<h3>Contact Us</h3>
 		<p>If you have any questions about this Agreement, please contact us filling this <a href="#" class='contact-form'>contact form</a></p>
 	</div>
-</div>			</div><!-- /.row -->
+</div>
+	</div><!-- /.row -->
 		</div><!-- /.sigin-in-->
 
 </div><!-- /.body-content -->

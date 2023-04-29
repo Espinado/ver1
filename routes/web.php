@@ -11,17 +11,18 @@ use App\Http\Controllers\Admins\OrderController;
 use App\Http\Controllers\Admins\AdminProfileController;
 use App\Http\Controllers\Admins\CouponController;
 use App\Http\Controllers\Admins\ShippingAreaController as Ship;
+use App\Http\Controllers\Admins\SliderController;
+use App\Http\Controllers\Admins\BlogController;
+use App\Http\Controllers\Admins\FAQController;
 
 use App\Http\Controllers\SellerController as Seller;
 
 use App\Http\Controllers\Customers\IndexController;
 use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
-use App\Http\Controllers\Admins\SliderController;
 use App\Http\Controllers\Customers\WishlistController;
 use App\Http\Controllers\Customers\CheckoutController;
-use App\Http\Controllers\Admins\BlogController;
-use App\Http\Controllers\Admins\FAQController;
+
 
 
 use Illuminate\Http\Request;
@@ -214,6 +215,8 @@ Route::group(
         Route::get('/', [IndexController::class, 'index'])->name('index');
         Route::get('/faq', [IndexController::class, 'faq'])->name('faq');
         Route::get('/terms', [IndexController::class, 'terms'])->name('terms');
+        Route::get('/contacts', [IndexController::class, 'contacts'])->name('contacts');
+        Route::post('/send-message', [IndexController::class, 'sendMessage'])->name('send.message');
 
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
