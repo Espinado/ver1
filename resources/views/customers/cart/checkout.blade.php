@@ -184,30 +184,43 @@
                                             </h4>
 
                                             <div class="form-group">
-                                                <label class="info-title" for="payment"><b><img
-                                                            src="{{ asset('customers/assets/images/payments/3.png') }}"></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                </label>
-                                                <input type="radio" name="payment_method" value="stripe"
+                                                 <input type="radio" name="payment_method" value="stripe"
                                                     title="card">
+                                                <label class="info-title" for="payment"><b>
+                                                    <img src="{{ asset('customers/assets/images/payments/3.png') }}"></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </label>
+
 
                                             </div>
                                             <div class="form-group" title="cash">
-                                                <label class="info-title" for="payment"><b> <img
-                                                            src="{{ asset('customers/assets/images/payments/cash.png') }}"
+                                                <input type="radio" name="payment_method" value="cash"
+                                                    title="cash">
+                                                <label class="info-title" for="payment"><b>
+                                                     <img src="{{ asset('customers/assets/images/payments/cash.png') }}"
                                                             height="34px" title="cash"></b>
 
                                                 </label>
-                                                <input type="radio" name="payment_method" value="cash"
-                                                    title="cash">
+
                                             </div>
                                             <div class="form-group" title="bank">
-                                                <label class="info-title" for="payment"><b> <img
-                                                            src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
+                                                 <input type="radio" name="payment_method" value="bank"
+                                                    title="bank">
+                                                <label class="info-title" for="payment"><b>
+                                                     <img src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
                                                             height="34px" title="bank"></b>
 
                                                 </label>
-                                                <input type="radio" name="payment_method" value="bank"
-                                                    title="bank">
+
+                                            </div>
+                                             <div class="form-group" title="bank">
+                                                <input type="radio" name="payment_method" value="paypal"
+                                                    title="Paypal">
+                                                <label class="info-title" for="payment"><b>
+                                                    <img src="{{ asset('customers/assets/images/payments/1.png') }}"
+                                                            height="34px" title="Paypal"></b>
+
+                                                </label>
+
                                             </div>
 
                                             @error('payment_method')

@@ -14,8 +14,8 @@
                          <div class="excerpt fadeInDown-2 hidden-xs">
                              <span>{{ $slider->description }}<span>
                          </div>
-                         <div class="button-holder fadeInDown-3"> <a href="index.php?page=single-product"
-                                 class="btn-lg btn btn-uppercase btn-primary shop-now-button">{{ __('system.shop_now') }}</a> </div>
+                         {{-- <div class="button-holder fadeInDown-3"> <a href="index.php?page=single-product"
+                                 class="btn-lg btn btn-uppercase btn-primary shop-now-button">{{ __('system.shop_now') }}</a> </div> --}}
                      </div>
                      <!-- /.caption -->
                  </div>

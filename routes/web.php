@@ -170,6 +170,14 @@ Route::group(
         Route::get('/blog/delete/{id}', [BlogController::class, 'deleteBlog'])->name('admin.blog.delete')->middleware('admin');
         Route::post('/blog/update/{id}', [BlogController::class, 'updateBlog'])->name('admin.blog.update')->middleware('admin');
 
+        Route::get('/manage/faq/', [FAQController::class, 'faqView'])->name('admin.manage.faq')->middleware('admin');
+        Route::get('/add/faq/', [FAQController::class, 'addFaq'])->name('admin.add.faq')->middleware('admin');
+        Route::post('store/faq', [FaqController::class, 'storeFaq'])->name('admin.store.faq')->middleware('admin');
+        Route::get('/faq/edit/{id}', [FaqController::class, 'editFaq'])->name('admin.faq.edit')->middleware('admin');
+        Route::get('/faq/delete/{id}', [FaqController::class, 'deleteFaq'])->name('admin.faq.delete')->middleware('admin');
+        Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('admin.faq.update')->middleware('admin');
+
+
         Route::get('/manage/faqs/', [FAQController::class, 'faqView'])->name('admin.manage.faqs')->middleware('admin');
 
 

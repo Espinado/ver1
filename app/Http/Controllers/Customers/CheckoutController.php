@@ -26,6 +26,7 @@ use LaravelLocalization;
 use GuzzleHttp\Exception\RequestException;
 use App\Helpers\newOrder;
 use App\Notifications\OrderCreated;
+use App\Http\Controllers\Customers\Payments\PayPayController;
 
 class CheckoutController extends Controller
 {
@@ -72,7 +73,8 @@ class CheckoutController extends Controller
     }
     public function checkoutStore(CheckoutRequest $request)
     {
-        dd($request->all());
+
+        $dist_rate = ShipDistrict::where('id', $request->district_id)->first();
         $data = array();
         $data['shipping_name'] = $request->shipping_name;
         $data['shipping_email'] = $request->shipping_email;
@@ -82,7 +84,8 @@ class CheckoutController extends Controller
         $data['district_id'] = $request->district_id;
         $data['state_id'] = $request->state_id;
         $data['notes'] = $request->notes;
-        $data['cartTotal'] = Cart::total();
+        $data['delivery_cost']=$dist_rate->delivery_cost;
+        $data['cartTotal'] = Cart::total() + $data['delivery_cost'];
 
 
         if ($request->payment_method == 'stripe') {
@@ -94,9 +97,9 @@ class CheckoutController extends Controller
             $request->payment_method == 'bank'
         ) {
             if (Session::has('coupon')) {
-                $total_amount = Session::get('coupon')['total_amount'];
+                $total_amount = Session::get('coupon')['total_amount'] + $data['delivery_cost'];
             } else {
-                $total_amount = round(Cart::total());
+                $total_amount = round(Cart::total() + $data['delivery_cost']);
             }
 
             $payload = [
@@ -106,7 +109,7 @@ class CheckoutController extends Controller
                 'notificationUrl'   => route('product.afterpayment.notification'),
                 'currency'          => 'EUR',
 
-                'grandTotal'        => $total_amount,
+                'grandTotal'        => $total_amount + $data['delivery_cost'],
 
                 'locale'            => 'lv',
                 'billingAddress'    => [
@@ -137,7 +140,7 @@ class CheckoutController extends Controller
                 $lineItem = [
                     'name'       => $cart->name,
                     'quantity'   => intval($cart->qty),
-                    'finalPrice' => $cart->price,
+                    'finalPrice' => $cart->price+ $data['delivery_cost'],
                 ];
                 array_push($payload['lineItems'], $lineItem);
                 // dd($payload['lineItems']);
@@ -175,6 +178,9 @@ class CheckoutController extends Controller
             $result = $response->getBody()->getContents();
             $data = json_decode($result, true);
             return redirect()->away($data['paymentUrl']);
+        } else if ($request->payment_method == 'paypal') {
+            $payPayController = new PayPayController();
+            $payPayController->init($data);
         }
     }
     public function StripeOrder(Request $request)
@@ -184,7 +190,7 @@ class CheckoutController extends Controller
         } else {
             $total_amount = round(Cart::total());
         }
-        \Stripe\Stripe::setApiKey('sk_test_51MdxE0LYuNRuHnSIhONSDVwEZcL8ufLCYoyx2sX69ZbwNv1q4nPb5K6P0ocnpxlzalUQsx0p9dc0jZrMPa9msHFQ0035WAp0Fv');
+        \Stripe\Stripe::setApiKey(config('payments.stripe.' . env('APP_ENV')));
         $token = $_POST['stripeToken'];
         try {
             $charge = \Stripe\Charge::create([

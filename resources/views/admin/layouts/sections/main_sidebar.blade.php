@@ -150,7 +150,7 @@
                 </ul>
             </li>
 
-            <li class="header nav-small-cap">{{ __('system.blogs') }}</li>
+            <li class="header nav-small-cap">{{ __('system.pages') }}</li>
 
             <li class="treeview {{ $route == 'admin.manage.blogs' ? 'active' : '' }}">
                 <a href="#">
@@ -168,6 +168,27 @@
                     <li class="{{ $route == 'admin.add.blog' ? 'active' : '' }}">
                         <a href="{{ route('admin.add.blog') }}">
                             <i class="ti-more"></i>{{ __('system.add_blog') }}</a>
+                    </li>
+
+
+                </ul>
+            </li>
+             <li class="treeview {{ $route == 'admin.manage.faq' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="credit-card"></i>
+                    <span>{{ __('system.faq') }}</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.manage.faq' ? 'active' : '' }}">
+                        <a href="{{ route('admin.manage.faq') }}">
+                            <i class="ti-more"></i>{{ __('system.faq') }}</a>
+                    </li>
+                    <li class="{{ $route == 'admin.add.faq' ? 'active' : '' }}">
+                        <a href="{{ route('admin.add.faq') }}">
+                            <i class="ti-more"></i>{{ __('system.add_faq') }}</a>
                     </li>
 
 

@@ -114,7 +114,10 @@ class IndexController extends Controller
 
     public function faq() {
         $faqs=Faq::all();
-        return view ('customers.faq.faqView', compact('faqs'));
+        $latest_faq = FAQ::latest()->first();
+        $last_created_date = $latest_faq->created_at->format('d-m-Y');
+        // dd($last_created_date);
+        return view ('customers.faq.faqView', compact('faqs', 'last_created_date'));
 
     }
     public function terms() {

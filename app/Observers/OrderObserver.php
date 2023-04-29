@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Customers\Order;
+use Illuminate\Database\Eloquent\Observers\Observer;
 
 class OrderObserver
 {
@@ -30,7 +31,7 @@ class OrderObserver
      */
     public function updated(Order $order)
     {
-        //
+        dd('Order updated!', $order);
     }
 
     /**

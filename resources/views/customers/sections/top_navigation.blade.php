@@ -7,7 +7,8 @@
                                 @endphp
 
                                 @foreach ($categories as $category)
-                                    <li class="dropdown menu-item"> <a href="{{url('/product/category/'.$category->id.'/'.$category->slug)}}" class="dropdown-toggle"
+                                    <li class="dropdown menu-item">
+                                        <a href="{{url('/product/category/'.$category->id.'/'.$category->slug)}}" class="dropdown-toggle"
                                             data-toggle="dropdown"><i class="icon fa fa-shopping-bag"
                                                 aria-hidden="true"></i>{{ $category->category_name }}</a>
                                         <ul class="dropdown-menu mega-menu">
@@ -18,6 +19,7 @@
                                                             ->orderBy('subcategory_name', 'asc')
                                                             ->get();
                                                     @endphp
+                                                    
                                                     @foreach ($subcategories as $subcategory)
                                                         <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
                                                             <a href="{{url('/product/subcategory/'.$subcategory->id.'/'.$subcategory->slug)}}"><h2 class="title">{{ $subcategory->subcategory_name }}</h2></a>

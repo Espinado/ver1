@@ -25,6 +25,7 @@
         "laravel/tinker": "^2.5",
         "mcamara/laravel-localization": "^1.7",
         "paragonie/sodium_compat": "^1.19",
+        "paypal/rest-api-sdk-php": "^1.6",
         "spatie/laravel-permission": "^5.5",
         "spatie/laravel-sluggable": "^3.4",
         "spatie/laravel-translatable": "^6.3",

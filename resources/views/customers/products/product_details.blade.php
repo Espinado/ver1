@@ -20,7 +20,7 @@
             <ul class="list-inline list-unstyled">
                 <li><a href="{{route('index')}}">Home</a></li>
                 <li><a href="#">{{$product['category']['category_name']}}</a></li>
-                @if($product['subcategory']['subcategory_name'])
+                @if($product['subcategory'])
                 <li><a href="#">{{$product['subcategory']['subcategory_name']}}</a></li>
                 @endif
                 <li class='active'>{{$product->product_name}}</li>
@@ -151,10 +151,10 @@
 
                                         <div class="col-sm-6">
                                             <div class="favorite-button m-t-10">
-                                                <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
+                                                {{-- <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
                                                     title="Wishlist" href="#">
                                                     <i class="fa fa-heart"></i>
-                                                </a>
+                                                </a> --}}
                                                 {{-- <a class="btn btn-primary" data-toggle="tooltip" data-placement="right"
                                                     title="Add to Compare" href="#">
                                                     <i class="fa fa-signal"></i>
@@ -169,22 +169,22 @@
                                     </div><!-- /.row -->
 
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        {{-- <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="info-title control-label">{{ __('system.choose_color') }}
                                                     <span>*</span></label>
                                                 <select class="form-control unicase-form-control selectpicker"
                                                     style="display: none;" id="color">
-                                                    <option selected="" disabled="" value="">--{{ __('system.choose_color') }}--</option>
+                                                    <option  value="">--{{ __('system.choose_color') }}--</option>
                                                     @foreach ($product_colors as $color)
                                                         <option value="{{ $color }}">{{ ucwords($color) }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-sm-6">
+                                        {{-- <div class="col-sm-6">
                                             <div class="form-group">
                                                 @if ($product->product_size == null)
                                                 @else
@@ -201,7 +201,7 @@
                                                 @endif
                                             </div>
 
-                                        </div>
+                                        </div> --}}
 
                                     </div><!-- /.row -->
 
@@ -210,29 +210,32 @@
                                 <div class="quantity-container info-container">
                                     <div class="row">
 
-                                        <div class="col-sm-2">
+                                        {{-- <div class="col-sm-2">
                                             <span class="label">{{ __('system.qty') }} :</span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-sm-2">
-                                            <div class="cart-quantity">
+                                            {{-- <div class="cart-quantity">
                                                 <div class="quant-input">
-                                                    <div class="arrows">
+                                                    <div class="arrows"> --}}
                                                         {{-- <div class="arrow plus gradient"><span class="ir"><i
                                                                     class="icon fa fa-sort-asc"></i></span></div>
                                                         <div class="arrow minus gradient"><span class="ir"><i
-                                                                    class="icon fa fa-sort-desc"></i></span></div> --}}
-                                                    </div>
-                                                    <input type="number" id="qty" value="1"
+                                                                    {{-- class="icon fa fa-sort-desc"></i></span></div> --}}
+                                                    {{-- </div> --}}
+                                                    {{-- <input type="number" id="qty" value="1"
                                                         min="1">
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <input type="hidden" name="id" id="product_id"
                                             value="{{ $product->id }}">"
                                         <div class="col-sm-7">
-                                            <button type="submit" onclick="addToCart()" class="btn btn-primary">
+                                            <button type="submit" onclick="productView(this.id)" class="btn btn-primary" data-toggle="modal"
+                                      data-target="#exampleModal" id="{{ $product->id }}">
                                                 <i class="fa fa-shopping-cart inner-right-vs"></i>{{ __('system.add_to_cart') }}</button>
+
+
                                         </div>
 
 
@@ -315,33 +318,7 @@
                                             </div><!-- /.product-price -->
 
                                         </div><!-- /.product-info -->
-                                        <div class="cart clearfix animate-effect">
-                                            <div class="action">
-                                                <ul class="list-unstyled">
-                                                    <li class="add-cart-button btn-group">
-                                                        <button class="btn btn-primary icon" data-toggle="dropdown"
-                                                            type="button">
-                                                            <i class="fa fa-shopping-cart"></i>
-                                                        </button>
-                                                        <button class="btn btn-primary cart-btn" type="button">Add to
-                                                            cart</button>
-
-                                                    </li>
-
-                                                    <li class="lnk wishlist">
-                                                        <a class="add-to-cart" href="detail.html" title="Wishlist">
-                                                            <i class="icon fa fa-heart"></i>
-                                                        </a>
-                                                    </li>
-
-                                                    <li class="lnk">
-                                                        <a class="add-to-cart" href="detail.html" title="Compare">
-                                                            <i class="fa fa-signal"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div><!-- /.action -->
-                                        </div><!-- /.cart -->
+                                        @include('customers.sections.products.carts')<!-- /.cart -->
                                     </div><!-- /.product -->
 
                                 </div><!-- /.products -->
