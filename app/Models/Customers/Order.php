@@ -12,10 +12,7 @@ class Order extends Model
     use Notifiable;
     use HasFactory;
     protected $guarded = [];
-    protected $dispatchesEvents = [
-        'created' => OrderCreated::class,
-        'updated' => OrderCreated::class,
-    ];
+   
 
 
     public function updatedDate()

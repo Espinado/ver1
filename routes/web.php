@@ -14,6 +14,7 @@ use App\Http\Controllers\Admins\ShippingAreaController as Ship;
 use App\Http\Controllers\Admins\SliderController;
 use App\Http\Controllers\Admins\BlogController;
 use App\Http\Controllers\Admins\FAQController;
+use App\Http\Controllers\Admins\ReportController;
 
 use App\Http\Controllers\SellerController as Seller;
 
@@ -22,6 +23,10 @@ use App\Http\Controllers\Customers\ProfileController;
 use App\Http\Controllers\Customers\CartController;
 use App\Http\Controllers\Customers\WishlistController;
 use App\Http\Controllers\Customers\CheckoutController;
+use App\Http\Controllers\Customers\Payments\PayPalController;
+use App\Http\Controllers\Customers\Payments\CashController;
+use App\Http\Controllers\Customers\Payments\StripeController;
+use App\Http\Controllers\Customers\Payments\MontonioController;
 
 
 
@@ -177,9 +182,9 @@ Route::group(
         Route::get('/faq/edit/{id}', [FaqController::class, 'editFaq'])->name('admin.faq.edit')->middleware('admin');
         Route::get('/faq/delete/{id}', [FaqController::class, 'deleteFaq'])->name('admin.faq.delete')->middleware('admin');
         Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('admin.faq.update')->middleware('admin');
-
-
         Route::get('/manage/faqs/', [FAQController::class, 'faqView'])->name('admin.manage.faqs')->middleware('admin');
+
+        Route::get('/reports', [ReportController::class, 'reports'])->name('admin.reports')->middleware('admin');
 
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
@@ -255,10 +260,18 @@ Route::group(
 
         Route::get('/checkout', [CheckoutController::class, 'index'])->name('product.checkout');
         Route::post('/checkout/store', [CheckoutController::class, 'checkoutStore'])->name('checkout.store');
-        Route::post('/stripe/order', [CheckoutController::class, 'StripeOrder'])->name('stripe.order');
-        Route::post('/cash/order', [CheckoutController::class, 'cashOrder'])->name('cash.order');
-        Route::get('/afterpayment', [CheckoutController::class, 'afterPayment'])->name('product.afterpayment');
+        Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
+
+        Route::post('/bank/order', [MontonioController::class, 'proceedToPayment'])->name('bank.order');
+
+
+        Route::post('/cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
+        Route::get('/after', [CheckoutController::class, 'afterPayment'])->name('after');
         Route::post('/afterpayment/notification', [CheckoutController::class, 'afterPaymentNotify'])->name('product.afterpayment.notification');
+
+        Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
+        Route::get('cancel',  [PayPalController::class,'cancel'])->name('payment.cancel');
+        Route::get('payment/success',  [PayPalController::class, 'success'])->name('payment.success');
 
 
 

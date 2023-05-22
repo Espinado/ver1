@@ -5,6 +5,7 @@
         justify-content: center;
         align-items: center;
         align-content: center;
+
         padding: 20px;
         z-index: 4242;
         flex-wrap: wrap;
@@ -13,6 +14,9 @@
         margin: 20px;
         border-radius: 20px;
     }
+    .title {
+   text-align: center;
+    },
     .eu-popup-button {
         background-color: white;
         padding: 10px;
@@ -37,7 +41,7 @@
 <div style="{{ config('eu-cookie-consent.popup_style') }}" class="{{ config('eu-cookie-consent.popup_classes') }}">
     {{-- Popup Title gets displayed if its set in the config --}}
     @if(isset($config['title']))
-        <div style="width: 100%">
+        <div style="width: 100%; al">
             <p>
                 <b>
                     {{-- Popup MultiLanguageSupport defines if the Text is written from the lang file or directly form the Config. --}}

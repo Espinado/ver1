@@ -49,16 +49,29 @@
 
                                                 <div class="form-group">
                                                     <label class="info-title"
-                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_name') }}</b>
+                                                        ><b>{{ __('system.shipping_name') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                        id="exampleInputEmail1" name="shipping_name"
-                                                        placeholder="Full name"
-                                                        value="{{ $user['user_profile']['name'] . ' ' . $user['user_profile']['surname'] }}">
+                                                         name="shipping_name" placeholder="Name"
+                                                        value="{{ $user['user_profile']['name'] }}">
                                                     @error('shipping_name')
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="info-title"
+                                                        ><b>{{ __('system.shipping_surname') }}</b>
+                                                        <span>*</span></label>
+                                                    <input type="text"
+                                                        class="form-control unicase-form-control text-input"
+                                                         name="shipping_surname" placeholder="Surname"
+                                                        value="{{ $user['user_profile']['surname'] }}">
+                                                    @error('shipping_surname')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
+
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="info-title"
@@ -66,7 +79,7 @@
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                        id="exampleInputEmail1" name="shipping_email"
+                                                         name="shipping_email"
                                                         placeholder="Full email"
                                                         value="{{ $user['user_profile']['email'] }}">
                                                     @error('shipping_email')
@@ -86,19 +99,7 @@
                                                         <span class="text-danger"><b>{{ $message }}</b></span>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="info-title"
-                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_postcode') }}</b>
-                                                        <span>*</span></label>
-                                                    <input type="text"
-                                                        class="form-control unicase-form-control text-input"
-                                                        id="exampleInputEmail1" name="shipping_postcode"
-                                                        placeholder="Postcode"
-                                                        @auth value="{{ $user['user_profile']['postcode'] }}" @endauth>
-                                                    @error('shipping_postcode')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
-                                                    @enderror
-                                                </div>
+
 
 
                                             </div>
@@ -169,7 +170,20 @@
                                                     <label class="info-title"
                                                         for="exampleInputEmail1"><b>{{ __('system.notes') }}</b>
                                                         <span>*</span></label>
-                                                    <textarea class="form-control" cols="30" rows="5" placeholder="{{ __('system.notes') }}" name="notes"></textarea>
+                                                    <textarea class="form-control" cols="20" rows="2" placeholder="{{ __('system.notes') }}" name="notes"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="info-title"
+                                                        for="exampleInputEmail1"><b>{{ __('system.shipping_postcode') }}</b>
+                                                        <span>*</span></label>
+                                                    <input type="text"
+                                                        class="form-control unicase-form-control text-input"
+                                                        id="exampleInputEmail1" name="shipping_postcode"
+                                                        placeholder="Postcode"
+                                                         value="{{ $user['user_profile']['postcode'] }}">
+                                                    @error('shipping_postcode')
+                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    @enderror
                                                 </div>
 
                                             </div>
@@ -246,7 +260,7 @@
                                                         for="shipping_method"><b>{{ __('system.collect_in_store') }}</b>
                                                         &nbsp;</label>
                                                     <input type="radio" name="shipping_method" value="self"
-                                                        data-cost="0,00">
+                                                        data-cost="0.00" checked>
                                                     <input type="text" name="shipping_cost" value="0.00"
                                                         disabled style="width:50px;">EUR
                                                 </div>
@@ -351,6 +365,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+         $('#cost').html('0.00');
         $('#district').select2({
             placeholder: 'Select district',
             language: "fr",

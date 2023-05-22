@@ -63,9 +63,9 @@ class OrderController extends Controller
 
     public function confirmOrder($id)
     {
-        Order::where('id', $id)->update([
-            'status' => OrderStatus::confirmed
-        ]);
+        $order = Order::find($id);
+        $order->status = OrderStatus::confirmed;
+        $order->save();
 
 
         return redirect('admin/pending/orders/')->with($this->notification);

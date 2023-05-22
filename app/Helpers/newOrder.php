@@ -15,33 +15,41 @@ class newOrder
 {
 
 
-    public static function createOrderRecord($data, $total_amount)
+    public static function createOrderRecord($data)
     {
+// dd($data);
+         $order=new Order();
 
-        $order_id = Order::insertGetId([
-            'user_id' => Auth::id(),
-            'division_id' => $data['division_id'],
-            'district_id' => $data['district_id'],
-            'state_id' => $data['state_id'],
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'post_code' => $data['post_code'],
-            'notes' => $data['notes'],
-            'order_number' => 'RvR-' . substr(md5(rand()), 0, 10),
-            'invoice_no' => 'RvR' . mt_rand(10000000, 99999999),
-            'payment_type' => $data['payment_type'],
-            'payment_method' => $data['payment_method'],
-            'transaction_id' => $data['transaction_id'],
-            'currency' =>  'EUR',
-            'amount' => $total_amount,
-            'order_date' => Carbon::now()->format('d F Y'),
-            'order_month' => Carbon::now()->format('F'),
-            'order_year' => Carbon::now()->format('Y'),
-            'status' => OrderStatus::pending,
-            'created_at' => Carbon::now(),
+            $order->user_id               = Auth::id();
+            $order->division_id           = $data['division_id'];
+            $order->district_id           =$data['district_id'];
+            $order->state_id              = $data['state_id'];
+            $order->name                 = $data['shipping_name'];
+            $order->email                = $data['shipping_email'];
+            $order->phone                = $data['shipping_phone'];
+            $order->post_code             = $data['post_code'];
+            $order->notes                 = $data['notes'];
+            $order->order_number            = $data['order_no'];
+            $order->invoice_no              = $data['invoice_no'];
+            $order->payment_type             = $data['payment_type'];
+            $order->payment_method             = $data['payment_method'];
+            $order->transaction_id  =          $data['transaction_id'];
+            $order->shipping_method =         $data['shipping_method'];
+            $order->delivery_cost =         $data['delivery_cost'];
+            $order->amount_without_tax=      $data['GrandTotal_without_tax'];
+            $order->currency                 =  'EUR';
+            $order->tax_sum=                   $data['tax_sum'];
+            $order->amount                   = $data['GrandTotal'];
+            $order->order_date                   =   Carbon::now()->format('d F Y');
+            $order->order_month                  =  Carbon::now()->format('F');
+            $order->order_year                  = Carbon::now()->format('Y');
+            $order->status                      = OrderStatus::pending;
+            $order->created_at                  = Carbon::now();
+            $order->save();
+        $order_id = $order->id;
 
-        ]);
+
+
         $carts = Cart::content();
         foreach ($carts as $cart) {
             OrderItem::insert([

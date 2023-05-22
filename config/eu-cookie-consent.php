@@ -61,7 +61,7 @@ return [
             //The key defines the translation key in the translations for this category.
             'essential' => [
                 //Optional: The description defines the key in the translations for the category description
-                'description' => 'essential_description',
+                // 'description' => 'essential_description',
                 //In this array you can define all the Cookies you want to request form the User
                 'cookies' => [
                     //The key defines the key in the translations and is used to access the Cookie specific information

@@ -17,7 +17,7 @@
     </div><!-- /.container -->
 </div><!-- /.breadcrumb -->
 
-
+{{-- @dd($data) --}}
 <div class="body-content">
     <div class="container">
         <div class="checkout-box ">
@@ -38,30 +38,40 @@
                                         <hr>
                                         <li>
                                             @if (Session::has('coupon'))
-                                                <strong>{{ __('system.subtotal') }}: </strong> ${{ $data['cartTotal'] }}
-                                                <hr>
+                                                    <strong>Amount: </strong> EUR {{ $data['SubTotal_without_discount'] }}
+                                                    <hr>
 
-                                                <strong>{{ __('system.coupon_name') }} : </strong>
-                                                {{ session()->get('coupon')['coupon_name'] }}
-                                                ( {{ session()->get('coupon')['coupon_discount'] }} % )
-                                                <hr>
+                                                    <strong>Coupon Name : </strong>
+                                                    {{ session()->get('coupon')['coupon_name'] }}
+                                                    ( {{ session()->get('coupon')['coupon_discount'] }} % )
+                                                    <hr>
+                                                     <strong>Coupon Discount : </strong> EUR
+                                                    {{ session()->get('coupon')['discount_amount'] }}
+                                                    <hr>
+                                                    <strong>SubTotal: </strong> EUR {{ $data['SubTotal_with_discount'] }}
+                                                    <hr>
+                                                    <strong>Tax {{$data['tax_rate']}}%: </strong>  &nbspEUR &nbsp{{ $data['tax_sum'] }}
+                                                    <hr>
+                                                     <strong>Delivery cost: </strong> EUR {{ $data['delivery_cost'] }}
+                                                     <hr>
 
-                                                <strong>{{ __('system.coupon_discount') }} : </strong>
-                                                ${{ session()->get('coupon')['discount_amount'] }}
-                                                <hr>
 
-                                                <strong>{{ __('system.grand_total') }} : </strong>
-                                                ${{ session()->get('coupon')['total_amount'] }}
-                                                <hr>
-                                            @else
-                                                <strong>{{ __('system.subtotal') }}: </strong>
-                                                ${{ $data['cartTotal'] }}
-                                                <hr>
 
-                                                <strong>{{ __('system.grand_total') }} : </strong>
-                                                ${{ $data['cartTotal'] }}
-                                                <hr>
-                                            @endif
+                                                    <strong>Grand Total : </strong> EUR
+                                                    {{ session()->get('coupon')['total_amount']+ $data['delivery_cost']  }}
+                                                    <hr>
+                                                @else
+                                                    <strong>SubTotal: </strong> EUR {{ $data['SubTotal_without_discount'] }}
+                                                    <hr>
+                                                    <strong>Tax: </strong> EUR {{ $data['tax_sum'] }}
+                                                    <hr>
+
+                                                     <strong>Delivery cost: </strong> EUR {{ $data['delivery_cost'] }}
+                                                     <hr>
+
+                                                    <strong>Grand Total : </strong> EUR {{ $data['GrandTotal']  }}
+                                                    <hr>
+                                                @endif
 
                                         </li>
 
@@ -88,18 +98,8 @@
                                     @csrf
                                     <div class="form-row">
                                         <label for="card-element">
-                                            <input type="hidden" name="name" value="{{ $data['shipping_name'] }}">
-                                            <input type="hidden" name="email" value="{{ $data['shipping_email'] }}">
-                                            <input type="hidden" name="payment_type" value="Card">
-                                            <input type="hidden" name="payment_method" value="Card">
-                                            <input type="hidden" name="phone" value="{{ $data['shipping_phone'] }}">
-                                            <input type="hidden" name="post_code" value="{{ $data['post_code'] }}">
-                                            <input type="hidden" name="division_id"
-                                                value="{{ $data['division_id'] }}">
-                                            <input type="hidden" name="district_id"
-                                                value="{{ $data['district_id'] }}">
-                                            <input type="hidden" name="state_id" value="{{ $data['state_id'] }}">
-                                            <input type="hidden" name="notes" value="{{ $data['notes'] }}">
+                                             <input type="hidden" name="data" value="{{ json_encode($data) }}">
+
                                             {{ __('system.credit_or_debit_card') }}
                                         </label>
 
