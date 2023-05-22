@@ -21,6 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'name',
+        'surname',
         'email',
         'password',
         'profile_photo_path',
@@ -45,6 +46,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function routeNotificationFor()
+    {
+        return [
+            'mail' => $this->email,
+            'vonage' => $this->phone,
+        ];
+    }
     public function user_profile()
     {
         return $this->hasOne('App\Models\Customers\UserProfile', 'user_id', 'id');

@@ -6,11 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Vonage\SMS\Message\Simple;
-use Vonage\Client\Credentials\Basic;
-use Vonage\Client;
+use Illuminate\Notifications\Messages\VonageMessage;
 
-class OrderCreated extends Notification
+class CustomerMessageNotification extends Notification
 {
     use Queueable;
 
@@ -19,8 +17,9 @@ class OrderCreated extends Notification
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct($data)
     {
+
         $this->data = $data;
     }
     /**
@@ -31,7 +30,7 @@ class OrderCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail', 'vonage'];
     }
 
     /**
@@ -41,20 +40,20 @@ class OrderCreated extends Notification
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
 
-    public function toVonage($notifiable)
+    public function toVonage($notifiable): VonageMessage
     {
-       $basic  = new \Vonage\Client\Credentials\Basic("e2150a5a", "MWcfcGSwbinezJ8a");
-            $client = new \Vonage\Client($basic);
-            $response = $client->sms()->send(new \Vonage\SMS\Message\SMS('+37126161034', 'Arguss shop', 'Order Nr.' ));
 
-        return $response;
+        return (new VonageMessage)
+            ->content($this->data['message'], $this->data['message'])
+             ->unicode();
     }
+
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Your order has been created')
+            ->subject('Message ID'.$this->data['request_id'])
             ->from('rvr@arguss.lv', 'Arguss shop')
-             ->markdown('emails.order', ['data' => $this->data]);
+            ->markdown('emails.customerMessage', ['data' => $this->data]);
     }
 
     /**

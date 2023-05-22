@@ -7,7 +7,7 @@
 
         <div class="user-profile">
             <div class="ulogo">
-                <a href="{{ url('/') }}">
+                <a href="{{ url('/admin') }}">
                     <!-- logo for regular state and mobile devices -->
                     <div class="d-flex align-items-center justify-content-center">
                         <img src="{{ asset('backend/images/logo-dark.png') }}" alt="">
@@ -219,8 +219,30 @@
                     </li>
 
                 </ul>
+            </li>
+             <li class="treeview {{ $route == 'admin.reports' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="grid"></i>
+                    <span>{{ __('system.reports') }}</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
+                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                    </li>
+                     <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
+                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                    </li>
+                    <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
+                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                    </li>
+                     <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
+                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                    </li>
 
-
+                </ul>
             </li>
 
 

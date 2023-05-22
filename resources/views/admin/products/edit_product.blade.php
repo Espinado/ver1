@@ -168,6 +168,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id" value="{{ $products->id }}">
 
 
 
@@ -431,7 +432,7 @@
                                                     <label class="form-control-label">Change Image <span
                                                             class="tx-danger">*</span></label>
                                                     <input class="form-control" type="file"
-                                                        name="multi_img[ {{$img->id }}]">
+                                                        name="multi_img[ {{$img->id }}]" value="{{$img->photo_name}}">
                                                 </div>
                                                 </p>
 

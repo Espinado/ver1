@@ -38,6 +38,7 @@ class ProfileController extends Controller
     {
         $data = User::where('id', Auth::user()->id)->first();
         $data->name = $request->name;
+        $data->surname = $request->surname;
         $data->email = $request->email;
         $data->phone = $request->phone;
 

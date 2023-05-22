@@ -33,7 +33,7 @@ class ProductRequest extends FormRequest
             'product_code' => 'required',
             'product_qty' => 'required',
             'product_thambnail'   => 'file|required|mimes:jpeg,png|max:2048',
-            'multi_img.*' => 'image|mimes:jpeg,jpg,png|max:2048',
+            // 'multi_img.*' => 'image|mimes:jpeg,jpg,png|max:2048',
         ];
 
         foreach (LaravelLocalization::getSupportedLocales() as $key => $locale) {
@@ -65,6 +65,7 @@ class ProductRequest extends FormRequest
             // 'subsubcategoryd_id.required'   => 'Category 2 not selected',
             'product_code.required'        => 'Product code is required',
             'product_qty.required'         => 'Product qty is required',
+            'selling_price.require'       => 'selling_price required',
 
         ];
 

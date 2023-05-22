@@ -39,7 +39,7 @@
 						<tbody>
 	 @foreach($products as $item)
 	 <tr>
-		<td style="text-align: center"> <img src="{{ asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
+		<td style="text-align: center"> <img src="{{asset($item->product_thambnail) }}" style="width: 60px; height: 50px;">  </td>
 		<td style="text-align: center">{{ $item->product_name}}</td>
 		 <td style="text-align: center">{{$item->selling_price}}</td>
          <td style="text-align: center">{{$item->discount_price}}</td>

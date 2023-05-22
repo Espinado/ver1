@@ -40,8 +40,9 @@ class ProductController extends Controller
         $brands = Brand::latest()->get();
         return view('admin.products.add_product', compact('categories', 'brands'));
     }
-    public function productStore(ProductRequest $request, MultiImageRequest $imageRequest)
+    public function productStore(ProductRequest $request)
     {
+    // dd($request->all());
         $validatedData = $request->validated();
         $image = $request->file('product_thambnail');
         $name_gen = hexdec(uniqid()) . '.' . $image->getClientOriginalExtension();
@@ -71,7 +72,7 @@ class ProductController extends Controller
         $product->product_thambnail       = $save_url;
         $product->status                  = true;
         $product->save();
-        $validatedImages = $imageRequest->validated();
+        // $validatedImages = $imageRequest->validated();
 
         $images = $request->file('multi_img');
         foreach ($images as $img) {
@@ -103,13 +104,14 @@ class ProductController extends Controller
     }
     public function productUpdate(ProductRequest $request)
     {
+
         $validatedData = $request->validated();
         Product::where('id', $request->id)->update([
             'product_name'          => $validatedData['product_name'],
             'brand_id'              => $validatedData['brand_id'],
             'category_id'           => $validatedData['category_id'],
-            'subcategory_id'        => $validatedData['subcategory_id'],
-            'subsubcategory_id'     => $validatedData['subsubcategory_id'],
+            'subcategory_id'        => $request->subcategory_id,
+            'subsubcategory_id'     => $request->subsubcategory_id,
             'product_code'          => $validatedData['product_code'],
             'product_qty'           => $validatedData['product_qty'],
             'product_color_en'      => $validatedData['product_color'],
@@ -131,6 +133,7 @@ class ProductController extends Controller
             Image::make($trumbnail)->resize(917, 1000)->save('products/trumbnails/' . $name_gen);
             $save_url = 'products/trumbnails/' . $name_gen;
             $prodTrumb = Product::where('id', $request->id)->first();
+           
 
             unlink($prodTrumb->product_thambnail);
             Product::where('id', $request->id)->update([
@@ -143,10 +146,11 @@ class ProductController extends Controller
     public function MultiImageUpdate(Request $request)
     {
 
+
         $imgs = $request->multi_img;
         foreach ($imgs as $id => $img) {
             $imgDel = ProductImage::FindOrFail($id);
-            unlink($imgDel->photo_name);
+            // unlink($imgDel->photo_name);
             $make_gen = hexdec(uniqid()) . '.' . $img->getClientOriginalExtension();
             Image::make($img)->resize(917, 1000)->save('products/images/' . $make_gen);
             $upload_url = 'products/images/' . $make_gen;
@@ -162,7 +166,7 @@ class ProductController extends Controller
     public function MultiImageDelete($id)
     {
         $oldImg = ProductImage::FindOrFail($id);
-        unlink($oldImg->photo_name);
+        // unlink($oldImg->photo_name);
         ProductImage::findOrFail($id)->delete();
         $notification = array('message' => 'Deleted', 'alert-type' => 'success');
         return redirect()->back()->with($notification);

@@ -38,6 +38,16 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail2">{{ __('system.surname') }} </label>
+                                <input type="text" class="form-control unicase-form-control text-input"
+                                    id="surname"name="surname" value="{{$user->surname}}">
+                                @error('surname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail2">{{ __('system.email') }}</label>
                                 <input type="email" class="form-control unicase-form-control text-input"
                                     name="email" value="{{$user->email}}">
