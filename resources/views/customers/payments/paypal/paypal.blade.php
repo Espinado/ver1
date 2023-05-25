@@ -14,7 +14,7 @@
             <div class="breadcrumb-inner">
                 <ul class="list-inline list-unstyled">
                     <li><a href="home.html">Home</a></li>
-                    <li class='active'>Cash On Delivery</li>
+                    <li class='active'>Paypal</li>
                 </ul>
             </div><!-- /.breadcrumb-inner -->
         </div><!-- /.container -->
@@ -106,9 +106,9 @@
                                     <div class="panel-heading">
                                         <h4 class="unicase-checkout-title">Payment Method</h4>
                                     </div>
-                                    <img src="{{ asset('customers/assets/images/payments/bank.jpg') }}">
+                                    <img src="{{ asset('customers/assets/images/payments/1.png') }}">
 
-                                    <form action="{{ route('bank.order') }}" method="post" id="payment-form">
+                                    <form action="{{ route('paypal.payment') }}" method="post" id="payment-form">
                                         @csrf
                                         <div class="form-row">
 

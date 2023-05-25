@@ -25,6 +25,7 @@ class newOrder
             $order->district_id           =$data['district_id'];
             $order->state_id              = $data['state_id'];
             $order->name                 = $data['shipping_name'];
+        //    $order->surname                 = $data['shipping_surname'];
             $order->email                = $data['shipping_email'];
             $order->phone                = $data['shipping_phone'];
             $order->post_code             = $data['post_code'];
