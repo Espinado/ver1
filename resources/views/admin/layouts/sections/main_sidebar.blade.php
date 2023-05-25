@@ -230,17 +230,9 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
-                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                        <a href="{{ route('all-reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
                     </li>
-                     <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
-                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
-                    </li>
-                    <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
-                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
-                    </li>
-                     <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
-                        <a href="{{ route('admin.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
-                    </li>
+
 
                 </ul>
             </li>

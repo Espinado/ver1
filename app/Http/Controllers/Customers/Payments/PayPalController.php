@@ -4,11 +4,38 @@ namespace App\Http\Controllers\Customers\Payments;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
+use PayPal\Api\Amount;
+use PayPal\Api\Details;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\ExecutePayment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\Transaction;
 
 
 class PayPalController extends Controller
 {
+    private $apiContext;
+    private $clientId;
+    private $clientSecret;
+
+    public function __construct()
+    {
+        // Initialize PayPal API credentials
+        $this->clientId = config('paypal.sandbox.client_id');
+        $this->clientSecret = config('paypal.sandbox.client_secret');
+
+        // Set up the API context
+        $this->apiContext = new ApiContext(
+            new OAuthTokenCredential($this->clientId, $this->clientSecret)
+        );
+        $this->apiContext->setConfig(config('paypal.sandbox.settings'));
+    }
     /**
      * create transaction.
      *
@@ -20,65 +47,36 @@ class PayPalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function processTransaction($data)
+    public function processTransaction(Request $request)
+
     {
+        $data = json_decode($request->input('data'), true);
+        $amount = new Amount();
+        $amount->setTotal('10.00'); // Set the total amount of the payment
+        $amount->setCurrency('USD'); // Set the currency (e.g., USD, EUR)
 
-        $provider = new PayPalClient;
-        $provider->setApiCredentials(config('paypal'));
-        $paypalToken = $provider->getAccessToken();
-        $response = $provider->createOrder([
-            "intent" => "CAPTURE",
-            "application_context" => [
-                "return_url" => route('index'),
-                "cancel_url" => route('index'),
-            ],
-            "purchase_units" => [
-                [
-                    "amount" => [
-                        "currency_code" => "USD",
-                        "value" => "1000.00",
-                        "breakdown" => [
-                            "item_total" => [
-                                "currency_code" => "USD",
-                                "value" => "1000.00"
-                            ]
-                        ]
-                    ],
-                    "items" => [
-                        [
-                            "name" => "Item 1",
-                            "description" => "Description of Item 1",
-                            "unit_amount" => [
-                                "currency_code" => "USD",
-                                "value" => "500.00"
-                            ],
-                            "quantity" => "2",
-                            "category" => "PHYSICAL_GOODS"
-                        ]
-                    ]
-                ]
-            ]
-        ]);
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal'); // Set the payment method to PayPal
 
-        if (isset($response['id']) && $response['id'] != null) {
-            // redirect to approve href
-            foreach ($response['links'] as $links) {
-                // dump($links['rel']);
-                if ($links['rel'] == 'approve') {
-                    dd($links['href']);
-                    return redirect()->away('http://rus.delfi.lv');
+        $payment = new Payment();
+        $payment->setIntent('sale'); // Set the payment intent (e.g., sale, authorize)
+        $payment->setPayer($payer);
+        $payment->setTransactions([$amount]);
 
-                }
-            }
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl(route('paypal.executePayment'));
+        $redirectUrls->setCancelUrl(route('paypal.cancelPayment'));
+dd($this->apiContext);
+        $payment->setRedirectUrls($redirectUrls);
+        try {
+            $payment->create($this->apiContext);
+            $approvalUrl = $payment->getApprovalLink();
+
+            return redirect($approvalUrl);
+        } catch (\Exception $e) {
+            // Handle any errors that occurred during payment creation
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        //     return redirect()
-        //         ->route('index')
-        //         ->with('error', 'Something went wrong.');
-        // } else {
-        //     return redirect()
-        //         ->route('index')
-        //         ->with('error', $response['message'] ?? 'Something went wrong.');
-        // }
     }
     /**
      * success transaction.

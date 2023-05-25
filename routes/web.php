@@ -16,6 +16,7 @@ use App\Http\Controllers\Admins\BlogController;
 use App\Http\Controllers\Admins\FAQController;
 use App\Http\Controllers\Admins\ReportController;
 
+
 use App\Http\Controllers\SellerController as Seller;
 
 use App\Http\Controllers\Customers\IndexController;
@@ -184,7 +185,7 @@ Route::group(
         Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('admin.faq.update')->middleware('admin');
         Route::get('/manage/faqs/', [FAQController::class, 'faqView'])->name('admin.manage.faqs')->middleware('admin');
 
-        Route::get('/reports', [ReportController::class, 'reports'])->name('admin.reports')->middleware('admin');
+        // Route::get('/reports', [ReportController::class, 'reports'])->name('admin.reports')->middleware('admin');
 
 
         Route::get('/sellers/companies', [SellerController::class, 'SellerCompanies'])->name('admin.sellers.companies')->middleware('admin');
@@ -193,8 +194,14 @@ Route::group(
         Route::get('/seller/view/{id}', [SellerController::class, 'SellerView'])->name('seller.company.view')->middleware('admin');
         Route::post('/seller/employee/store', [SellerController::class, 'SellerEmployeeStore'])->name('seller.employee.store')->middleware('admin');
         Route::get('/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout')->middleware('admin');
-    }
-);
+
+        Route::prefix('reports')->group(function () {
+            Route::get('/view', [ReportController::class, 'ReportView'])->name('all-reports');
+            Route::post('/by_date', [ReportController::class, 'ReportByDate'])->name('search_by_date');
+            Route::post('/by_month', [ReportController::class, 'ReportByMonth'])->name('search_by_month');
+            Route::post('/by_year', [ReportController::class, 'ReportByYear'])->name('search_by_year');
+        });
+        });
 
 
 //-----------Seller routes
@@ -263,13 +270,17 @@ Route::group(
         Route::post('/stripe/order', [StripeController::class, 'StripeOrder'])->name('stripe.order');
 
         Route::post('/bank/order', [MontonioController::class, 'proceedToPayment'])->name('bank.order');
+        Route::get('/after', [MontonioController::class, 'afterPayment'])->name('after');
 
 
         Route::post('/cash/order', [CashController::class, 'cashOrder'])->name('cash.order');
-        Route::get('/after', [CheckoutController::class, 'afterPayment'])->name('after');
+
         Route::post('/afterpayment/notification', [CheckoutController::class, 'afterPaymentNotify'])->name('product.afterpayment.notification');
 
-        Route::get('payment', [PayPalController::class, 'payment'])->name('payment');
+        Route::post('/paypal/order', [PayPalController::class, 'processTransaction'])->name('paypal.payment');
+        Route::post('/paypal/executePayment', [PayPalController::class, 'executePayment'])->name('paypal.executePayment');
+        Route::post('/paypal/cancelPayment', [PayPalController::class, 'cancelPayment'])->name('paypal.cancelPayment');
+
         Route::get('cancel',  [PayPalController::class,'cancel'])->name('payment.cancel');
         Route::get('payment/success',  [PayPalController::class, 'success'])->name('payment.success');
 

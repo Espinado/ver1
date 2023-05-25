@@ -84,14 +84,7 @@ class StripeController extends Controller
          $data['payment_type'] = 'card';
             $order_id = newOrder::createOrderRecord($data);
 
-            // $invoice = Order::FindOrFail($order_id);
-            // $data = [
-            //     'invoice_no' => $invoice->invoice_no,
-            //     'amount'     => $total_amount,
-            //     'name'       => $invoice->name,
-            //     'email'      => $invoice->email,
-            //     'order_number' => $invoice->order_number,
-            // ];
+           
 
 
             $notification = array(

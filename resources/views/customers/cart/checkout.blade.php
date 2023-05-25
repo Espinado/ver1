@@ -330,13 +330,13 @@
                                                 {{ session()->get('coupon')['coupon_discount'] }}%<br>
                                                 <strong>{{ __('system.discount') }}:</strong>&nbsp;{{ session()->get('coupon')['discount_amount'] }}
                                                 <hr>
-                                                <strong>{{ __('system.total') }}:</strong>&nbsp;{{ session()->get('coupon')['total_amount'] }}
+                                                <strong >{{ __('system.total') }}:</strong>&nbsp;<span id="sum">{{ session()->get('coupon')['total_amount'] }}</span>
                                             @else
                                                 <strong>{{ __('system.subtotal') }}:</strong>
-                                                &nbsp;{{ $cartTotal }}&nbsp;EUR
+                                                &nbsp; <span id="sum">{{ $cartTotal }}</span>&nbsp;EUR
                                                 <hr>
                                                 <strong>{{ __('system.grand_total') }}:</strong>
-                                                &nbsp;{{ $cartTotal }}&nbsp;EUR
+                                                &nbsp;<span id="full_total">{{ $cartTotal }}</span>&nbsp;EUR
                                                 <hr>
                                             @endif
 
@@ -444,6 +444,8 @@
             }
         });
         $('input[name="shipping_method"]').on('change', function() {
+            total=$('#sum').val();
+            console.log(total)
             // Get the value of the selected radio button's data-cost attribute
             var shippingCost = $('input[name="shipping_method"]:checked').data('cost');
 
@@ -452,7 +454,10 @@
 
             // Log the value to the console for debugging
             console.log(shippingCost);
+            console.log(shippingCost+total)
+
             $('#cost').html(shippingCost)
+            // $('full_total').html(total+shippingCost);
         });
         var district_delivery_cost = $('#district').val();
         console.log(district_delivery_cost)
