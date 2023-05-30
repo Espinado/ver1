@@ -42,9 +42,9 @@
                 @include('customers.sections.testimonials')
                 <!-- ============================================== Testimonials: END ============================================== -->
 
-                <div class="home-banner"> <img src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}"
+                {{-- <div class="home-banner"> <img src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}"
                         alt="Image">
-                </div>
+                </div> --}}
             </div>
             <!-- /.sidemenu-holder -->
             <!-- ============================================== SIDEBAR : END ============================================== -->

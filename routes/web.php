@@ -28,6 +28,7 @@ use App\Http\Controllers\Customers\Payments\PayPalController;
 use App\Http\Controllers\Customers\Payments\CashController;
 use App\Http\Controllers\Customers\Payments\StripeController;
 use App\Http\Controllers\Customers\Payments\MontonioController;
+use App\Http\Controllers\Admins\UserController as UserController;
 
 
 
@@ -201,6 +202,10 @@ Route::group(
             Route::post('/by_month', [ReportController::class, 'ReportByMonth'])->name('search_by_month');
             Route::post('/by_year', [ReportController::class, 'ReportByYear'])->name('search_by_year');
         });
+
+        Route::prefix('users')->group(function () {
+            Route::get('/users', [User::class, 'AllUsersView'])->name('all-users');
+        });
         });
 
 
@@ -278,11 +283,12 @@ Route::group(
         Route::post('/afterpayment/notification', [CheckoutController::class, 'afterPaymentNotify'])->name('product.afterpayment.notification');
 
         Route::post('/paypal/order', [PayPalController::class, 'processTransaction'])->name('paypal.payment');
-        Route::post('/paypal/executePayment', [PayPalController::class, 'executePayment'])->name('paypal.executePayment');
+        Route::get('/paypal/executePayment', [PayPalController::class, 'executePayment'])->name('paypal.executePayment');
         Route::post('/paypal/cancelPayment', [PayPalController::class, 'cancelPayment'])->name('paypal.cancelPayment');
 
-        Route::get('cancel',  [PayPalController::class,'cancel'])->name('payment.cancel');
-        Route::get('payment/success',  [PayPalController::class, 'success'])->name('payment.success');
+
+        Route::get('cancel',  [PayPalController::class, 'cancelTransaction'])->name('payment.cancel');
+       
 
 
 

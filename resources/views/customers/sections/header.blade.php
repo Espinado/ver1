@@ -7,11 +7,11 @@
 
 
                     @auth
-                    <li onclick="wishlist"><a href="{{ route('wishlist') }}">
+                    {{-- <li onclick="wishlist"><a href="{{ route('wishlist') }}">
                                 <i class="icon fa fa-heart"></i>
                                 {{ __('system.wishlist') }} <span class="badge badge-danger" id="count_wishes"> </span>
                             </a>
-                            </li>
+                            </li> --}}
                         @endauth
                         <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>{{ __('system.cart') }}</a></li>
                         <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
@@ -73,8 +73,11 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                 <!-- ============================================================= LOGO ============================================================= -->
-                <div class="logo"> <a href="{{ route('index') }}"> <img
-                            src="{{ asset('customers/assets/images/logo.png') }}" alt="logo"> </a> </div>
+                <div class="logo">
+                     <a href="{{ route('index') }}"> <img
+                            src="{{ asset('customers/assets/images/logo.jpg') }}" alt="logo" style="width: 35%; height:35%; margin-bottom:20px; margin-top:0px">
+                         </a>
+                        </div>
                 <!-- /.logo -->
                 <!-- ============================================================= LOGO : END ============================================================= -->
             </div>
@@ -83,7 +86,7 @@
             <div class="col-xs-12 col-sm-12 col-md-7 top-search-holder">
                 <!-- /.contact-row -->
                 <!-- ============================================================= SEARCH AREA ============================================================= -->
-                @include('customers.sections.search_area')
+                {{-- @include('customers.sections.search_area') --}}
                 <!-- /.search-area -->
                 <!-- ============================================================= SEARCH AREA : END ============================================================= -->
             </div>

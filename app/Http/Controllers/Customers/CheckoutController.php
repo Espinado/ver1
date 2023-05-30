@@ -28,6 +28,7 @@ use Illuminate\Support\Str;
 
 
 
+
 class CheckoutController extends Controller
 {
 
@@ -118,6 +119,8 @@ class CheckoutController extends Controller
             $data['GrandTotal'] = $data['SubTotal_without_discount'] + $data['delivery_cost'];
             $data['GrandTotal_without_tax'] = $data['GrandTotal'] - $data['tax_sum'];
         }
+             Session::put('order', $data);
+
 
 
 

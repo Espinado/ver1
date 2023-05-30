@@ -33,9 +33,9 @@
         <div class='row single-product'>
             <div class='col-md-3 sidebar'>
                 <div class="sidebar-module-container">
-                    <div class="home-banner outer-top-n">
+                    {{-- <div class="home-banner outer-top-n">
                         <img src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
-                    </div>
+                    </div> --}}
 
                     <!-- ================================== TOP NAVIGATION ================================== -->
                     @include('customers.sections.top_navigation')

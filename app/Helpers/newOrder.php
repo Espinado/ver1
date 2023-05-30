@@ -15,9 +15,9 @@ class newOrder
 {
 
 
-    public static function createOrderRecord($data)
+    public static function createOrderRecord()
     {
-// dd($data);
+$data=session('order');
          $order=new Order();
 
             $order->user_id               = Auth::id();
@@ -67,6 +67,7 @@ class newOrder
             Session::forget('coupon');
         }
         Cart::destroy();
+        Session::forget('order');
        return $order_id;
     }
 }

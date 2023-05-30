@@ -147,39 +147,17 @@ class MontonioController extends Controller
         if (
             $decoded->paymentStatus === 'PAID' &&  $decoded->accessKey === config('app.montonio.access')
         ) {
-            $data = [];
-            $data['user_id'] = Auth::id();
-            $data['division_id'] = $content['shippingAddress']['country'];
-            $data['district_id'] = $content['shippingAddress']['locality'];
-            $data['state_id'] = NULL;
-            $data['notes'] = NULL;
-            $data['shipping_name'] = $content['shippingAddress']['firstName'];
-            // $data['shipping_surname'] = $content['shippingAddress']['lastName'];
-            $data['shipping_email'] = $content['shippingAddress']['email'];
-            $data['shipping_phone'] = $content['shippingAddress']['phoneNumber'];
-            $data['post_code'] = $content['shippingAddress']['postalCode'];
-            $data['order_no'] = $content['paymentIntents'][0]['paymentMethodMetadata']['paymentReference'];
-            $data['invoice_no'] = $content['paymentIntents'][0]['paymentMethodMetadata']['paymentDescription'];
-            $data['payment_type'] = $content['paymentIntents'][0]['paymentMethodMetadata']['providerName'];
-            $data['payment_method'] = $content['paymentIntents'][0]['paymentMethodMetadata']['providerName'];
-            $data['amount'] = $content['grandTotal'];
-            $data['transaction_id'] = $content['uuid'];
-            $data['shipping_method']='delivery';
-            $data['delivery_cost'] = 2;
-            $data['GrandTotal'] = $content['grandTotal'];
-            $data['GrandTotal_without_tax'] = $content['grandTotal']-($content['grandTotal']/100*21);
-            $data['tax_sum'] = $content['grandTotal'] / 100 * 21;
 
-
-            $order_id = newOrder::createOrderRecord($data);
-
-
+            Session::put('order.payment_type', $content['paymentIntents'][0]['paymentMethodMetadata']['providerName']);
+            Session::put('order.payment_method', $content['paymentIntents'][0]['paymentMethodMetadata']['providerName']);
+            Session::put('order.transaction_id', $content['uuid']);
+            $order_id = newOrder::createOrderRecord();
 
             $notification = array(
                 'message' => 'Your Order Place Successfully',
                 'alert-type' => 'success'
             );
-            return redirect()->route('profile.index')->with($notification);
+            return view('customers.payments.completed_payment')->with($notification);
         } else {
             // dd('b');
         }
