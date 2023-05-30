@@ -175,9 +175,9 @@
 
 
 
-                        <div class="home-banner"> <img
+                        {{-- <div class="home-banner"> <img
                                 src="{{ asset('customers/assets/images/banners/LHS-banner.jpg') }}" alt="Image">
-                        </div>
+                        </div> --}}
                     </div>
                     <!-- /.sidebar-filter -->
                 </div>

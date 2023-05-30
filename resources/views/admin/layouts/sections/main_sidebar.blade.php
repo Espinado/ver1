@@ -236,6 +236,22 @@
 
                 </ul>
             </li>
+             <li class="treeview {{ $route == 'admin.users' ? 'active' : '' }}">
+                <a href="#">
+                    <i data-feather="grid"></i>
+                    <span>{{ __('system.users') }}</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-right pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="{{ $route == 'admin.users' ? 'active' : '' }}">
+                        <a href="{{ route('all-users') }}"><i class="ti-more"></i>{{ __('system.allusers') }}</a>
+                    </li>
+
+
+                </ul>
+            </li>
 
 
 

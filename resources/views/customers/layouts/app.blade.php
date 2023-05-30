@@ -252,7 +252,7 @@
         }
     </script>
 
-    //----------------------------------------------------------------
+
 
     <script type="text/javascript">
         function miniCart() {
@@ -291,7 +291,7 @@
         }
         miniCart();
 
-        //--------------------------------------
+
 
         function CartItemRemove(rowId) {
             $.ajax({
@@ -329,7 +329,7 @@
         }
     </script>
 
-    //----------------------------------------------------------------
+
 
     <script type="text/javascript">
         function cart() {
@@ -390,7 +390,7 @@
         }
         cart();
 
-        //--------------------------------
+
 
         function cartIncrement(rowId) {
             var id=$('#wish_qty').val();
@@ -407,7 +407,7 @@
                 }
             });
         }
-        //--------------------------------
+
 
         function cartDecrement(rowId) {
             $.ajax({
@@ -422,7 +422,7 @@
             });
         }
     </script>
-    //--------------------------------
+
     <script type="text/javascript">
         //-Add to wish list start
 
@@ -461,7 +461,7 @@
 
         //--End to wish list end
 
-        //------------------------------
+       
 
         function wishlist() {
             $.ajax({

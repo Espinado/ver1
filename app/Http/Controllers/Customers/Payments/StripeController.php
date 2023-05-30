@@ -79,12 +79,12 @@ class StripeController extends Controller
             return redirect('/checkout')->with($notification);
         }
 
+        Session::put('order.payment_type', 'Card');
+        Session::put('order.payment_method', 'Card');
+        Session::put('order.transaction_id', $charge->balance_transaction);
+            $order_id = newOrder::createOrderRecord();
 
-            $data['transaction_id'] = $charge->balance_transaction;
-         $data['payment_type'] = 'card';
-            $order_id = newOrder::createOrderRecord($data);
 
-           
 
 
             $notification = array(
