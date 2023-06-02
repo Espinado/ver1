@@ -317,7 +317,7 @@
 
                                                             </a>
                                                         </h3>
-                                                        <div class="rating rateit-small"></div>
+                                                        {{-- <div class="rating rateit-small"></div> --}}
                                                         <div class="description"></div>
 
 

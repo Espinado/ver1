@@ -461,7 +461,7 @@
 
         //--End to wish list end
 
-       
+
 
         function wishlist() {
             $.ajax({
