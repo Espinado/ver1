@@ -74,8 +74,15 @@ class CheckoutController extends Controller
     }
     public function checkoutStore(CheckoutRequest $request)
     {
+        // dd($request->all());
+        if ($request->shipping_method=='delivery') {
+            $dist_rate = ShipDistrict::where('id', $request->district_id)->first();
+            $delivery_cost = $dist_rate->delivery_cost;
+        } else {
+            $delivery_cost=0;
+        }
 
-        $dist_rate = ShipDistrict::where('id', $request->district_id)->first();
+
         $data = array();
         $data['lineItems'] =[];
         $data['shipping_name'] = $request->shipping_name;
@@ -92,7 +99,7 @@ class CheckoutController extends Controller
         $data['order_no']='RvR-' . substr(md5(rand()), 0, 10);
         $data['invoice_no'] = 'RvR' . mt_rand(10000000, 99999999);
         $data['tax_rate']=21;
-        $data['delivery_cost'] = $dist_rate->delivery_cost;
+        $data['delivery_cost'] = $delivery_cost;
         $carts = Cart::content();
         foreach ($carts as $cart) {
             $lineItem = [
@@ -111,12 +118,12 @@ class CheckoutController extends Controller
             $data['coupon_discount'] = session()->get('coupon')['coupon_discount'];
             $data['coupon_discount_amount'] = session()->get('coupon')['discount_amount'];
             $data['SubTotal_without_discount'] = Cart::total();
-            $data['GrandTotal']= $data['SubTotal_with_discount']+ $data['delivery_cost'];
+            $data['GrandTotal']= $data['SubTotal_with_discount']+ $delivery_cost;
             $data['GrandTotal_without_tax'] = $data['GrandTotal'] - $data['tax_sum'];
         } else {
             $data['SubTotal_without_discount'] = Cart::total();
             $data['tax_sum'] = $data['SubTotal_without_discount'] / 100 * 21;
-            $data['GrandTotal'] = $data['SubTotal_without_discount'] + $data['delivery_cost'];
+            $data['GrandTotal'] = $data['SubTotal_without_discount'] + $delivery_cost;
             $data['GrandTotal_without_tax'] = $data['GrandTotal'] - $data['tax_sum'];
         }
              Session::put('order', $data);

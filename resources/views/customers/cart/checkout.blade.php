@@ -56,7 +56,7 @@
                                                          name="shipping_name" placeholder="Name"
                                                         value="{{ $user['user_profile']['name'] }}">
                                                     @error('shipping_name')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                      <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
 
                                                 </div>
@@ -69,7 +69,7 @@
                                                          name="shipping_surname" placeholder="Surname"
                                                         value="{{ $user['user_profile']['surname'] }}">
                                                     @error('shipping_surname')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                        <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
 
                                                 </div>
@@ -83,7 +83,7 @@
                                                         placeholder="Full email"
                                                         value="{{ $user['user_profile']['email'] }}">
                                                     @error('shipping_email')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                       <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
@@ -96,7 +96,7 @@
                                                         placeholder="Phone"
                                                         value="{{ $user['user_profile']['phone'] }}">
                                                     @error('shipping_phone')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                      <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
 
@@ -125,7 +125,7 @@
                                                             @endforeach
                                                         </select>
                                                         @error('division_id')
-                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                            <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -147,7 +147,7 @@
 
                                                         </select>
                                                         @error('district_id')
-                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                           <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -162,7 +162,7 @@
 
                                                         </select>
                                                         @error('state_id')
-                                                            <span class="text-danger"><b>{{ $message }}</b></span>
+                                                           <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -182,7 +182,7 @@
                                                         placeholder="Postcode"
                                                          value="{{ $user['user_profile']['postcode'] }}">
                                                     @error('shipping_postcode')
-                                                        <span class="text-danger"><b>{{ $message }}</b></span>
+                                                       <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
 
@@ -238,7 +238,7 @@
                                             </div>
 
                                             @error('payment_method')
-                                                <span class="text-danger"><b>{{ $message }}</b></span>
+                                                <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                             @enderror
                                         </div>
                                         <! <hr>
@@ -277,7 +277,7 @@
                                                 </div>
 
                                                 @error('shipping_method')
-                                                    <span class="text-danger"><b>{{ $message }}</b></span>
+                                                    <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                 @enderror
 
 

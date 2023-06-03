@@ -29,11 +29,7 @@ class MontonioController extends Controller
 
     public function proceedToPayment(Request $request) {
         $data = json_decode($request->input('data'), true);
-        if (Session::has('coupon')) {
-            $total_amount = Session::get('coupon')['total_amount'];
-        } else {
-            $total_amount = round(Cart::total());
-        }
+// dd($data);
 
 
         $payload = [
@@ -42,11 +38,8 @@ class MontonioController extends Controller
             'returnUrl'         =>  route('after'),
             'notificationUrl'   => route('product.afterpayment.notification'),
             'currency'          => 'EUR',
-
             'grandTotal'        => $data['GrandTotal'],
-
             'locale'            => 'lv',
-
             'billingAddress'    => [
                 'firstName'    =>  $this->data['shipping_name'],
                 'email'        => $this->data['shipping_email'],
@@ -56,7 +49,6 @@ class MontonioController extends Controller
                 'country'      => $this->data['division_id'],
                 'postalCode'   => $this->data['post_code'],
                 'phoneNumber' => $this->data['shipping_phone'],
-
             ],
             'shippingAddress'   => [
                 'firstName'    => $this->data['shipping_name'],

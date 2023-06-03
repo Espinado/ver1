@@ -26,11 +26,7 @@ class StripeController extends Controller
         $data = json_decode($request->input('data'), true);
         // dd($data);
         // dd($request->all());
-        if (Session::has('coupon')) {
-            $total_amount = $data['SubTotal_with_discount'];
-        } else {
-            $total_amount = $data['SubTotal_without_discount'];
-        }
+       
 
         \Stripe\Stripe::setApiKey(config('payments.stripe.' . env('APP_ENV')));
         $token = $_POST['stripeToken'];

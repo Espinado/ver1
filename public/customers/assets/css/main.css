@@ -5399,7 +5399,7 @@ header {
 /*  Responsive Layout
 /*===================================================================================*/
 
-@media (min-width: 320px) and (max-width: 480px) {
+@media (min-width: 320px) and (max-width: 580px) {
     .top-bar .cnt-block {
         float: none
     }

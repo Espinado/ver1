@@ -112,7 +112,7 @@
 
                                 <tr>
                                     <th> {{ __('system.total') }} : </th>
-                                    <th>{{ $order->amount }} EUR </th>
+                                    <th>{{number_format($order->amount, 2)  }} EUR </th>
                                 </tr>
 
                                 <tr>
@@ -206,7 +206,7 @@
                                     </td>
 
                                     <td class="col-md-4">
-                                        EUR {{ $item->price }}
+                                        EUR {{ number_format($item->price, 2) }}
                                     </td>
                                     <td>
                                         EUR {{ $item->price * $item->qty }}

@@ -16,7 +16,7 @@
                         <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>{{ __('system.cart') }}</a></li>
                         <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
                         @auth
-                            <li><a href="{{ route('profile.index') }}"><i
+                            <li style="font-size: 16px"><a href="{{ route('profile.index') }}"><i
                                         class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
                         @else
                             <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('auth.login-register') }}</a></li>
@@ -37,7 +37,7 @@
 
                         </ul>
                     </li> --}}
-                    <li class="dropdown dropdown-small"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
+                    <li class="dropdown dropdown-small" style="font-size: 16px"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
                             data-toggle="dropdown"><span
                                 class="value"><span class="{{LaravelLocalization::getCurrentLocaleIcon()}}"></span>&nbsp;&nbsp;{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
                                 class="caret"></b></a>

@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\Admins\MultiImg;
 use LaravelLocalization;
 use App\Http\Requests\Admin\MultiImageRequest;
+use Illuminate\Support\Str;
 
 
 class ProductController extends Controller
@@ -71,6 +72,11 @@ class ProductController extends Controller
         $product->special_deals           = $request->special_deals;
         $product->product_thambnail       = $save_url;
         $product->status                  = true;
+        // $languages = ['lv', 'ru']; // Add any other desired languages
+        // foreach ($languages as $language) {
+        //     $slug = Str::slug($validatedData['product_name'], '-', $language);
+        //     $product->{'slug_' . $language} = $slug;
+        // }
         $product->save();
         // $validatedImages = $imageRequest->validated();
 
@@ -133,7 +139,7 @@ class ProductController extends Controller
             Image::make($trumbnail)->resize(917, 1000)->save('products/trumbnails/' . $name_gen);
             $save_url = 'products/trumbnails/' . $name_gen;
             $prodTrumb = Product::where('id', $request->id)->first();
-           
+
 
             unlink($prodTrumb->product_thambnail);
             Product::where('id', $request->id)->update([

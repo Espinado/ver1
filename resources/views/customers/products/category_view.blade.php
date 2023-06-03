@@ -323,11 +323,11 @@
 
                                                         @if ($product->discount_price == null)
                                                             <div class="product-price"> <span class="price">
-                                                                    ${{ $product->selling_price }} </span> </div>
+                                                                    EUR {{ $product->selling_price }} </span> </div>
                                                         @else
                                                             <div class="product-price"> <span class="price">
                                                                     ${{ $product->discount_price }} </span> <span
-                                                                    class="price-before-discount">$
+                                                                    class="price-before-discount">EUR
                                                                     {{ $product->selling_price }}</span> </div>
                                                         @endif
 
@@ -412,10 +412,10 @@
 
                                                             @if ($product->discount_price == null)
                                                                 <div class="product-price"> <span class="price">
-                                                                        ${{ $product->selling_price }} </span> </div>
+                                                                        EUR {{ $product->selling_price }} </span> </div>
                                                             @else
                                                                 <div class="product-price"> <span class="price">
-                                                                        ${{ $product->discount_price }} </span> <span
+                                                                        EUR {{ $product->discount_price }} </span> <span
                                                                         class="price-before-discount">$
                                                                         {{ $product->selling_price }}</span> </div>
                                                             @endif

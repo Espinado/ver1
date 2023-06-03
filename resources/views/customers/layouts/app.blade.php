@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="{{ asset('customers/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('customers/assets/css/bootstrap-select.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('customers/assets/css/lightbox.css') }}"> --}}
+     <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
@@ -109,19 +111,24 @@
     <!-- JavaScripts placed at the end of the document so the pages load faster -->
     <script src="{{ asset('customers/assets/js/jquery-1.11.1.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('customers/assets/js/bootstrap-hover-dropdown.min.js') }}"></script>
+    <script src="{{ asset('customers/assets/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('customers/assets/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('customers/assets/js/bootstrap-select.min.js') }}"></script>
+
+    <script src="{{ asset('customers/assets/js/lightbox.min.js') }}"></script>
+   <script src="{{ asset('customers/assets/js/loader.js') }}"></script>
     <script src="{{ asset('customers/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/echo.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/jquery.easing-1.3.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/bootstrap-slider.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/jquery.rateit.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('customers/assets/js/lightbox.min.js') }}"></script>
-    <script src="{{ asset('customers/assets/js/bootstrap-select.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/wow.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/scripts.js') }}"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     <script src="{{ asset('customers/assets/js/loader.js') }}"></script>
+
     <script>
         @if (Session::has('message'))
             var type = "{{ Session::get('alert-type', 'info') }}"
@@ -696,23 +703,23 @@ console.log(response);
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+   <div class="modal" tabindex="-1" id="exampleModal">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><strong><span id="pname"></span></strong></h5>
+                <h5 class="modal-title fs-5" id="exampleModalLabel"><strong><span id="pname"></span></strong></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-12">
                         <div class="card" style="width: 100%;">
                             <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 100%;" id="pimage">
                         </div>
                     </div>
-                    <div class="col-md-8 col-sm-12">
+                    <div class="col-lg-8 col-md-12">
                         <ul class="list-group">
                             <li class="list-group-item">{{ __('system.product_price') }}: <strong class="text-danger"><span id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
                             <li class="list-group-item">{{ __('system.product_code') }}: <strong id="pcode"></strong></li>
