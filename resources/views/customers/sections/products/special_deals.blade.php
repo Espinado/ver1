@@ -32,13 +32,13 @@
                                                 <h3 class="name"><a href="#">{{$deal->product_name}}</a></h3>
                                                 {{-- <div class="rating rateit-small"></div> --}}
                                                 @if ($deal->discount_price == null)
-                                                                <div class="product-price"> <span class="price">$
+                                                                <div class="product-price"> <span class="price">EUR
                                                                         {{ $deal->selling_price }}</span>
                                                                 </div>
                                                             @else
-                                                                <div class="product-price"> <span class="price"> $
+                                                                <div class="product-price"> <span class="price"> EUR
                                                                         {{ $deal->discount_price }}
-                                                                    </span> <span class="price-before-discount">$
+                                                                    </span> <span class="price-before-discount">EUR
                                                                         {{ $deal->selling_price }}</span>
                                                                 </div>
                                                             @endif

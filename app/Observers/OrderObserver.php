@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\Customers\Order;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\OrderNotification;
+use App\Notifications\AdminOrderNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Messages\VonageMessage;
 use App\Models\User;
@@ -19,9 +20,11 @@ class OrderObserver
      */
     public function created(Order $order)
     {
-        $recipients = ['rvr@arguss.lv', 'roman.vyshedko'];
+        // $recipients = ['rvr@arguss.lv', 'roman.vyshedko'];
 
-        $order->notify(new OrderNotification($order, $recipients));
+        $order->notify(new OrderNotification($order));
+        Notification::route('mail', 'admin@arguss.lv')
+        ->notify(new AdminOrderNotification($order));
 
 
     }

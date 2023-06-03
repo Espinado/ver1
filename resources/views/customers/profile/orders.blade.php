@@ -60,7 +60,7 @@
                                                 </td>
 
                                                 <td class="col-md-3">
-                                                    <label for=""> ${{ $order->amount }}</label>
+                                                    <label for=""> EUR {{ number_format($order->amount, 2) }}</label>
                                                 </td>
 
                                                 <td class="col-md-3">

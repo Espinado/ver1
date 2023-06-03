@@ -292,7 +292,7 @@
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="detail.html"><img
+                                                <a href="#"><img
                                                         src="{{ asset($related_product->product_thambnail) }}"
                                                         alt=""></a>
                                             </div><!-- /.image -->

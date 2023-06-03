@@ -334,13 +334,13 @@
                                                             </h3>
                                                             <div class="rating rateit-small"></div>
                                                             @if ($product->discount_price == null)
-                                                                <div class="product-price"> <span class="price">$
+                                                                <div class="product-price"> <span class="price">EUR
                                                                         {{ $product->selling_price }}</span>
                                                                 </div>
                                                             @else
-                                                                <div class="product-price"> <span class="price"> $
+                                                                <div class="product-price"> <span class="price"> EUR
                                                                         {{ $product->discount_price }}
-                                                                    </span> <span class="price-before-discount">$
+                                                                    </span> <span class="price-before-discount">EUR
                                                                         {{ $product->selling_price }}</span>
                                                                 </div>
                                                             @endif
@@ -351,24 +351,22 @@
                                                                 <div class="action">
                                                                     <ul class="list-unstyled">
                                                                         <li class="add-cart-button btn-group">
-                                                                            <button class="btn btn-primary icon"
+                                                                            {{-- <button class="btn btn-primary icon"
                                                                                 data-toggle="dropdown" type="button">
                                                                                 <i class="fa fa-shopping-cart"
                                                                                     title="Buy"></i>
-                                                                            </button>
-                                                                            <button class="btn btn-primary cart-btn"
-                                                                                type="button" title="Add to cart">Add
-                                                                                to cart</button>
+                                                                            </button> --}}
+                                                                            @include('customers.sections.products.carts_grid')
                                                                         </li>
-                                                                        <li class="lnk wishlist"> <a
+                                                                        {{-- <li class="lnk wishlist"> <a
                                                                                 class="add-to-cart" href="detail.html"
                                                                                 title="Wishlist"> <i
                                                                                     class="icon fa fa-heart"></i> </a>
-                                                                        </li>
-                                                                        <li class="lnk"> <a class="add-to-cart"
+                                                                        </li> --}}
+                                                                        {{-- <li class="lnk"> <a class="add-to-cart"
                                                                                 href="detail.html" title="Compare"> <i
                                                                                     class="fa fa-signal"></i> </a>
-                                                                        </li>
+                                                                        </li> --}}
                                                                     </ul>
                                                                 </div>
                                                                 <!-- /.action -->
