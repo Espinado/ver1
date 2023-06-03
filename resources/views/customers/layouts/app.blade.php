@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="{{ asset('customers/assets/css/bootstrap-select.min.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('customers/assets/css/lightbox.css') }}"> --}}
-     <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
+    <link rel="stylesheet" href="{{ asset('customers/assets/css/rateit.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css" rel="stylesheet">
 
@@ -44,49 +44,63 @@
             right: 100px;
         }
 
-    /**
+        /**
  * The CSS shown here will not be introduced in the Quickstart guide, but shows
  * how you can use CSS to style your Element's container.
  */
-.StripeElement {
-  box-sizing: border-box;
-  height: 40px;
-  padding: 10px 12px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0 1px 3px 0 #e6ebf1;
-  -webkit-transition: box-shadow 150ms ease;
-  transition: box-shadow 150ms ease;
-}
-.StripeElement--focus {
-  box-shadow: 0 1px 3px 0 #cfd7df;
-}
-.StripeElement--invalid {
-  border-color: #fa755a;
-}
-.StripeElement--webkit-autofill {
-  background-color: #fefde5 !important;}
- #loading {
-  position: fixed; /* Make the div fixed so it stays in place */
-   /* top: 0;Set the top position to 0 */
-   /*left: 0; Set the left position to 0 */
-  width: 100%; /* Set the width to 100% */
-  height: 100%; /* Set the height to 100% */
-  background-color: rgba(255, 255, 255, 0.5); /* Set the background color to semi-transparent white */
-  z-index: 9999; /* Set the z-index to a high number to ensure it displays on top of other elements */
-  /* Use flexbox to center the spinner vertically and horizontally */
-  justify-content: center;
-  align-items: center;
-}
+        .StripeElement {
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
 
-#loading img {
-  width: 200px; /* Set the width of the spinner image */
-  height: 200px; /* Set the height of the spinner image */
-  display: block; /* Set the display property to block to center the image horizontally */
-  margin: auto; /* Set the margin to auto to center the image horizontally */
-}
-</style>
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+        }
+
+        .StripeElement--invalid {
+            border-color: #fa755a;
+        }
+
+        .StripeElement--webkit-autofill {
+            background-color: #fefde5 !important;
+        }
+
+        #loading {
+            position: fixed;
+            /* Make the div fixed so it stays in place */
+            /* top: 0;Set the top position to 0 */
+            /*left: 0; Set the left position to 0 */
+            width: 100%;
+            /* Set the width to 100% */
+            height: 100%;
+            /* Set the height to 100% */
+            background-color: rgba(255, 255, 255, 0.5);
+            /* Set the background color to semi-transparent white */
+            z-index: 9999;
+            /* Set the z-index to a high number to ensure it displays on top of other elements */
+            /* Use flexbox to center the spinner vertically and horizontally */
+            justify-content: center;
+            align-items: center;
+        }
+
+        #loading img {
+            width: 200px;
+            /* Set the width of the spinner image */
+            height: 200px;
+            /* Set the height of the spinner image */
+            display: block;
+            /* Set the display property to block to center the image horizontally */
+            margin: auto;
+            /* Set the margin to auto to center the image horizontally */
+        }
+    </style>
 </head>
 
 <body class="cnt-home" id="body">
@@ -96,10 +110,10 @@
     <header class="header-style-1">
         @include('customers.sections.header')
     </header>
-  <div id="loading">
-     <img src="{{ asset('loader.gif') }}" alt="Loading...">
-</div>
-</div>
+    <div id="loading">
+        <img src="{{ asset('loader.gif') }}" alt="Loading...">
+    </div>
+    </div>
 
     <!-- ============================================== HEADER : END ============================================== -->
     @yield('content')
@@ -116,7 +130,7 @@
     <script src="{{ asset('customers/assets/js/bootstrap-select.min.js') }}"></script>
 
     <script src="{{ asset('customers/assets/js/lightbox.min.js') }}"></script>
-   <script src="{{ asset('customers/assets/js/loader.js') }}"></script>
+    <script src="{{ asset('customers/assets/js/loader.js') }}"></script>
     <script src="{{ asset('customers/assets/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/echo.min.js') }}"></script>
     <script src="{{ asset('customers/assets/js/jquery.easing-1.3.min.js') }}"></script>
@@ -166,11 +180,11 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data.product);
-                     $('#oldprice').empty();
-            $('#oldprice').empty();
-                   $('#pname').text(data.product.product_name);
-                      $('#product_id').val(data.product.id);
-                     $('#price').text(data.product.selling_price + ' EUR');
+                    $('#oldprice').empty();
+                    $('#oldprice').empty();
+                    $('#pname').text(data.product.product_name);
+                    $('#product_id').val(data.product.id);
+                    $('#price').text(data.product.selling_price + ' EUR');
                     $('#pcode').text(data.product.product_code);
                     $("#quantity").prop('max', data.product.product_qty);
                     if (data.product.product_qty > 0) {
@@ -181,7 +195,7 @@
                         $('#notavailable').text('Not in stock');
                     }
                     $('#pcategory').text(data.product.category_name);
-                   $('#pbrand').text(data.product.brand_name);
+                    $('#pbrand').text(data.product.brand_name);
                     $('#pimage').attr('src', '/' + data.product.product_thambnail);
                     if (data.product.discount_price == null) {
                         $('#pprice').text(data.product.selling_price);
@@ -271,29 +285,42 @@
                     couponCalculation();
                     $('span[id="cartSubTotal"]').text(response.cartTotal);
                     $('#cartQty').text(response.cartQty);
-                    var miniCart = ""
-                    $.each(response.carts, function(key, value) {
-                        miniCart += `<div class="cart-item product-summary">
-                 <div class="row">
-            <div class="col-xs-4">
-              <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+                    var miniCart = "";
+                    console.log(response.carts);
+                    if (response && response.cartQty > 0) {
+                        $.each(response.carts, function(key, value) {
+                            miniCart += `<div class="cart-item product-summary">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="image"> <a href="detail.html"><img src="/${value.options.image}" alt=""></a> </div>
+                    </div>
+                    <div class="col-xs-7">
+                        <h3 class="name"><a href="product/details/"+${value.id}>${value.name}</a></h3>
+                        <div class="price"> ${value.price} EUR * ${value.qty} </div>
+                    </div>
+                    <div class="col-xs-1 action"> <button type="submit" id="${value.rowId}" onclick="CartItemRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
+                </div>
             </div>
-            <div class="col-xs-7">
-              <h3 class="name"><a href="product/details/"+${value.id}>${value.name}</a></h3>
-              <div class="price"> ${value.price} * ${value.qty} </div>
-            </div>
-            <div class="col-xs-1 action"> <button type="submit" id="${value.rowId}" onclick="CartItemRemove(this.id)"><i class="fa fa-trash"></i></button> </div>
-          </div>
-        </div>
-        <!-- /.cart-item -->
-        <div class="clearfix"></div>
-        <hr>`
-                    });
-
-                    $('#miniCart').html(miniCart);
+            <!-- /.cart-item -->
+            <div class="clearfix"></div>
+            <hr>
+            <div class="clearfix cart-total">
+                <div class="pull-right"> <span class="text">{{ __('system.subtotal') }} :</span>
+                    <span class='price'  id="cartSubTotal"> </span><span class='price'> ${response.cartTotal} EUR</span> </div>
+                <div class="clearfix"></div>
+                <a href="{{ route('product.checkout') }}" class="btn btn-upper btn-primary btn-block m-t-20">{{ __('system.checkout') }}</a>
+            </div>`;
+                        });
+                        $('#miniCart').html(miniCart);
+                    } else {
+                        miniCart =
+                            "<div class='empty-cart'><span class='alert alert-danger'>Your cart is empty.</span></div>";
+                        $('#miniCart').html(miniCart);
+                    }
                 },
-                error: function(error) {}
-
+                error: function(error) {
+                    // Handle error
+                }
             });
         }
         miniCart();
@@ -400,12 +427,14 @@
 
 
         function cartIncrement(rowId) {
-            var id=$('#wish_qty').val();
+            var id = $('#wish_qty').val();
             console.log(id)
             $.ajax({
                 type: 'GET',
                 url: "/cart-increment/" + rowId,
-                data: {id:id},
+                data: {
+                    id: id
+                },
                 dataType: 'json',
                 success: function(data) {
                     couponCalculation()
@@ -476,7 +505,7 @@
                 url: '/get-wishlist-product',
                 dataType: 'json',
                 success: function(response) {
-console.log(response);
+                    console.log(response);
                     $('#count_wishes').text(response.length)
                     var rows = ""
                     $.each(response, function(key, value) {
@@ -703,50 +732,64 @@ console.log(response);
 
 
     <!-- Modal -->
-   <div class="modal" tabindex="-1" id="exampleModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fs-5" id="exampleModalLabel"><strong><span id="pname"></span></strong></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="card" style="width: 100%;">
-                            <img src=" " class="card-img-top" alt="..." style="height: 200px; width: 100%;" id="pimage">
+    <div class="modal" tabindex="-1" id="exampleModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fs-5" id="exampleModalLabel"><strong><span id="pname"></span></strong>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeModal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-12">
+                            <div class="card" style="width: 100%;">
+                                <img src=" " class="card-img-top" alt="..."
+                                    style="height: 200px; width: 100%;" id="pimage">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-lg-8 col-md-12">
-                        <ul class="list-group">
-                            <li class="list-group-item">{{ __('system.product_price') }}: <strong class="text-danger"><span id="pprice"></span></strong>&nbsp;<del id="oldprice"></del></li>
-                            <li class="list-group-item">{{ __('system.product_code') }}: <strong id="pcode"></strong></li>
-                            <li class="list-group-item">{{ __('system.category') }}: <strong id="pcategory"></strong></li>
-                            <li class="list-group-item">{{ __('system.brand') }}: <strong id="pbrand"></strong></li>
-                            <li class="list-group-item">{{ __('system.stock') }}:<span class="badge badge-pill badge-success" id="available" style="background: green; color:white"></span><span class="badge badge-pill badge-danger" id="notavailable" style="background: red; color:white"></span><strong id="pstock"></strong></li>
-                        </ul>
-                        <div class="form-group">
-                            <label for="color">{{ __('system.choose_color') }}:</label>
-                            <select class="form-control" id="color" name="color"></select>
+                        <div class="col-lg-8 col-md-12">
+                            <ul class="list-group">
+                                <li class="list-group-item">{{ __('system.product_price') }}: <strong
+                                        class="text-danger"><span id="pprice"></span></strong>&nbsp;<del
+                                        id="oldprice"></del></li>
+                                <li class="list-group-item">{{ __('system.product_code') }}: <strong
+                                        id="pcode"></strong></li>
+                                <li class="list-group-item">{{ __('system.category') }}: <strong
+                                        id="pcategory"></strong></li>
+                                <li class="list-group-item">{{ __('system.brand') }}: <strong id="pbrand"></strong>
+                                </li>
+                                <li class="list-group-item">{{ __('system.stock') }}:<span
+                                        class="badge badge-pill badge-success" id="available"
+                                        style="background: green; color:white"></span><span
+                                        class="badge badge-pill badge-danger" id="notavailable"
+                                        style="background: red; color:white"></span><strong id="pstock"></strong>
+                                </li>
+                            </ul>
+                            <div class="form-group">
+                                <label for="color">{{ __('system.choose_color') }}:</label>
+                                <select class="form-control" id="color" name="color"></select>
+                            </div>
+                            <div class="form-group" id="sizeArea">
+                                <label for="size">{{ __('system.choose_size') }}:</label>
+                                <select class="form-control" id="size" name="size"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantity">{{ __('system.quantity') }}</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control"
+                                    value="1" min="1">
+                            </div>
+                            <input type="hidden" name="product_id" id="product_id">
+                            <button type="submit" class="btn btn-primary mb-2"
+                                onclick="addToCart()">{{ __('system.add_to_cart') }}</button>
                         </div>
-                        <div class="form-group" id="sizeArea">
-                            <label for="size">{{ __('system.choose_size') }}:</label>
-                            <select class="form-control" id="size" name="size"></select>
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">{{ __('system.quantity') }}</label>
-                            <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1">
-                        </div>
-                        <input type="hidden" name="product_id" id="product_id">
-                        <button type="submit" class="btn btn-primary mb-2" onclick="addToCart()">{{ __('system.add_to_cart') }}</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- End Add to Cart Product Modal -->
 

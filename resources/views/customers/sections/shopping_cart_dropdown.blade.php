@@ -1,7 +1,7 @@
  <div class="dropdown dropdown-cart" style="width:200px">
     <a href="#" class="dropdown-toggle lnk-cart" data-toggle="dropdown" onclick="miniCart()">
-         <div class="items-cart-inner">
-             <div class="basket"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
+         <div class="items-cart-inner" >
+             <div class="basket" id="test"> <i class="glyphicon glyphicon-shopping-cart"></i> </div>
              <div class="basket-item-count">
                 <span class="count" id="cartQty"> </span></div>
               <div class="total-price-basket">
@@ -16,14 +16,14 @@
 
          </div>
              <!-- /.cart-item -->
-             <div class="clearfix"></div>
-             <hr>
+             <div class="clearfix" id="test"></div>
+             {{-- <hr>
              <div class="clearfix cart-total">
               <div class="pull-right"> <span class="text">{{ __('system.subtotal') }} :</span>
                     <span class='price'  id="cartSubTotal"> </span><span class='price'> EUR</span> </div>
                  <div class="clearfix"></div>
                  <a href="{{route('product.checkout')}}" class="btn btn-upper btn-primary btn-block m-t-20">{{ __('system.checkout') }}</a>
-             </div>
+             </div> --}}
              <!-- /.cart-total-->
 
          </li>
