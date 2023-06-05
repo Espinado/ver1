@@ -292,7 +292,7 @@
                                     <div class="product">
                                         <div class="product-image">
                                             <div class="image">
-                                                <a href="#"><img
+                                                <a href="{{ url('product/details/' . $related_product->id . '/' . $related_product->slug) }}"><img
                                                         src="{{ asset($related_product->product_thambnail) }}"
                                                         alt=""></a>
                                             </div><!-- /.image -->
@@ -303,7 +303,7 @@
 
                                         <div class="product-info text-left">
                                             <h3 class="name"><a
-                                                    href="detail.html">{{ $related_product->product_name }}</a></h3>
+                                                    href="{{ url('product/details/' . $related_product->id . '/' . $related_product->slug) }}">{{ $related_product->product_name }}</a></h3>
                                             {{-- <div class="rating rateit-small"></div> --}}
                                             <div class="description"></div>
 
