@@ -57,7 +57,7 @@
                                                 <div class="form-group">
                                                     <h5>Category Select <span class="text-danger">*</span></h5>
                                                     <div class="controls">
-                                                        <select name="category_id" class="form-control" required="">
+                                                        <select name="category_id" class="form-control" >
                                                             <option value="" selected="" disabled="">Select
                                                                 Category</option>
                                                             @foreach ($categories as $category)
