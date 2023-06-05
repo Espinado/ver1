@@ -110,7 +110,8 @@
                                         <div id="card-errors" role="alert"></div>
                                     </div>
                                     <br>
-                                    <button class="btn btn-primary">{{ __('system.submit_payment') }}</button>
+                                    <button class="btn btn-primary">{{ __('system.submit_payment') }}</button>&nbsp;&nbsp;&nbsp;
+                                     <a href="{{ URL::previous() }}" class="btn btn-danger">Back to checkout</a> <!-- New button added -->
                                 </form>
                                 <hr>
                             </div>

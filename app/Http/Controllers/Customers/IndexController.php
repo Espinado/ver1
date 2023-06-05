@@ -14,6 +14,8 @@ use App\Models\Admins\FAQ;
 use App\Http\Requests\Customers\MessageRequest;
 use App\Models\Admins\Contact;
 use Illuminate\Support\Str;
+use App\Models\Admins\Blog;
+use Illuminate\Support\Facades\App;
 
 
 
@@ -149,5 +151,18 @@ class IndexController extends Controller
         $message->save();
         $notification = array('message' => 'Message has been sent', 'alert-type' => 'success');
         return redirect()->route('contacts')->with($notification);
+    }
+
+    public function readBlog($id) {
+
+        $blog = Blog::findOrFail($id);
+
+        $currentLocale = App::getLocale();
+
+        $title = $blog->getTranslation('title', $currentLocale);
+        $shortBlog = $blog->getTranslation('short_blog', $currentLocale);
+        $fullBlog = $blog->getTranslation('full_blog', $currentLocale);
+
+        return view('customers.blog.blogView', compact('blog', 'title', 'shortBlog', 'fullBlog'));
     }
 }

@@ -335,13 +335,15 @@
                                                 <strong>{{ __('system.subtotal') }}:</strong>
                                                 &nbsp; <span id="sum">{{ $cartTotal }}</span>&nbsp;EUR
                                                 <hr>
+
                                                 <strong>{{ __('system.grand_total') }}:</strong>
                                                 &nbsp;<span id="full_total">{{ $cartTotal }}</span>&nbsp;EUR
                                                 <hr>
                                             @endif
+                                            <strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
+                                            id="cost" name="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR
 
-                                        </li><strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
-                                            id="cost" name="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR<li>
+                                        </li><li>
                                     </ul>
                                 </div>
                             </div>
@@ -444,8 +446,9 @@
             }
         });
         $('input[name="shipping_method"]').on('change', function() {
-            total=$('#sum').val();
-            console.log(total)
+            sub_total=$('#sum').val();
+            console.log(sub_total)
+
             // Get the value of the selected radio button's data-cost attribute
             var shippingCost = $('input[name="shipping_method"]:checked').data('cost');
 
@@ -453,8 +456,8 @@
             $('#cost').html(shippingCost);
 
             // Log the value to the console for debugging
-            console.log(shippingCost);
-            console.log(shippingCost+total)
+            // console.log(shippingCost);
+            // console.log(shippingCost+sub_total)
 
             $('#cost').html(shippingCost)
             // $('full_total').html(total+shippingCost);

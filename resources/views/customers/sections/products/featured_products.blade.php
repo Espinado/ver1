@@ -1,4 +1,4 @@
- <section class="section featured-product wow fadeInUp">
+<section class="section featured-product wow fadeInUp">
      <h3 class="section-title">{{ __('system.featured_products') }}</h3>
      <div class="owl-carousel home-owl-carousel custom-carousel owl-theme outer-top-xs">
 

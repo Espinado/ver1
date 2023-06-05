@@ -1,11 +1,12 @@
-  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
-      @php
+  @php
           $products = App\Models\Admins\Product::where('status', true)
               ->where('hot_deals', true)
               ->get();
       @endphp
+  <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
+
       <h3 class="section-title">hot deals</h3>
-      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+     <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss" data-autoplay="true" data-autoplay-timeout="3000" data-loop="true" data-nav="false" data-dots="false">
           @foreach ($products as $product)
               <div class="item">
                   <div class="products">
