@@ -121,7 +121,9 @@
 
                                         </div>
                                         <br>
-                                        <button class="btn btn-primary">Submit Payment</button>
+                                        <button class="btn btn-primary">Submit Payment</button>&nbsp;&nbsp;&nbsp;
+                                         <a href="{{ URL::previous() }}" class="btn btn-danger">Back to checkout</a> <!-- New button added -->
+
                                     </form>
 
                                 </div>

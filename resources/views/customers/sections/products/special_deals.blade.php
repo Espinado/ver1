@@ -5,60 +5,87 @@
             ->limit(3)
             ->get();
     @endphp
-    <div class="sidebar-widget outer-bottom-small wow fadeInUp">
-        <h3 class="section-title">Special Deals</h3>
-        <div class="sidebar-widget-body outer-top-xs">
-            <div class="owl-carousel sidebar-carousel special-offer custom-carousel owl-theme outer-top-xs">
-                <div class="item">
-                    <div class="products special-product">
-                        @foreach ($special_deals as $deal)
-                            <div class="product">
-                                <div class="product-micro">
-                                    <div class="row product-micro-row">
-                                        <div class="col col-xs-5">
-                                            <div class="product-image">
-                                                <div class="image"> <a
-                                                        href="{{ url('/product/details/' . $deal->id . '/' . $deal->slug) }}">
-                                                        <img src="{{ asset($deal->product_thambnail) }}" alt="">
-                                                    </a> </div>
-                                                <!-- /.image -->
+     <div class="sidebar-widget hot-deals wow fadeInUp outer-bottom-xs">
 
-                                            </div>
-                                            <!-- /.product-image -->
-                                        </div>
-                                        <!-- /.col -->
-                                        <div class="col col-xs-7">
-                                            <div class="product-info">
-                                                <h3 class="name"><a href="#">{{$deal->product_name}}</a></h3>
-                                                {{-- <div class="rating rateit-small"></div> --}}
-                                                @if ($deal->discount_price == null)
-                                                                <div class="product-price"> <span class="price">EUR
-                                                                        {{ $deal->selling_price }}</span>
-                                                                </div>
-                                                            @else
-                                                                <div class="product-price"> <span class="price"> EUR
-                                                                        {{ $deal->discount_price }}
-                                                                    </span> <span class="price-before-discount">EUR
-                                                                        {{ $deal->selling_price }}</span>
-                                                                </div>
-                                                            @endif
-                                                <!-- /.product-price -->
+      <h3 class="section-title">Special deals</h3>
+      <div class="owl-carousel sidebar-carousel custom-carousel owl-theme outer-top-ss">
+          @foreach ($products as $product)
+              <div class="item">
+                  <div class="products">
+                      <div class="hot-deal-wrapper">
+                          <div class="image">
+                              <a href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">
+                                  <img src="{{ asset($product->product_thambnail) }}" alt=""></a>
+                          </div>
+                          @php
+                              $amount = $product->selling_price - $product->discount_price;
+                              $discount = round(($amount / $product->selling_price) * 100);
+                          @endphp
+                          @if ($product->discount_price == null)
+                              <div class="sale-offer-tag"><span>{{ __('system.new') }}</span></div>
+                          @else
+                              <div class="sale-offer-tag"><span>{{ $discount }} %<br>
+                                      {{ __('system.off') }}</span></div>
+                          @endif
 
-                                            </div>
-                                        </div>
-                                        <!-- /.col -->
-                                    </div>
-                                    <!-- /.product-micro-row -->
-                                </div>
-                                <!-- /.product-micro -->
 
-                            </div>
-                        @endforeach
+                          {{-- <div class="timing-wrapper">
+                              <div class="box-wrapper">
+                                  <div class="date box"> <span class="key">120</span> <span
+                                          class="value">DAYS</span> </div>
+                              </div>
+                              <div class="box-wrapper">
+                                  <div class="hour box"> <span class="key">20</span> <span class="value">HRS</span>
+                                  </div>
+                              </div>
+                              <div class="box-wrapper">
+                                  <div class="minutes box"> <span class="key">36</span> <span
+                                          class="value">MINS</span> </div>
+                              </div>
+                              <div class="box-wrapper hidden-md">
+                                  <div class="seconds box"> <span class="key">60</span> <span
+                                          class="value">SEC</span> </div>
+                              </div>
+                          </div> --}}
+                      </div>
+                      <!-- /.hot-deal-wrapper -->
 
-                    </div>
-                </div>
+                      <div class="product-info text-left m-t-20">
+                          <h3 class="name"><a
+                                  href="{{ url('/product/details/' . $product->id . '/' . $product->slug) }}">{{ $product->product_name }}</a>
+                          </h3>
+                          {{-- <div class="rating rateit-small"></div> --}}
+                          @if ($product->discount_price == null)
+                              <div class="product-price"> <span class="price"> EUR {{ $product->selling_price }} </span>
+                              </div>
+                          @else
+                              <div class="product-price"> <span class="price">EUR {{ $product->discount_price }} </span>
+                                  <span class="price-before-discount">EUR {{ $product->selling_price }}</span>
+                              </div>
+                              <!-- /.product-price -->
+                          @endif
+                      </div>
 
-            </div>
-        </div>
-        <!-- /.sidebar-widget-body -->
-    </div>
+
+                      <!-- /.product-info -->
+
+                      <div class="cart clearfix animate-effect">
+                          <div class="action">
+                              <div class="add-cart-button btn-group">
+                                  {{-- <button class="btn btn-primary icon" data-toggle="dropdown" type="button">
+                                      <i class="fa fa-shopping-cart"></i> </button> --}}
+                                  <button class="btn btn-primary cart-btn" data-toggle="modal"
+                                      data-target="#exampleModal" id="{{ $product->id }}"
+                                      onclick="productView(this.id)">{{ __('system.add_to_cart') }}</button>
+                              </div>
+                          </div>
+                          <!-- /.action -->
+                      </div>
+                      <!-- /.cart -->
+                  </div>
+              </div>
+          @endforeach
+
+      </div>
+      <!-- /.sidebar-widget -->
+  </div>

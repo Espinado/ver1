@@ -29,6 +29,7 @@ use App\Http\Controllers\Customers\Payments\CashController;
 use App\Http\Controllers\Customers\Payments\StripeController;
 use App\Http\Controllers\Customers\Payments\MontonioController;
 use App\Http\Controllers\Admins\UserController as UserController;
+use App\Http\Controllers\Customers\SubscribeController;
 
 
 
@@ -186,6 +187,8 @@ Route::group(
         Route::post('/faq/update/{id}', [FaqController::class, 'updateFaq'])->name('admin.faq.update')->middleware('admin');
         Route::get('/manage/faqs/', [FAQController::class, 'faqView'])->name('admin.manage.faqs')->middleware('admin');
 
+
+
         // Route::get('/reports', [ReportController::class, 'reports'])->name('admin.reports')->middleware('admin');
 
 
@@ -234,6 +237,8 @@ Route::group(
         Route::get('/terms', [IndexController::class, 'terms'])->name('terms');
         Route::get('/contacts', [IndexController::class, 'contacts'])->name('contacts');
         Route::post('/send-message', [IndexController::class, 'sendMessage'])->name('send.message');
+        Route::post('/subscribe', [SubscribeController::class, '__invoke'])->name('subscribe');
+        Route::get('/read/blog/{id}',[IndexController::class, 'readBlog'])->name('read-blog');
 
 
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -288,7 +293,7 @@ Route::group(
 
 
         Route::get('cancel',  [PayPalController::class, 'cancelTransaction'])->name('payment.cancel');
-       
+
 
 
 
