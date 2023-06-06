@@ -57,7 +57,7 @@ Route::get('/get/district/delivery/rates/{id}', [CheckoutController::class, 'Get
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale() . '/admin',
+        'prefix' => LaravelLocalization::setLocale() . '/admin/management',
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
         //  'namespace' => 'admin'
     ],
