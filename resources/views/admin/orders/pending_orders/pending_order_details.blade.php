@@ -3,7 +3,7 @@
     {{ __('system.pending_orders') }}
 @endsection
 @section('content')
- {{-- @php
+    {{-- @php
         $user = Auth::user();
     @endphp --}}
 
@@ -51,8 +51,8 @@
 
                                 <tr>
                                     <th> {{ __('system.state') }} : </th>
-                                    @if($order->state)
-                                    <th>{{ $order->state->state_name }} </th>
+                                    @if ($order->state)
+                                        <th>{{ $order->state->state_name }} </th>
                                     @endif
                                 </tr>
 
@@ -120,13 +120,16 @@
                                 </tr>
 
                                 <tr>
-                                    <th> {{ __('system.status') }} : </th>
-                                    <th> <span class="badge badge-pill badge-warning"
-                                            style="background: #418DB9;">{{__('system.' . App\Enums\OrderStatus::getKey(intval($order->status)))}} </span> </th>
+                                    <th>
+                                        <span class="badge badge-pill badge-warning" style="background: #418DB9;">
+                                            {{ __('system.' . App\Enums\OrderStatus::getKey(intval($order->status))) }}
+                                        </span>
+                                    </th>
                                 </tr>
                                 <tr>
                                     <th></th>
-                                    <th><a href="{{route('admin.confirm.order', $order->id)}}" class="btn btn-clock btn-success">Confirm</a></th>
+                                    <th><a href="{{ route('admin.confirm.order', $order->id) }}"
+                                            class="btn btn-clock btn-success">Confirm</a></th>
 
                                 </tr>
 
@@ -229,5 +232,4 @@
         </div> <!-- // END ORDER ITEM ROW -->
 
     </div>
-
 @endsection
