@@ -249,7 +249,7 @@
                                             <h5>Main Thambnail <span class="text-danger">*</span></h5>
                                             <div class="controls">
                                                 <input type="file" name="product_thambnail" class="form-control"
-                                                    id="product_trambnail">
+                                                    id="product_trambnail" value="{{ old('product_thambnail') }}">
                                                 @error('product_thambnail')
                                                     <span class="text-danger">{{ $message }}</span>
                                                 @enderror
@@ -261,7 +261,8 @@
                                         <div class="form-group">
                                             <h5>Main Thambnail preview</h5>
                                             <div class="widget-user-image">
-                                                <img class="rounded-circle" src="{{ old('product_thambnail') ? asset('storage/' . old('product_thambnail')) : asset('no_image.jpg') }}"
+                                                <img class="rounded-circle"
+                                                    src="{{ old('product_thambnail') ? asset('storage/' . old('product_thambnail')) : asset('no_image.jpg') }}"
                                                     style="width:100px; height:70px;" alt="User Avatar"
                                                     id="product_trambnail_preview">
 
@@ -277,7 +278,7 @@
                                                 <input type="file" name="multi_img[]" class="form-control"
                                                     multiple="" id="multiImg">
                                                 @if ($errors->has('multi_img'))
-                                                ssss
+                                                    ssss
                                                     <div class="alert alert-danger">
                                                         <ul>
                                                             @foreach ($errors->get('multi_img') as $error)

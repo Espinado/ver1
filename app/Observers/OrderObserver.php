@@ -23,8 +23,8 @@ class OrderObserver
         // $recipients = ['rvr@arguss.lv', 'roman.vyshedko'];
 
         $order->notify(new OrderNotification($order));
-        Notification::route('mail', 'admin@arguss.lv')
-        ->notify(new AdminOrderNotification($order));
+        // Notification::route('mail', 'admin@arguss.lv')
+        // ->notify(new AdminOrderNotification($order));
 
 
     }
