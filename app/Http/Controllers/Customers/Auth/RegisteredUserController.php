@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Mail;
+use App\Events\UserRegistered;
+
 
 
 class RegisteredUserController extends Controller
@@ -38,7 +41,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' =>['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone' => ['required'],
             'division_id' => ['required'],
             'district_id' => ['required'],
@@ -52,6 +55,7 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
+        // dd($user);
 
         $userProfile = $user->user_profile()->create([
             'name' => $request->name,
@@ -63,8 +67,17 @@ class RegisteredUserController extends Controller
             'district_id' => $request->district_id,
             'state_id' => $request->state_id,
         ]);
+        $to = 'rvr@arguss.lv';
+        $subject = 'Hello';
+        $message = 'This is a simple email sent from Laravel.';
 
-        event(new Registered($user));
+        // Send the email
+        // Mail::raw($message, function ($email) use ($to, $subject) {
+        //     $email->to($to)
+        //     ->subject($subject);
+        // });
+
+        event(new UserRegistered($user));
 
         Auth::login($user);
 
