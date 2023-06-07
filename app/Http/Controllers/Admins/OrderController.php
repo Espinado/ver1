@@ -68,14 +68,15 @@ class OrderController extends Controller
         $order->save();
 
 
-        return redirect('admin/pending/orders/')->with($this->notification);
+        return redirect()->route('admin.pending.orders')->with($this->notification);
     }
     public function toProcessOrder($id)
     {
-        Order::where('id', $id)->update([
-            'status' => OrderStatus::processing
-        ]);
-        return redirect('admin/confirmed/orders/')->with($this->notification);
+        $order = Order::find($id);
+        $order->status = OrderStatus::processing;
+        $order->save();
+        
+        return redirect()->route('admin.confirmed.orders')->with($this->notification);
     }
     public function markAsPickeupOrder($id)
     {
@@ -83,7 +84,7 @@ class OrderController extends Controller
         Order::where('id', $id)->update([
             'status' => OrderStatus::picked
         ]);
-        return redirect('admin/processing/orders/')->with($this->notification);
+        return redirect()->route('admin.shipped.order')->with($this->notification);
     }
 
     public function orderInvoiceDownload($order_id)

@@ -6,21 +6,23 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\VonageMessage;
+use App\Models\Customers\Order;
 
-class OrderNotification extends Notification
+class OrderStatusUpdatedNotification extends Notification
 {
     use Queueable;
+
+    protected $order;
 
     /**
      * Create a new notification instance.
      *
+     * @param  \App\Models\Customers\Order  $order
      * @return void
      */
-    public function __construct( $data)
+    public function __construct(Order $order)
     {
-        $this->data = $data;
-
+        $this->order = $order;
 
     }
 
@@ -32,7 +34,7 @@ class OrderNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail']; // You can add other channels like database, SMS, etc.
     }
 
     /**
@@ -41,35 +43,15 @@ class OrderNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    // public function toVonage($notifiable): VonageMessage
-    // {
-
-    //     return (new VonageMessage)
-    //         ->content('test')
-    //         ->unicode();
-    // }
-
     public function toMail($notifiable)
     {
-        $order = $this->data;
-
         return (new MailMessage)
-        ->subject('Pasutījums pieņemts')
-        ->view('emails.customers.order_notification', ['order' => $order]);
+            ->subject('Mainīts pasutījums status')
+        ->markdown('emails.customers.order_status_updated', [
+            'order' => $this->order,
+        ]);
 
     }
 
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
+    // Add other notification methods as per your requirements
 }
