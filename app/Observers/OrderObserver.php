@@ -9,6 +9,7 @@ use App\Notifications\AdminOrderNotification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Messages\VonageMessage;
 use App\Models\User;
+use App\Notifications\OrderStatusUpdatedNotification;
 
 class OrderObserver
 {
@@ -37,7 +38,7 @@ class OrderObserver
      */
     public function updated(Order $order)
     {
-        //
+        $order->notify(new OrderStatusUpdatedNotification($order));
     }
 
     /**
