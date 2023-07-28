@@ -1,4 +1,22 @@
 <!-- ============================================== TOP MENU ============================================== -->
+@php
+    $accessKey = '8aa2da1bb98c637d1a3c70b3dce9103f';
+        $ipAddress = request()->ip();
+        $url = "http://api.ipstack.com/$ipAddress?access_key=$accessKey";
+
+        $response = Http::get($url);
+
+
+            $locationData = $response->json();
+            $latitude = $locationData['latitude'];
+            $longitude = $locationData['longitude'];
+            $city = $locationData['city'];
+            $region = $locationData['region_name'];
+            $country = $locationData['country_name'];
+
+
+
+@endphp
 <div class="top-bar animate-dropdown">
     <div class="container">
         <div class="header-top-inner">
@@ -7,20 +25,23 @@
 
 
                     @auth
-                    {{-- <li onclick="wishlist"><a href="{{ route('wishlist') }}">
+                        {{-- <li onclick="wishlist"><a href="{{ route('wishlist') }}">
                                 <i class="icon fa fa-heart"></i>
                                 {{ __('system.wishlist') }} <span class="badge badge-danger" id="count_wishes"> </span>
                             </a>
                             </li> --}}
-                        @endauth
-                        <li><a href="{{ route('mycart') }}"><i class="icon fa fa-shopping-cart"></i>{{ __('system.cart') }}</a></li>
-                        <li><a href="{{route('product.checkout')}}"><i class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
-                        @auth
-                            <li style="font-size: 16px"><a href="{{ route('profile.index') }}"><i
-                                        class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
-                        @else
-                            <li><a href="{{ route('login') }}"><i class="icon fa fa-lock"></i>{{ __('auth.login-register') }}</a></li>
-                        @endauth
+                    @endauth
+                    <li><a href="{{ route('mycart') }}"><i
+                                class="icon fa fa-shopping-cart"></i>{{ __('system.cart') }}</a></li>
+                    <li><a href="{{ route('product.checkout') }}"><i
+                                class="icon fa fa-check"></i>{{ __('system.checkout') }}</a></li>
+                    @auth
+                        <li style="font-size: 16px"><a href="{{ route('profile.index') }}"><i
+                                    class="icon fa fa-user"></i>{{ Auth::user()->name }}</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}"><i
+                                    class="icon fa fa-lock"></i>{{ __('auth.login-register') }}</a></li>
+                    @endauth
                 </ul>
                 </ul>
             </div>
@@ -37,10 +58,11 @@
 
                         </ul>
                     </li> --}}
-                    <li class="dropdown dropdown-small" style="font-size: 16px"> <a href="#" class="dropdown-toggle" data-hover="dropdown"
-                            data-toggle="dropdown"><span
-                                class="value"><span class="{{LaravelLocalization::getCurrentLocaleIcon()}}"></span>&nbsp;&nbsp;{{ LaravelLocalization::getCurrentLocaleNative() }} </span><b
-                                class="caret"></b></a>
+                    <li class="dropdown dropdown-small" style="font-size: 16px"> <a href="#"
+                            class="dropdown-toggle" data-hover="dropdown" data-toggle="dropdown"><span
+                                class="value"><span
+                                    class="{{ LaravelLocalization::getCurrentLocaleIcon() }}"></span>&nbsp;&nbsp;{{ LaravelLocalization::getCurrentLocaleNative() }}
+                            </span><b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
                             @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -48,7 +70,8 @@
                                     @if (LaravelLocalization::getCurrentLocale() != $localeCode)
                                         <a rel="alternate" hreflang="{{ $localeCode }}"
                                             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                           <span class="{{ $properties['icon'] }}"> </span>&nbsp;&nbsp; {{ $properties['native'] }}
+                                            <span class="{{ $properties['icon'] }}"> </span>&nbsp;&nbsp;
+                                            {{ $properties['native'] }}
                                         </a>
                                     @endif
                                 </li>
@@ -73,11 +96,11 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 logo-holder">
                 <!-- ============================================================= LOGO ============================================================= -->
-                <div class="logo">
-                     <a href="{{ route('index') }}"> <img
-                            src="{{ asset('customers/assets/images/logo.jpg') }}" alt="logo" style="width: 35%; height:35%; margin-bottom:20px; margin-top:0px">
-                         </a>
-                        </div>
+                {{-- <div class="logo">
+                    <a href="{{ route('index') }}"> <img src="{{ asset('customers/assets/images/logo.jpg') }}"
+                            alt="logo" style="width: 35%; height:35%; margin-bottom:20px; margin-top:0px">
+                    </a>
+                </div> --}}
                 <!-- /.logo -->
                 <!-- ============================================================= LOGO : END ============================================================= -->
             </div>
@@ -182,10 +205,13 @@
                                 </li>
                             @endforeach
 
-                            <li class="dropdown  navbar-right special-menu"> <a href="#">{{ __('system.today_offer') }}</a> </li>
+                            <li class="dropdown  navbar-right special-menu">{{$country}}</a> </li>
+
                         </ul>
                         <!-- /.navbar-nav -->
-                        <div class="clearfix"></div>
+                        <div class="clearfix">
+
+                        </div>
                     </div>
                     <!-- /.nav-outer -->
                 </div>

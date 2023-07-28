@@ -48,25 +48,23 @@
 
 
                                                 <div class="form-group">
-                                                    <label class="info-title"
-                                                        ><b>{{ __('system.shipping_name') }}</b>
+                                                    <label class="info-title"><b>{{ __('system.shipping_name') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                         name="shipping_name" placeholder="Name"
+                                                        name="shipping_name" placeholder="Name"
                                                         value="{{ $user['user_profile']['name'] }}">
                                                     @error('shipping_name')
-                                                      <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                        <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
 
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="info-title"
-                                                        ><b>{{ __('system.shipping_surname') }}</b>
+                                                    <label class="info-title"><b>{{ __('system.shipping_surname') }}</b>
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                         name="shipping_surname" placeholder="Surname"
+                                                        name="shipping_surname" placeholder="Surname"
                                                         value="{{ $user['user_profile']['surname'] }}">
                                                     @error('shipping_surname')
                                                         <div class="alert alert-danger"><b>{{ $message }}</b></div>
@@ -79,11 +77,10 @@
                                                         <span>*</span></label>
                                                     <input type="text"
                                                         class="form-control unicase-form-control text-input"
-                                                         name="shipping_email"
-                                                        placeholder="Full email"
+                                                        name="shipping_email" placeholder="Full email"
                                                         value="{{ $user['user_profile']['email'] }}">
                                                     @error('shipping_email')
-                                                       <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                        <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
@@ -96,7 +93,7 @@
                                                         placeholder="Phone"
                                                         value="{{ $user['user_profile']['phone'] }}">
                                                     @error('shipping_phone')
-                                                      <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                        <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
 
@@ -119,35 +116,42 @@
                                                                 <b>{{ $user->user_profile->division ? $user->user_profile->division->division_name : '' }}</b>
                                                             </option>
                                                             @foreach ($divisions as $div)
-                                                                <option value="{{ $div->id }}">
-                                                                    {{ $div->division_name }}
-                                                                </option>
+                                                                @if ($user->user_profile->division && $user->user_profile->division->id != $div->id)
+                                                                    <option value="{{ $div->id }}">
+                                                                        {{ $div->division_name }}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                         @error('division_id')
-                                                            <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                            <div class="alert alert-danger"><b>{{ $message }}</b>
+                                                            </div>
                                                         @enderror
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <h5><b>{{ __('system.city') }}</b> <span
                                                             class="text-danger">*</span></h5>
                                                     <div class="controls">
                                                         <select id="district" name="district_id" class="form-control">
-                                                          <option
-                                                                value="{{ $user->user_profile->district ? $user->user_profile->district->id : '' }}">
-                                                                <b>{{ $user->user_profile->district ? $user->user_profile->district->district_name : '' }}</b>
-                                                            </option>
                                                             @foreach ($districts as $dis)
-                                                                <option value="{{ $dis->id }}">
-                                                                    {{ $dis->district_name }}
-                                                                </option>
+                                                                @if ($user->user_profile->district && $user->user_profile->district->id == $dis->id)
+                                                                    <option value="{{ $dis->id }}"
+                                                                        data-delivery-cost="{{ $dis->delivery_cost }}"
+                                                                        selected>
+                                                                        {{ $dis->district_name }}
+                                                                    </option>
+                                                                @else
+                                                                    <option value="{{ $dis->id }}"
+                                                                        data-delivery-cost="{{ $dis->delivery_cost }}">
+                                                                        {{ $dis->district_name }}
+                                                                    </option>
+                                                                @endif
                                                             @endforeach
-
-
                                                         </select>
                                                         @error('district_id')
-                                                           <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                            <div class="alert alert-danger"><b>{{ $message }}</b>
+                                                            </div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -162,7 +166,8 @@
 
                                                         </select>
                                                         @error('state_id')
-                                                           <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                            <div class="alert alert-danger"><b>{{ $message }}</b>
+                                                            </div>
                                                         @enderror
                                                     </div>
                                                 </div>
@@ -180,9 +185,9 @@
                                                         class="form-control unicase-form-control text-input"
                                                         id="exampleInputEmail1" name="shipping_postcode"
                                                         placeholder="Postcode"
-                                                         value="{{ $user['user_profile']['postcode'] }}">
+                                                        value="{{ $user['user_profile']['postcode'] }}">
                                                     @error('shipping_postcode')
-                                                       <div class="alert alert-danger"><b>{{ $message }}</b></div>
+                                                        <div class="alert alert-danger"><b>{{ $message }}</b></div>
                                                     @enderror
                                                 </div>
 
@@ -198,10 +203,11 @@
                                             </h4>
 
                                             <div class="form-group">
-                                                 <input type="radio" name="payment_method" value="stripe"
+                                                <input type="radio" name="payment_method" value="stripe"
                                                     title="card">
                                                 <label class="info-title" for="payment"><b>
-                                                    <img src="{{ asset('customers/assets/images/payments/3.png') }}"></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <img
+                                                            src="{{ asset('customers/assets/images/payments/3.png') }}"></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </label>
 
 
@@ -210,27 +216,27 @@
                                                 <input type="radio" name="payment_method" value="cash"
                                                     title="cash">
                                                 <label class="info-title" for="payment"><b>
-                                                     <img src="{{ asset('customers/assets/images/payments/cash.png') }}"
+                                                        <img src="{{ asset('customers/assets/images/payments/cash.png') }}"
                                                             height="34px" title="cash"></b>
 
                                                 </label>
 
                                             </div>
                                             <div class="form-group" title="bank">
-                                                 <input type="radio" name="payment_method" value="bank"
+                                                <input type="radio" name="payment_method" value="bank"
                                                     title="bank">
                                                 <label class="info-title" for="payment"><b>
-                                                     <img src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
+                                                        <img src="{{ asset('customers/assets/images/payments/bank.jpg') }}"
                                                             height="34px" title="bank"></b>
 
                                                 </label>
 
                                             </div>
-                                             <div class="form-group" title="bank">
+                                            <div class="form-group" title="bank">
                                                 <input type="radio" name="payment_method" value="paypal"
                                                     title="Paypal">
                                                 <label class="info-title" for="payment"><b>
-                                                    <img src="{{ asset('customers/assets/images/payments/1.png') }}"
+                                                        <img src="{{ asset('customers/assets/images/payments/1.png') }}"
                                                             height="34px" title="Paypal"></b>
 
                                                 </label>
@@ -257,8 +263,7 @@
 
                                                 <div class="form-group">
                                                     <label class="info-title"
-                                                        for="shipping_method"><b>{{ __('system.collect_in_store') }}</b>
-                                                        &nbsp;</label>
+                                                        for="shipping_method"><b>{{ __('system.collect_in_store') }}</b>&nbsp;</label>
                                                     <input type="radio" name="shipping_method" value="self"
                                                         data-cost="0.00" checked>
                                                     <input type="text" name="shipping_cost" value="0.00"
@@ -266,13 +271,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="info-title"
-                                                        for="shipping_method"><b>{{ __('system.delivery') }}</b>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    </label>
+                                                        for="shipping_method"><b>{{ __('system.delivery') }}</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                                                     <input type="radio" name="shipping_method" value="delivery"
-                                                        data-cost="{{$user['user_profile']['district']['delivery_cost']}}">
+                                                        data-cost="{{ $user['user_profile']['district']['delivery_cost'] }}">
                                                     <input type="text" name="shipping_cost" id="shipping_cost"
-                                                        value="{{ $user['user_profile']['district']? $user['user_profile']['district']['delivery_cost'] : 'N/A' }}"
+                                                        value="{{ $user['user_profile']['district'] ? $user['user_profile']['district']['delivery_cost'] : 'N/A' }}"
                                                         disabled style="width:50px;">EUR
                                                 </div>
 
@@ -330,20 +333,28 @@
                                                 {{ session()->get('coupon')['coupon_discount'] }}%<br>
                                                 <strong>{{ __('system.discount') }}:</strong>&nbsp;{{ session()->get('coupon')['discount_amount'] }}
                                                 <hr>
-                                                <strong >{{ __('system.total') }}:</strong>&nbsp;<span id="sum">{{ session()->get('coupon')['total_amount'] }}</span>
+                                                <strong>{{ __('system.total') }}:</strong>&nbsp;<span id="sum"
+                                                    name="sum"
+                                                    class="text-danger">{{ session()->get('coupon')['total_amount'] }}</span>
                                             @else
                                                 <strong>{{ __('system.subtotal') }}:</strong>
-                                                &nbsp; <span id="sum">{{ $cartTotal }}</span>&nbsp;EUR
-                                                <hr>
-
-                                                <strong>{{ __('system.grand_total') }}:</strong>
-                                                &nbsp;<span id="full_total">{{ $cartTotal }}</span>&nbsp;EUR
+                                                &nbsp; <span id="sum"
+                                                    name="sum">{{ $cartTotal }}</span>&nbsp;EUR
                                                 <hr>
                                             @endif
-                                            <strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
-                                            id="cost" name="cost">{{$user['user_profile']['district']? $user['user_profile']['district']['delivery_cost']: ''}}</span> EUR
 
-                                        </li><li>
+                                            <strong>{{ __('system.delivery_cost') }}:</strong>&nbsp;<span
+                                                class="text-danger" id="delivery_cost"
+                                                name="delivery_cost">{{ $user['user_profile']['district'] ? $user['user_profile']['district']['delivery_cost'] : '0.00' }}</span>
+                                            EUR
+                                            <hr>
+                                            <strong>{{ __('system.grand_total') }}:</strong>
+                                            &nbsp;<span id="full_total"
+                                                class="text-danger">{{ $cartTotal }}</span>&nbsp;EUR
+                                            <hr>
+
+                                        </li>
+                                        <li>
                                     </ul>
                                 </div>
                             </div>
@@ -365,113 +376,5 @@
 
 <!-- /.body-content -->
 
-<script type="text/javascript">
-    $(document).ready(function() {
-         $('#cost').html('0.00');
-        $('#district').select2({
-            placeholder: 'Select district',
-            language: "fr",
-            theme: "classic"
-        });
-        $('#division').select2({
-            placeholder: 'Select division',
-            language: "fr",
-            theme: "classic"
-        });
-        $('#state').select2({
-            placeholder: 'Select division',
-            theme: "classic",
-            language: "fr"
-        });
-
-
-        $('select[name="division_id"]').on('change', function() {
-            var division_id = $(this).val();
-            if (division_id) {
-                $.ajax({
-                    url: "{{ url('/division/district/ajax') }}/" + division_id,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-                        $('select[name="district_id"]').html('');
-                        $('select[name="state_id"]').html('');
-                        $('select[name="district_id"]').append(
-                            '<option value="" disabled="" selected="">Select it</option>'
-                        );
-                        $('select[name="state_id"]').append(
-                            '<option value="" disabled="" selected="">Select it</option>'
-                        );
-                        $.each(data, function(key, value) {
-                            $('select[name="district_id"]').append(
-                                '<option value="' + value.id + '">' + value
-                                .district_name + '</option>');
-                        });
-                    },
-                });
-            } else {
-                alert('danger');
-            }
-        });
-        $('select[name="district_id"]').on('change', function() {
-            var district_id = $(this).val();
-            if (district_id) {
-                $.ajax({
-                    url: "{{ url('/get/states/ajax') }}/" + district_id,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(data) {
-
-                        $.each(data, function(key, value) {
-                            $('select[name="state_id"]').append(
-                                '<option value="' + value.id + '">' + value
-                                .state_name + '</option>');
-                        });
-                    },
-                });
-                 $.ajax({
-                    url: "{{ url('/get/district/delivery/rates') }}/" + district_id,
-                    type: "GET",
-                    dataType: "json",
-                    success: function(rate) {
-                        console.log(rate.rate.delivery_cost)
-                        $('#cost').html(rate.rate.delivery_cost);
-                        $('#shipping_cost').val('');
-                         $('#shipping_cost').val(rate.rate.delivery_cost);
-
-
-                    },
-                });
-            } else {
-                alert('danger');
-            }
-        });
-        $('input[name="shipping_method"]').on('change', function() {
-            sub_total=$('#sum').val();
-            console.log(sub_total)
-
-            // Get the value of the selected radio button's data-cost attribute
-            var shippingCost = $('input[name="shipping_method"]:checked').data('cost');
-
-            // Update the #cost element with the shippingCost value
-            $('#cost').html(shippingCost);
-
-            // Log the value to the console for debugging
-            // console.log(shippingCost);
-            // console.log(shippingCost+sub_total)
-
-            $('#cost').html(shippingCost)
-            // $('full_total').html(total+shippingCost);
-        });
-        var district_delivery_cost = $('#district').val();
-        console.log(district_delivery_cost)
-        //  $.ajax({
-        //                     url: "{{ url('/get/rates/ajax') }}/" + district_id,
-        //                     type: "GET",
-        //                     dataType: "json",
-        //                     success: function(data) {
-        //                     }
-        // $('#cost').html(district_delivery_cost);
-
-    });
-</script>
+<script src="{{ asset('customers/assets/js/checkout.js') }}" defer></script>
 @endsection

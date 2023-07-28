@@ -100,9 +100,12 @@
                                                                     <b>{{ $user->user_profile->division ? $user->user_profile->division->division_name : '' }}</b>
                                                                 </option>
                                                                 @foreach ($divisions as $div)
+                                                                  @if ($div->id !=$user->user_profile->division->id)
                                                                     <option value="{{ $div->id }}">
-                                                                        {{ $div->division_name }}
+                                                                        {{ $div->division_name }} 
                                                                     </option>
+                                                                    @endif
+
                                                                 @endforeach
                                                             </select>
                                                             @error('division_id')
@@ -199,73 +202,7 @@
             <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->
         </div><!-- /.container -->
     </div>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#district').select2({
-                placeholder: 'Select district',
-                language: "fr",
-                theme: "classic"
-            });
-            $('#division').select2({
-                placeholder: 'Select division',
-                language: "fr",
-                theme: "classic"
-            });
-            $('#state').select2({
-                placeholder: 'Select division',
-                theme: "classic",
-                language: "fr"
-            });
-            $('#division').on('change', function() {
-                var division_id = $(this).val();
-                if (division_id) {
-                    $.ajax({
-                        url: "{{ url('/division/district/ajax') }}/" + division_id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('select[name="district_id"]').html('');
-                            $('select[name="state_id"]').html('');
-                            $('select[name="district_id"]').append(
-                                '<option value="" disabled="" selected="">Select it</option>'
-                            );
-                            $('select[name="state_id"]').append(
-                                '<option value="" disabled="" selected="">Select it</option>'
-                            );
-                            $.each(data, function(key, value) {
-                                $('select[name="district_id"]').append(
-                                    '<option value="' + value.id + '">' + value
-                                    .district_name + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    alert('danger');
-                }
-            })
-            $('select[name="district_id"]').on('change', function() {
-                var district_id = $(this).val();
-                if (district_id) {
-                    $.ajax({
-                        url: "{{ url('/get/states/ajax') }}/" + district_id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data) {
-                            $('select[name="state_id"]').html('');
-                            $('select[name="state_id"]').append(
-                                '<option value="" disabled="" selected="">Select it</option>'
-                            );
-                            $.each(data, function(key, value) {
-                                $('select[name="state_id"]').append(
-                                    '<option value="' + value.id + '">' + value
-                                    .state_name + '</option>');
-                            });
-                        },
-                    });
-                } else {
-                    alert('danger');
-                }
-            });
-        })
-    </script>
+    <script src="{{ asset('customers/assets/js/shipping.js') }}" defer></script>
+
+
 @endsection

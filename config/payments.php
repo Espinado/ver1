@@ -1,10 +1,14 @@
 <?php
 return [
 
-    'stripe' =>
-    [
-        'local' => 'sk_test_51MdxE0LYuNRuHnSIhONSDVwEZcL8ufLCYoyx2sX69ZbwNv1q4nPb5K6P0ocnpxlzalUQsx0p9dc0jZrMPa9msHFQ0035WAp0Fv',
-        'production' => ''
+    'stripe' => [
+        'local' => [
+            'secret' => 'sk_test_51MdxE0LYuNRuHnSIhONSDVwEZcL8ufLCYoyx2sX69ZbwNv1q4nPb5K6P0ocnpxlzalUQsx0p9dc0jZrMPa9msHFQ0035WAp0Fv',
+            'public' => 'pk_test_51MdxE0LYuNRuHnSIJ9qzt6TM4Xngs9oADGUmIbqU3BDBJea0XBrp3TTG0dHfIXMPfrRiludv7AIfuTjK4LJGHSas00Rrda38km'
+
+        ],
+
+        'production' => '',
     ],
     'paypal' =>[
         'local' => [
