@@ -1,3 +1,19 @@
+<style>
+  /* Add your custom CSS styles here */
+
+  /* Example styles */
+  .side-menu .dropdown-menu .yamm-content .col-menu:hover {
+    background-color: #f5f5f5;
+  }
+
+  .side-menu .dropdown-menu .yamm-content .col-menu .dropdown:hover > a {
+    color: #333;
+  }
+
+  .side-menu .dropdown-menu .yamm-content .col-menu .dropdown .links li a:hover {
+    color: #333;
+  }
+</style>
 <div class="side-menu animate-dropdown outer-bottom-xs">
   <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> {{ __('system.categories') }}</div>
   <nav class="yamm megamenu-horizontal">

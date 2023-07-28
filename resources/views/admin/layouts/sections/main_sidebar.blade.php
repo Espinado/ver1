@@ -220,7 +220,7 @@
 
                 </ul>
             </li>
-             <li class="treeview {{ $route == 'admin.reports' ? 'active' : '' }}">
+             <li class="treeview {{ $route == 'admin.all.reports' ? 'active' : '' }}">
                 <a href="#">
                     <i data-feather="grid"></i>
                     <span>{{ __('system.reports') }}</span>
@@ -229,8 +229,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="{{ $route == 'admin.reports' ? 'active' : '' }}">
-                        <a href="{{ route('all-reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
+                    <li class="{{ $route == 'admin.all.reports' ? 'active' : '' }}">
+                        <a href="{{ route('admin.all.reports') }}"><i class="ti-more"></i>{{ __('system.reports') }}</a>
                     </li>
 
 

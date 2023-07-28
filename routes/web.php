@@ -17,6 +17,7 @@ use App\Http\Controllers\Admins\FAQController;
 use App\Http\Controllers\Admins\ReportController;
 
 
+
 use App\Http\Controllers\SellerController as Seller;
 
 use App\Http\Controllers\Customers\IndexController;
@@ -53,7 +54,8 @@ use Illuminate\Http\Request;
 
 Route::get('/division/district/ajax/{division_id}', [Ship::class, 'DistrictAjax']);
 Route::get('/get/states/ajax/{district_id}', [CheckoutController::class, 'AjaxGetStates']);
-Route::get('/get/district/delivery/rates/{id}', [CheckoutController::class, 'GetDistrictDeliveryRates'])->name('getDistrictDeliveryRates');
+Route::get('/get/district/delivery/rates/{division_id}/{district_id}', [CheckoutController::class, 'GetRates']);
+
 
 Route::group(
     [
@@ -200,14 +202,14 @@ Route::group(
         Route::get('/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout')->middleware('admin');
 
         Route::prefix('reports')->group(function () {
-            Route::get('/view', [ReportController::class, 'ReportView'])->name('all-reports');
+            Route::get('/view', [ReportController::class, 'ReportView'])->name('admin.all.reports');
             Route::post('/by_date', [ReportController::class, 'ReportByDate'])->name('search_by_date');
             Route::post('/by_month', [ReportController::class, 'ReportByMonth'])->name('search_by_month');
             Route::post('/by_year', [ReportController::class, 'ReportByYear'])->name('search_by_year');
         });
 
         Route::prefix('users')->group(function () {
-            Route::get('/users', [User::class, 'AllUsersView'])->name('all-users');
+            Route::get('/users', [UserController::class, 'AllUsersView'])->name('all-users');
         });
         });
 

@@ -139,10 +139,9 @@
 </div><!-- /.body-content -->
 
 <script type="text/javascript">
+   var stripeApiKey = "{{ config('payments.stripe.' . env('APP_ENV') . '.public') }}";
     // Create a Stripe client.
-    var stripe = Stripe(
-        'pk_test_51MdxE0LYuNRuHnSIJ9qzt6TM4Xngs9oADGUmIbqU3BDBJea0XBrp3TTG0dHfIXMPfrRiludv7AIfuTjK4LJGHSas00Rrda38km'
-    );
+    var stripe = Stripe(stripeApiKey);
     // Create an instance of Elements.
     var elements = stripe.elements();
     // Custom styling can be passed to options when creating an Element.

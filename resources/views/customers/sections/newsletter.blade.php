@@ -6,7 +6,7 @@
             <div class="alert alert-danger"><b>{{ $message }}</b>
             </div>
         @enderror
-        <form method="POST" action="{{ route('subscribe') }}">
+        <form method="POST" action="{{ route('subscribe') }}" onsubmit="preventScrollToTop()">
             @csrf
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail1">{{ __('system.email_address') }}</label>
@@ -18,3 +18,10 @@
     </div>
     <!-- /.sidebar-widget-body -->
 </div>
+  <script>
+  function preventScrollToTop() {
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  }
+</script>

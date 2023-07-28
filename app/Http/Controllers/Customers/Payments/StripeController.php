@@ -24,12 +24,10 @@ class StripeController extends Controller
     public function StripeOrder(Request $request)
     {
         $data = json_decode($request->input('data'), true);
-        // dd($data);
-        // dd($request->all());
-       
 
-        \Stripe\Stripe::setApiKey(config('payments.stripe.' . env('APP_ENV')));
+         Stripe::setApiKey(config('payments.stripe.' . env('APP_ENV').'.secret'));
         $token = $_POST['stripeToken'];
+
         try {
             $lineItems = [];
             foreach ($data['lineItems'] as $item) {
@@ -88,7 +86,7 @@ class StripeController extends Controller
                 'alert-type' => 'success'
             );
 
-            return redirect()->route('index')->with($notification);
+        return view('customers.payments.completed_payment')->with($notification);
 
     }
 

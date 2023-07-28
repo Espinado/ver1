@@ -72,6 +72,16 @@ class CheckoutController extends Controller
         $states = ShipState::where('district_id', $district_id)->orderBy('state_name', 'ASC')->get();
         return json_encode($states);
     }
+
+    public function GetRates($division_id, $district_id)
+
+    {
+
+        $rate=ShipDistrict::where('division_id', $division_id)->where('id', $district_id)->first('delivery_cost');
+      
+       return response()->json($rate);
+
+    }
     public function checkoutStore(CheckoutRequest $request)
     {
         // dd($request->all());
@@ -150,4 +160,6 @@ class CheckoutController extends Controller
         }
 
     }
+
+
 }

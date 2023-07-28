@@ -29,7 +29,7 @@ return [
     'admin_list'                     => 'Admin list',
     'add_new'                        => 'Pievienot jaunu',
     'name'                           =>  'Vards',
-    'surname'                        => 'Surname',
+    'surname'                        => 'Uzvards',
     'email'                          => 'E-pasta adrese',
     'active'                         => 'Aktivs',
     'created_at'                     =>  'Izveidots',
